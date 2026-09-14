@@ -14,7 +14,7 @@
 <!-- Self-contained: this page does not load tokens.css, components.css or
      page-style.css. Its visual language is scoped to .nh in new-home.css so
      the existing pages keep rendering exactly as they do today. -->
-<link rel="stylesheet" href="new-home.css?v=bubble-12"/>
+<link rel="stylesheet" href="new-home.css?v=bubble-13"/>
 </head>
 <body class="nh">
 
@@ -89,9 +89,14 @@
     </div>
 </footer>
 
-<!-- Message bubble, bottom left. It pops in a second after the page loads, shrinks away
-     once the visitor has scrolled 30% of the page, and pops back at the top. -->
+<!-- Message bubble, bottom left. It pops in a second after the page loads and shrinks
+     away six seconds later, or as soon as the visitor has scrolled 30% of the page. The
+     dot then takes its corner: a click brings the bubble back with the next line, for six
+     seconds again. Lines and timing live in scripts/new-home.js. -->
 <p class="nh-bubble" data-nh-bubble role="status">Hey, you should totally interact with everything. Click away!</p>
+<button class="nh-bubble-dot is-hidden" type="button" data-nh-bubble-dot aria-label="Show the message again">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg>
+</button>
 
 <!--
     CUSTOM CARD CONTENT
@@ -155,8 +160,8 @@
     </div>
 </template>
 
-<script src="data/home-projects.js?v=bubble-12"></script>
-<script src="scripts/new-home.js?v=bubble-12"></script>
-<script src="scripts/ludis-play.js"></script>
+<script src="data/home-projects.js?v=bubble-13"></script>
+<script src="scripts/new-home.js?v=bubble-13"></script>
+<script src="scripts/ludis-play.js?v=bubble-13"></script>
 </body>
 </html>

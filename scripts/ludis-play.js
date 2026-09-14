@@ -7,6 +7,9 @@
 // new one replaces its previous line and leaves the others untouched. Players
 // never move.
 //
+// MC pulses gently while the board is untouched, to show where to start;
+// the first drag (or an undo/redo) settles it for good.
+//
 // Drawn as SVG paths in the court's own coordinates (viewBox 635 × 449), so
 // the lines scale with the card. Mouse, pen and touch via pointer events.
 (function () {
@@ -27,6 +30,7 @@
 
     var PLAYER_SIZE = 37;   // diameter / side, in viewBox units
     var HIT_RADIUS = 30;    // generous touch target around each player
+    var HINT_PLAYER = "mc"; // the one that pulses until the visitor draws
 
     // --- the court ----------------------------------------------------------
     // The inside edge of the touchlines in quadra-fundo.svg. Lines never
@@ -282,8 +286,14 @@
             syncButtons();
         };
 
-        if (undoButton) { undoButton.addEventListener("click", undo); }
-        if (redoButton) { redoButton.addEventListener("click", redo); }
+        // The board pulses only until the visitor has done something with it.
+        root.classList.add("is-idle");
+        var settle = function () {
+            root.classList.remove("is-idle");
+        };
+
+        if (undoButton) { undoButton.addEventListener("click", function () { settle(); undo(); }); }
+        if (redoButton) { redoButton.addEventListener("click", function () { settle(); redo(); }); }
         syncButtons();
 
         var drawing = null;  // the line being drawn
@@ -299,6 +309,10 @@
             var half = PLAYER_SIZE / 2;
 
             g.appendChild(node("circle", { class: "lp__hit", r: HIT_RADIUS }));
+            if (player.id === HINT_PLAYER) {
+                g.classList.add("is-hint");
+                g.appendChild(node("circle", { class: "lp__pulse", r: half, stroke: player.color }));
+            }
             body.appendChild(player.shape === "square"
                 ? node("rect", { x: -half, y: -half, width: PLAYER_SIZE, height: PLAYER_SIZE, rx: 7, fill: player.color })
                 : node("circle", { r: half, fill: player.color }));
@@ -433,6 +447,7 @@
             }
 
             event.preventDefault();   // no text selection, no native drag
+            settle();
             var player = PLAYERS.filter(function (p) { return p.id === playerEl.getAttribute("data-player"); })[0];
 
             drawing = {

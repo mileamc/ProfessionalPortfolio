@@ -552,20 +552,34 @@
 
 
     // Message bubble. Its entrance is pure CSS, so it plays the moment the
-    // page renders, with no wait for this script. Here it is hidden once the
-    // visitor has scrolled 30% of the page, and shown again when they return
-    // to the top. Each time it is shown it stays for 6 seconds, then goes
-    // away on its own; whenever it is hidden, scrolling back up to the very
-    // top brings it back.
+    // page renders, with no wait for this script. It stays for six seconds,
+    // and goes early if the visitor has scrolled 30% of the page. Once it is
+    // gone the dot takes its corner: each click brings the bubble back for
+    // another six seconds, one line further down LINES. The list starts over
+    // when it runs out, so the bubble never has nothing to say.
     var initBubble = function () {
         var bubble = document.querySelector("[data-nh-bubble]");
         if (!bubble) return;
 
+        var dot = document.querySelector("[data-nh-bubble-dot]");
+
+        // The first line is the one already in the markup; it shows on load
+        // and again on the first click, in case it was missed. From there on
+        // every click moves one line down.
+        var LINES = [
+            "Hey, you should totally interact with everything. Click away!",
+            "Yeah, I think you've got it",
+            "This really tickles",
+            "Rock, paper, scissors...",
+            "I chose rock, did I win?",
+            "Ok, let's wrap things up now"
+        ];
+
         var HIDE_AT = 0.3;       // share of the scrollable page
         var LINGER_MS = 6000;    // how long it stays once fully shown
         var ticking = false;
-        var leftTop = false;     // scrolled away from the top while it was hidden
         var timer = null;
+        var opened = 0;          // how many times the bubble has been shown
 
         // "1s" / "500ms" from the CSS tokens, so the timing follows the animation
         var cssMs = function (name) {
@@ -577,10 +591,13 @@
         var hide = function () {
             window.clearTimeout(timer);
             bubble.classList.add("is-hidden");
-            if ((window.scrollY || window.pageYOffset || 0) > 1) leftTop = true;
+            if (dot) dot.classList.remove("is-hidden");
         };
 
         var show = function (waitMs) {
+            bubble.textContent = LINES[opened < 2 ? 0 : (opened - 1) % LINES.length];
+            opened += 1;
+            if (dot) dot.classList.add("is-hidden");
             bubble.classList.remove("is-hidden");
             window.clearTimeout(timer);
             timer = window.setTimeout(hide, waitMs + LINGER_MS);
@@ -590,16 +607,10 @@
             ticking = false;
             var y = window.scrollY || window.pageYOffset || 0;
             var scrollable = document.documentElement.scrollHeight - window.innerHeight;
-            var hidden = bubble.classList.contains("is-hidden");
 
-            if (scrollable > 0 && y >= scrollable * HIDE_AT) {
-                if (!hidden) hide();
-            } else if (y <= 1) {
-                // back at the very top after being away from it
-                if (hidden && leftTop) show(cssMs("--nh-bubble-in"));
-                leftTop = false;
+            if (scrollable > 0 && y >= scrollable * HIDE_AT && !bubble.classList.contains("is-hidden")) {
+                hide();
             }
-            if (y > 1 && bubble.classList.contains("is-hidden")) leftTop = true;
         };
 
         window.addEventListener("scroll", function () {
@@ -607,6 +618,12 @@
             ticking = true;
             window.requestAnimationFrame(update);
         }, { passive: true });
+
+        if (dot) {
+            dot.addEventListener("click", function () {
+                show(reduceMotion.matches ? 0 : cssMs("--nh-bubble-in"));
+            });
+        }
 
         // first appearance: the CSS wait plus the pop, then six seconds
         show(reduceMotion.matches ? 0 : cssMs("--nh-bubble-delay") + cssMs("--nh-bubble-in"));

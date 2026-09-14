@@ -1218,6 +1218,42 @@ html {
     transform: scale(1.08);
 }
 
+/* Until the visitor draws for the first time, MC breathes and gives off a
+   soft ring, so the board reads as something to drag from. The ring is
+   drawn by scripts/ludis-play.js, which also drops .is-idle on the first
+   interaction — neither comes back after that.
+   The reduced-motion rule at the end of this file stops the animation; the
+   ring then simply rests around MC, so the invitation survives without
+   movement. */
+.lp__pulse {
+    fill: none;
+    stroke-width: 3;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    pointer-events: none;
+}
+
+.lp.is-idle .lp__pulse {
+    opacity: 0.45;
+    animation: lp-hint-ring 2.4s ease-out infinite;
+}
+
+.lp.is-idle .lp__player.is-hint .lp__player-body {
+    animation: lp-hint-body 2.4s ease-in-out infinite;
+}
+
+@keyframes lp-hint-ring {
+    0%        { opacity: 0.7; transform: scale(1.05); }
+    50%       { opacity: 0;   transform: scale(1.85); }
+    100%      { opacity: 0;   transform: scale(1.85); }
+}
+
+@keyframes lp-hint-body {
+    0%, 55%, 100% { transform: scale(1); }
+    20%           { transform: scale(1.06); }
+}
+
 .lp__player text {
     font-family: var(--nh-font);
     font-size: 13.5px;
@@ -1385,9 +1421,9 @@ html {
    A blue chat bubble, bottom left. It pops in like a text message the
    moment the page renders — only its size animates, growing out of the
    tail corner; no fade. The entrance is a CSS animation, so it needs no
-   script. scripts/new-home.js adds .is-hidden once the visitor has scrolled
-   30% of the page (the bubble shrinks back into its corner) and removes it
-   when they return to the top.
+   script. scripts/new-home.js adds .is-hidden six seconds later, or as soon
+   as the visitor has scrolled 30% of the page — the bubble shrinks back into
+   its corner and the dot below takes its place, ready to bring it back.
 =========================================================================== */
 
 .nh-bubble {
@@ -1436,6 +1472,59 @@ html {
         padding: var(--nh-space-3) var(--nh-space-5);
         font-size: 1rem;
     }
+}
+
+/* The clue left behind: the bubble's tail corner, kept as a small button in
+   the same spot, so the message is always one click away. It swaps with the
+   bubble — one is out while the other is in. */
+.nh-bubble-dot {
+    position: fixed;
+    left: var(--nh-gutter);
+    bottom: calc(var(--nh-gutter) + env(safe-area-inset-bottom, 0px));
+    z-index: 39;
+    display: grid;
+    place-items: center;
+    width: 44px;    /* the page's touch target, as on the contact links */
+    height: 44px;
+    padding: 0;
+    border: 0;
+    /* the same flat tail corner as the bubble, so it reads as its remainder */
+    border-radius: 999px 999px 999px 6px;
+    background: var(--nh-bubble);
+    color: var(--nh-bubble-text);
+    cursor: pointer;
+    transform-origin: 0 100%;
+    transition:
+        transform var(--nh-bubble-in) var(--nh-ease-pop),
+        visibility 0s;
+}
+
+.nh-bubble-dot svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+}
+
+.nh-bubble-dot:hover {
+    transform: scale(1.08);
+}
+
+.nh-bubble-dot:active {
+    transform: scale(0.96);
+}
+
+.nh-bubble-dot:focus-visible {
+    outline: 3px solid var(--nh-ink);
+    outline-offset: 3px;
+}
+
+.nh-bubble-dot.is-hidden {
+    visibility: hidden;
+    transform: scale(0);
+    transition:
+        transform var(--nh-bubble-out) var(--nh-ease-shrink),
+        visibility 0s linear var(--nh-bubble-out);
 }
 
 
