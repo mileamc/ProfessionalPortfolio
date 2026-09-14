@@ -125,6 +125,7 @@
     --nh-bubble-in:   500ms;
     --nh-bubble-delay: 1s;     /* wait after the page lands before it pops in */
     --nh-bubble-out:  380ms;
+    --nh-bubble-size: 44px;    /* closed: the three dots, a touch target wide */
     --nh-ease-pop:    cubic-bezier(0.34, 1.45, 0.64, 1);
     --nh-ease-shrink: cubic-bezier(0.5, 0, 0.75, 0);
 }
@@ -1429,13 +1430,17 @@ html {
 
 /* ===========================================================================
    10b. MESSAGE BUBBLE
-   A blue chat bubble, bottom left. It pops in like a text message the
-   moment the page renders — only its size animates, growing out of the
-   tail corner; no fade. The entrance is a CSS animation, so it needs no
-   script. scripts/new-home.js adds .is-hidden six seconds later, as soon as
-   the visitor has scrolled 30% of the page, or the moment they click the
-   bubble itself — it shrinks back into its corner and the dot below takes
-   its place, ready to bring it back.
+
+   One element with two sizes, bottom left: a small three-dot button, and the
+   message itself. It grows out of the dots and contracts back into them —
+   the same bubble throughout, never two elements trading places. The tail
+   corner is the one thing that does not move, so the whole morph reads as
+   happening around it.
+
+   A box cannot animate to or from `auto`, so scripts/new-home.js measures
+   the open size and writes it on the element. It also pins the text to the
+   width it was measured at: on the way down the bubble clips the text
+   instead of reflowing it into a column.
 =========================================================================== */
 
 .nh-bubble {
@@ -1443,110 +1448,133 @@ html {
     left: var(--nh-gutter);
     bottom: calc(var(--nh-gutter) + env(safe-area-inset-bottom, 0px));
     z-index: 40;
+    display: grid;
+    /* closed: the three dots. Open, the script writes width and height. */
+    width: var(--nh-bubble-size);
+    height: var(--nh-bubble-size);
     max-width: min(23rem, calc(100vw - 2 * var(--nh-gutter)));
-    margin: 0;
-    padding: var(--nh-space-4) var(--nh-space-6);
-    /* the flatter corner is the tail — the bubble grows out of it */
-    border-radius: 24px 24px 24px 6px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    /* the flat corner is the tail — it stays put while the rest moves */
+    border-radius: 999px 999px 999px 6px;
     background: var(--nh-bubble);
     color: var(--nh-bubble-text);
+    font-family: var(--nh-font);   /* a button inherits neither */
     font-size: 1.0625rem;
     font-weight: var(--nh-medium);
     line-height: 1.5;
     letter-spacing: -0.01em;
+    text-align: left;
+    cursor: pointer;
     transform-origin: 0 100%;
-    cursor: pointer;   /* a click on it closes it early */
     /* on load: waits a second, then pops in over half a second. `backwards`
-       keeps it at size 0 during the wait; once it ends, the normal styles
-       (and .is-hidden) take over */
+       keeps it at size 0 during the wait, which also covers the script
+       opening it before the visitor can see anything */
     animation: nh-bubble-pop var(--nh-bubble-in) var(--nh-ease-pop) var(--nh-bubble-delay) backwards;
-    /* coming back: it waits for the dot to shrink into the corner first, so
-       the two are never on screen together — the corner is handed over */
+    /* contracting */
     transition:
-        transform var(--nh-bubble-in) var(--nh-ease-pop) var(--nh-bubble-out),
-        visibility 0s;
+        width var(--nh-bubble-out) var(--nh-ease-shrink),
+        height var(--nh-bubble-out) var(--nh-ease-shrink),
+        padding var(--nh-bubble-out) var(--nh-ease-shrink),
+        border-radius var(--nh-bubble-out) var(--nh-ease-shrink);
 }
 
 @keyframes nh-bubble-pop {
     from { transform: scale(0); }
 }
 
-/* leaving: shrinks back into the tail corner; visibility flips at the end */
-.nh-bubble.is-hidden {
-    visibility: hidden;
-    transform: scale(0);
+/* expanding: the same four properties, on the livelier curve */
+.nh-bubble.is-open {
+    padding: var(--nh-space-4) var(--nh-space-6);
+    border-radius: 24px 24px 24px 6px;
     transition:
-        transform var(--nh-bubble-out) var(--nh-ease-shrink),
-        visibility 0s linear var(--nh-bubble-out);
+        width var(--nh-bubble-in) var(--nh-ease-pop),
+        height var(--nh-bubble-in) var(--nh-ease-pop),
+        padding var(--nh-bubble-in) var(--nh-ease-pop),
+        border-radius var(--nh-bubble-in) var(--nh-ease-pop);
 }
 
-@media (max-width: 719.98px) {
-    .nh-bubble {
-        padding: var(--nh-space-3) var(--nh-space-5);
-        font-size: 1rem;
-    }
+.nh-bubble:focus-visible {
+    outline: 3px solid var(--nh-ink);
+    outline-offset: 3px;
 }
 
-/* The clue left behind: the bubble's tail corner, kept as a small button in
-   the same spot, so the message is always one click away. The two take turns
-   in that corner — each waits out the other's shrink before it grows, so the
-   bubble reads as collapsing into the dot and the dot as unfolding back into
-   the bubble. The hover lift lives on the inner face, which keeps it off the
-   delayed transition that does the handover. */
-.nh-bubble-dot {
-    position: fixed;
-    left: var(--nh-gutter);
-    bottom: calc(var(--nh-gutter) + env(safe-area-inset-bottom, 0px));
-    z-index: 39;
+/* The message sits against the tail corner, so it is the far edge that the
+   bubble eats into as it closes. The dots are held in that same corner, in a
+   square the size of the closed bubble — which is exactly the bubble itself
+   once it is closed, so they are already in place when they appear. */
+.nh-bubble__text {
+    grid-area: 1 / 1;
+    align-self: end;
+    justify-self: start;
+    opacity: 0;
+    transition: opacity 120ms linear;
+}
+
+.nh-bubble.is-open .nh-bubble__text {
+    opacity: 1;
+    /* holds off until the bubble has opened enough to hold a line */
+    transition: opacity 200ms linear 180ms;
+}
+
+.nh-bubble__dots {
+    position: absolute;
+    left: 0;
+    bottom: 0;
     display: grid;
     place-items: center;
-    width: 44px;    /* the page's touch target, as on the contact links */
-    height: 44px;
-    padding: 0;
-    border: 0;
-    /* the same flat tail corner as the bubble, so it reads as its remainder */
-    border-radius: 999px 999px 999px 6px;
-    background: var(--nh-bubble);
-    color: var(--nh-bubble-text);
-    cursor: pointer;
-    transform-origin: 0 100%;
+    width: var(--nh-bubble-size);
+    height: var(--nh-bubble-size);
     transition:
-        transform var(--nh-bubble-out) var(--nh-ease-pop) var(--nh-bubble-out),
-        visibility 0s;
+        opacity 200ms linear 180ms,
+        transform var(--nh-fast) var(--nh-ease);
 }
 
-.nh-bubble-dot__face {
-    display: grid;
-    place-items: center;
-    transition: transform var(--nh-fast) var(--nh-ease);
+.nh-bubble.is-open .nh-bubble__dots {
+    opacity: 0;
+    transition:
+        opacity 120ms linear,
+        transform var(--nh-fast) var(--nh-ease);
 }
 
-.nh-bubble-dot svg {
+.nh-bubble__dots svg {
     display: block;
     width: 22px;
     height: 22px;
     fill: currentColor;
 }
 
-.nh-bubble-dot:hover .nh-bubble-dot__face {
+.nh-bubble:hover .nh-bubble__dots {
     transform: scale(1.12);
 }
 
-.nh-bubble-dot:active .nh-bubble-dot__face {
+.nh-bubble:active .nh-bubble__dots {
     transform: scale(0.94);
 }
 
-.nh-bubble-dot:focus-visible {
-    outline: 3px solid var(--nh-ink);
-    outline-offset: 3px;
+/* Two helpers the script uses to take the open size, never seen on screen.
+   .is-measuring lets the box find its own size (with .is-open on, for the
+   open padding); .is-still holds every transition off, so neither the
+   measurement nor the step back down to the dots animates — the growth that
+   follows is the only thing that does. */
+.nh-bubble.is-measuring {
+    width: max-content;
+    height: auto;
 }
 
-.nh-bubble-dot.is-hidden {
-    visibility: hidden;
-    transform: scale(0);
-    transition:
-        transform var(--nh-bubble-out) var(--nh-ease-shrink),
-        visibility 0s linear var(--nh-bubble-out);
+.nh-bubble.is-still {
+    transition: none;
+}
+
+@media (max-width: 719.98px) {
+    .nh-bubble.is-open {
+        padding: var(--nh-space-3) var(--nh-space-5);
+    }
+
+    .nh-bubble {
+        font-size: 1rem;
+    }
 }
 
 

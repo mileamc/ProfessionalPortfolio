@@ -551,17 +551,26 @@
     };
 
 
-    // Message bubble. Its entrance is pure CSS, so it plays the moment the
-    // page renders, with no wait for this script. It stays for six seconds,
-    // and goes early if the visitor clicks it or has scrolled 30% of the
-    // page. Once it is gone the dot takes its corner: each click brings it
-    // back for another six seconds, one line further down LINES. The list
-    // starts over when it runs out, so the bubble never has nothing to say.
+    // Message bubble. One element with two sizes: the three dots it rests at,
+    // and the message it grows into. Its entrance is pure CSS, so the pop
+    // plays the moment the page renders, with no wait for this script. It
+    // stays open for six seconds, and contracts early if the visitor clicks
+    // it or has scrolled 30% of the page. Clicking the dots grows it back,
+    // one line further down LINES; the list starts over when it runs out, so
+    // the bubble never has nothing to say.
+    //
+    // A box cannot animate to or from `auto`, so the open width and height
+    // are measured here and written on the element, and the text is pinned
+    // to the width it was measured at — on the way down the bubble clips it
+    // rather than reflowing it into a column. The measurement is taken again
+    // when the web font lands or the window changes, both of which move the
+    // line breaks.
     var initBubble = function () {
         var bubble = document.querySelector("[data-nh-bubble]");
         if (!bubble) return;
 
-        var dot = document.querySelector("[data-nh-bubble-dot]");
+        var text = bubble.querySelector("[data-nh-bubble-text]");
+        if (!text) return;
 
         // The first line is the one already in the markup; it shows on load
         // and again on the first click, in case it was missed. From there on
@@ -576,10 +585,10 @@
         ];
 
         var HIDE_AT = 0.3;       // share of the scrollable page
-        var LINGER_MS = 6000;    // how long it stays once fully shown
+        var LINGER_MS = 6000;    // how long it stays open
         var ticking = false;
         var timer = null;
-        var opened = 0;          // how many times the bubble has been shown
+        var opened = 0;          // how many times the message has been shown
 
         // "1s" / "500ms" from the CSS tokens, so the timing follows the animation
         var cssMs = function (name) {
@@ -588,19 +597,61 @@
             return /ms$/.test(value) ? n : n * 1000;
         };
 
-        var hide = function () {
-            window.clearTimeout(timer);
-            bubble.classList.add("is-hidden");
-            if (dot) dot.classList.remove("is-hidden");
+        var isOpen = function () {
+            return bubble.classList.contains("is-open");
         };
 
-        var show = function (waitMs) {
-            bubble.textContent = LINES[opened < 2 ? 0 : (opened - 1) % LINES.length];
-            opened += 1;
-            if (dot) dot.classList.add("is-hidden");
-            bubble.classList.remove("is-hidden");
+        // The size the bubble needs for the line it is holding. Measuring is
+        // done open and without a transition, then the element is put back
+        // the way it was and that is forced through the layout — so the
+        // browser starts the growth from the dots, not from the size it was
+        // just measured at. It ends leaving the text pinned to its width.
+        var measure = function () {
+            var wasOpen = isOpen();
+
+            bubble.classList.add("is-still");
+            bubble.classList.add("is-measuring");
+            bubble.classList.add("is-open");
+            text.style.width = "";
+            bubble.style.width = "";
+            bubble.style.height = "";
+            var size = { w: bubble.offsetWidth, h: bubble.offsetHeight, text: text.offsetWidth };
+
+            // back the way it was: open at its new size, or down at the dots
+            text.style.width = size.text + "px";
+            bubble.classList.remove("is-measuring");
+            if (wasOpen) {
+                bubble.style.width = size.w + "px";
+                bubble.style.height = size.h + "px";
+            } else {
+                bubble.classList.remove("is-open");
+            }
+            void bubble.offsetWidth;   // commit that, still with no transition
+            bubble.classList.remove("is-still");
+
+            return size;
+        };
+
+        var close = function () {
             window.clearTimeout(timer);
-            timer = window.setTimeout(hide, waitMs + LINGER_MS);
+            bubble.classList.remove("is-open");
+            bubble.setAttribute("aria-expanded", "false");
+            // back to the size the stylesheet keeps for the dots
+            bubble.style.width = "";
+            bubble.style.height = "";
+        };
+
+        var open = function (waitMs) {
+            text.textContent = LINES[opened < 2 ? 0 : (opened - 1) % LINES.length];
+            opened += 1;
+
+            var size = measure();
+            bubble.style.width = size.w + "px";
+            bubble.style.height = size.h + "px";
+            bubble.classList.add("is-open");
+            bubble.setAttribute("aria-expanded", "true");
+            window.clearTimeout(timer);
+            timer = window.setTimeout(close, waitMs + LINGER_MS);
         };
 
         var update = function () {
@@ -608,8 +659,8 @@
             var y = window.scrollY || window.pageYOffset || 0;
             var scrollable = document.documentElement.scrollHeight - window.innerHeight;
 
-            if (scrollable > 0 && y >= scrollable * HIDE_AT && !bubble.classList.contains("is-hidden")) {
-                hide();
+            if (scrollable > 0 && y >= scrollable * HIDE_AT && isOpen()) {
+                close();
             }
         };
 
@@ -619,19 +670,28 @@
             window.requestAnimationFrame(update);
         }, { passive: true });
 
-        // a click on the bubble puts it away without waiting out the six seconds
-        bubble.addEventListener("click", hide);
+        // one button, both ways: open it, or put it away early
+        bubble.addEventListener("click", function () {
+            if (isOpen()) {
+                close();
+            } else {
+                open(reduceMotion.matches ? 0 : cssMs("--nh-bubble-in"));
+            }
+        });
 
-        if (dot) {
-            dot.addEventListener("click", function () {
-                // the dot's shrink comes first, then the bubble's pop
-                show(reduceMotion.matches ? 0 : cssMs("--nh-bubble-out") + cssMs("--nh-bubble-in"));
-            });
+        // the line breaks move with the font and the window; measuring while
+        // open writes the new size without animating to it
+        var remeasure = function () {
+            if (isOpen()) measure();
+        };
+        window.addEventListener("resize", remeasure);
+        if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+            document.fonts.ready.then(remeasure);
         }
 
         // first appearance: the CSS wait plus the pop, then six seconds
-        show(reduceMotion.matches ? 0 : cssMs("--nh-bubble-delay") + cssMs("--nh-bubble-in"));
-        update();   // a reload that restores the page halfway down starts hidden
+        open(reduceMotion.matches ? 0 : cssMs("--nh-bubble-delay") + cssMs("--nh-bubble-in"));
+        update();   // a reload that restores the page halfway down starts closed
     };
 
 
