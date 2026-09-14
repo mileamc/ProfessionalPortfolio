@@ -2,10 +2,11 @@
 //
 // Drag from a player to draw its route. While dragging, the line is a live
 // preview that follows the pointer; it stops at the edge of the court even if
-// the pointer keeps going; releasing fixes it. Each new drawing gets a random
-// line style and a random tip. A player keeps one line at a time — drawing a
-// new one replaces its previous line and leaves the others untouched. Players
-// never move.
+// the pointer keeps going; releasing fixes it. Every route ends in one of the
+// three tips, and takes a body at random from the ones the last route did not
+// use, so no two drawn in a row look alike. A player keeps one line at a time
+// — drawing a new one replaces its previous line and leaves the others
+// untouched. Players never move.
 //
 // MC pulses gently while the board is untouched, to show where to start;
 // the first drag (or an undo/redo) settles it for good.
@@ -40,7 +41,7 @@
     // --- the lines ------------------------------------------------------------
     var STROKE_WIDTH = 3;             // the same for every line
     var STYLES = ["solid", "dashed", "dotted", "zigzag"];
-    var TIPS = ["none", "arrow", "dot"];
+    var TIPS = ["bar", "arrow", "dot"];   // every route ends in one of these
     var MIN_STEP = 3;                 // viewBox units between recorded points
     var MIN_LENGTH = 14;              // shorter than this on release = no line
     var MAX_POINTS = 800;
@@ -213,6 +214,18 @@
             group.appendChild(node("circle", {
                 cx: end.x.toFixed(1), cy: end.y.toFixed(1), r: 5, fill: line.color
             }));
+        } else if (line.tip === "bar") {
+            // a short bar across the end of the route, as a play is drawn
+            var reach = 7;
+            group.appendChild(node("line", {
+                x1: (end.x - dir.y * reach).toFixed(1),
+                y1: (end.y + dir.x * reach).toFixed(1),
+                x2: (end.x + dir.y * reach).toFixed(1),
+                y2: (end.y - dir.x * reach).toFixed(1),
+                stroke: line.color,
+                "stroke-width": STROKE_WIDTH,
+                "stroke-linecap": "round"
+            }));
         }
     };
 
@@ -298,6 +311,15 @@
 
         var drawing = null;  // the line being drawn
         var frame = 0;
+
+        // The body of a route is picked from the styles the last drawn route
+        // did not use, so two in a row never look alike. Only a route that
+        // was kept counts: a drag too short to leave a line was never seen.
+        var lastStyle = null;
+
+        var nextStyle = function () {
+            return pick(STYLES.filter(function (style) { return style !== lastStyle; }));
+        };
 
         PLAYERS.forEach(function (player) {
             var g = node("g", {
@@ -431,6 +453,7 @@
                     previous.style.opacity = "";
                 }
                 fixed[line.playerId] = line.group;
+                lastStyle = line.style;
                 record({ playerId: line.playerId, before: previous || null, after: line.group });
             } else {
                 line.group.remove();
@@ -455,7 +478,7 @@
                 playerId: player.id,
                 playerEl: playerEl,
                 color: player.color,
-                style: pick(STYLES),
+                style: nextStyle(),
                 tip: pick(TIPS),
                 points: [{ x: player.x, y: player.y }],
                 bounds: visibleCourt(),
