@@ -1484,15 +1484,18 @@ html {
     from { transform: scale(0); }
 }
 
-/* expanding: the same four properties, on the livelier curve */
+/* Expanding. Only the box itself gets the livelier curve: that curve
+   overshoots its target, and a radius pushed past 24px lands at 0 — square
+   corners, halfway through the growth. The corners and the padding take the
+   plain ease and arrive without passing anything. */
 .nh-bubble.is-open {
     padding: var(--nh-space-4) var(--nh-space-6);
     border-radius: 24px 24px 24px 6px;
     transition:
         width var(--nh-bubble-in) var(--nh-ease-pop),
         height var(--nh-bubble-in) var(--nh-ease-pop),
-        padding var(--nh-bubble-in) var(--nh-ease-pop),
-        border-radius var(--nh-bubble-in) var(--nh-ease-pop);
+        padding var(--nh-bubble-in) var(--nh-ease),
+        border-radius var(--nh-bubble-in) var(--nh-ease);
 }
 
 .nh-bubble:focus-visible {
@@ -1561,6 +1564,11 @@ html {
 .nh-bubble.is-measuring {
     width: max-content;
     height: auto;
+    /* The entrance animation holds the bubble at scale(0) for its first
+       second, and a scaled box measures scaled — zero, in that second. Only
+       !important outranks an animation, and unlike cancelling the animation
+       it cannot restart the pop halfway through the page's life. */
+    transform: none !important;
 }
 
 .nh-bubble.is-still {

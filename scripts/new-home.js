@@ -615,7 +615,12 @@
             text.style.width = "";
             bubble.style.width = "";
             bubble.style.height = "";
-            var size = { w: bubble.offsetWidth, h: bubble.offsetHeight, text: text.offsetWidth };
+            // Rounded up, and from the fractional rect: offsetWidth rounds a
+            // 186.3px line down to 186, and the last word wraps out of a
+            // bubble measured for one line.
+            var box = bubble.getBoundingClientRect();
+            var line = text.getBoundingClientRect();
+            var size = { w: Math.ceil(box.width), h: Math.ceil(box.height), text: Math.ceil(line.width) };
 
             // back the way it was: open at its new size, or down at the dots
             text.style.width = size.text + "px";
