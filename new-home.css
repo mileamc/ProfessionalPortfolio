@@ -1021,17 +1021,23 @@ html {
     width: var(--print-w);
     aspect-ratio: 1;
     border-radius: 4px;
+    /* --print-lap is how far each piece lies over the one before it, and
+       --print-open how far the fan is opened; the card's hover, further
+       down, changes both and these two properties carry the move. */
+    transform:
+        rotate(calc(var(--lean) * var(--print-open, 1)))
+        translateY(calc(var(--rise) * var(--print-open, 1)));
     transition: transform var(--nh-slow) var(--nh-ease), margin var(--nh-slow) var(--nh-ease);
 }
 
 .nh-shot--print + .nh-shot--print {
-    margin-left: calc(-0.34 * var(--print-w));
+    margin-left: calc(var(--print-lap, -0.34) * var(--print-w));
 }
 
-.nh-shot--print:nth-child(1) { transform: rotate(-3deg); }
-.nh-shot--print:nth-child(2) { transform: rotate(1.5deg) translateY(4px); }
-.nh-shot--print:nth-child(3) { transform: rotate(-1deg) translateY(-3px); }
-.nh-shot--print:nth-child(4) { transform: rotate(2.5deg) translateY(2px); }
+.nh-shot--print:nth-child(1) { --lean: -3deg;  --rise:  0px; }
+.nh-shot--print:nth-child(2) { --lean: 1.5deg; --rise:  4px; }
+.nh-shot--print:nth-child(3) { --lean: -1deg;  --rise: -3px; }
+.nh-shot--print:nth-child(4) { --lean: 2.5deg; --rise:  2px; }
 
 
 /* ===========================================================================
@@ -1351,6 +1357,25 @@ html {
 .nh-card--text:hover .nh-arrow,
 .nh-card--text:has(.nh-card__link:focus-visible) .nh-arrow {
     transform: translateX(3px);
+}
+
+/* Hovering the card opens the pile: the pieces slide out from under one
+   another and their lean doubles, so the fan reads as a fan. They close
+   again when the pointer leaves. */
+.nh-card--text:hover .nh-frame--prints,
+.nh-card--text:has(.nh-card__link:focus-visible) .nh-frame--prints {
+    --print-lap: -0.08;
+    --print-open: 2;
+}
+
+/* Opened, the pile can want more room than the card has. Letting the pieces
+   give way keeps it inside: where there is room they stay their full size,
+   and where there is not they shrink to fit rather than push out of the
+   card. They only give way while it is open — the pile at rest is untouched. */
+.nh-card--text:hover .nh-shot--print,
+.nh-card--text:has(.nh-card__link:focus-visible) .nh-shot--print {
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 
@@ -1730,6 +1755,16 @@ html {
     /* and the same for the LUDIS players */
     .lp__player:not(.is-drawing):hover .lp__player-body {
         transform: none;
+    }
+
+    /* a tap would leave the pile of prints fanned open for good */
+    .nh-card--text:hover .nh-frame--prints {
+        --print-lap: -0.34;
+        --print-open: 1;
+    }
+
+    .nh-card--text:hover .nh-shot--print {
+        flex-shrink: 0;
     }
 }
 
