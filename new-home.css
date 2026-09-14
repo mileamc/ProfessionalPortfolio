@@ -1226,6 +1226,21 @@ html {
     transition: transform var(--nh-base) var(--nh-ease);
 }
 
+/* The same hop the top photo answers with, in the board's own units: a
+   player lifts and swells a little under the pointer, so it reads as the
+   thing to drag from. The one being drawn from is left out — it has its own
+   size, below. */
+.lp__player:not(.is-drawing):hover .lp__player-body {
+    transform: translateY(-3px) scale(1.04);
+    transition: transform 360ms cubic-bezier(0.34, 1.8, 0.64, 1);
+}
+
+/* the hop is the answer to the pointer, so MC stops breathing under it —
+   its ring carries on for anyone still looking at the rest of the board */
+.lp.is-idle .lp__player.is-hint:hover .lp__player-body {
+    animation: none;
+}
+
 .lp__player.is-drawing .lp__player-body {
     transform: scale(1.08);
 }
@@ -1710,6 +1725,11 @@ html {
     .nh-stack__card.is-top:hover:not(.is-dragging) {
         --dy: 0px;
         --s: 1;
+    }
+
+    /* and the same for the LUDIS players */
+    .lp__player:not(.is-drawing):hover .lp__player-body {
+        transform: none;
     }
 }
 
