@@ -486,6 +486,7 @@ html {
      --r         resting tilt
      --dx / --dy live drag offset, in pixels
      --s         scale (hover and drag)
+   On hover the top card borrows --dy and --s for its hop.
 --------------------------------------------------------------------------- */
 
 .nh-stack {
@@ -528,6 +529,16 @@ html {
 
 .nh-stack__card.is-top {
     cursor: pointer;
+}
+
+/* The top photo answers the pointer with a small hop: it lifts a few pixels
+   on a springy curve, overshoots once and settles, so it reads as something
+   you can pick up. It keeps the lift while the pointer stays on it. The
+   dragging card is left out — the drag writes --dy and --s itself. */
+.nh-stack__card.is-top:hover:not(.is-dragging) {
+    --dy: -5px;
+    --s: 1.015;
+    transition: transform 360ms cubic-bezier(0.34, 1.8, 0.64, 1);
 }
 
 .nh-stack__card.is-dragging {
@@ -1657,6 +1668,12 @@ html {
     .nh-card:hover {
         box-shadow: var(--nh-shadow-card);
         transform: none;
+    }
+
+    /* a tap would otherwise leave the top photo stuck in its hover hop */
+    .nh-stack__card.is-top:hover:not(.is-dragging) {
+        --dy: 0px;
+        --s: 1;
     }
 }
 
