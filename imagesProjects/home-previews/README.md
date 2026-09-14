@@ -1,6 +1,6 @@
 # New home — preview images
 
-Everything the bento grid on `new-home.html` shows is listed in
+Everything the bento grid on `index.html` shows is listed in
 `data/home-projects.js`. Drop a file at the path below and it appears; until
 then the card shows a quiet empty shape (no text). The browser console lists
 the paths still missing on every load.

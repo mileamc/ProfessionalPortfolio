@@ -1,4 +1,4 @@
-// Content for the new home page (new-home.html).
+// Content for the new home page (index.html).
 //
 // Hand-edited, unlike data/projects-data.js (which is regenerated from Notion
 // on every build). Everything the grid shows comes from here, so adding a
@@ -17,7 +17,7 @@
 //   · Images: drop a file at the `src` path and it appears. A path that does
 //     not exist yet renders a quiet empty shape of the right proportions.
 //   · Your own interface or interactive component: add a
-//     <template data-nh-card="<id>"> to new-home.html (see the note at the
+//     <template data-nh-card="<id>"> to index.html (see the note at the
 //     bottom of that file). It replaces the screenshots for that card.
 //
 // SIZES — the grid has 12 columns
@@ -44,7 +44,7 @@ window.homeProjects = {
     projects: [
         {
             // Interactive play-drawing prototype. Its markup is the
-            // <template data-nh-card="ludis"> in new-home.html and its
+            // <template data-nh-card="ludis"> in index.html and its
             // behaviour is scripts/ludis-play.js — so no `media` here.
             // Only the arrow opens the case page; the rest of the card is
             // for drawing.
