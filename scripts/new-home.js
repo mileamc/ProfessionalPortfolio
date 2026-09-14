@@ -553,10 +553,10 @@
 
     // Message bubble. Its entrance is pure CSS, so it plays the moment the
     // page renders, with no wait for this script. It stays for six seconds,
-    // and goes early if the visitor has scrolled 30% of the page. Once it is
-    // gone the dot takes its corner: each click brings the bubble back for
-    // another six seconds, one line further down LINES. The list starts over
-    // when it runs out, so the bubble never has nothing to say.
+    // and goes early if the visitor clicks it or has scrolled 30% of the
+    // page. Once it is gone the dot takes its corner: each click brings it
+    // back for another six seconds, one line further down LINES. The list
+    // starts over when it runs out, so the bubble never has nothing to say.
     var initBubble = function () {
         var bubble = document.querySelector("[data-nh-bubble]");
         if (!bubble) return;
@@ -618,6 +618,9 @@
             ticking = true;
             window.requestAnimationFrame(update);
         }, { passive: true });
+
+        // a click on the bubble puts it away without waiting out the six seconds
+        bubble.addEventListener("click", hide);
 
         if (dot) {
             dot.addEventListener("click", function () {

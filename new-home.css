@@ -1421,9 +1421,10 @@ html {
    A blue chat bubble, bottom left. It pops in like a text message the
    moment the page renders — only its size animates, growing out of the
    tail corner; no fade. The entrance is a CSS animation, so it needs no
-   script. scripts/new-home.js adds .is-hidden six seconds later, or as soon
-   as the visitor has scrolled 30% of the page — the bubble shrinks back into
-   its corner and the dot below takes its place, ready to bring it back.
+   script. scripts/new-home.js adds .is-hidden six seconds later, as soon as
+   the visitor has scrolled 30% of the page, or the moment they click the
+   bubble itself — it shrinks back into its corner and the dot below takes
+   its place, ready to bring it back.
 =========================================================================== */
 
 .nh-bubble {
@@ -1443,7 +1444,7 @@ html {
     line-height: 1.5;
     letter-spacing: -0.01em;
     transform-origin: 0 100%;
-    pointer-events: none;
+    cursor: pointer;   /* a click on it closes it early */
     /* on load: waits a second, then pops in over half a second. `backwards`
        keeps it at size 0 during the wait; once it ends, the normal styles
        (and .is-hidden) take over */
