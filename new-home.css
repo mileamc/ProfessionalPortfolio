@@ -1,0 +1,1579 @@
+/* ===========================================================================
+   new-home.css — the new home page
+
+   Self-contained on purpose. The rest of the site still runs on tokens.css /
+   components.css / page-style.css; this page is the first piece of the
+   calmer, product-led language, so its tokens live here, scoped to .nh,
+   until the direction is approved and they can replace the old ones.
+
+   Contents
+     1. Tokens
+     2. Base
+     3. Header and navigation
+     4. The grid — introduction and cards in one composition
+     5. Introduction and availability tag
+     6. Card — surface, stage, link, arrow
+     7. Stage frames (canvas, phones, browser, stack, prints)
+     8. Graphic design card (the card with text)
+     9. Contact and footer
+    10. Expand-to-page transition
+    11. Responsive
+    12. Reduced motion
+=========================================================================== */
+
+
+/* ===========================================================================
+   1. TOKENS
+=========================================================================== */
+
+.nh {
+    /* Canvas and cards — the page is white and the cards are the light
+       blue-grey (the two roles were swapped from the earlier version). Cards
+       float on a soft shadow; nothing is outlined. */
+    --nh-canvas:        #FFFFFF;
+    --nh-card:          #F5F7FA;   /* a very light cool grey — tonal against white */
+
+    /* The highlighter stroke behind "product designer" */
+    --nh-highlight:     rgba(126, 186, 240, 0.42);
+    --nh-line:          #D6DEE7;   /* page chrome only — never on a card */
+    --nh-line-strong:   #B4C0CD;
+
+    /* Text — blue-black, so type sits in the same temperature as the canvas.
+       All pass 4.5:1 on --nh-canvas. */
+    --nh-ink:           #0F1722;
+    --nh-text:          #3A4655;
+    --nh-muted:         #566375;
+
+    --nh-accent:        #2D4B74;
+
+    /* The "interact with everything" message bubble — white text passes
+       5.2:1 on it */
+    --nh-bubble:        #2F6BDB;
+    --nh-bubble-text:   #FFFFFF;
+
+    /* Availability — the only colour in the page chrome */
+    --nh-signal:        #3A8660;
+    --nh-signal-text:   #2E6B4D;   /* 5.6:1 on the canvas */
+    --nh-signal-line:   rgba(58, 134, 96, 0.5);
+
+    /* Type — Poppins only; hierarchy comes from weight and size */
+    --nh-font: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --nh-light:    300;
+    --nh-regular:  400;
+    --nh-medium:   500;
+    --nh-semibold: 600;
+
+    --nh-size-display: clamp(2rem, 1.2rem + 1.9vw, 2.5rem);
+    --nh-size-h2:      1.5rem;
+    --nh-size-card-title: 1.375rem;
+    --nh-size-email:   clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    --nh-size-body:    0.9375rem;
+    --nh-size-small:   0.875rem;
+    --nh-size-tiny:    0.8125rem;
+    --nh-size-label:   0.6875rem;
+
+    /* Space — 4px base */
+    --nh-space-1: 4px;
+    --nh-space-2: 8px;
+    --nh-space-3: 12px;
+    --nh-space-4: 16px;
+    --nh-space-5: 20px;
+    --nh-space-6: 24px;
+    --nh-space-8: 32px;
+    --nh-space-10: 40px;
+    --nh-space-12: 48px;
+    --nh-space-16: 64px;
+    --nh-space-24: 96px;
+
+    --nh-gutter:   clamp(16px, 4vw, 48px);
+    --nh-max:      1320px;
+    --nh-gap:      19px;   /* space between cards (was 16px, +20%) */
+
+    /* Inside a card that holds text (introduction, graphic design) */
+    --nh-card-pad: clamp(24px, 2.2vw, 32px);
+
+    /* Floating navigation */
+    --nh-nav-bg:    var(--nh-card);     /* same surface as the cards — no separate grey */
+    --nh-nav-border: var(--nh-line);    /* thin grey outline around the pill */
+    --nh-nav-top:   20px;
+    --nh-nav-clear: 108px;   /* room above the grid so the nav never covers it at rest */
+
+    /* The grid's row unit below the introduction. Cards span whole units. */
+    --nh-row:      clamp(104px, 8.8vw, 128px);
+
+    /* The shortest the introduction's row may be, so the two cards beside
+       it never collapse into strips on a very wide screen. */
+    --nh-lead-min: 360px;
+
+    /* Shape */
+    --nh-radius-card:  16px;
+    --nh-radius-shot:  8px;
+
+    /* Elevation — the only thing separating a card from the canvas besides
+       its colour. Kept low and wide, so cards read as lifted, not framed. */
+    --nh-shadow-card:  0 1px 2px rgba(15, 23, 34, 0.04), 0 10px 30px -18px rgba(15, 23, 34, 0.16);
+    --nh-shadow-lift:  0 2px 4px rgba(15, 23, 34, 0.04), 0 22px 44px -24px rgba(15, 23, 34, 0.26);
+    --nh-shadow-shot:  0 1px 2px rgba(15, 23, 34, 0.08), 0 14px 34px -20px rgba(15, 23, 34, 0.38);
+
+    /* Motion — short, eased out, no overshoot */
+    --nh-ease:  cubic-bezier(0.2, 0.7, 0.1, 1);
+    --nh-fast:  160ms;
+    --nh-base:  320ms;
+    --nh-slow:  560ms;
+    /* The message bubble pops like a text message — the one place with a
+       small overshoot */
+    --nh-bubble-in:   500ms;
+    --nh-bubble-delay: 1s;     /* wait after the page lands before it pops in */
+    --nh-bubble-out:  380ms;
+    --nh-ease-pop:    cubic-bezier(0.34, 1.45, 0.64, 1);
+    --nh-ease-shrink: cubic-bezier(0.5, 0, 0.75, 0);
+}
+
+
+/* ===========================================================================
+   2. BASE
+=========================================================================== */
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 112px;
+    -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.nh {
+    margin: 0;
+    background: var(--nh-canvas);
+    color: var(--nh-text);
+    font-family: var(--nh-font);
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-regular);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Form controls don't inherit the page font by default. */
+.nh button,
+.nh input,
+.nh select,
+.nh textarea {
+    font: inherit;
+}
+
+.nh img {
+    display: block;
+    max-width: 100%;
+}
+
+/* zero-specificity reset, so component margins below always win */
+:where(.nh) :where(p, h1, h2, h3) {
+    margin: 0;
+}
+
+.nh ::selection {
+    background: #CBD8E6;
+    color: var(--nh-ink);
+}
+
+.nh a {
+    color: inherit;
+}
+
+.nh :focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.nh-shell {
+    width: 100%;
+    max-width: calc(var(--nh-max) + 2 * var(--nh-gutter));
+    margin-inline: auto;
+    padding-inline: var(--nh-gutter);
+}
+
+.nh-visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.nh-skip {
+    position: absolute;
+    left: var(--nh-gutter);
+    top: -100px;
+    z-index: 100;
+    padding: var(--nh-space-2) var(--nh-space-3);
+    background: var(--nh-ink);
+    color: var(--nh-canvas) !important;
+    font-size: var(--nh-size-small);
+    font-weight: var(--nh-medium);
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.nh-skip:focus {
+    top: var(--nh-space-3);
+}
+
+.nh-section-title {
+    font-size: var(--nh-size-h2);
+    font-weight: var(--nh-medium);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--nh-ink);
+}
+
+/* Small tracked label — metadata only, never prose */
+.nh-label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--nh-space-1) var(--nh-space-2);
+    font-size: var(--nh-size-label);
+    font-weight: var(--nh-medium);
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-muted);
+}
+
+.nh-label > span + span::before {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    margin-right: var(--nh-space-2);
+    vertical-align: middle;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.6;
+    transform: translateY(-1px);
+}
+
+/* Inline text link: underline always visible — it is what tells a link
+   apart from text. */
+.nh-link {
+    color: var(--nh-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--nh-line-strong);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+    transition: text-decoration-color var(--nh-fast) ease, color var(--nh-fast) ease;
+}
+
+.nh-link:hover {
+    color: var(--nh-accent);
+    text-decoration-color: currentColor;
+}
+
+.nh-link__ext {
+    display: inline-block;
+    margin-left: 0.2em;
+    font-size: 0.85em;
+    transition: transform var(--nh-fast) var(--nh-ease);
+}
+
+.nh-link:hover .nh-link__ext {
+    transform: translate(1px, -1px);
+}
+
+.nh-arrow {
+    display: inline-block;
+    transition: transform var(--nh-base) var(--nh-ease);
+}
+
+
+/* ===========================================================================
+   3. NAVIGATION
+
+   A floating object rather than a header: a compact dark pill at the top
+   of the window, aligned to the right edge of the content, with a thin grey
+   border and no shadow. It stays put while the page
+   scrolls beneath it.
+
+   Four items. The current one sits on a faint light pill inside the bar;
+   hover shows the same pill, a little fainter.
+=========================================================================== */
+
+/* Same width and gutters as the page content, so the pill's right edge
+   lines up with the right edge of the cards. */
+.nh-header {
+    position: fixed;
+    top: var(--nh-nav-top);
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: flex-end;
+    max-width: calc(var(--nh-max) + 2 * var(--nh-gutter));
+    margin-inline: auto;
+    padding-inline: var(--nh-gutter);
+    pointer-events: none;   /* only the pill itself takes clicks */
+}
+
+.nh-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    /* 1px border + 5px padding keeps the pill at the same 48px height */
+    padding: 5px;
+    border: 1px solid var(--nh-nav-border);
+    border-radius: 999px;
+    background: var(--nh-nav-bg);
+    pointer-events: auto;
+}
+
+.nh-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding-inline: 19px;
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    font-weight: var(--nh-medium);
+    line-height: 1;
+    letter-spacing: -0.005em;
+    color: var(--nh-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color var(--nh-fast) ease, background-color var(--nh-base) ease;
+}
+
+.nh-nav a:hover {
+    color: var(--nh-ink);
+    background: rgba(15, 23, 34, 0.04);
+}
+
+.nh-nav a[aria-current] {
+    color: var(--nh-ink);
+    background: rgba(15, 23, 34, 0.07);
+}
+
+.nh-nav a:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 2px;
+    border-radius: 999px;
+}
+
+
+/* ===========================================================================
+   4. THE GRID
+
+   The introduction card and every project card are children of ONE
+   twelve-column grid.
+
+     · Row 1 is `auto`: it is exactly as tall as the introduction card,
+       which is as tall as its text plus padding. On a wide screen the two
+       `lead` cards sit in that same row and stretch to its height. Nothing
+       is reserved under the introduction, because the row ends where it
+       ends.
+     · Every later row is a fixed unit (--nh-row), and the remaining cards
+       span whole units across all twelve columns.
+
+   So the top of the page is asymmetric — text and two projects — and from
+   the second row down it is a full-width project grid. Dense auto-flow
+   back-fills any gap a future card size might leave.
+=========================================================================== */
+
+.nh-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    /* rows 1–2 are sized by their content: the introduction, and the
+       prototype card; every later row is a fixed unit */
+    grid-template-rows: auto auto;
+    grid-auto-rows: var(--nh-row);
+    grid-auto-flow: row dense;
+    gap: var(--nh-gap);
+    padding-block: var(--nh-nav-clear) 0;
+}
+
+/* Card footprints — tablet and default. Desktop overrides the lead cards in
+   section 11 so they move up beside the introduction. */
+.nh-grid > .nh-intro                     { grid-column: 1 / -1; grid-row: 1; }
+.nh-grid > [data-size="lead-wide"]       { grid-column: 1 / -1; grid-row: 2; }
+.nh-grid > [data-size="lead-below"]      { grid-column: 1 / -1; grid-row: span 3; }
+.nh-grid > [data-size="large"]           { grid-column: span 7; grid-row: span 4; }
+.nh-grid > [data-size="medium"]          { grid-column: span 5; grid-row: span 4; }
+
+
+/* ===========================================================================
+   5. INTRODUCTION CARD AND AVAILABILITY TAG
+
+   The introduction is a card like the others — same surface, radius and
+   shadow (section 6) — padded with the same --nh-card-pad as the graphic
+   design card. It is not a link, so it does not lift on hover.
+=========================================================================== */
+
+/* The card measures its own content width, and the layout inside it answers
+   to that width (container queries below) rather than to the window — the
+   same card sits beside two projects on a desktop and alone on a phone.
+
+   Overflow stays visible so a photo being dragged is never cut off at the
+   card's edge; nothing else in this card needs clipping. */
+.nh-card--intro {
+    container: intro / inline-size;
+    overflow: visible;
+    padding: var(--nh-card-pad);
+}
+
+.nh-card--intro:hover {
+    box-shadow: var(--nh-shadow-card);
+    transform: none;
+}
+
+/* while a photo is being dragged, lift the whole card above its neighbours */
+.nh-card--intro:has(.nh-stack__card.is-dragging) {
+    z-index: 5;
+}
+
+/* One column at every width: heading, text, then the photo stack underneath,
+   aligned to the same left edge as the text. The stack's size still answers
+   to the card's own width (cqi), so it scales with the card, not the window. */
+.nh-intro__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+        "head"
+        "body"
+        "stack";
+    align-items: start;
+}
+
+.nh-intro__head {
+    grid-area: head;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.nh-intro__body  { grid-area: body; }
+
+.nh-stack {
+    grid-area: stack;
+    justify-self: start;
+    width: 100%;
+    max-width: var(--nh-intro-measure, 38rem);   /* as wide as the text above it */
+    margin-top: var(--nh-space-8);
+}
+
+
+/* ---------------------------------------------------------------------------
+   Photo stack
+
+   Six landscape photos fanned closely behind one another, up and to the
+   right, below the introduction text. Click or tap the top one, or drag / swipe it past a short
+   distance, and it goes to the back while the rest move up. A drag released
+   too early springs back. Keyboard: focus the stack and use Enter, Space or
+   the arrow keys. No shadows: the white edge of each photo separates it.
+
+   Every card uses the same position variables, written by the script:
+     --x / --y   resting offset, as a fraction of the card's own size
+     --r         resting tilt
+     --dx / --dy live drag offset, in pixels
+     --s         scale (hover and drag)
+--------------------------------------------------------------------------- */
+
+.nh-stack {
+    position: relative;
+    width: 100%;
+    /* Landscape photos. The top photo is 91% of the text width at 3:2; the
+       rest of the box is room for the fan up and to the right, so the whole
+       stack spans exactly the text width without spilling past it. */
+    --stack-card-w: 91%;
+    aspect-ratio: 1 / 0.695;   /* just tall enough for the six-photo fan */
+    border-radius: var(--nh-radius-shot);
+    color: var(--nh-ink);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.nh-stack:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 6px;
+}
+
+.nh-stack__card {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: var(--stack-card-w);
+    aspect-ratio: 3 / 2;
+    padding: 3px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--nh-canvas);
+    transform-origin: 50% 90%;
+    transform:
+        translate(calc(var(--x, 0%) + var(--dx, 0px)), calc(var(--y, 0%) + var(--dy, 0px)))
+        rotate(var(--r, 0deg))
+        scale(var(--s, 1));
+    transition: transform 500ms var(--nh-ease);
+    touch-action: pan-y;   /* a vertical swipe still scrolls the page */
+}
+
+.nh-stack__card.is-top {
+    cursor: pointer;
+}
+
+.nh-stack__card.is-dragging {
+    --s: 1.1;
+    --r: 0deg;
+    cursor: grabbing;
+    transition: transform 70ms linear;
+}
+
+/* a short drag springs back with a small overshoot */
+.nh-stack__card.is-returning {
+    transition: transform 460ms cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.nh-stack__card img,
+.nh-stack__ph {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 9px;
+}
+
+.nh-stack__card img {
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* empty portrait until a photo is added — the same quiet tint as the other
+   pending images on the page */
+.nh-stack__ph {
+    background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+/* Availability: a green outlined pill with a light that breathes. */
+.nh-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nh-space-2);
+    margin-bottom: var(--nh-space-5);
+    padding: 4px 12px 4px 10px;
+    border: 1px solid var(--nh-signal-line);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: var(--nh-medium);
+    line-height: 1.5;
+    color: var(--nh-signal-text);
+}
+
+.nh-status__light {
+    position: relative;
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--nh-signal);
+    box-shadow: 0 0 6px rgba(58, 134, 96, 0.55);
+    animation: nh-light 2.6s ease-in-out infinite;
+}
+
+/* the halo that swells and fades around it */
+.nh-status__light::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--nh-signal);
+    opacity: 0;
+    animation: nh-halo 2.6s ease-out infinite;
+}
+
+@keyframes nh-light {
+    0%, 100% { opacity: 1;    box-shadow: 0 0 7px rgba(58, 134, 96, 0.6); }
+    50%      { opacity: 0.45; box-shadow: 0 0 2px rgba(58, 134, 96, 0.2); }
+}
+
+@keyframes nh-halo {
+    0%   { opacity: 0.35; transform: scale(1); }
+    70%  { opacity: 0;    transform: scale(2.6); }
+    100% { opacity: 0;    transform: scale(2.6); }
+}
+
+.nh-intro__title {
+    font-size: var(--nh-size-display);
+    font-weight: var(--nh-medium);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+    color: var(--nh-ink);
+    text-wrap: balance;
+}
+
+.nh-intro__body {
+    display: grid;
+    gap: var(--nh-space-4);
+    max-width: var(--nh-intro-measure, 38rem);
+    margin-top: var(--nh-space-6);
+    font-weight: var(--nh-regular);
+    line-height: 1.95;
+    color: var(--nh-text);
+    text-wrap: pretty;
+}
+
+/* Highlighter stroke behind "product designer".
+
+   A flat band in light blue, sitting a little low on the letters and
+   slightly slanted at both ends — the way a marker lands — rather than a
+   box or a label. It grows from left to right once on load; the text never
+   moves, only the background under it.
+
+   The resting state is fully drawn, so with reduced motion (which switches
+   animations off in section 12) the highlight simply appears. */
+.nh-highlight {
+    padding-inline: 0.06em;
+    margin-inline: -0.06em;
+    font-style: italic;
+    background-color: transparent;
+    background-image: linear-gradient(
+        100deg,
+        transparent 0,
+        var(--nh-highlight) 0.35em,
+        var(--nh-highlight) calc(100% - 0.3em),
+        transparent 100%
+    );
+    background-repeat: no-repeat;
+    background-position: 0 72%;
+    background-size: 100% 62%;
+    color: inherit;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    /* starts as soon as the page lands */
+    animation: nh-highlight 780ms cubic-bezier(0.35, 0.6, 0.25, 1) backwards;
+}
+
+@keyframes nh-highlight {
+    from { background-size: 0% 62%; }
+    to   { background-size: 100% 62%; }
+}
+
+
+/* ===========================================================================
+   6. CARD
+
+   <article class="nh-card">
+     <div class="nh-card__stage">       screenshots, or your own component
+     <a class="nh-card__link">          covers the card: the click target
+       <span class="nh-card__arrow">    the visible affordance
+
+   No border, no outline. The card is a colour field lifted off the canvas
+   by a soft shadow; the work inside it carries the identity.
+
+   Interactive content added later goes in the stage with the class
+   .nh-card__interactive, which lifts it above the link so it keeps its own
+   clicks while the rest of the card still opens the project.
+=========================================================================== */
+
+.nh-card {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: var(--nh-radius-card);
+    background: var(--tone, var(--nh-card));
+    box-shadow: var(--nh-shadow-card);
+    color: var(--nh-ink);
+    isolation: isolate;
+    transition:
+        box-shadow var(--nh-slow) var(--nh-ease),
+        transform var(--nh-slow) var(--nh-ease);
+}
+
+.nh-card.is-dark {
+    color: #ECF1F6;
+}
+
+/* Product cards measure themselves, so the screenshots inside can size to
+   the card's height as well as its width (cqw / cqh in section 7). Cards
+   with text keep their natural height and are left out. */
+.nh-card:not(.nh-card--text):not(.nh-card--intro):not(.nh-card--content) {
+    container-type: size;
+}
+
+/* A card that is as tall as what is inside it (the LUDIS prototype, showing
+   the whole court): the stage returns to normal flow and pads its content
+   like the text cards. */
+.nh-card--content .nh-card__stage {
+    position: relative;
+    padding: var(--nh-card-pad);
+}
+
+/* A card with a fixed proportion (the LUDIS prototype, 16:9): its height
+   comes from its width, and the stage pads its content like the text
+   cards. */
+.nh-card--ratio {
+    aspect-ratio: var(--card-ratio, 16 / 9);
+}
+
+.nh-card--ratio .nh-card__stage {
+    padding: var(--nh-card-pad);
+}
+
+/* Only the arrow is a link. The card itself does not lift or press, so an
+   interactive prototype inside it can be used freely; the arrow keeps the
+   same hover as every other card. */
+.nh-card.is-arrow-link .nh-card__link {
+    inset: auto;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.nh-card.is-arrow-link .nh-card__link:focus-visible {
+    outline-offset: 2px;
+    border-radius: 50%;
+}
+
+.nh-card.is-arrow-link .nh-card__arrow {
+    top: 0;
+    right: 0;
+}
+
+.nh-card.is-arrow-link:hover,
+.nh-card.is-arrow-link:has(.nh-card__link:focus-visible),
+.nh-card.is-arrow-link:active {
+    box-shadow: var(--nh-shadow-card);
+    transform: none;
+}
+
+/* hovering the card (not the arrow) leaves the arrow at rest */
+.nh-card.is-arrow-link:hover .nh-card__arrow {
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--nh-ink);
+}
+
+.nh-card.is-arrow-link:hover .nh-card__arrow svg {
+    transform: none;
+}
+
+.nh-card.is-arrow-link .nh-card__link:hover .nh-card__arrow,
+.nh-card.is-arrow-link .nh-card__link:focus-visible .nh-card__arrow {
+    background: var(--nh-ink);
+    color: #FFFFFF;
+}
+
+.nh-card.is-arrow-link .nh-card__link:hover .nh-card__arrow svg,
+.nh-card.is-arrow-link .nh-card__link:focus-visible .nh-card__arrow svg {
+    transform: translate(1px, -1px);
+}
+
+.nh-card__stage {
+    position: absolute;
+    inset: 0;
+}
+
+.nh-card__link {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: block;
+    border-radius: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nh-card.is-unlinked .nh-card__link {
+    cursor: default;
+}
+
+.nh-card__link:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: -2px;
+    border-radius: inherit;
+}
+
+.nh-card__interactive {
+    position: relative;
+    z-index: 3;
+}
+
+/* The arrow: a small round button in the top-right corner, identical on
+   every product card. */
+.nh-card__arrow {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--nh-ink);
+    box-shadow: 0 1px 2px rgba(15, 23, 34, 0.08), 0 4px 12px -6px rgba(15, 23, 34, 0.18);
+    transition:
+        background-color var(--nh-base) ease,
+        color var(--nh-base) ease,
+        transform var(--nh-base) var(--nh-ease);
+}
+
+.nh-card__arrow svg {
+    width: 14px;
+    height: 14px;
+    transition: transform var(--nh-base) var(--nh-ease);
+}
+
+.nh-card.is-dark .nh-card__arrow {
+    background: rgba(255, 255, 255, 0.14);
+    color: #FFFFFF;
+    box-shadow: none;
+}
+
+/* Hover and keyboard focus: the card itself stays still — no lift, no zoom.
+   Only the arrow answers: it fills in and nudges toward where it leads. */
+.nh-card:hover .nh-card__arrow,
+.nh-card:has(.nh-card__link:focus-visible) .nh-card__arrow {
+    background: var(--nh-ink);
+    color: #FFFFFF;
+}
+
+.nh-card.is-dark:hover .nh-card__arrow,
+.nh-card.is-dark:has(.nh-card__link:focus-visible) .nh-card__arrow {
+    background: #FFFFFF;
+    color: var(--nh-ink);
+}
+
+.nh-card:hover .nh-card__arrow svg,
+.nh-card:has(.nh-card__link:focus-visible) .nh-card__arrow svg {
+    transform: translate(1px, -1px);
+}
+
+/* Entry: one quiet rise as the grid first appears. */
+@media (prefers-reduced-motion: no-preference) {
+    .nh-grid.is-rendered > .nh-card {
+        animation: nh-rise 700ms var(--nh-ease) backwards;
+        animation-delay: calc(var(--i, 0) * 60ms);
+    }
+}
+
+@keyframes nh-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: none; }
+}
+
+
+/* ===========================================================================
+   7. STAGE FRAMES
+=========================================================================== */
+
+.nh-frame > * {
+    transition: transform var(--nh-slow) var(--nh-ease), opacity var(--nh-base) ease;
+}
+
+/* An image slot. Missing files leave a quiet shape of the right proportion
+   (no text, no stroke) — see the console for the paths still expected. */
+.nh-shot {
+    display: block;
+    overflow: hidden;
+    background: color-mix(in srgb, currentColor 7%, transparent);
+    box-shadow: var(--nh-shadow-shot);
+}
+
+.nh-shot > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.nh-shot.is-pending {
+    background: color-mix(in srgb, currentColor 6%, transparent);
+    box-shadow: none;
+}
+
+/* --- canvas: one image, inset, running off the bottom edge --------------- */
+
+/* The frame runs past the bottom edge whatever the card's proportions, so
+   a tall card never shows an empty band under the image. */
+.nh-frame--canvas {
+    position: absolute;
+    inset: 11% 10% -10%;
+}
+
+.nh-shot--canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--nh-radius-shot);
+}
+
+/* --- phones: 1–3 screens, running off the bottom edge -------------------
+
+   Phones are sized from the card's HEIGHT (cqh), so they always reach past
+   the bottom edge whatever the card's proportions — a tall narrow card and
+   a short wide one both end without an empty band under the screens. When
+   the card is too narrow for every phone at that size, the row is simply
+   cropped at the side: the screens stay partly visible, never shrunk. */
+
+.nh-frame--phones {
+    position: absolute;
+    top: 13cqh;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 4cqw;
+}
+
+.nh-shot--phone {
+    flex: 0 0 auto;
+    width: var(--phone-w, 42cqh);
+    aspect-ratio: 9 / 19.5;
+    border-radius: 12% / 5.6%;
+}
+
+.nh-card.is-dark .nh-shot--phone {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), var(--nh-shadow-shot);
+}
+
+.nh-frame--phones[data-count="1"] { --phone-w: 46cqh; }
+
+.nh-frame--phones[data-count="3"] { --phone-w: 42cqh; }
+
+.nh-frame--phones[data-count="3"] > :nth-child(2) {
+    transform: translateY(9%);
+}
+
+/* Two phones overlap, anchored left, the second lower and running off the
+   right edge when the card is narrow. */
+.nh-frame--phones[data-count="2"] {
+    --phone-w: 46cqh;
+    justify-content: flex-start;
+    gap: 0;
+    padding-left: 9cqw;
+}
+
+.nh-frame--phones[data-count="2"] > :nth-child(2) {
+    margin-left: calc(var(--phone-w) * -0.42);
+    transform: translateY(11%);
+}
+
+/* --- browser and stack: screen captures, running off the bottom edge ---- */
+
+.nh-frame--browser,
+.nh-frame--stack {
+    position: absolute;
+    inset: 16% 10% auto;
+}
+
+.nh-shot--screen {
+    width: 100%;
+    aspect-ratio: var(--ratio, 3 / 2);
+    border-radius: var(--nh-radius-shot);
+}
+
+/* A collection: three screens fanned back. */
+.nh-frame--stack {
+    display: grid;
+}
+
+.nh-frame--stack > * {
+    grid-area: 1 / 1;
+    transform-origin: 50% 0;
+}
+
+.nh-frame--stack > :nth-child(1) { z-index: 3; }
+.nh-frame--stack > :nth-child(2) { z-index: 2; transform: translateY(-7%) scale(0.93); opacity: 0.85; }
+.nh-frame--stack > :nth-child(3) { z-index: 1; transform: translateY(-14%) scale(0.86); opacity: 0.65; }
+
+/* --- prints: a small pile of printed pieces ------------------------------ */
+
+.nh-frame--prints {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --print-w: clamp(84px, 9vw, 136px);
+}
+
+.nh-shot--print {
+    flex: 0 0 auto;
+    width: var(--print-w);
+    aspect-ratio: 1;
+    border-radius: 4px;
+    transition: transform var(--nh-slow) var(--nh-ease), margin var(--nh-slow) var(--nh-ease);
+}
+
+.nh-shot--print + .nh-shot--print {
+    margin-left: calc(-0.34 * var(--print-w));
+}
+
+.nh-shot--print:nth-child(1) { transform: rotate(-3deg); }
+.nh-shot--print:nth-child(2) { transform: rotate(1.5deg) translateY(4px); }
+.nh-shot--print:nth-child(3) { transform: rotate(-1deg) translateY(-3px); }
+.nh-shot--print:nth-child(4) { transform: rotate(2.5deg) translateY(2px); }
+
+
+/* ===========================================================================
+   7b. LUDIS PLAY BOARD (inside the LUDIS card)
+
+   A recreation of the app's play-design screen: toolbar on top, the court
+   below with a floating tool rail on the right. Everything scales with the
+   screen's own width (cqi), so it reads the same at any card size. The
+   drawing itself is scripts/ludis-play.js.
+
+   The product's own colours are used inside the screen only — they belong
+   to LUDIS, not to the portfolio.
+=========================================================================== */
+
+.lp {
+    --lp-ink:   #1A202C;
+    --lp-bar:   #EDF2F7;
+    --lp-muted: #CBD5E0;   /* the court's line colour, from quadra-fundo.svg */
+
+    container: lp / inline-size;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #FFFFFF;
+    box-shadow: var(--nh-shadow-shot);
+    color: var(--lp-ink);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.lp__bar {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 2cqi, 20px);
+    height: clamp(34px, 7.4cqi, 60px);
+    /* Left: the instruction starts where the court's touchline starts —
+       measured by scripts/ludis-play.js into --lp-court-left.
+       Right: extra room, where the card's arrow sits over the bar. */
+    padding-inline: var(--lp-court-left, 4.4cqi) clamp(34px, 7cqi, 56px);
+    background: var(--lp-bar);
+}
+
+.lp__hint {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    font-size: clamp(8.5px, 1.75cqi, 15px);
+    font-weight: var(--nh-semibold);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-align: left;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Icons that do nothing in the prototype are drawn in the court's own light
+   line grey, so they read as unavailable. Only undo and redo are buttons. */
+.lp__tools,
+.lp__rail {
+    color: var(--lp-muted);
+}
+
+.lp__tools {
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 3.6cqi, 30px);
+}
+
+.lp__btn {
+    display: grid;
+    place-items: center;
+    margin: -5px;
+    padding: 5px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--lp-ink);
+    cursor: pointer;
+    transition: color var(--nh-fast) ease, background-color var(--nh-fast) ease;
+}
+
+.lp__btn:hover {
+    background: rgba(26, 32, 44, 0.07);
+}
+
+.lp__btn:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 1px;
+}
+
+.lp__tools svg,
+.lp__rail svg {
+    display: block;
+    width: clamp(11px, 2.8cqi, 22px);
+    height: clamp(11px, 2.8cqi, 22px);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.lp__rail svg {
+    width: max(9px, min(2.8cqi, 9cqh));
+    height: max(9px, min(2.8cqi, 9cqh));
+}
+
+.lp__tools .lp__gear {
+    fill: currentColor;
+}
+
+.lp__tools .lp__gear circle {
+    fill: var(--lp-bar);
+}
+
+/* The field fills whatever height the 16:9 card leaves under the bar. The
+   court inside keeps its own proportion and covers that area, centred — its
+   top and bottom (or sides, on an unusually tall card) are cropped. */
+.lp__field {
+    container: lp-field / size;
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* In a card that is as tall as its content, the field takes the court's own
+   proportion, so the whole court shows with nothing cropped. */
+.nh-card--content .lp__field {
+    flex: none;
+    aspect-ratio: 635 / 449;
+}
+
+.lp__court {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100cqw, calc(100cqh * 635 / 449));
+    aspect-ratio: 635 / 449;
+    transform: translate(-50%, -50%);
+}
+
+.lp__pitch,
+.lp__board {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.lp__pitch {
+    pointer-events: none;
+}
+
+.lp__board {
+    overflow: hidden;
+}
+
+/* the floating tool rail — visual only, never in the way of drawing */
+.lp__rail {
+    position: absolute;
+    top: 50%;
+    right: clamp(8px, 2.4cqi, 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* sized by the field's width AND height, so it always fits the cropped
+       16:9 field */
+    gap: max(4px, min(5.4cqi, 6cqh));
+    padding: max(5px, min(3.4cqi, 4cqh)) max(5px, min(1.6cqi, 2.4cqh));
+    border-radius: 999px;
+    background: #FFFFFF;
+    box-shadow: 0 6px 18px -8px rgba(26, 32, 44, 0.28);
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* players */
+.lp__player {
+    cursor: crosshair;
+    touch-action: none;   /* a drag from a player draws, it never scrolls */
+}
+
+.lp__player-body {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform var(--nh-base) var(--nh-ease);
+}
+
+.lp__player.is-drawing .lp__player-body {
+    transform: scale(1.08);
+}
+
+.lp__player text {
+    font-family: var(--nh-font);
+    font-size: 13.5px;
+    font-weight: var(--nh-medium);
+    fill: #FFFFFF;
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+}
+
+.lp__hit {
+    fill: transparent;
+}
+
+
+/* ===========================================================================
+   8. GRAPHIC DESIGN CARD
+
+   The exception to the visual-only rule: label, title, description and a
+   call to action, above the pile of prints. Same surface, same shadow, same
+   whole-card link as the product cards.
+=========================================================================== */
+
+.nh-card--text .nh-card__stage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: var(--nh-card-pad);
+}
+
+.nh-gd__text {
+    display: grid;
+    justify-items: start;
+    gap: var(--nh-space-2);
+}
+
+.nh-gd__title {
+    margin-top: var(--nh-space-1);
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-medium);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+.nh-gd__desc {
+    max-width: 26rem;
+    font-size: var(--nh-size-small);
+    line-height: 1.55;
+    color: var(--nh-muted);
+}
+
+.nh-gd__cta {
+    margin-top: var(--nh-space-1);
+    font-size: var(--nh-size-small);
+    font-weight: var(--nh-medium);
+    line-height: 1.5;
+    color: var(--nh-ink);
+}
+
+.nh-card--text .nh-frame--prints {
+    flex: 1 1 auto;
+    min-height: 120px;
+    margin-top: var(--nh-space-4);
+}
+
+.nh-card--text:hover .nh-arrow,
+.nh-card--text:has(.nh-card__link:focus-visible) .nh-arrow {
+    transform: translateX(3px);
+}
+
+
+/* ===========================================================================
+   9. CONTACT AND FOOTER
+=========================================================================== */
+
+.nh-contact {
+    margin-top: var(--nh-space-24);
+}
+
+.nh-contact__inner {
+    display: grid;
+    gap: var(--nh-space-6);
+    padding-block: var(--nh-space-10) var(--nh-space-16);
+    border-top: 1px solid var(--nh-line);
+}
+
+.nh-contact__body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--nh-space-4) var(--nh-space-8);
+}
+
+.nh-contact__email {
+    font-size: var(--nh-size-email);
+    font-weight: var(--nh-light);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--nh-ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--nh-line-strong);
+    text-underline-offset: 0.2em;
+    overflow-wrap: anywhere;
+    transition: color var(--nh-fast) ease, text-decoration-color var(--nh-fast) ease;
+}
+
+.nh-contact__email:hover {
+    color: var(--nh-accent);
+    text-decoration-color: currentColor;
+}
+
+.nh-contact__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--nh-space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--nh-size-small);
+}
+
+.nh-contact__list .nh-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+}
+
+.nh-footer {
+    border-top: 1px solid var(--nh-line);
+}
+
+.nh-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--nh-space-2) var(--nh-space-6);
+    padding-block: var(--nh-space-6);
+    font-size: var(--nh-size-tiny);
+    color: var(--nh-muted);
+}
+
+
+/* ===========================================================================
+   10. EXPAND-TO-PAGE TRANSITION
+
+   On a plain click on a linked card, a layer in the canvas colour grows out
+   of the card's rectangle to fill the window while the next page loads.
+=========================================================================== */
+
+.nh-expand {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--nh-canvas);
+    pointer-events: none;
+}
+
+
+/* ===========================================================================
+   10b. MESSAGE BUBBLE
+   A blue chat bubble, bottom left. It pops in like a text message the
+   moment the page renders — only its size animates, growing out of the
+   tail corner; no fade. The entrance is a CSS animation, so it needs no
+   script. scripts/new-home.js adds .is-hidden once the visitor has scrolled
+   30% of the page (the bubble shrinks back into its corner) and removes it
+   when they return to the top.
+=========================================================================== */
+
+.nh-bubble {
+    position: fixed;
+    left: var(--nh-gutter);
+    bottom: calc(var(--nh-gutter) + env(safe-area-inset-bottom, 0px));
+    z-index: 40;
+    max-width: min(23rem, calc(100vw - 2 * var(--nh-gutter)));
+    margin: 0;
+    padding: var(--nh-space-4) var(--nh-space-6);
+    /* the flatter corner is the tail — the bubble grows out of it */
+    border-radius: 24px 24px 24px 6px;
+    background: var(--nh-bubble);
+    color: var(--nh-bubble-text);
+    font-size: 1.0625rem;
+    font-weight: var(--nh-medium);
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    transform-origin: 0 100%;
+    pointer-events: none;
+    /* on load: waits a second, then pops in over half a second. `backwards`
+       keeps it at size 0 during the wait; once it ends, the normal styles
+       (and .is-hidden) take over */
+    animation: nh-bubble-pop var(--nh-bubble-in) var(--nh-ease-pop) var(--nh-bubble-delay) backwards;
+    /* popping back in at the top */
+    transition:
+        transform var(--nh-bubble-in) var(--nh-ease-pop),
+        visibility 0s;
+}
+
+@keyframes nh-bubble-pop {
+    from { transform: scale(0); }
+}
+
+/* leaving: shrinks back into the tail corner; visibility flips at the end */
+.nh-bubble.is-hidden {
+    visibility: hidden;
+    transform: scale(0);
+    transition:
+        transform var(--nh-bubble-out) var(--nh-ease-shrink),
+        visibility 0s linear var(--nh-bubble-out);
+}
+
+@media (max-width: 719.98px) {
+    .nh-bubble {
+        padding: var(--nh-space-3) var(--nh-space-5);
+        font-size: 1rem;
+    }
+}
+
+
+/* ===========================================================================
+   11. RESPONSIVE
+
+   ≥ 1280   intro card 5 columns · lead 4 · lead-narrow 3, all in row 1
+   720–1279 intro card across the top, then the cards in full-width rows
+            (below 1280 five columns are too narrow for the text and the
+            photo stack side by side)
+   < 720    one column: intro card, then each card with its own proportions
+
+   In every case the rows under the introduction use all twelve columns.
+=========================================================================== */
+
+@media (min-width: 1280px) {
+    /* The introduction spans the first two rows on the left. Beside it, the
+       prototype card takes row 1 at its own content height, and the card
+       below it takes row 2 — a flexible row, so it absorbs exactly what is
+       left of the introduction's height. */
+    .nh-grid {
+        grid-template-rows: auto 1fr;
+    }
+
+    .nh-grid > .nh-intro {
+        grid-column: 1 / span 5;
+        grid-row: 1 / span 2;
+        align-self: stretch;
+    }
+
+    .nh-grid > [data-size="lead-wide"] {
+        grid-column: 6 / span 7;
+        grid-row: 1;
+        align-self: start;
+    }
+
+    .nh-grid > [data-size="lead-below"] {
+        grid-column: 6 / span 7;
+        grid-row: 2;
+        min-height: 240px;
+    }
+
+    /* rows below the introduction are three units tall here, since the lead
+       cards already carry the height at the top */
+    .nh-grid > [data-size="large"]  { grid-row: span 3; }
+    .nh-grid > [data-size="medium"] { grid-row: span 3; }
+}
+
+@media (min-width: 720px) and (max-width: 1279.98px) {
+    .nh-card--intro {
+        --nh-intro-measure: 40rem;
+    }
+}
+
+@media (max-width: 719.98px) {
+    .nh {
+        --nh-gap: 14px;   /* was 12px, +20% */
+        --nh-radius-card: 14px;
+        --nh-nav-top: 12px;
+        --nh-nav-clear: 80px;
+    }
+
+    html {
+        scroll-padding-top: 72px;
+    }
+
+    /* Same floating pill, a step smaller on a phone. */
+    .nh-nav {
+        gap: 2px;
+        padding: 3px;
+    }
+
+    .nh-nav a {
+        min-height: 34px;
+        padding-inline: clamp(11px, 3.2vw, 14px);
+        font-size: 0.8125rem;
+    }
+
+    /* One column. Every item goes back to automatic placement, and each card
+       takes proportions that suit its content instead of a shrunken slice of
+       the desktop composition. */
+    .nh-grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-auto-rows: auto;
+    }
+
+    .nh-grid > .nh-card {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .nh-grid > [data-size="lead-below"]  { aspect-ratio: 1 / 0.86; }
+    .nh-grid > [data-size="large"]       { aspect-ratio: 1 / 0.9; }
+    .nh-grid > [data-size="medium"]      { aspect-ratio: 1 / 0.8; }
+
+    /* the text card sizes itself to its text plus a band of prints */
+    .nh-grid > .nh-card--text {
+        aspect-ratio: auto;
+    }
+
+    .nh-card--text .nh-frame--prints {
+        min-height: 180px;
+        --print-w: 30vw;
+    }
+
+    .nh-card__arrow {
+        top: 12px;
+        right: 12px;
+    }
+
+    .nh-contact__body {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Touch screens have no hover: keep cards at rest. */
+@media (hover: none) {
+    .nh-card:hover {
+        box-shadow: var(--nh-shadow-card);
+        transform: none;
+    }
+}
+
+
+/* ===========================================================================
+   12. REDUCED MOTION
+=========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .nh *,
+    .nh *::before,
+    .nh *::after {
+        transition-duration: 1ms !important;
+        animation: none !important;
+    }
+}

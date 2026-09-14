@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Milena Caldas — Product Designer</title>
+<meta name="description" content="Milena Caldas is a product designer based in Curitiba, Brazil, working across product design, AI and learning."/>
+<meta name="theme-color" content="#FFFFFF"/>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/ui/favicon.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/ui/favicon-32.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,500&display=swap"/>
+<!-- Self-contained: this page does not load tokens.css, components.css or
+     page-style.css. Its visual language is scoped to .nh in new-home.css so
+     the existing pages keep rendering exactly as they do today. -->
+<link rel="stylesheet" href="new-home.css?v=bubble-12"/>
+</head>
+<body class="nh">
+
+<a class="nh-skip" href="#about">Skip to content</a>
+
+<!-- Floating navigation: a compact light pill, aligned to the right edge of the content. -->
+<header class="nh-header">
+    <nav class="nh-nav" aria-label="Primary">
+        <a href="#top" data-nh-nav="home">Home</a>
+        <a href="#about" data-nh-nav="about">About</a>
+        <a href="#work" data-nh-nav="work">Work</a>
+        <a href="#contact" data-nh-nav="contact">Contact</a>
+    </nav>
+</header>
+
+<main id="top">
+
+    <!-- ONE GRID for the introduction and every card.
+
+         The introduction is a card itself, and the first item. On a wide
+         screen it takes the left columns of the first row, and that row is
+         exactly as tall as the introduction — the two "lead" cards beside it
+         stretch to match. Every card after them flows into full-width rows,
+         so there is never a reserved column or an empty area under it.
+
+         The project cards are rendered into this element by
+         scripts/new-home.js, from data/home-projects.js. -->
+    <div class="nh-shell nh-grid" data-nh-grid>
+
+        <section class="nh-card nh-card--intro nh-intro" id="about" aria-labelledby="intro-title">
+            <div class="nh-intro__layout">
+                <div class="nh-intro__head">
+                    <p class="nh-status"><span class="nh-status__light" aria-hidden="true"></span>Available for work</p>
+                    <h1 class="nh-intro__title" id="intro-title">Milena is a <mark class="nh-highlight">product designer</mark>.</h1>
+                </div>
+
+                <!-- Photo stack, under the text. Click, tap, drag or swipe the top
+                     photo to send it to the back. Photos come from `introPhotos` in
+                     data/home-projects.js; scripts/new-home.js renders them. -->
+                <div class="nh-stack" data-nh-stack></div>
+
+                <div class="nh-intro__body">
+                    <p>Based in Curitiba, Brazil, I'm interested in making complex things easier to understand without making them smaller than they are.</p>
+                    <p>I work across product design, AI, and learning — from digital experiences at Brazil's largest pediatric hospital to Mosaico, an AI writing companion for young learners.</p>
+                    <p>I'm particularly interested in building AI products that feel clear, useful, and human.</p>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="nh-visually-hidden">Selected work</h2>
+
+    </div>
+
+    <section class="nh-shell nh-contact" id="contact" aria-labelledby="contact-title">
+        <div class="nh-contact__inner">
+            <h2 class="nh-section-title" id="contact-title">Contact</h2>
+            <div class="nh-contact__body">
+                <a class="nh-contact__email" href="mailto:milena.am.caldas@gmail.com">milena.am.caldas@gmail.com</a>
+                <ul class="nh-contact__list" data-nh-contact-links>
+                    <li><a class="nh-link" href="https://drive.google.com/file/d/14kkeX-nYINI_yYW-FbwWHhMAFweyPZ78/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume<span class="nh-link__ext" aria-hidden="true">↗</span><span class="nh-visually-hidden"> (opens in a new tab)</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="nh-footer">
+    <div class="nh-shell nh-footer__inner">
+        <p>© 2026 Milena Caldas</p>
+        <p>Designed by Milena Caldas. Developed by Pedro Gradowski.</p>
+    </div>
+</footer>
+
+<!-- Message bubble, bottom left. It pops in a second after the page loads, shrinks away
+     once the visitor has scrolled 30% of the page, and pops back at the top. -->
+<p class="nh-bubble" data-nh-bubble role="status">Hey, you should totally interact with everything. Click away!</p>
+
+<!--
+    CUSTOM CARD CONTENT
+
+    To replace a card's screenshots with your own interface or interactive
+    component, add a <template> whose data-nh-card matches the project id in
+    data/home-projects.js. Its content is placed inside that card's stage,
+    instead of the generated screenshots. Example:
+
+    <template data-nh-card="mosaico">
+        <div class="mosaico-demo">…</div>
+    </template>
+
+    The whole card stays clickable. Anything inside the template that needs
+    its own clicks (a button, a slider, an input) should carry the class
+    "nh-card__interactive" so it sits above the card's link.
+-->
+
+<!--
+    LUDIS — interactive play board (card "ludis").
+
+    A recreation of the LUDIS play-design screen: the toolbar with its
+    instruction and icons, the court (assets/ludis/quadra-fundo.svg) and five
+    players. Drag from a player to draw its route. The players, their colours
+    and positions, and the line styles live in scripts/ludis-play.js.
+    Undo and redo in the toolbar work; the other toolbar and side rail icons
+    are visual only, drawn in light grey.
+-->
+<template data-nh-card="ludis">
+    <div class="lp" data-ludis-play>
+        <div class="lp__bar">
+            <p class="lp__hint">Click and drag to draw your play!</p>
+            <div class="lp__tools">
+                <!-- undo and redo work; the other icons are visual only -->
+                <button class="lp__btn" type="button" data-lp-undo aria-label="Undo last line">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+                </button>
+                <button class="lp__btn" type="button" data-lp-redo aria-label="Redo line">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg>
+                </button>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/></svg>
+                <svg viewBox="0 0 24 24" class="lp__gear" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+        </div>
+        <div class="lp__field">
+            <div class="lp__court">
+                <img class="lp__pitch" src="assets/ludis/quadra-fundo.svg" alt="" draggable="false"/>
+                <svg class="lp__board" viewBox="0 0 635 449" role="img" aria-label="LUDIS play board with five players. Drag from a player to draw its route.">
+                    <g class="lp__lines"></g>
+                    <g class="lp__players"></g>
+                </svg>
+            </div>
+            <div class="lp__rail" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M7 17V7h10"/><path d="M17 17 7 7"/></svg>
+                <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" stroke-dasharray="3 2"/><path d="m9 15 3-7 3 7M10.2 12.4h3.6"/></svg>
+                <svg viewBox="0 0 24 24"><path d="m7 21-4.3-4.3a2.4 2.4 0 0 1 0-3.4l9.6-9.6a2.4 2.4 0 0 1 3.4 0l5.6 5.6a2.4 2.4 0 0 1 0 3.4L13 21"/><path d="M22 21H7M5 11l9 9"/></svg>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script src="data/home-projects.js?v=bubble-12"></script>
+<script src="scripts/new-home.js?v=bubble-12"></script>
+<script src="scripts/ludis-play.js"></script>
+</body>
+</html>
