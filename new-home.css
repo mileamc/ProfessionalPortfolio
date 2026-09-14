@@ -127,6 +127,9 @@
     --nh-bubble-out:  380ms;
     --nh-bubble-size: 44px;    /* closed: the three dots, a touch target wide */
     --nh-ease-pop:    cubic-bezier(0.34, 1.45, 0.64, 1);
+    /* leaves as gently as it arrives — --nh-ease starts fast, which reads as
+       a snap when something is going back to where it was */
+    --nh-ease-soft:   cubic-bezier(0.4, 0, 0.25, 1);
     --nh-ease-shrink: cubic-bezier(0.5, 0, 0.75, 0);
 }
 
@@ -1027,7 +1030,15 @@ html {
     transform:
         rotate(calc(var(--lean) * var(--print-open, 1)))
         translateY(calc(var(--rise) * var(--print-open, 1)));
-    transition: transform var(--nh-slow) var(--nh-ease), margin var(--nh-slow) var(--nh-ease);
+    /* Closing. The pile goes back on the soft curve: --nh-ease would leap
+       away from the open pile and then crawl the last few pixels home.
+       flex-shrink is in here too — it is a number, and interpolating it is
+       what keeps the pieces from snapping back to full size the instant the
+       pointer leaves. */
+    transition:
+        transform var(--nh-slow) var(--nh-ease-soft),
+        margin var(--nh-slow) var(--nh-ease-soft),
+        flex-shrink var(--nh-slow) var(--nh-ease-soft);
 }
 
 .nh-shot--print + .nh-shot--print {
@@ -1376,6 +1387,11 @@ html {
 .nh-card--text:has(.nh-card__link:focus-visible) .nh-shot--print {
     flex-shrink: 1;
     min-width: 0;
+    /* opening keeps the page's own curve; only the way back is softened */
+    transition:
+        transform var(--nh-slow) var(--nh-ease),
+        margin var(--nh-slow) var(--nh-ease),
+        flex-shrink var(--nh-slow) var(--nh-ease);
 }
 
 
