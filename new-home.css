@@ -1449,9 +1449,10 @@ html {
        keeps it at size 0 during the wait; once it ends, the normal styles
        (and .is-hidden) take over */
     animation: nh-bubble-pop var(--nh-bubble-in) var(--nh-ease-pop) var(--nh-bubble-delay) backwards;
-    /* popping back in at the top */
+    /* coming back: it waits for the dot to shrink into the corner first, so
+       the two are never on screen together — the corner is handed over */
     transition:
-        transform var(--nh-bubble-in) var(--nh-ease-pop),
+        transform var(--nh-bubble-in) var(--nh-ease-pop) var(--nh-bubble-out),
         visibility 0s;
 }
 
@@ -1476,8 +1477,11 @@ html {
 }
 
 /* The clue left behind: the bubble's tail corner, kept as a small button in
-   the same spot, so the message is always one click away. It swaps with the
-   bubble — one is out while the other is in. */
+   the same spot, so the message is always one click away. The two take turns
+   in that corner — each waits out the other's shrink before it grows, so the
+   bubble reads as collapsing into the dot and the dot as unfolding back into
+   the bubble. The hover lift lives on the inner face, which keeps it off the
+   delayed transition that does the handover. */
 .nh-bubble-dot {
     position: fixed;
     left: var(--nh-gutter);
@@ -1496,8 +1500,14 @@ html {
     cursor: pointer;
     transform-origin: 0 100%;
     transition:
-        transform var(--nh-bubble-in) var(--nh-ease-pop),
+        transform var(--nh-bubble-out) var(--nh-ease-pop) var(--nh-bubble-out),
         visibility 0s;
+}
+
+.nh-bubble-dot__face {
+    display: grid;
+    place-items: center;
+    transition: transform var(--nh-fast) var(--nh-ease);
 }
 
 .nh-bubble-dot svg {
@@ -1507,12 +1517,12 @@ html {
     fill: currentColor;
 }
 
-.nh-bubble-dot:hover {
-    transform: scale(1.08);
+.nh-bubble-dot:hover .nh-bubble-dot__face {
+    transform: scale(1.12);
 }
 
-.nh-bubble-dot:active {
-    transform: scale(0.96);
+.nh-bubble-dot:active .nh-bubble-dot__face {
+    transform: scale(0.94);
 }
 
 .nh-bubble-dot:focus-visible {

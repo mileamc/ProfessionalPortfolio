@@ -624,7 +624,8 @@
 
         if (dot) {
             dot.addEventListener("click", function () {
-                show(reduceMotion.matches ? 0 : cssMs("--nh-bubble-in"));
+                // the dot's shrink comes first, then the bubble's pop
+                show(reduceMotion.matches ? 0 : cssMs("--nh-bubble-out") + cssMs("--nh-bubble-in"));
             });
         }
 
