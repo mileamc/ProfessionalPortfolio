@@ -479,8 +479,8 @@ html {
 /* The line over the grid: it carries the room the navigation needs, and the
    grid stops carrying it, so the two read as one block under the bar. It
    starts where the introduction's own text does — the card's edge plus the
-   padding inside it — and is a shade lighter than the page's second colour,
-   as light as it can be and still read at this size (4.6:1). */
+   padding inside it. Its grey is the page's second colour at sixty per cent,
+   which is a quiet line rather than one meant to be read closely. */
 .nh-kicker {
     margin-block: 0;   /* the shell's own margin-inline: auto has to survive */
     padding-block: var(--nh-nav-clear) var(--nh-space-3);
@@ -488,7 +488,7 @@ html {
     font-size: var(--nh-size-tiny);
     font-weight: var(--nh-semibold);
     line-height: 1.4;
-    color: color-mix(in srgb, var(--nh-muted) 88%, #FFFFFF);
+    color: color-mix(in srgb, var(--nh-muted) 60%, #FFFFFF);
 }
 
 .nh-kicker + .nh-grid {
