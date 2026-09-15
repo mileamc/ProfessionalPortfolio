@@ -52,9 +52,9 @@
     --nh-bubble-text:   #FFFFFF;
 
     /* Availability — the only colour in the page chrome */
-    --nh-signal:        #3A8660;
-    --nh-signal-text:   #2E6B4D;   /* 5.6:1 on the canvas */
-    --nh-signal-line:   rgba(58, 134, 96, 0.5);
+    --nh-signal:        #16A34A;   /* the light itself, bright against the pill */
+    --nh-signal-text:   #1E7F4F;   /* 4.7:1 on the pill it sits in */
+    --nh-signal-line:   rgba(22, 163, 74, 0.45);
 
     /* Type — Poppins only; hierarchy comes from weight and size */
     --nh-font: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -322,7 +322,9 @@ html {
     right: 0;
     z-index: 50;
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--nh-space-4);
     max-width: calc(var(--nh-max) + 2 * var(--nh-gutter));
     margin-inline: auto;
     padding-inline: var(--nh-gutter);
@@ -691,10 +693,11 @@ html {
     display: inline-flex;
     align-items: center;
     gap: var(--nh-space-2);
-    margin-bottom: var(--nh-space-5);
-    padding: 4px 12px 4px 10px;
+    margin: 0;
+    padding: 5px 14px 5px 11px;
     border: 1px solid var(--nh-signal-line);
     border-radius: 999px;
+    background: var(--nh-nav-bg);
     font-size: 0.75rem;
     font-weight: var(--nh-medium);
     line-height: 1.5;
@@ -708,7 +711,7 @@ html {
     height: 7px;
     border-radius: 50%;
     background: var(--nh-signal);
-    box-shadow: 0 0 6px rgba(58, 134, 96, 0.55);
+    box-shadow: 0 0 6px rgba(22, 163, 74, 0.55);
     animation: nh-light 2.6s ease-in-out infinite;
 }
 
@@ -724,8 +727,8 @@ html {
 }
 
 @keyframes nh-light {
-    0%, 100% { opacity: 1;    box-shadow: 0 0 7px rgba(58, 134, 96, 0.6); }
-    50%      { opacity: 0.45; box-shadow: 0 0 2px rgba(58, 134, 96, 0.2); }
+    0%, 100% { opacity: 1;    box-shadow: 0 0 7px rgba(22, 163, 74, 0.6); }
+    50%      { opacity: 0.45; box-shadow: 0 0 2px rgba(22, 163, 74, 0.2); }
 }
 
 @keyframes nh-halo {
