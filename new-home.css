@@ -413,6 +413,13 @@ html {
 .nh-grid > [data-size="large"]           { grid-column: span 7; grid-row: span 4; }
 .nh-grid > [data-size="medium"]          { grid-column: span 5; grid-row: span 4; }
 
+/* The comparison is the one card whose content is read rather than looked
+   at: it carries a table of specifications at a size you can actually read,
+   so it takes nine columns and an extra row, and the card beside it gives
+   up the width. */
+.nh-grid > [data-project="imb-compare"]  { grid-column: span 9; grid-row: span 5; }
+.nh-grid > [data-project="imb"]          { grid-column: span 3; }
+
 
 /* ===========================================================================
    5. INTRODUCTION CARD AND AVAILABILITY TAG
@@ -1417,15 +1424,21 @@ html {
 /* ===========================================================================
    7d. IMB — THE EQUIPMENT COMPARISON (inside the IMB card)
 
-   The comparison from imb-brasil.com.br, cut to four machines. The Figma
-   frame is 2318 x 1352; every size here is that measurement over 2318, in
-   cqi — so the whole thing keeps the design's proportions at whatever width
-   the card happens to be. Each has a floor, because a third of a 24px label
-   is not a label any more; the card is a product screen, and it is read the
-   way the LUDIS screen beside it is.
+   The comparison from imb-brasil.com.br, cut to four machines. Unlike the
+   other cards, this one is read rather than looked at: the specifications
+   are set at the size the design sets them (the description text at 20px),
+   which is why the card takes nine columns and an extra row.
+
+   Sizes are in cqi against the card's own width, so the whole thing keeps
+   its proportions as the card moves with the viewport; each has a floor, so
+   nothing falls below a readable size on a narrow screen. The design's own
+   proportions (a 2318px frame) are not kept: at this width they would put
+   the description at 7px. The list on the left is held to a quarter of the
+   card so the table gets the rest.
 
    The product's own palette is used inside the screen only — it belongs to
-   IMB, not to the portfolio.
+   IMB, not to the portfolio. The surface, though, is the portfolio's card
+   grey, so the prototype sits in the page like every other bento.
 =========================================================================== */
 
 .ic {
@@ -1433,65 +1446,71 @@ html {
     --ic-ink:    #454545;
     --ic-body:   #656565;
     --ic-grey:   #9AA1A9;
-    --ic-line:   #D8DCE0;
-    --ic-shade:  #BDBDBD;
-    --ic-field:  #F6F6F6;
-    --ic-band:   #E4E4E4;
+    --ic-line:   #D6DCE3;
+    --ic-shade:  #C3C9D0;
+    --ic-field:  rgba(255, 255, 255, 0.62);
+    --ic-band:   #E4E8ED;
+    --ic-paper:  var(--nh-card);
 
     container: ic / inline-size;
     display: flex;
     height: 100%;
     overflow: hidden;
-    background: #FFFFFF;
+    background: var(--ic-paper);
     color: var(--ic-ink);
-    font-family: "Roboto", var(--nh-font);
+    font-family: var(--nh-font);
     -webkit-user-select: none;
     user-select: none;
+}
+
+/* `hidden` is how the stage swaps the empty state and the table, so it has
+   to beat their own display values */
+.ic [hidden] {
+    display: none;
 }
 
 /* --- the list on the left ------------------------------------------------ */
 
 .ic__aside {
-    flex: 0 0 38.35cqi;         /* 889 of 2318 */
+    flex: 0 0 28cqi;
     display: flex;
     flex-direction: column;
-    gap: 1.9cqi;
+    gap: 1.6cqi;
     min-width: 0;
-    padding: 3.5cqi 3.2cqi;
+    padding: 2.8cqi 2.2cqi;
     /* the panel's own edge, as in the design: it sits above the comparison */
-    box-shadow: 0.47cqi 0 1.4cqi -0.1cqi rgba(0, 0, 0, 0.12);
+    box-shadow: 0.4cqi 0 1.2cqi -0.1cqi rgba(15, 23, 34, 0.1);
     z-index: 1;
 }
 
 .ic__aside-head {
     display: flex;
     align-items: center;
-    gap: 0.94cqi;
+    gap: 0.8cqi;
     min-width: 0;
 }
 
 .ic__mark {
     flex: none;
-    width: max(2px, 0.35cqi);
+    width: max(2px, 0.3cqi);
     height: 1.1em;
     background: var(--ic-orange);
 }
 
 .ic__aside-title {
     margin: 0;
-    font-family: var(--nh-font);
-    font-size: clamp(9.5px, 1.63cqi, 15px);
+    font-size: clamp(9.5px, 1.22cqi, 13px);
     font-weight: 700;
     line-height: 1.4;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--ic-ink);
 }
 
 .ic__count {
-    margin: 0 0 0 0.5cqi;
-    font-family: var(--nh-font);
-    font-size: clamp(8.5px, 1.4cqi, 13px);
+    margin: 0 0 0 auto;
+    white-space: nowrap;
+    font-size: clamp(9px, 1.12cqi, 12px);
     font-weight: 500;
     line-height: 1.3;
     color: var(--ic-grey);
@@ -1499,25 +1518,28 @@ html {
 }
 
 .ic__count.is-counting {
-    font-weight: 700;
+    font-weight: 600;
+    color: var(--ic-body);
 }
 
 .ic__machines {
     display: flex;
     flex-direction: column;
-    gap: 1.9cqi;              /* 44 of 2318 */
+    gap: 1.3cqi;
     min-height: 0;
 }
 
-/* A machine. Picked, its edge and its toggle turn orange and its lines bold;
-   nothing moves, so the list never shifts under the pointer. */
+/* A machine. Picked, its edge and its toggle turn orange, its card turns
+   white and its lines bold; nothing moves, so the list never shifts under
+   the pointer. The toggle sits in the top right corner, clear of the text. */
 .ic .ic__machine {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 1.11cqi;
-    padding: 0.74cqi;
-    border: max(1px, 0.16cqi) solid #979797;
-    border-radius: 1.85cqi;
+    gap: 1cqi;
+    padding: 0.8cqi 2.4cqi 0.8cqi 0.8cqi;
+    border: max(1px, 0.12cqi) solid #C2CAD3;
+    border-radius: 1.4cqi;
     background: var(--ic-field);
     text-align: left;
     cursor: pointer;
@@ -1539,10 +1561,11 @@ html {
 .ic__thumb {
     flex: none;
     display: block;
-    width: 8.13cqi;
+    width: 5cqi;
+    min-width: 40px;
     aspect-ratio: 1;
     overflow: hidden;
-    border-radius: 1.29cqi;
+    border-radius: 0.9cqi;
     background: var(--ic-shade);
 }
 
@@ -1561,15 +1584,14 @@ html {
 }
 
 .ic__machine-name {
-    font-family: var(--nh-font);
-    font-size: clamp(10px, 1.66cqi, 16px);
+    font-size: clamp(11px, 1.52cqi, 16px);
     font-weight: 600;
     line-height: 1.15;
     color: var(--ic-ink);
 }
 
 .ic__machine-sub {
-    font-size: clamp(8.5px, 1.48cqi, 14px);
+    font-size: clamp(9.5px, 1.32cqi, 14px);
     font-weight: 400;
     line-height: 1.25;
     color: var(--ic-body);
@@ -1577,19 +1599,20 @@ html {
 }
 
 .ic__machine.is-picked .ic__machine-sub {
-    font-weight: 700;
+    font-weight: 600;
 }
 
 /* The toggle: one circle holding both marks, the cross drawn over the plus.
    Turning it over is a fade and a quarter turn, not a swap. */
 .ic__toggle {
-    flex: none;
+    position: absolute;
+    top: 0.8cqi;
+    right: 0.8cqi;
     display: grid;
     place-items: center;
-    width: 2.22cqi;
-    min-width: 14px;
+    width: 2.1cqi;
+    min-width: 16px;
     aspect-ratio: 1;
-    margin-left: auto;
     border-radius: 999px;
     background: var(--ic-shade);
     transition: background-color var(--nh-base) var(--nh-ease);
@@ -1603,14 +1626,10 @@ html {
     width: 72%;
     height: 72%;
     fill: none;
-    stroke: var(--ic-body);
+    stroke: #FFFFFF;
     stroke-width: 2.4;
     stroke-linecap: round;
     transition: stroke var(--nh-base) var(--nh-ease);
-}
-
-.ic__machine.is-picked .ic__toggle svg {
-    stroke: #FFFFFF;
 }
 
 .ic__plus,
@@ -1638,11 +1657,11 @@ html {
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    gap: 1.6cqi;
+    gap: 1.4cqi;
     min-width: 0;
-    padding: 3.5cqi 3.2cqi 2.4cqi 3.58cqi;
+    padding: 2.8cqi 2.2cqi 1.8cqi 2.6cqi;
     /* the card's own arrow sits in this corner */
-    padding-right: max(48px, 6.2cqi);
+    padding-right: max(48px, 5.4cqi);
 }
 
 .ic__panel-head {
@@ -1654,37 +1673,36 @@ html {
 
 .ic__eyebrow {
     margin: 0 0 0.4cqi;
-    font-family: var(--nh-font);
-    font-size: clamp(9px, 1.64cqi, 16px);
+    font-size: clamp(10px, 1.42cqi, 15px);
     font-weight: 600;
     line-height: 1.35;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     color: var(--ic-orange);
 }
 
 .ic__title {
     margin: 0;
-    font-family: var(--nh-font);
-    font-size: clamp(13px, 2.27cqi, 22px);
-    font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: -0.005em;
+    font-size: clamp(15px, 2.84cqi, 30px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
     text-transform: uppercase;
     color: var(--ic-ink);
 }
 
 .ic .ic__clear {
     flex: none;
-    padding: 0.72cqi 1.44cqi;
+    padding: 0.7cqi 1.4cqi;
     border: 0;
     border-radius: 999px;
-    background: #E0E0E0;
+    background: #DCE1E7;
     color: var(--ic-body);
-    font-family: "Roboto", var(--nh-font);
-    font-size: clamp(7.5px, 1.08cqi, 11px);
-    font-weight: 700;
+    font-family: var(--nh-font);
+    font-size: clamp(9px, 1.22cqi, 13px);
+    font-weight: 600;
     line-height: 1.3;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     cursor: pointer;
     transition:
@@ -1708,12 +1726,6 @@ html {
     min-height: 0;
 }
 
-/* `hidden` is how the stage swaps these two, so it has to beat their own
-   display values */
-.ic [hidden] {
-    display: none;
-}
-
 /* until two are picked */
 .ic__empty {
     position: absolute;
@@ -1722,33 +1734,35 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1cqi;
+    gap: 0.9cqi;
     padding-bottom: 2cqi;
     text-align: center;
     color: #949494;
 }
 
+/* the two arrows keep their own proportions — width only, height follows */
 .ic__empty-icon {
-    width: 9.4cqi;
-    min-width: 58px;
+    display: block;
+    width: 14cqi;
+    min-width: 96px;
     height: auto;
     margin-bottom: 1.4cqi;
+    fill: currentColor;
 }
 
 .ic__empty-title {
     margin: 0;
-    font-family: var(--nh-font);
-    font-size: clamp(11px, 1.83cqi, 18px);
+    font-size: clamp(12px, 2.03cqi, 21px);
     font-weight: 700;
-    line-height: 1.35;
-    letter-spacing: 0.05em;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
 }
 
 .ic__empty-note {
     margin: 0;
-    max-width: 30cqi;
-    font-size: clamp(9px, 1.5cqi, 15px);
+    max-width: 34cqi;
+    font-size: clamp(10px, 1.62cqi, 17px);
     font-weight: 400;
     line-height: 1.35;
 }
@@ -1762,15 +1776,14 @@ html {
     scrollbar-width: thin;
 }
 
-.ic__scroll.has-more::after {
+.ic__stage.has-more::after {
     content: "";
-    position: sticky;
+    position: absolute;
+    top: 0;
     right: 0;
-    float: right;
+    bottom: 0;
     width: 4cqi;
-    height: 100%;
-    margin-left: -4cqi;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), #FFFFFF);
+    background: linear-gradient(to right, rgba(245, 247, 250, 0), var(--ic-paper));
     pointer-events: none;
 }
 
@@ -1787,17 +1800,17 @@ html {
 .ic__section-label {
     position: sticky;
     left: 0;
-    background: #FFFFFF;
+    background: var(--ic-paper);
 }
 
 .ic__corner {
-    width: 9.4cqi;
+    width: 12.5cqi;
     border-bottom: 1px solid var(--ic-line);
 }
 
 .ic__table thead th {
-    width: 19.4cqi;
-    padding: 0 0 1cqi 0.7cqi;
+    width: 25cqi;
+    padding: 0 0 1cqi 1cqi;
     border-bottom: 1px solid var(--ic-line);
     border-left: 1px solid var(--ic-line);
     vertical-align: bottom;
@@ -1805,9 +1818,9 @@ html {
 
 .ic__shot {
     display: block;
-    width: 11.4cqi;
+    width: 11cqi;
     aspect-ratio: 1;
-    margin-bottom: 0.4cqi;
+    margin-bottom: 0.5cqi;
 }
 
 .ic__shot img {
@@ -1819,8 +1832,7 @@ html {
 
 .ic__col-name {
     display: block;
-    font-family: var(--nh-font);
-    font-size: clamp(10px, 1.66cqi, 16px);
+    font-size: clamp(12px, 2.13cqi, 22px);
     font-weight: 600;
     line-height: 1.2;
     color: var(--ic-ink);
@@ -1828,8 +1840,8 @@ html {
 
 .ic__col-sub {
     display: block;
-    font-size: clamp(7.5px, 1.04cqi, 11px);
-    font-weight: 700;
+    font-size: clamp(9px, 1.32cqi, 14px);
+    font-weight: 500;
     line-height: 1.4;
     color: var(--ic-body);
 }
@@ -1843,33 +1855,32 @@ html {
 .ic__section-label {
     display: flex;
     align-items: center;
-    gap: 0.35cqi;
+    gap: 0.5cqi;
     width: max-content;
-    padding: 0.55cqi 0.7cqi;
+    padding: 0.6cqi 1cqi;
     background: var(--ic-band);
-    font-family: var(--nh-font);
-    font-size: clamp(8px, 1.12cqi, 12px);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: 0.04em;
+    font-size: clamp(10px, 1.62cqi, 17px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
     color: var(--ic-ink);
 }
 
 .ic__table tbody th[scope="row"] {
-    padding: 0.55cqi 0.7cqi 0.55cqi 0;
+    padding: 0.85cqi 1cqi 0.85cqi 0;
     border-bottom: 1px solid var(--ic-line);
-    font-size: clamp(7.5px, 1.04cqi, 11px);
+    font-size: clamp(10px, 1.52cqi, 16px);
     font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: 0.02em;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     color: var(--ic-body);
     vertical-align: middle;
 }
 
 .ic__table td {
-    padding: 0.55cqi 0.7cqi;
+    padding: 0.85cqi 1cqi;
     border-bottom: 1px solid var(--ic-line);
     border-left: 1px solid var(--ic-line);
     vertical-align: middle;
@@ -1877,20 +1888,20 @@ html {
 
 .ic__value {
     display: block;
-    font-size: clamp(7.5px, 0.86cqi, 10px);
+    font-size: clamp(11px, 2.03cqi, 21px);
     font-weight: 400;
     line-height: 1.3;
     color: var(--ic-body);
 }
 
 .ic__figure {
-    font-size: clamp(8px, 1.04cqi, 11px);
+    font-size: clamp(12px, 2.23cqi, 23px);
     font-weight: 600;
     color: var(--ic-body);
 }
 
 .ic__unit {
-    font-size: 0.8em;
+    font-size: 0.75em;
     font-weight: 400;
 }
 
@@ -1898,11 +1909,11 @@ html {
 .ic__bar {
     display: block;
     width: 80%;
-    height: max(3px, 0.35cqi);
-    margin-top: 0.4cqi;
+    height: max(4px, 0.45cqi);
+    margin-top: 0.5cqi;
     overflow: hidden;
     border-radius: 999px;
-    background: var(--ic-grey);
+    background: var(--ic-shade);
 }
 
 .ic__bar-fill {
@@ -2285,6 +2296,10 @@ html {
        cards already carry the height at the top */
     .nh-grid > [data-size="large"]  { grid-row: span 3; }
     .nh-grid > [data-size="medium"] { grid-row: span 3; }
+
+    /* the comparison keeps its extra row here too */
+    .nh-grid > [data-project="imb-compare"] { grid-row: span 5; }
+    .nh-grid > [data-project="imb"]         { grid-row: span 5; }
 }
 
 @media (min-width: 720px) and (max-width: 1279.98px) {

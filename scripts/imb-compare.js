@@ -114,7 +114,10 @@
         var counter = root.querySelector("[data-ic-count]");
         var clear = root.querySelector("[data-ic-clear]");
         var empty = root.querySelector("[data-ic-empty]");
+        var emptyTitle = root.querySelector("[data-ic-empty-title]");
+        var emptyNote = root.querySelector("[data-ic-empty-note]");
         var scroll = root.querySelector("[data-ic-scroll]");
+        var stage = root.querySelector(".ic__stage");
         if (!list || !scroll) {
             return;
         }
@@ -218,6 +221,15 @@
             if (empty) {
                 empty.hidden = enough;
             }
+            // what is still missing, not what was asked for at the start:
+            // with one machine picked, one more is enough
+            if (emptyTitle && emptyNote) {
+                var one = picked.length === 1;
+                emptyTitle.textContent = one ? "Select one or more equipment" : "Select 2 or more equipment";
+                emptyNote.textContent = one
+                    ? "Add one more to generate the comparison."
+                    : "Add at least two to generate the comparison.";
+            }
             scroll.hidden = !enough;
             scroll.innerHTML = enough ? buildTable(machines) : "";
             if (enough) {
@@ -227,9 +239,12 @@
         };
 
         // A fade at the right edge while there is more table to scroll to.
+        // It hangs on the stage, not on the scroller: inside the scroller it
+        // would count as content and give the table a screenful of empty
+        // space below it.
         var markOverflow = function () {
             var more = scroll.scrollWidth - scroll.clientWidth - scroll.scrollLeft > 2;
-            scroll.classList.toggle("has-more", more);
+            (stage || scroll).classList.toggle("has-more", more);
         };
 
         scroll.addEventListener("scroll", markOverflow, { passive: true });
