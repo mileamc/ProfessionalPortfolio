@@ -10,11 +10,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/ui/favicon-32.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,500&display=swap"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500&family=Roboto:wght@400;500;600;700&display=swap"/>
 <!-- Self-contained: this page does not load tokens.css, components.css or
      page-style.css. Its visual language is scoped to .nh in new-home.css so
      the existing pages keep rendering exactly as they do today. -->
-<link rel="stylesheet" href="new-home.css?v=mosaico-6"/>
+<link rel="stylesheet" href="new-home.css?v=imb-2"/>
 </head>
 <body class="nh">
 
@@ -119,6 +119,56 @@
 -->
 
 <!--
+    IMB — the equipment comparison (card "imb-compare").
+
+    The comparison from imb-brasil.com.br/en/compare.html, cut down to the
+    four machines it shows here. The list on the left is fixed; everything on
+    the right is built by scripts/imb-compare.js from the machines and their
+    specifications, which live in that file. Columns appear in the order the
+    machines were picked, and the table scrolls sideways once there are more
+    than the panel can hold.
+-->
+<template data-nh-card="imb-compare">
+    <div class="ic" data-imb-compare>
+
+        <div class="ic__aside">
+            <div class="ic__aside-head">
+                <span class="ic__mark" aria-hidden="true"></span>
+                <h3 class="ic__aside-title" id="ic-list-title">Select equipment</h3>
+                <p class="ic__count" data-ic-count>0 selected</p>
+            </div>
+            <div class="ic__machines" data-ic-machines role="group" aria-labelledby="ic-list-title"></div>
+        </div>
+
+        <div class="ic__panel">
+            <div class="ic__panel-head">
+                <div>
+                    <p class="ic__eyebrow">Technical comparison</p>
+                    <h2 class="ic__title">Compare equipment<br/>side by side</h2>
+                </div>
+                <button class="ic__clear nh-card__interactive" type="button" data-ic-clear>Clear selection</button>
+            </div>
+
+            <div class="ic__stage">
+                <!-- shown until two machines are picked -->
+                <div class="ic__empty" data-ic-empty>
+                    <svg class="ic__empty-icon" viewBox="0 0 96 64" fill="none" stroke="currentColor"
+                         stroke-width="7" stroke-linecap="square" aria-hidden="true">
+                        <path d="M4 18h72M54 2 78 18 54 34"/>
+                        <path d="M92 46H20m24 16L18 46 44 30"/>
+                    </svg>
+                    <p class="ic__empty-title">Select 2 or more equipment</p>
+                    <p class="ic__empty-note">Add at least two to generate the comparison.</p>
+                </div>
+                <!-- and the table, once they are -->
+                <div class="ic__scroll" data-ic-scroll hidden></div>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<!--
     MOSAICO — the word written by hand (card "mosaico").
 
     Two layers in the card's stage, the same shape as the LUDIS card: the
@@ -201,9 +251,10 @@
     </div>
 </template>
 
-<script src="data/home-projects.js?v=mosaico-6"></script>
-<script src="scripts/new-home.js?v=mosaico-6"></script>
-<script src="scripts/ludis-play.js?v=mosaico-6"></script>
-<script src="scripts/mosaico-write.js?v=mosaico-6"></script>
+<script src="data/home-projects.js?v=imb-2"></script>
+<script src="scripts/new-home.js?v=imb-2"></script>
+<script src="scripts/ludis-play.js?v=imb-2"></script>
+<script src="scripts/mosaico-write.js?v=imb-2"></script>
+<script src="scripts/imb-compare.js?v=imb-2"></script>
 </body>
 </html>

@@ -71,19 +71,19 @@ window.homeProjects = {
             media: []
         },
         {
-            id: "hpp",
-            title: "Hospital Pequeno Príncipe landing pages",
-            href: null,          // existing page: project.html?project=hpp-landing
+            // The equipment comparison from imb-brasil.com.br, cut down to four
+            // machines. Its markup is the <template data-nh-card="imb-compare">
+            // in index.html and its behaviour is scripts/imb-compare.js — so no
+            // `media` here. Only the arrow opens the case page; the rest of the
+            // card is for comparing.
+            id: "imb-compare",
+            title: "IMB equipment comparison",
+            href: null,          // existing page: project.html?project=imb
+            linkArea: "arrow",
             size: "large",
-            frame: "stack",
+            frame: "custom",
             tone: null,
-            media: [
-                // Front window. Cropped from imagesProjects/hpp-landing/4.jpg.
-                { src: "imagesProjects/home-previews/hpp-landing-verao.jpg", alt: "", ratio: "3:2" },
-                // The two windows behind it — other landing pages from the collection.
-                { src: "imagesProjects/hpp-landing/preview-02.jpg", alt: "", ratio: "3:2" },
-                { src: "imagesProjects/hpp-landing/preview-03.jpg", alt: "", ratio: "3:2" }
-            ]
+            media: []
         },
         {
             id: "imb",
