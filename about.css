@@ -1,0 +1,206 @@
+/* ===========================================================================
+   ABOUT — the four cards of about.html
+
+   The page borrows everything it can from new-home.css: the tokens, the
+   floating navigation, the card surface and shadow, the footer and the photo
+   stack. This file only does what is particular to this page — how the four
+   cards sit in the grid, and the two things the home has no equivalent of
+   (the running text and the CV button).
+
+   Desktop only for now, like the home page's product cards.
+=========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   The grid
+
+   Twelve columns, the same gutters and gap as the home's. The text holds the
+   left seven columns across the first two rows; the photographs and the
+   playlist stack in the five beside it; the CV closes the page across all
+   twelve. Rows are as tall as what is in them.
+--------------------------------------------------------------------------- */
+
+.ab-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    padding-block: var(--nh-nav-clear) var(--nh-space-16);
+}
+
+.ab-about  { grid-column: 1 / span 7; grid-row: 1 / span 2; }
+.ab-photos { grid-column: 8 / span 5; grid-row: 1; }
+.ab-music  { grid-column: 8 / span 5; grid-row: 2; }
+.ab-cv     { grid-column: 1 / -1;     grid-row: 3; }
+
+/* Every card on this page holds text or an embed rather than a screenshot,
+   so they are all padded like the home's introduction. They also carry
+   .nh-card--content, the home's class for a card as tall as what is inside
+   it: the product cards are size containers, which take their height from
+   the grid, and a card of running text has to be measured the other way
+   round. */
+.ab-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: var(--nh-card-pad);
+}
+
+
+/* ---------------------------------------------------------------------------
+   1 — About me
+
+   The introduction's own setting: body size, its long line-height and the
+   same space between paragraphs. The three headings are that same size and
+   weight-6 bold, sitting two pixels above the line the body sits on — enough
+   to read as a heading without becoming a title.
+--------------------------------------------------------------------------- */
+
+.ab-prose {
+    display: grid;
+    gap: var(--nh-space-4);
+    max-width: var(--nh-intro-measure, 38rem);
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-regular);
+    line-height: 1.95;
+    color: var(--nh-text);
+    text-wrap: pretty;
+}
+
+.ab-prose p {
+    margin: 0;
+}
+
+.ab-lead {
+    position: relative;
+    top: -2px;              /* the lift the brief asks for */
+    margin: var(--nh-space-4) 0 0;
+    font-size: inherit;
+    font-weight: var(--nh-semibold);
+    line-height: inherit;
+    color: var(--nh-ink);
+}
+
+.ab-prose > .ab-lead:first-child {
+    margin-top: 0;
+}
+
+
+/* ---------------------------------------------------------------------------
+   2 — The photographs
+
+   The stack itself is the home's component, styles and all. Here it has a
+   card of its own, so it drops the introduction's top margin and its text
+   measure and takes the width it is given, centred in whatever height the
+   row turns out to be.
+--------------------------------------------------------------------------- */
+
+.ab-photos {
+    justify-content: center;
+}
+
+.ab-photos .nh-stack {
+    max-width: none;
+    margin-top: 0;
+}
+
+
+/* ---------------------------------------------------------------------------
+   3 — The playlist
+
+   Spotify's own embed, at its own height, rounded like the screenshots on
+   the home page.
+--------------------------------------------------------------------------- */
+
+.ab-music iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: 12px;
+}
+
+
+/* ---------------------------------------------------------------------------
+   4 — The CV
+
+   A decorative stack of files over the one link the card carries. The
+   animation is held at its first frame and plays through on hover —
+   scripts/about.js — so the card is still while the page is.
+--------------------------------------------------------------------------- */
+
+.ab-cv__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--nh-space-6);
+    padding-block: var(--nh-space-4);
+}
+
+.ab-cv__anim {
+    width: clamp(180px, 16vw, 240px);
+    aspect-ratio: 1;
+}
+
+.ab-cv__anim svg {
+    display: block;
+}
+
+/* The one button on the page: the ink pill the arrows on the home page fill
+   in with on hover, at text size. Named with the page class as well, because
+   `.nh a { color: inherit }` would otherwise paint the label the same ink as
+   the pill. */
+.nh .ab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nh-space-2);
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: var(--nh-ink);
+    color: var(--nh-canvas);
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-medium);
+    line-height: 1.2;
+    text-decoration: none;
+    box-shadow: var(--nh-shadow-card);
+    transition:
+        background-color var(--nh-base) var(--nh-ease),
+        box-shadow var(--nh-base) var(--nh-ease),
+        transform var(--nh-base) var(--nh-ease);
+}
+
+.ab-btn:hover {
+    background: var(--nh-accent);
+    box-shadow: var(--nh-shadow-lift);
+    transform: translateY(-1px);
+}
+
+.ab-btn:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+.ab-btn:focus-visible {
+    outline: 2px solid var(--nh-ink);
+    outline-offset: 3px;
+}
+
+.ab-btn__ext {
+    display: inline-block;
+    font-size: 0.9em;
+    transition: transform var(--nh-fast) var(--nh-ease);
+}
+
+.ab-btn:hover .ab-btn__ext {
+    transform: translate(1px, -1px);
+}
+
+
+/* ---------------------------------------------------------------------------
+   Room for the fifth card
+
+   The contact form goes in row 4, on its own line:
+
+       .ab-contact { grid-column: 1 / -1; grid-row: 4; }
+
+   or, if it should sit beside the CV, the two share row 3 — the CV takes
+   `1 / span 7` and the form `8 / span 5`. Nothing above row 3 moves either
+   way, because every card here names its own place in the grid.
+--------------------------------------------------------------------------- */

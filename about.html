@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>About — Milena Caldas</title>
+<meta name="description" content="Milena Caldas is a product designer based in Curitiba, Brazil — what she does, what she is looking for, and what she listens to while doing it."/>
+<meta name="theme-color" content="#FFFFFF"/>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/ui/favicon.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/ui/favicon-32.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500&display=swap"/>
+<!-- Same visual language as the home page: new-home.css carries the tokens,
+     the navigation, the card surface and the photo stack. about.css only
+     lays out this page's four cards and styles what is new here. Neither
+     file is changed by this page. -->
+<link rel="stylesheet" href="new-home.css?v=about-1"/>
+<link rel="stylesheet" href="about.css?v=about-1"/>
+</head>
+<body class="nh">
+
+<a class="nh-skip" href="#about-me">Skip to content</a>
+
+<!-- The home page's navigation. Here the links leave the page, so they carry
+     no data-nh-nav: the scroll-spy in scripts/new-home.js is for the home's
+     one-page sections, and About is simply the current page. -->
+<header class="nh-header">
+    <nav class="nh-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#contact">Contact</a>
+    </nav>
+</header>
+
+<main id="top">
+
+    <h1 class="nh-visually-hidden">About Milena Caldas</h1>
+
+    <!-- FOUR CARDS, in a twelve-column grid.
+
+         The text takes the left seven columns of the first two rows; the
+         photographs and the playlist stack beside it; the CV band closes the
+         page across all twelve.
+
+         A fifth card (the contact form) goes at the end as its own row —
+         see the note at the foot of about.css. Nothing above it moves. -->
+    <div class="nh-shell ab-grid">
+
+        <!-- 1 — the text ------------------------------------------------ -->
+        <section class="nh-card nh-card--content ab-card ab-about" id="about-me" aria-labelledby="ab-about-title">
+            <h2 class="nh-visually-hidden" id="ab-about-title">About me</h2>
+            <div class="ab-prose">
+                <h3 class="ab-lead">A little about me</h3>
+                <p>I was a quiet, creative kid, usually somewhere between the pages of a book and a drawing I was making. I love writing, reading, music, and spending time in nature. I also play board games and RPGs with friends, which is probably just another way of saying I enjoy getting lost in imaginary worlds.</p>
+
+                <h3 class="ab-lead">What I do</h3>
+                <p>I studied Graphic Design at UFPR and later joined the Apple Developer Academy, where I got to design apps alongside developers. After graduating, I joined Brazil's largest pediatric hospital as a Graphic Designer, where I've recently been rediscovering the meaning behind what I do and what I love about design.</p>
+                <p>I'm currently pursuing a postgraduate degree in UX Design, exploring the parts of design I enjoy most: thinking, ideating, and experimenting with new ideas before the pixels.</p>
+
+                <h3 class="ab-lead">What I'm looking for</h3>
+                <p>I'm interested in Product Design, Human-Computer Interaction, and Learning Design, particularly when technology can help create meaningful experiences for people. I want to keep exploring ideas, asking better questions, and building things that are worth making.</p>
+                <p>I'm currently based in Curitiba, Paraná, Brazil, where I was born and raised. I'm also open to remote positions or relocating for the right opportunity.</p>
+            </div>
+        </section>
+
+        <!-- 2 — the photographs ----------------------------------------
+             The home page's stack, unchanged: the same markup hook, the same
+             photographs from data/home-projects.js, rendered and driven by
+             initPhotoStack() in scripts/new-home.js. Click, drag or press
+             Enter on the top photo to send it to the back. -->
+        <section class="nh-card nh-card--content ab-card ab-photos" aria-labelledby="ab-photos-title">
+            <h2 class="nh-visually-hidden" id="ab-photos-title">Photographs</h2>
+            <div class="nh-stack" data-nh-stack></div>
+        </section>
+
+        <!-- 3 — the playlist -------------------------------------------- -->
+        <section class="nh-card nh-card--content ab-card ab-music" aria-labelledby="ab-music-title">
+            <h2 class="nh-visually-hidden" id="ab-music-title">What I listen to</h2>
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6Qekp3svohdz9GMWyMvGjs?utm_source=generator&amp;theme=0&amp;si=eb3523677cbc404d" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Milena's playlist on Spotify"></iframe>
+        </section>
+
+        <!-- 4 — the CV --------------------------------------------------
+             The file stack is decorative: assets/about/file-stack.json, held
+             at its first frame and played through once on hover by
+             scripts/about.js. -->
+        <section class="nh-card nh-card--content ab-card ab-cv" aria-labelledby="ab-cv-title">
+            <h2 class="nh-visually-hidden" id="ab-cv-title">Curriculum vitae</h2>
+            <div class="ab-cv__inner">
+                <div class="ab-cv__anim" data-ab-lottie="assets/about/file-stack.json" aria-hidden="true"></div>
+                <a class="ab-btn" href="https://drive.google.com/file/d/1WG09ALGNQ5KiSSS-kCT83zfYBZXryvSZ/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                    View my CV<span class="ab-btn__ext" aria-hidden="true">↗</span><span class="nh-visually-hidden"> (opens in a new tab)</span>
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+</main>
+
+<footer class="nh-footer">
+    <div class="nh-shell nh-footer__inner">
+        <p>© 2026 Milena Caldas</p>
+        <p>Designed by Milena Caldas. Developed by Pedro Gradowski.</p>
+    </div>
+</footer>
+
+<!-- The photographs come from the home page's data and its script: every
+     other thing new-home.js sets up is keyed to markup that is not on this
+     page, so it does nothing here. -->
+<script src="data/home-projects.js?v=about-1"></script>
+<script src="scripts/new-home.js?v=about-1"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+<script src="scripts/about.js?v=about-1"></script>
+</body>
+</html>

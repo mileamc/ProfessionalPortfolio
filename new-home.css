@@ -1549,7 +1549,19 @@ html {
     cursor: pointer;
     transition:
         border-color var(--nh-base) var(--nh-ease),
-        background-color var(--nh-base) var(--nh-ease);
+        background-color var(--nh-base) var(--nh-ease),
+        transform var(--nh-base) var(--nh-ease);
+}
+
+/* The hop the LUDIS players and the top photograph answer the pointer with:
+   a lift on a springy curve that overshoots once and settles, so a machine
+   reads as something to pick up. */
+.ic__machine:hover {
+    transform: translateY(-3px) scale(1.012);
+    transition:
+        border-color var(--nh-base) var(--nh-ease),
+        background-color var(--nh-base) var(--nh-ease),
+        transform 360ms cubic-bezier(0.34, 1.8, 0.64, 1);
 }
 
 .ic__machine.is-picked {
