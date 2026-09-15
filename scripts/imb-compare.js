@@ -17,10 +17,8 @@
         {
             id: "2000hd",
             name: "IMB 2000HD MAX",
-            type: "Pavimentadora",
-            line: "Linha Hidráulica",
-            equipment: "Concrete Paver",
-            lineEn: "Hydraulic",
+            type: "Concrete Paver",
+            line: "Hydraulic Line",
             applications: "Curbs, curb & gutter, sidewalks and general channels",
             width: "Offset: 1.200 mm",
             reach: 1200,          // the widest profile it can lay, in mm
@@ -29,10 +27,8 @@
         {
             id: "3500hd",
             name: "IMB 3500HD",
-            type: "Pavimentadora",
-            line: "Linha Hidráulica",
-            equipment: "Concrete Paver",
-            lineEn: "Hydraulic",
+            type: "Concrete Paver",
+            line: "Hydraulic Line",
             applications: "Sidewalks, general channels, feed troughs and single New Jersey barriers",
             width: "Offset: 2.000 mm",
             reach: 2000,
@@ -41,10 +37,8 @@
         {
             id: "5500hd-titan",
             name: "IMB 5500HD TITAN",
-            type: "Pavimentadora",
-            line: "Linha Hidráulica",
-            equipment: "Concrete Paver",
-            lineEn: "Hydraulic",
+            type: "Concrete Paver",
+            line: "Hydraulic Line",
             applications: "Sidewalks, general channels, feed troughs, single or double New Jersey barriers and concrete pavement",
             width: "Offset: 2.500 mm / Inset: 3.600 mm",
             reach: 3600,
@@ -53,10 +47,8 @@
         {
             id: "5500hd-cronus",
             name: "IMB 5500HD CRONUS",
-            type: "Pavimentadora",
-            line: "Linha Hidráulica",
-            equipment: "Concrete Paver",
-            lineEn: "Hydraulic",
+            type: "Concrete Paver",
+            line: "Hydraulic Line",
             applications: "Sidewalks, general channels, feed troughs, single or double New Jersey barriers and concrete pavement",
             width: "Offset: 2.750 mm / Inset: 5.000 mm",
             reach: 5000,
@@ -75,8 +67,8 @@
         {
             title: "Category & application",
             rows: [
-                { label: "Equipment type", value: function (m) { return m.equipment; } },
-                { label: "Line", value: function (m) { return m.lineEn; } },
+                { label: "Equipment type", value: function (m) { return m.type; } },
+                { label: "Line", value: function (m) { return m.line; } },
                 { label: "Applications", value: function (m) { return m.applications; } }
             ]
         },
@@ -174,11 +166,12 @@
         var buildTable = function (machines) {
             var span = machines.length + 1;
             var head = machines.map(function (machine) {
-                return '<th scope="col">' +
+                return '<th scope="col"><span class="ic__col">' +
                     '<span class="ic__shot"><img src="assets/imb/compare-' + escapeHtml(machine.id) + '.png" alt="" loading="lazy"/></span>' +
+                    '<span class="ic__col-text">' +
                     '<span class="ic__col-name">' + escapeHtml(machine.name) + "</span>" +
                     '<span class="ic__col-sub">' + escapeHtml(machine.type) + " | " + escapeHtml(machine.line) + "</span>" +
-                    "</th>";
+                    "</span></span></th>";
             }).join("");
 
             var body = SECTIONS.map(function (section) {
