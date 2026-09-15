@@ -1479,8 +1479,9 @@ html {
     flex-direction: column;
     gap: 1cqi;
     min-width: 0;
-    /* the card's arrow sits in this corner now, and the list ends above it */
-    padding: 1.6cqi 2.2cqi 5.4cqi;
+    /* the head lines up with the panel's eyebrow, and the card's arrow sits
+       in this corner, which the list ends just above */
+    padding: 1.9cqi 2.2cqi 5.4cqi;
     /* the panel's own edge, as in the design: it sits above the comparison */
     box-shadow: 0.4cqi 0 1.2cqi -0.1cqi rgba(15, 23, 34, 0.1);
     z-index: 1;
@@ -1528,7 +1529,7 @@ html {
 .ic__machines {
     display: flex;
     flex-direction: column;
-    gap: 1.37cqi;              /* the design's spacing plus five per cent */
+    gap: 1.78cqi;              /* the list ends just above the card's arrow */
     min-height: 0;
 }
 
