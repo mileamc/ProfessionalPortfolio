@@ -584,6 +584,8 @@
             "Ok, let's wrap things up now"
         ];
 
+        var canHover = window.matchMedia ? window.matchMedia("(hover: hover)") : null;
+        var greeted = false;     // the bubble has shown itself once and gone
         var HIDE_AT = 0.3;       // share of the scrollable page
         var LINGER_MS = 6000;    // how long it stays open
         var ticking = false;
@@ -639,6 +641,7 @@
 
         var close = function () {
             window.clearTimeout(timer);
+            greeted = true;
             bubble.classList.remove("is-open");
             bubble.setAttribute("aria-expanded", "false");
             // back to the size the stylesheet keeps for the dots
@@ -646,7 +649,7 @@
             bubble.style.height = "";
         };
 
-        var open = function (waitMs) {
+        var open = function (waitMs, hold) {
             text.textContent = LINES[opened < 2 ? 0 : (opened - 1) % LINES.length];
             opened += 1;
 
@@ -656,7 +659,10 @@
             bubble.classList.add("is-open");
             bubble.setAttribute("aria-expanded", "true");
             window.clearTimeout(timer);
-            timer = window.setTimeout(close, waitMs + LINGER_MS);
+            // held open means the pointer is on it — it goes when the pointer does
+            if (!hold) {
+                timer = window.setTimeout(close, waitMs + LINGER_MS);
+            }
         };
 
         var update = function () {
@@ -675,12 +681,29 @@
             window.requestAnimationFrame(update);
         }, { passive: true });
 
-        // one button, both ways: open it, or put it away early
+        // The bubble opens itself once, and a click puts it away. From then on
+        // it answers the pointer: it grows while the pointer is on it and
+        // contracts when the pointer leaves, with no clicking at all. Where
+        // there is no pointer to hover with, the click keeps doing both.
+        var pointerOpens = canHover && canHover.matches;
+
+        var pop = function (hold) {
+            open(reduceMotion.matches ? 0 : cssMs("--nh-bubble-out") + cssMs("--nh-bubble-in"), hold);
+        };
+
+        bubble.addEventListener("pointerenter", function () {
+            if (pointerOpens && greeted && !isOpen()) pop(true);
+        });
+
+        bubble.addEventListener("pointerleave", function () {
+            if (pointerOpens && greeted && isOpen()) close();
+        });
+
         bubble.addEventListener("click", function () {
             if (isOpen()) {
                 close();
-            } else {
-                open(reduceMotion.matches ? 0 : cssMs("--nh-bubble-in"));
+            } else if (!pointerOpens) {
+                pop(false);
             }
         });
 
