@@ -15,8 +15,8 @@
      the navigation, the card surface and the photo stack. about.css only
      lays out this page's four cards and styles what is new here. Neither
      file is changed by this page. -->
-<link rel="stylesheet" href="new-home.css?v=about-1"/>
-<link rel="stylesheet" href="about.css?v=about-1"/>
+<link rel="stylesheet" href="new-home.css?v=about-2"/>
+<link rel="stylesheet" href="about.css?v=about-2"/>
 </head>
 <body class="nh">
 
@@ -40,9 +40,9 @@
 
     <!-- FOUR CARDS, in a twelve-column grid.
 
-         The text takes the left seven columns of the first two rows; the
-         photographs and the playlist stack beside it; the CV band closes the
-         page across all twelve.
+         The text takes the left half. The other half holds the two square
+         cards — the photographs and the CV — side by side, with the playlist
+         under them, as deep as the text leaves it.
 
          A fifth card (the contact form) goes at the end as its own row —
          see the note at the foot of about.css. Nothing above it moves. -->
@@ -50,9 +50,8 @@
 
         <!-- 1 — the text ------------------------------------------------ -->
         <section class="nh-card nh-card--content ab-card ab-about" id="about-me" aria-labelledby="ab-about-title">
-            <h2 class="nh-visually-hidden" id="ab-about-title">About me</h2>
             <div class="ab-prose">
-                <h3 class="ab-lead">A little about me</h3>
+                <h2 class="ab-title" id="ab-about-title">A little about me</h2>
                 <p>I was a quiet, creative kid, usually somewhere between the pages of a book and a drawing I was making. I love writing, reading, music, and spending time in nature. I also play board games and RPGs with friends, which is probably just another way of saying I enjoy getting lost in imaginary worlds.</p>
 
                 <h3 class="ab-lead">What I do</h3>
@@ -65,6 +64,10 @@
             </div>
         </section>
 
+        <!-- the three cards beside the text: the photographs and the CV
+             square at the top, the playlist filling what is left below -->
+        <div class="ab-side">
+
         <!-- 2 — the photographs ----------------------------------------
              The home page's stack, unchanged: the same markup hook, the same
              photographs from data/home-projects.js, rendered and driven by
@@ -73,12 +76,6 @@
         <section class="nh-card nh-card--content ab-card ab-photos" aria-labelledby="ab-photos-title">
             <h2 class="nh-visually-hidden" id="ab-photos-title">Photographs</h2>
             <div class="nh-stack" data-nh-stack></div>
-        </section>
-
-        <!-- 3 — the playlist -------------------------------------------- -->
-        <section class="nh-card nh-card--content ab-card ab-music" aria-labelledby="ab-music-title">
-            <h2 class="nh-visually-hidden" id="ab-music-title">What I listen to</h2>
-            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6Qekp3svohdz9GMWyMvGjs?utm_source=generator&amp;theme=0&amp;si=eb3523677cbc404d" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Milena's playlist on Spotify"></iframe>
         </section>
 
         <!-- 4 — the CV --------------------------------------------------
@@ -95,6 +92,14 @@
             </div>
         </section>
 
+        <!-- 3 — the playlist -------------------------------------------- -->
+        <section class="nh-card nh-card--content ab-card ab-music" aria-labelledby="ab-music-title">
+            <h2 class="nh-visually-hidden" id="ab-music-title">What I listen to</h2>
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6Qekp3svohdz9GMWyMvGjs?utm_source=generator&amp;theme=0&amp;si=eb3523677cbc404d" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Milena's playlist on Spotify"></iframe>
+        </section>
+
+        </div>
+
     </div>
 
 </main>
@@ -109,9 +114,9 @@
 <!-- The photographs come from the home page's data and its script: every
      other thing new-home.js sets up is keyed to markup that is not on this
      page, so it does nothing here. -->
-<script src="data/home-projects.js?v=about-1"></script>
-<script src="scripts/new-home.js?v=about-1"></script>
+<script src="data/home-projects.js?v=about-2"></script>
+<script src="scripts/new-home.js?v=about-2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
-<script src="scripts/about.js?v=about-1"></script>
+<script src="scripts/about.js?v=about-2"></script>
 </body>
 </html>

@@ -14,9 +14,11 @@
    The grid
 
    Twelve columns, the same gutters and gap as the home's. The text holds the
-   left seven columns across the first two rows; the photographs and the
-   playlist stack in the five beside it; the CV closes the page across all
-   twelve. Rows are as tall as what is in them.
+   left six; the other six are a column of their own, with the two square
+   cards side by side at the top and the playlist filling whatever depth the
+   text leaves under them. The squares stay square because their width comes
+   from the columns and their height from that width; the playlist is the one
+   that stretches, which suits it — a taller embed simply lists more tracks.
 --------------------------------------------------------------------------- */
 
 .ab-grid {
@@ -26,10 +28,26 @@
     padding-block: var(--nh-nav-clear) var(--nh-space-16);
 }
 
-.ab-about  { grid-column: 1 / span 7; grid-row: 1 / span 2; }
-.ab-photos { grid-column: 8 / span 5; grid-row: 1; }
-.ab-music  { grid-column: 8 / span 5; grid-row: 2; }
-.ab-cv     { grid-column: 1 / -1;     grid-row: 3; }
+.ab-about { grid-column: 1 / span 6; grid-row: 1; }
+
+.ab-side {
+    grid-column: 7 / -1;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto minmax(352px, 1fr);
+    gap: var(--nh-gap);
+    min-width: 0;
+}
+
+.ab-photos,
+.ab-cv {
+    aspect-ratio: 1;
+}
+
+.ab-music {
+    grid-column: 1 / -1;
+}
 
 /* Every card on this page holds text or an embed rather than a screenshot,
    so they are all padded like the home's introduction. They also carry
@@ -69,6 +87,16 @@
     margin: 0;
 }
 
+.ab-title {
+    margin: 0 0 var(--nh-space-2);
+    font-size: var(--nh-size-display);
+    font-weight: var(--nh-medium);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+    color: var(--nh-ink);
+    text-wrap: balance;
+}
+
 .ab-lead {
     position: relative;
     top: -2px;              /* the lift the brief asks for */
@@ -97,9 +125,22 @@
     justify-content: center;
 }
 
+/* Square photographs here, so the stack fills a square card: the box is as
+   wide as the card allows and just deep enough for the fan above the top
+   photo, the same way the home's landscape box is. */
 .ab-photos .nh-stack {
+    --stack-card-w: 88%;
     max-width: none;
     margin-top: 0;
+    aspect-ratio: 1 / 0.98;
+}
+
+.ab-photos .nh-stack__card {
+    aspect-ratio: 1;
+}
+
+.ab-photos .nh-stack__card img {
+    object-fit: cover;
 }
 
 
@@ -112,7 +153,9 @@
 
 .ab-music iframe {
     display: block;
+    flex: 1 1 auto;
     width: 100%;
+    min-height: 352px;    /* the height the embed is given; it grows from there */
     border: 0;
     border-radius: 12px;
 }
@@ -128,14 +171,20 @@
 
 .ab-cv__inner {
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
     align-items: center;
-    gap: var(--nh-space-6);
-    padding-block: var(--nh-space-4);
+    justify-content: center;
+    gap: var(--nh-space-5);
+    min-height: 0;
 }
 
+/* what the square card has left once the button has its room — sized so it
+   never has to be squeezed, which would take the square off it */
 .ab-cv__anim {
-    width: clamp(180px, 16vw, 240px);
+    flex: none;
+    width: min(100%, 14vw);
+    max-width: 180px;
     aspect-ratio: 1;
 }
 
@@ -198,9 +247,8 @@
 
    The contact form goes in row 4, on its own line:
 
-       .ab-contact { grid-column: 1 / -1; grid-row: 4; }
+       .ab-contact { grid-column: 1 / -1; grid-row: 2; }
 
-   or, if it should sit beside the CV, the two share row 3 — the CV takes
-   `1 / span 7` and the form `8 / span 5`. Nothing above row 3 moves either
-   way, because every card here names its own place in the grid.
+   or, in six columns under the text, `1 / span 6`. Nothing above it moves
+   either way: the text and the column of three name row 1 and nothing else.
 --------------------------------------------------------------------------- */
