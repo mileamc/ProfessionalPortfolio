@@ -639,8 +639,46 @@
             return size;
         };
 
+        // Once it is open the pointer has room around it: it only closes when
+        // the pointer is further than SLACK from the bubble's edge, so a hand
+        // that drifts off it by a cursor's width keeps it open. Opening still
+        // asks for the pointer on the dots themselves.
+        var SLACK = 32;   // px of room around the open bubble
+        var watching = false;
+
+        var beyondSlack = function (event) {
+            var box = bubble.getBoundingClientRect();
+            var x = Math.max(box.left - event.clientX, 0, event.clientX - box.right);
+            var y = Math.max(box.top - event.clientY, 0, event.clientY - box.bottom);
+            return Math.sqrt(x * x + y * y) > SLACK;
+        };
+
+        var unwatch = function () {
+            if (!watching) return;
+            watching = false;
+            document.removeEventListener("pointermove", follow);
+            window.removeEventListener("blur", leave);
+        };
+
+        var follow = function (event) {
+            if (beyondSlack(event)) leave();
+        };
+
+        function leave() {
+            unwatch();
+            if (isOpen()) close();
+        }
+
+        var watch = function () {
+            if (watching) return;
+            watching = true;
+            document.addEventListener("pointermove", follow);
+            window.addEventListener("blur", leave);   // the pointer left for good
+        };
+
         var close = function () {
             window.clearTimeout(timer);
+            unwatch();
             greeted = true;
             bubble.classList.remove("is-open");
             bubble.setAttribute("aria-expanded", "false");
@@ -692,11 +730,14 @@
         };
 
         bubble.addEventListener("pointerenter", function () {
+            unwatch();
             if (pointerOpens && greeted && !isOpen()) pop(true);
         });
 
+        // leaving the bubble starts watching the pointer rather than closing:
+        // it has the slack above before the bubble goes
         bubble.addEventListener("pointerleave", function () {
-            if (pointerOpens && greeted && isOpen()) close();
+            if (pointerOpens && greeted && isOpen()) watch();
         });
 
         bubble.addEventListener("click", function () {
