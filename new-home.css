@@ -342,6 +342,7 @@ html {
 }
 
 .nh-nav a {
+    position: relative;
     display: inline-flex;
     align-items: center;
     min-height: 36px;
@@ -362,8 +363,18 @@ html {
     background: rgba(15, 23, 34, 0.04);
 }
 
+/* The lit item's pill is an element of its own, painted behind the word, so
+   that moving between the pages can carry it across on its own — see the
+   note below. */
 .nh-nav a[aria-current] {
     color: var(--nh-ink);
+}
+
+.nh-nav__pill {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 999px;
     background: rgba(15, 23, 34, 0.07);
 }
 
@@ -374,6 +385,69 @@ html {
     color: var(--nh-muted);
     background: none;
     cursor: default;
+}
+
+
+/* --- Moving between the pages ---------------------------------------------
+
+   Home and About are two documents, but the bar is not meant to notice. A
+   cross-document view transition carries it across: the browser holds the
+   old page while the new one is ready, then animates between the two.
+
+   Three things are named, which is what lifts them out of the page-wide
+   crossfade and gives them their own animation:
+
+     nh-nav          the bar. Identical on both pages, so naming it is what
+                     keeps it still — it never fades out and back in.
+     nh-nav-pill     the pill behind the lit word, and only the pill: it is a
+                     different element on each page, so the browser moves the
+                     one into the other and it slides from Home to About. The
+                     words stay where they are, inside the bar's own snapshot.
+     root            everything else — the page under the bar, which fades
+                     and rises a little into place.
+
+   Where this is not supported the link is an ordinary link and the page
+   simply loads, which is what it did before.
+--------------------------------------------------------------------------- */
+
+@view-transition {
+    navigation: auto;
+}
+
+.nh-nav {
+    view-transition-name: nh-nav;
+}
+
+.nh-nav__pill {
+    view-transition-name: nh-nav-pill;
+}
+
+::view-transition-group(nh-nav-pill) {
+    animation-duration: var(--nh-slow);
+    animation-timing-function: var(--nh-ease);
+}
+
+/* it is the same plain shape at both ends, so there is nothing to fade */
+::view-transition-old(nh-nav-pill),
+::view-transition-new(nh-nav-pill) {
+    animation: none;
+    opacity: 1;
+}
+
+::view-transition-old(root) {
+    animation: nh-page-out 180ms var(--nh-ease) both;
+}
+
+::view-transition-new(root) {
+    animation: nh-page-in 320ms var(--nh-ease) both;
+}
+
+@keyframes nh-page-out {
+    to { opacity: 0; }
+}
+
+@keyframes nh-page-in {
+    from { opacity: 0; transform: translateY(10px); }
 }
 
 .nh-nav a:focus-visible {
@@ -2456,6 +2530,13 @@ html {
     .nh *::before,
     .nh *::after {
         transition-duration: 1ms !important;
+        animation: none !important;
+    }
+
+    /* the pages still swap, they just do not travel to get there */
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
         animation: none !important;
     }
 }
