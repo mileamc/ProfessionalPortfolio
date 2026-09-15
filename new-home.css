@@ -1328,10 +1328,81 @@ html {
 =========================================================================== */
 
 .mw {
+    --mw-ink: #1E2945;     /* the lettering's own navy */
+
+    container: mw / inline-size;
     position: relative;
     height: 100%;
     overflow: hidden;
     background: #F8FBFF;   /* the paper's own colour, under it while it loads */
+}
+
+/* The two typed lines at the head of the page, written on its ruled lines —
+   the discipline, and the sentence the handwriting below finishes. Typed,
+   not drawn: they are Poppins, like the rest of the site, and they sit in
+   the card rather than in the paper because an SVG loaded as an image
+   cannot reach the page's webfont. They size by the card's own width, as
+   the LUDIS screen does, so they stay readable at any card size. */
+.mw__note {
+    position: absolute;
+    /* both lines are written on the paper's own rules: the first at 137 of
+       the artwork's 866, the second at 292 */
+    top: 11.3%;
+    left: 13.8%;           /* the left edge of the word below */
+    right: clamp(52px, 12cqi, 84px);   /* clear of the card's arrow */
+    z-index: 1;
+    color: var(--mw-ink);
+    pointer-events: none;
+}
+
+.mw__label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px clamp(5px, 1.4cqi, 12px);
+    margin: 0;
+    font-size: clamp(9px, 1.5cqi, 13px);
+    font-weight: var(--nh-medium);
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--mw-ink) 55%, transparent);
+}
+
+.mw__label > span + span::before {
+    content: "";
+    display: inline-block;
+    width: 0.25em;
+    height: 0.25em;
+    margin-right: clamp(5px, 1.4cqi, 12px);
+    vertical-align: middle;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.7;
+    transform: translateY(-1px);
+}
+
+/* On a narrow card the two halves of the label stack, and the dot that
+   separates them would be left leading a line — so it goes. */
+@container mw (max-width: 520px) {
+    .mw__label {
+        flex-direction: column;
+        align-items: flex-start;   /* the row's centring would centre the stack */
+        gap: 1px;
+    }
+
+    .mw__label > span + span::before {
+        display: none;
+    }
+}
+
+.mw__lead {
+    margin: clamp(7px, 2.9cqi, 26px) 0 0;
+    font-size: clamp(11px, 2cqi, 18px);
+    font-weight: var(--nh-regular);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: color-mix(in srgb, var(--mw-ink) 80%, transparent);
 }
 
 .mw__paper,
