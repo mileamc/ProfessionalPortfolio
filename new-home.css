@@ -1477,7 +1477,7 @@ html {
     flex: 0 0 28cqi;
     display: flex;
     flex-direction: column;
-    gap: 1cqi;
+    gap: 1.57cqi;
     min-width: 0;
     /* the head lines up with the panel's eyebrow, and the card's arrow sits
        in this corner, which the list ends just above */
@@ -1529,7 +1529,7 @@ html {
 .ic__machines {
     display: flex;
     flex-direction: column;
-    gap: 1.78cqi;              /* the list ends just above the card's arrow */
+    gap: 1.57cqi;              /* the same spacing as the head above them */
     min-height: 0;
 }
 
