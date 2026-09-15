@@ -22,9 +22,11 @@
     "use strict";
 
     // Pen-down to the end of the last o. The eased pace below averages out
-    // at about four fifths of this, so the word takes a little over three
-    // seconds end to end.
-    var WRITE_MS = 2500;
+    // at about four fifths of this, so writing the word takes a little under
+    // three seconds end to end. Unwriting it is the same movement at twice
+    // the pace — a hand puts something away faster than it sets it down.
+    var WRITE_MS = 2000;
+    var ERASE_MS = WRITE_MS / 2;
     var EASE_FLOOR = 0.4;  // slowest the pen goes, as a share of its own pace
 
     var reduceMotion = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
@@ -74,9 +76,10 @@
             last = now;
 
             // eased by position, not by elapsed time, so the pen keeps the
-            // same pace whichever way it is going and wherever it resumes
+            // same shape of movement whichever way it is going and wherever
+            // it resumes — only which of the two paces it travels at changes
             var pace = EASE_FLOOR + (1 - EASE_FLOOR) * Math.sin(Math.PI * progress);
-            var move = seconds * (1000 / WRITE_MS) * pace;
+            var move = seconds * (1000 / (target > progress ? WRITE_MS : ERASE_MS)) * pace;
 
             if (target > progress) {
                 progress = Math.min(progress + move, target);
