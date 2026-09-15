@@ -1567,7 +1567,11 @@ html {
     display: block;
     width: 4.8cqi;
     min-width: 40px;
-    aspect-ratio: 1;
+    /* Square while the name fits one line, and as deep as the card when it
+       does not — the photo is cropped to the new shape rather than leaving
+       the taller card half empty. */
+    align-self: stretch;
+    min-height: max(40px, 4.8cqi);
     overflow: hidden;
     border-radius: 0.9cqi;
     background: var(--ic-shade);
