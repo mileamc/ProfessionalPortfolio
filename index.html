@@ -14,19 +14,26 @@
 <!-- Self-contained: this page does not load tokens.css, components.css or
      page-style.css. Its visual language is scoped to .nh in new-home.css so
      the existing pages keep rendering exactly as they do today. -->
-<link rel="stylesheet" href="new-home.css?v=imb-13"/>
+<link rel="stylesheet" href="new-home.css?v=nav-1"/>
 </head>
 <body class="nh">
 
 <a class="nh-skip" href="#about">Skip to content</a>
 
-<!-- Floating navigation: a compact light pill, aligned to the right edge of the content. -->
+<!-- Floating navigation: a compact light pill, aligned to the right edge of
+     the content.
+
+     Each item is a page of its own, so the bar says where the visitor is, not
+     how far down they have scrolled: Home stays lit for the whole of this
+     page. (The scroll-spy in scripts/new-home.js looked for data-nh-nav; with
+     none here it does nothing.) Work and Contact have no page yet, so they
+     keep their place in the bar without leading anywhere. -->
 <header class="nh-header">
     <nav class="nh-nav" aria-label="Primary">
-        <a href="#top" data-nh-nav="home">Home</a>
-        <a href="about.html" data-nh-nav="about">About</a>
-        <a href="#work" data-nh-nav="work">Work</a>
-        <a href="#contact" data-nh-nav="contact">Contact</a>
+        <a href="#top" aria-current="page">Home</a>
+        <a href="about.html">About</a>
+        <a aria-disabled="true">Work</a>
+        <a aria-disabled="true">Contact</a>
     </nav>
 </header>
 
@@ -250,10 +257,10 @@
     </div>
 </template>
 
-<script src="data/home-projects.js?v=imb-13"></script>
-<script src="scripts/new-home.js?v=imb-13"></script>
-<script src="scripts/ludis-play.js?v=imb-13"></script>
-<script src="scripts/mosaico-write.js?v=imb-13"></script>
-<script src="scripts/imb-compare.js?v=imb-13"></script>
+<script src="data/home-projects.js?v=nav-1"></script>
+<script src="scripts/new-home.js?v=nav-1"></script>
+<script src="scripts/ludis-play.js?v=nav-1"></script>
+<script src="scripts/mosaico-write.js?v=nav-1"></script>
+<script src="scripts/imb-compare.js?v=nav-1"></script>
 </body>
 </html>
