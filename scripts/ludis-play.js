@@ -305,6 +305,72 @@
             root.classList.remove("is-idle");
         };
 
+        /* ------------------------------------------------------------------
+           What to do with a player
+
+           Until a line has been drawn, resting the pointer on a player says
+           how to use it: a small pill that follows the pointer, offset so it
+           never sits under the arrow. It goes the moment the pointer leaves
+           the player or the drawing starts, and once a route has been kept
+           it is taken off the board for good — the visitor has understood.
+        ------------------------------------------------------------------ */
+
+        var tip = document.createElement("p");
+        tip.className = "lp__tip";
+        tip.setAttribute("aria-hidden", "true");
+        tip.textContent = "Hold and drag to draw a line";
+        root.appendChild(tip);
+
+        var TIP_OFFSET = { x: 16, y: 18 };
+        var tipShown = false;
+
+        var hideTip = function () {
+            if (tipShown) {
+                tipShown = false;
+                tip.classList.remove("is-shown");
+            }
+        };
+
+        var retireTip = function () {
+            hideTip();
+            if (tip.parentNode) {
+                tip.remove();
+            }
+        };
+
+        var moveTip = function (event) {
+            if (!tip.parentNode || drawing || event.pointerType === "touch") {
+                return;
+            }
+            var over = event.target.closest && event.target.closest(".lp__player");
+            if (!over) {
+                hideTip();
+                return;
+            }
+
+            var box = root.getBoundingClientRect();
+            var x = event.clientX - box.left + TIP_OFFSET.x;
+            var y = event.clientY - box.top + TIP_OFFSET.y;
+
+            // it stays inside the screen: past the right edge or the bottom it
+            // flips to the other side of the pointer
+            if (x + tip.offsetWidth > box.width - 8) {
+                x = event.clientX - box.left - TIP_OFFSET.x - tip.offsetWidth;
+            }
+            if (y + tip.offsetHeight > box.height - 8) {
+                y = event.clientY - box.top - TIP_OFFSET.y - tip.offsetHeight;
+            }
+
+            tip.style.transform = "translate(" + Math.round(x) + "px, " + Math.round(y) + "px)";
+            if (!tipShown) {
+                tipShown = true;
+                tip.classList.add("is-shown");
+            }
+        };
+
+        svg.addEventListener("pointermove", moveTip);
+        svg.addEventListener("pointerleave", hideTip);
+
         if (undoButton) { undoButton.addEventListener("click", function () { settle(); undo(); }); }
         if (redoButton) { redoButton.addEventListener("click", function () { settle(); redo(); }); }
         syncButtons();
@@ -455,6 +521,7 @@
                 fixed[line.playerId] = line.group;
                 lastStyle = line.style;
                 record({ playerId: line.playerId, before: previous || null, after: line.group });
+                retireTip();   // a route was drawn; the pill has said its piece
             } else {
                 line.group.remove();
                 if (previous) {
@@ -471,6 +538,7 @@
 
             event.preventDefault();   // no text selection, no native drag
             settle();
+            hideTip();
             var player = PLAYERS.filter(function (p) { return p.id === playerEl.getAttribute("data-player"); })[0];
 
             drawing = {
