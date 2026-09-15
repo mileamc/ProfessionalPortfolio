@@ -482,7 +482,7 @@ html {
     margin-block: 0;   /* the shell's own margin-inline: auto has to survive */
     padding-block: var(--nh-nav-clear) var(--nh-space-3);
     font-size: var(--nh-size-tiny);
-    font-weight: var(--nh-regular);
+    font-weight: var(--nh-semibold);
     line-height: 1.4;
     color: var(--nh-muted);
 }
