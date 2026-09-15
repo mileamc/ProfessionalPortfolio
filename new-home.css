@@ -1555,9 +1555,11 @@ html {
 
 /* The hop the LUDIS players and the top photograph answer the pointer with:
    a lift on a springy curve that overshoots once and settles, so a machine
-   reads as something to pick up. */
+   reads as something to pick up. It is a lift and nothing else — the card is
+   a solid thing that moves, so scaling it, which would redraw the type at a
+   size of its own, is left to the round players it came from. */
 .ic__machine:hover {
-    transform: translateY(-3px) scale(1.012);
+    transform: translateY(-3px);
     transition:
         border-color var(--nh-base) var(--nh-ease),
         background-color var(--nh-base) var(--nh-ease),
