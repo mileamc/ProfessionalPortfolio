@@ -1477,7 +1477,7 @@ html {
     flex: 0 0 28cqi;
     display: flex;
     flex-direction: column;
-    gap: 1.57cqi;
+    gap: 1.88cqi;
     min-width: 0;
     /* the head lines up with the panel's eyebrow, and the card's arrow sits
        in this corner, which the list ends just above */
@@ -1529,7 +1529,7 @@ html {
 .ic__machines {
     display: flex;
     flex-direction: column;
-    gap: 1.57cqi;              /* the same spacing as the head above them */
+    gap: 1.88cqi;              /* the same spacing as the head above them */
     min-height: 0;
 }
 
@@ -1599,9 +1599,9 @@ html {
 }
 
 .ic__machine-sub {
-    font-size: clamp(10px, 1.32cqi, 14px);
+    font-size: clamp(9.5px, 1.22cqi, 13px);
     font-weight: 400;
-    line-height: 1.15;
+    line-height: 1;
     color: var(--ic-body);
     transition: font-weight var(--nh-base) var(--nh-ease);
 }
