@@ -107,6 +107,12 @@
     text-wrap: balance;
 }
 
+/* The home's marker, in light yellow: same band, same slant, same stroke
+   from left to right on load — only the colour of the ink changes. */
+.ab-title .nh-highlight {
+    --nh-highlight: rgba(250, 214, 78, 0.55);
+}
+
 .ab-lead {
     position: relative;
     top: -2px;              /* the lift the brief asks for */
