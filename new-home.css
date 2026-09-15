@@ -1337,16 +1337,14 @@ html {
     background: #F8FBFF;   /* the paper's own colour, under it while it loads */
 }
 
-/* The two typed lines at the head of the page, written on its ruled lines —
-   the discipline, and the sentence the handwriting below finishes. Typed,
-   not drawn: they are Poppins, like the rest of the site, and they sit in
-   the card rather than in the paper because an SVG loaded as an image
-   cannot reach the page's webfont. They size by the card's own width, as
-   the LUDIS screen does, so they stay readable at any card size. */
+/* The discipline, typed at the head of the page and written on its first
+   ruled line. Typed, not drawn: it is Poppins, like the rest of the site,
+   and it sits in the card rather than in the paper because an SVG loaded as
+   an image cannot reach the page's webfont. It sizes by the card's own
+   width, as the LUDIS screen does, so it stays readable at any card size. */
 .mw__note {
     position: absolute;
-    /* both lines are written on the paper's own rules: the first at 137 of
-       the artwork's 866, the second at 292 */
+    /* written on the paper's own first rule, at 137 of the artwork's 866 */
     top: 11.3%;
     left: 13.8%;           /* the left edge of the word below */
     right: clamp(52px, 12cqi, 84px);   /* clear of the card's arrow */
@@ -1394,15 +1392,6 @@ html {
     .mw__label > span + span::before {
         display: none;
     }
-}
-
-.mw__lead {
-    margin: clamp(7px, 2.9cqi, 26px) 0 0;
-    font-size: clamp(11px, 2cqi, 18px);
-    font-weight: var(--nh-regular);
-    line-height: 1.35;
-    letter-spacing: -0.01em;
-    color: color-mix(in srgb, var(--mw-ink) 80%, transparent);
 }
 
 .mw__paper,
