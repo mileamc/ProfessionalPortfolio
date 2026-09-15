@@ -49,6 +49,16 @@
     grid-column: 1 / -1;
 }
 
+/* Entry: the same quiet rise the home's cards come in on, in reading order —
+   the text, the photographs, the CV, the playlist. The keyframes are the
+   home's own (nh-rise); only the order is this page's. */
+@media (prefers-reduced-motion: no-preference) {
+    .ab-card {
+        animation: nh-rise 700ms var(--nh-ease) backwards;
+        animation-delay: calc(var(--i, 0) * 60ms);
+    }
+}
+
 /* Every card on this page holds text or an embed rather than a screenshot,
    so they are all padded like the home's introduction. They also carry
    .nh-card--content, the home's class for a card as tall as what is inside
