@@ -135,14 +135,23 @@
     justify-content: center;
 }
 
+/* The photographs are the card, so this one keeps only the inset the card's
+   rounded corners need — the box already carries the room the fan uses. */
+.ab-photos {
+    padding: var(--nh-space-3);
+}
+
 /* Square photographs here, so the stack fills a square card: the box is as
    wide as the card allows and just deep enough for the fan above the top
    photo, the same way the home's landscape box is. */
 .ab-photos .nh-stack {
-    --stack-card-w: 88%;
+    /* The photo is as large as the square allows: the fan above it takes a
+       tenth of its height, so at 89 per cent of the box the two together
+       come to the box exactly. */
+    --stack-card-w: 89%;
     max-width: none;
     margin-top: 0;
-    aspect-ratio: 1 / 0.98;
+    aspect-ratio: 1;
 }
 
 .ab-photos .nh-stack__card {
