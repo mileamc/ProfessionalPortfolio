@@ -14,7 +14,7 @@
 <!-- Self-contained: this page does not load tokens.css, components.css or
      page-style.css. Its visual language is scoped to .nh in new-home.css so
      the existing pages keep rendering exactly as they do today. -->
-<link rel="stylesheet" href="new-home.css?v=bubble-22"/>
+<link rel="stylesheet" href="new-home.css?v=mosaico-1"/>
 </head>
 <body class="nh">
 
@@ -119,6 +119,39 @@
 -->
 
 <!--
+    MOSAICO — the word written by hand (card "mosaico").
+
+    Two layers in the card's stage, the same shape as the LUDIS card: the
+    paper (assets/mosaico/paper.svg, which carries the supplied background
+    and the supplied lettering at 15 per cent — the guide) and, over it, the
+    handwriting.
+
+    The handwriting is NOT the lettering's outline. Each path below is one
+    pen-down..pen-up movement, in the order the word is written — m, o, s, a,
+    i, its dot, c, o — reconstructed as the strokes a hand makes and measured
+    to land on the guide. They are open monoline paths: stroke, never fill.
+    scripts/mosaico-write.js draws them out and back by stroke-dashoffset.
+-->
+<template data-nh-card="mosaico">
+    <div class="mw" data-mosaico-write>
+        <img class="mw__paper" src="assets/mosaico/paper.svg" alt="" draggable="false"/>
+        <svg class="mw__ink" viewBox="0 0 2740 866" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <g fill="none" stroke="#1E2945" stroke-width="36" stroke-linecap="round" stroke-linejoin="round">
+        <path data-mw-stroke="m" d="M 385 470 C 400 432 424 392 451 383 C 470 378 476 420 474 470 C 472 520 470 556 471 578 C 474 601 499 595 521 570 C 549 539 581 459 611 406 C 628 377 638 420 637 470 C 636 520 635 556 636 584 C 639 607 664 600 686 575 C 714 544 746 459 774 406 C 791 377 801 420 800 470 C 799 518 800 548 807 570 C 815 593 841 597 864 588 C 897 575 941 528 965 498"/>
+        <path data-mw-stroke="o" d="M 965 498 C 985 455 1000 415 1020 412 C 1000 420 968 455 963 498 C 958 545 990 583 1032 583 C 1085 583 1140 550 1140 505 C 1140 450 1118 400 1085 398 C 1100 420 1120 450 1140 480 C 1170 520 1205 505 1234 490"/>
+        <path data-mw-stroke="s" d="M 1234 490 C 1250 450 1262 370 1275 340 C 1286 322 1292 344 1295 375 C 1302 425 1330 480 1345 520 C 1357 556 1340 588 1300 596 C 1265 602 1236 592 1232 570"/>
+        <path data-mw-stroke="a" d="M 1232 570 C 1240 592 1270 606 1310 592 C 1360 572 1420 545 1452 505 C 1470 468 1512 400 1570 396 C 1606 393 1628 410 1638 432"/>
+        <path data-mw-stroke="a-bowl" d="M 1560 505 C 1512 505 1472 530 1466 560 C 1462 590 1490 601 1520 592 C 1556 582 1580 550 1584 512 C 1592 552 1616 578 1662 578 C 1700 578 1730 540 1756 498"/>
+        <path data-mw-stroke="i" d="M 1756 498 C 1770 458 1780 410 1790 384 C 1797 420 1801 506 1806 556 C 1812 592 1844 596 1876 580 C 1908 564 1932 524 1948 488"/>
+        <path data-mw-stroke="i-dot" d="M 1788 312 C 1790 313 1791 314 1792 316"/>
+        <path data-mw-stroke="c" d="M 1948 488 C 1970 440 2004 390 2044 383 C 2068 379 2084 400 2080 426 C 2056 414 2018 418 1998 448 C 1974 484 1974 548 1998 578 C 2024 610 2072 606 2110 580 C 2152 552 2192 516 2218 498"/>
+        <path data-mw-stroke="o2" d="M 2218.6 498 C 2238.6 455 2253.6 415 2273.6 412 C 2253.6 420 2221.6 455 2216.6 498 C 2211.6 545 2243.6 583 2285.6 583 C 2338.6 583 2393.6 550 2393.6 505 C 2393.6 450 2371.6 400 2338.6 398 C 2353.6 420 2373.6 450 2393.6 480 C 2428 530 2462 505 2497 464"/>
+            </g>
+        </svg>
+    </div>
+</template>
+
+<!--
     LUDIS — interactive play board (card "ludis").
 
     A recreation of the LUDIS play-design screen: the toolbar with its
@@ -163,8 +196,9 @@
     </div>
 </template>
 
-<script src="data/home-projects.js?v=bubble-22"></script>
-<script src="scripts/new-home.js?v=bubble-22"></script>
-<script src="scripts/ludis-play.js?v=bubble-22"></script>
+<script src="data/home-projects.js?v=mosaico-1"></script>
+<script src="scripts/new-home.js?v=mosaico-1"></script>
+<script src="scripts/ludis-play.js?v=mosaico-1"></script>
+<script src="scripts/mosaico-write.js?v=mosaico-1"></script>
 </body>
 </html>

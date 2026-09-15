@@ -1314,6 +1314,47 @@ html {
 
 
 /* ===========================================================================
+   7c. MOSAICO — THE WORD WRITTEN BY HAND (inside the MOSAICO card)
+
+   Two layers filling the card, in one coordinate system: the paper
+   (assets/mosaico/paper.svg — the supplied background, its rules carried out
+   past the artwork's own box, and the supplied lettering at 15% as the
+   guide) and the handwriting over it. Both are 2740 x 866 and both meet
+   inside the same box, so they map identically and the writing cannot drift
+   off the guide at any card size.
+
+   The strokes are open paths: stroke, no fill. scripts/mosaico-write.js
+   draws them by stroke-dashoffset; nothing here animates.
+=========================================================================== */
+
+.mw {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    background: #F8FBFF;   /* the paper's own colour, under it while it loads */
+}
+
+.mw__paper,
+.mw__ink {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.mw__ink {
+    pointer-events: none;   /* the writing is never in the way of the card */
+}
+
+.mw__paper {
+    display: block;
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+
+/* ===========================================================================
    8. GRAPHIC DESIGN CARD
 
    The exception to the visual-only rule: label, title, description and a

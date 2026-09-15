@@ -59,15 +59,16 @@ window.homeProjects = {
             media: []
         },
         {
+            // The word written by hand. Its markup is the
+            // <template data-nh-card="mosaico"> in index.html and its
+            // behaviour is scripts/mosaico-write.js — so no `media` here.
             id: "mosaico",
             title: "Mosaico",
             href: null,          // existing page: case-mosaico-lp.html
             size: "lead-below",
-            frame: "canvas",
+            frame: "custom",
             tone: null,          // null = the standard card grey
-            media: [
-                { src: "imagesProjects/mosaico-case/diagram-final.png", alt: "", ratio: "4:3" }
-            ]
+            media: []
         },
         {
             id: "hpp",
