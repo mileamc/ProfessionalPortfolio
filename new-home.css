@@ -476,6 +476,21 @@ html {
    back-fills any gap a future card size might leave.
 =========================================================================== */
 
+/* The line over the grid: it carries the room the navigation needs, and the
+   grid stops carrying it, so the two read as one block under the bar. */
+.nh-kicker {
+    margin-block: 0;   /* the shell's own margin-inline: auto has to survive */
+    padding-block: var(--nh-nav-clear) var(--nh-space-3);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-regular);
+    line-height: 1.4;
+    color: var(--nh-muted);
+}
+
+.nh-kicker + .nh-grid {
+    padding-block-start: 0;
+}
+
 .nh-grid {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
