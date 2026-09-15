@@ -53,7 +53,7 @@
 
     /* Availability — the only colour in the page chrome */
     --nh-signal:        #16A34A;   /* the light itself, bright against the pill */
-    --nh-signal-text:   #1E7F4F;   /* 4.7:1 on the pill it sits in */
+    --nh-signal-text:   #1E7F4F;   /* 4.7:1 on the card it sits in */
     --nh-signal-line:   rgba(22, 163, 74, 0.45);
 
     /* Type — Poppins only; hierarchy comes from weight and size */
@@ -322,9 +322,7 @@ html {
     right: 0;
     z-index: 50;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--nh-space-4);
+    justify-content: flex-end;
     max-width: calc(var(--nh-max) + 2 * var(--nh-gutter));
     margin-inline: auto;
     padding-inline: var(--nh-gutter);
@@ -693,11 +691,10 @@ html {
     display: inline-flex;
     align-items: center;
     gap: var(--nh-space-2);
-    margin: 0;
-    padding: 5px 14px 5px 11px;
+    margin-bottom: var(--nh-space-5);
+    padding: 4px 12px 4px 10px;
     border: 1px solid var(--nh-signal-line);
     border-radius: 999px;
-    background: var(--nh-nav-bg);
     font-size: 0.75rem;
     font-weight: var(--nh-medium);
     line-height: 1.5;
