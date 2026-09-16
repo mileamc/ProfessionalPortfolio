@@ -2540,10 +2540,14 @@ html {
 
 /* --- the place ---------------------------------------------------------------- */
 
+/* The name, what kind of place it is and what it costs, on one line, with
+   the address under them. The name has a column of its own that gives way
+   first: a two-word name breaks onto a second line rather than pushing the
+   tag or the price off the row, which is what left a gap under Mori Matcha. */
 .nm-post__place {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     align-items: baseline;
-    flex-wrap: wrap;
     gap: var(--nm-4) var(--nm-8);
     padding: var(--nm-8) var(--nm-4) 0;
 }
@@ -2557,6 +2561,8 @@ html {
 }
 
 .nm-post__cat {
+    justify-self: start;
+    white-space: nowrap;   /* the name gives way, not the kind of place */
     padding: var(--nm-4) var(--nm-8);
     border-radius: 999px;
     background: rgba(106, 159, 50, 0.15);
@@ -2567,7 +2573,6 @@ html {
 }
 
 .nm-post__price {
-    margin-left: auto;
     font-size: clamp(6px, 4.455cqi, 14px);
     font-weight: var(--nh-semibold);
     line-height: 1.2;
@@ -2580,7 +2585,7 @@ html {
 
 .nm-post__address {
     display: block;
-    flex-basis: 100%;   /* its own line under the name and the price */
+    grid-column: 1 / -1;   /* its own line under the name and the price */
     padding-top: var(--nm-4);
     font-size: clamp(5.5px, 3.78cqi, 12px);
     font-weight: var(--nh-regular);
