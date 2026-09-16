@@ -1902,6 +1902,45 @@ html {
     fill: currentColor;
 }
 
+/* --- the two arrows, breathing under the pointer ----------------------------
+   The swing itself never stops once the icon has been hovered the first time;
+   what the pointer changes is how far it reaches. So arriving opens the
+   arrows up and leaving eases them home, rather than cutting the movement
+   off wherever it happened to be. */
+
+@property --ic-apart {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 0px;
+}
+
+.ic__empty-icon {
+    --ic-apart: 0px;
+    transition: --ic-apart 360ms ease;
+}
+
+.ic__empty-icon:hover {
+    --ic-apart: 12px;      /* in the icon's own units: about 5px on screen */
+}
+
+.ic__empty-arrow--left  { --ic-sign: -1; }
+.ic__empty-arrow--right { --ic-sign:  1; }
+
+.ic__empty-icon.is-breathing .ic__empty-arrow {
+    animation: ic-breathe 1500ms ease-in-out infinite;
+}
+
+@keyframes ic-breathe {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(calc(var(--ic-sign) * var(--ic-apart))); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ic__empty-icon.is-breathing .ic__empty-arrow {
+        animation: none;
+    }
+}
+
 .ic__empty-title {
     margin: 0;
     font-size: clamp(11px, 1.623cqi, 17px);
