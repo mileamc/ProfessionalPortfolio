@@ -1895,8 +1895,10 @@ html {
 /* the two arrows keep their own proportions — width only, height follows */
 .ic__empty-icon {
     display: block;
-    width: 11.016cqi;
-    min-width: 78px;
+    /* the drawing is the same size as ever: the width carries the box's
+       slack (225/201) so the arrows themselves still measure 11.016cqi */
+    width: 12.331cqi;
+    min-width: 87.31px;
     height: auto;
     margin-bottom: 1.402cqi;
     fill: currentColor;
