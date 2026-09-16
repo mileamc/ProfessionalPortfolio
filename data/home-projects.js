@@ -97,17 +97,18 @@ window.homeProjects = {
             ]
         },
         {
+            // The social feed, running inside the phone. Its markup is the
+            // <template data-nh-card="nommu"> in index.html and its behaviour
+            // is scripts/nommu-feed.js — so no `media` here. Only the arrow
+            // opens the case page; the rest of the card is the prototype.
             id: "nommu",
             title: "NOMMU",
             href: null,
+            linkArea: "arrow",
             size: "large",
-            frame: "phones",
+            frame: "custom",
             tone: null,
-            media: [
-                { src: "imagesProjects/nommu/screen-01.png", alt: "", ratio: "9:19.5" },
-                { src: "imagesProjects/nommu/screen-02.png", alt: "", ratio: "9:19.5" },
-                { src: "imagesProjects/nommu/screen-03.png", alt: "", ratio: "9:19.5" }
-            ]
+            media: []
         }
     ],
 
