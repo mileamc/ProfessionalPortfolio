@@ -353,24 +353,23 @@
             feed.appendChild(buildPost(review));
         });
 
-        // --- the welcome, carried off the top ---------------------------------
+        // --- the welcome and its tabs, carried off the top ---------------------
         //
-        // The header is not inside the feed, so the feed hands it its own
-        // scroll: it rises by what has been scrolled and hands the same
-        // amount down, leaving the screen to the reviews.
+        // Neither is inside the feed, so the feed hands them its own scroll:
+        // they rise by what has been scrolled and hand the same height down,
+        // leaving the screen to the reviews.
 
-        var head = root.querySelector(".nm-app__top");
+        var chrome = root.querySelector(".nm-app__chrome");
         var app = root.querySelector("[data-nm-app]");
 
         var carryTop = function () {
-            if (!head || !app) {
+            if (!chrome || !app) {
                 return;
             }
-            // rounded up, so no sliver of purple is left behind
-            var height = Math.ceil(head.getBoundingClientRect().height);
+            // rounded up, so no sliver of either is left behind
+            var height = Math.ceil(chrome.getBoundingClientRect().height);
             var gone = Math.max(0, Math.min(feed.scrollTop, height));
             app.style.setProperty("--nm-lift", gone + "px");
-            app.style.setProperty("--nm-tuck", height ? (gone / height).toFixed(4) : "0");
         };
 
         feed.addEventListener("scroll", carryTop);

@@ -14,7 +14,7 @@
 <!-- Self-contained: this page does not load tokens.css, components.css or
      page-style.css. Its visual language is scoped to .nh in new-home.css so
      the existing pages keep rendering exactly as they do today. -->
-<link rel="stylesheet" href="new-home.css?v=nommu-9"/>
+<link rel="stylesheet" href="new-home.css?v=nommu-10"/>
 </head>
 <body class="nh">
 
@@ -199,25 +199,29 @@
             <div class="nm__screen nh-card__interactive">
                 <div class="nm-app" data-nm-app>
 
-                    <header class="nm-app__top">
-                        <div class="nm-app__hello">
-                            <p class="nm-app__welcome">Welcome to</p>
-                            <p class="nm-app__city">Curitiba</p>
-                        </div>
-                        <span class="nm-app__menu is-off" aria-hidden="true"><span></span><span></span><span></span></span>
-                        <p class="nm-app__search is-off" aria-hidden="true">
-                            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
-                            Search places, dishes, people
-                        </p>
-                    </header>
+                    <!-- the welcome and the tabs travel together, off the
+                         top of the screen, as the feed is scrolled -->
+                    <div class="nm-app__chrome">
+                        <header class="nm-app__top">
+                            <div class="nm-app__hello">
+                                <p class="nm-app__welcome">Welcome to</p>
+                                <p class="nm-app__city">Curitiba</p>
+                            </div>
+                            <span class="nm-app__menu is-off" aria-hidden="true"><span></span><span></span><span></span></span>
+                            <p class="nm-app__search is-off" aria-hidden="true">
+                                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
+                                Search places, dishes, people
+                            </p>
+                        </header>
 
-                    <div class="nm-app__body">
                         <div class="nm-app__tabs" role="tablist" aria-label="Feed">
                             <button class="nm-tab is-off" type="button" role="tab" aria-selected="false" tabindex="-1" disabled>Friends</button>
                             <button class="nm-tab is-on" type="button" role="tab" aria-selected="true">Recommended</button>
                             <button class="nm-tab is-off" type="button" role="tab" aria-selected="false" tabindex="-1" disabled>Following</button>
                         </div>
+                    </div>
 
+                    <div class="nm-app__body">
                         <!-- the three reviews, from scripts/nommu-feed.js -->
                         <div class="nm-feed" data-nm-feed tabindex="0" role="feed" aria-label="Recommended reviews"></div>
                     </div>
@@ -330,11 +334,11 @@
     </div>
 </template>
 
-<script src="data/home-projects.js?v=nommu-9"></script>
-<script src="scripts/new-home.js?v=nommu-9"></script>
-<script src="scripts/ludis-play.js?v=nommu-9"></script>
-<script src="scripts/mosaico-write.js?v=nommu-9"></script>
-<script src="scripts/imb-compare.js?v=nommu-9"></script>
-<script src="scripts/nommu-feed.js?v=nommu-9"></script>
+<script src="data/home-projects.js?v=nommu-10"></script>
+<script src="scripts/new-home.js?v=nommu-10"></script>
+<script src="scripts/ludis-play.js?v=nommu-10"></script>
+<script src="scripts/mosaico-write.js?v=nommu-10"></script>
+<script src="scripts/imb-compare.js?v=nommu-10"></script>
+<script src="scripts/nommu-feed.js?v=nommu-10"></script>
 </body>
 </html>

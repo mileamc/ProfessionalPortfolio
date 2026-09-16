@@ -2214,10 +2214,9 @@ html {
     --nm-8:  2.957cqi;
     --nm-4:  1.472cqi;
 
-    /* how much of the welcome has been carried off the top, and how far
-       along that is — set by the feed as it scrolls */
+    /* how much of the welcome and its tabs has been carried off the top —
+       set by the feed as it scrolls */
     --nm-lift: 0px;
-    --nm-tuck: 0;
 
     position: absolute;
     inset: 0;
@@ -2244,20 +2243,25 @@ html {
     cursor: default;
 }
 
-/* Scrolling down carries the welcome off the top of the screen: it moves up
-   by what has been scrolled, and gives the same amount back to the feed
-   below it, so the feed ends up with the screen to itself. */
-.nm-app__top {
+/* Scrolling down carries the welcome and the tabs off the top of the screen
+   together: they move up by what has been scrolled and give the same amount
+   back to the feed below, so the feed ends up with the screen to itself. */
+.nm-app__chrome {
+    position: relative;
+    z-index: 1;
     flex: none;
+    margin-bottom: calc(-1 * var(--nm-lift));
+    transform: translateY(calc(-1 * var(--nm-lift)));
+}
+
+.nm-app__top {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: var(--nm-16) var(--nm-8);
-    margin-bottom: calc(-1 * var(--nm-lift));
     padding: 8.1cqi var(--nm-16) var(--nm-16);
     border-radius: 0 0 7.56cqi 7.56cqi;
     background: var(--nm-deep);
     color: #FFFFFF;
-    transform: translateY(calc(-1 * var(--nm-lift)));
 }
 
 .nm-app__hello {
@@ -2333,12 +2337,9 @@ html {
 /* --- the three feeds, one of which is this one ------------------------------ */
 
 .nm-app__tabs {
-    flex: none;
     display: flex;
     gap: 1.6cqi;
-    /* once the welcome is gone the tabs are what sits under the phone's top
-       edge, so they take on the breathing room it had */
-    padding: calc(var(--nm-16) + var(--nm-tuck) * 4.6cqi) var(--nm-16) var(--nm-8);
+    padding: var(--nm-16) var(--nm-16) var(--nm-8);
 }
 
 .nm .nm-tab {
