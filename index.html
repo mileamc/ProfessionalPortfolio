@@ -14,7 +14,7 @@
 <!-- Self-contained: this page does not load tokens.css, components.css or
      page-style.css. Its visual language is scoped to .nh in new-home.css so
      the existing pages keep rendering exactly as they do today. -->
-<link rel="stylesheet" href="new-home.css?v=nommu-1"/>
+<link rel="stylesheet" href="new-home.css?v=nommu-3"/>
 </head>
 <body class="nh">
 
@@ -183,57 +183,44 @@
     The phone is the supplied photograph, assets/mockup-phone.png: a frame
     with its screen cut out. The app sits behind it, in the hole, so what
     shows through the glass is a live interface rather than a screenshot.
-    The frame itself never moves and takes no clicks.
+    The frame never moves and takes no clicks; the card crops it, so the
+    phone reads as a phone standing in the card.
 
-    Everything inside the screen — the three reviews, their carousels, the
-    likes, the saves and the comments — is built and driven by
-    scripts/nommu-feed.js.
+    Everything inside the screen — the three reviews, their photographs,
+    the likes, the saves and the comments — is built and driven by
+    scripts/nommu-feed.js. What cannot be used in a prototype this size
+    (the search, the other two feeds, the menu) is drawn in the inactive
+    colour, so it is clear what answers a touch and what does not.
 -->
 <template data-nh-card="nommu">
     <div class="nm" data-nommu>
-
-        <div class="nm__intro">
-            <p class="nm__eyebrow">Social discovery</p>
-            <h3 class="nm__title">NOMMU</h3>
-            <p class="nm__note">A feed of places people actually went to — reviewed, rated, and saved for later.</p>
-            <ul class="nm__tags">
-                <li>Feed</li>
-                <li>Reviews</li>
-                <li>Mobile</li>
-            </ul>
-        </div>
-
         <div class="nm__phone">
-            <!-- the screen: the app, behind the glass -->
+
             <div class="nm__screen nh-card__interactive">
                 <div class="nm-app" data-nm-app>
 
                     <header class="nm-app__top">
-                        <div>
+                        <div class="nm-app__hello">
                             <p class="nm-app__welcome">Welcome to</p>
-                            <p class="nm-app__city">CURITIBA</p>
+                            <p class="nm-app__city">Curitiba</p>
                         </div>
-                        <span class="nm-app__menu" aria-hidden="true"><span></span><span></span><span></span></span>
+                        <span class="nm-app__menu is-off" aria-hidden="true"><span></span><span></span><span></span></span>
+                        <p class="nm-app__search is-off" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
+                            Search places, dishes, people
+                        </p>
                     </header>
 
-                    <div class="nm-app__sheet">
+                    <div class="nm-app__body">
                         <div class="nm-app__tabs" role="tablist" aria-label="Feed">
-                            <button class="nm-tab" type="button" role="tab" aria-selected="false" tabindex="-1">Friends</button>
+                            <button class="nm-tab is-off" type="button" role="tab" aria-selected="false" tabindex="-1" disabled>Friends</button>
                             <button class="nm-tab is-on" type="button" role="tab" aria-selected="true">Recommended</button>
-                            <button class="nm-tab" type="button" role="tab" aria-selected="false" tabindex="-1">Following</button>
+                            <button class="nm-tab is-off" type="button" role="tab" aria-selected="false" tabindex="-1" disabled>Following</button>
                         </div>
 
                         <!-- the three reviews, from scripts/nommu-feed.js -->
                         <div class="nm-feed" data-nm-feed tabindex="0" role="feed" aria-label="Recommended reviews"></div>
                     </div>
-
-                    <nav class="nm-nav" aria-label="NOMMU">
-                        <span class="nm-nav__item is-on"><span class="nm-nav__pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg></span>Home</span>
-                        <span class="nm-nav__item"><span class="nm-nav__pill"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg></span>Explore</span>
-                        <span class="nm-nav__item"><span class="nm-nav__pill"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="m12 8 1.2 2.6 2.8.3-2.1 1.9.6 2.8-2.5-1.4-2.5 1.4.6-2.8L8 10.9l2.8-.3z"/></svg></span>Saved</span>
-                        <span class="nm-nav__item"><span class="nm-nav__pill"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 13h4l1.5 2.5h5L16 13h4"/></svg></span>Inbox</span>
-                        <span class="nm-nav__item"><span class="nm-nav__pill"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="3.2"/><path d="M5.5 19a6.8 6.8 0 0 1 13 0"/></svg></span>Profile</span>
-                    </nav>
 
                     <!-- comments, over the feed, which keeps its place -->
                     <div class="nm-sheet" data-nm-sheet hidden>
@@ -255,8 +242,8 @@
 
             <!-- the supplied phone, over the app: frame only, never moves -->
             <img class="nm__frame" src="assets/mockup-phone.png" alt="" draggable="false"/>
-        </div>
 
+        </div>
     </div>
 </template>
 
@@ -343,11 +330,11 @@
     </div>
 </template>
 
-<script src="data/home-projects.js?v=nommu-1"></script>
-<script src="scripts/new-home.js?v=nommu-1"></script>
-<script src="scripts/ludis-play.js?v=nommu-1"></script>
-<script src="scripts/mosaico-write.js?v=nommu-1"></script>
-<script src="scripts/imb-compare.js?v=nommu-1"></script>
-<script src="scripts/nommu-feed.js?v=nommu-1"></script>
+<script src="data/home-projects.js?v=nommu-3"></script>
+<script src="scripts/new-home.js?v=nommu-3"></script>
+<script src="scripts/ludis-play.js?v=nommu-3"></script>
+<script src="scripts/mosaico-write.js?v=nommu-3"></script>
+<script src="scripts/imb-compare.js?v=nommu-3"></script>
+<script src="scripts/nommu-feed.js?v=nommu-3"></script>
 </body>
 </html>

@@ -521,7 +521,7 @@ html {
    height is the standard one — the list of machines is what sets it, and
    the table scrolls under the machines it cannot show at once. */
 .nh-grid > [data-project="imb-compare"]  { grid-column: span 8; }
-.nh-grid > [data-project="imb"]          { grid-column: span 4; }
+.nh-grid > [data-project="nommu"]        { grid-column: span 4; }
 
 
 /* ===========================================================================
@@ -2089,114 +2089,58 @@ html {
 /* ===========================================================================
    7e. NOMMU — THE FEED, INSIDE THE PHONE (inside the NOMMU card)
 
-   NOMMU is a social network for places you eat at. What the card shows is
-   its Recommended feed, running: the supplied photograph of a phone
+   NOMMU is a social network for places you eat at. The card shows its
+   Recommended feed, running: the supplied photograph of a phone
    (assets/mockup-phone.png) has its screen cut out of it, so the app sits
    behind the frame and shows through the glass. The frame is an image and
    takes no clicks; everything inside the screen is live.
 
-   The phone is measured from that photograph. Its screen hole begins at
-   19.954% of the image's width and 8.15% of its height, and is 59.329% by
-   83.412% — the numbers below are those, so the app lands in the glass
-   whatever size the card is.
+   The phone is measured from that photograph: its glass begins at 19.954%
+   of the image's width and 8.15% of its height and is 59.329% by 83.412%,
+   which is what the screen below is set to. The card crops the phone, as a
+   phone standing in a card would be.
 
-   Inside the screen, sizes are in cqi against the screen's own width, from
-   the 393px frame the interface was designed at (1 design pixel = 0.2545cqi).
-   The product's own palette — Material 3 purples — is used inside the screen
-   only; it belongs to NOMMU, not to the portfolio.
+   Inside the glass, sizes are in cqi against the screen's own width, from a
+   300px frame — a little wider than the 393px the interface was drawn at,
+   which is what keeps it readable at the size a bento card allows.
+
+   The palette is NOMMU's own, taken from the crates of a food market: a
+   deep blue for the chrome, cream for the paper, and orange, yellow and
+   lettuce green for everything the visitor can touch. It is used inside the
+   screen only — it belongs to NOMMU, not to the portfolio.
 =========================================================================== */
 
 .nm {
-    --nm-ink:        #1D1B20;
-    --nm-ink-soft:   #49454F;
-    --nm-surface:    #FFFFFF;
-    --nm-top:        #E3E1E5;
-    --nm-sheet:      #F3EDF7;
-    --nm-line:       #CAC4D0;
-    --nm-primary:    #EADDFF;
-    --nm-on-primary: #4F378A;
-    --nm-chip:       rgba(29, 27, 32, 0.08);
-    --nm-active:     #E8DEF8;
-    --nm-heart:      #B3261E;
+    --nm-blue:   #293379;
+    --nm-cream:  #FDF6EC;
+    --nm-paper:  #FFFFFF;
+    --nm-orange: #EE7302;
+    --nm-yellow: #E5A300;
+    --nm-lime:   #6A9F32;
+    --nm-red:    #B81817;
+    --nm-ink:    #221C14;
+    --nm-soft:   #6E6155;
+    --nm-off:    #B9AFA4;   /* what a prototype cannot do */
+    --nm-line:   #EDE3D6;
 
     position: relative;
-    display: flex;
     height: 100%;
     overflow: hidden;
-    padding: var(--nh-card-pad);
     background: var(--nh-card);
 }
 
-/* --- what the card says, beside the phone -------------------------------- */
-
-.nm__intro {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: var(--nh-space-2);
-    max-width: 38%;
-    padding-bottom: var(--nh-space-8);
-}
-
-.nm__eyebrow {
-    margin: 0;
-    font-size: var(--nh-size-label);
-    font-weight: var(--nh-semibold);
-    line-height: 1.3;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--nh-muted);
-}
-
-.nm__title {
-    margin: 0;
-    font-size: var(--nh-size-card-title);
-    font-weight: var(--nh-medium);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--nh-ink);
-}
-
-.nm__note {
-    margin: 0;
-    font-size: var(--nh-size-small);
-    font-weight: var(--nh-regular);
-    line-height: 1.5;
-    color: var(--nh-text);
-    text-wrap: pretty;
-}
-
-.nm__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin: var(--nh-space-2) 0 0;
-    padding: 0;
-    list-style: none;
-}
-
-.nm__tags li {
-    padding: 4px 10px;
-    border: 1px solid var(--nh-line);
-    border-radius: 999px;
-    font-size: var(--nh-size-tiny);
-    font-weight: var(--nh-medium);
-    line-height: 1.4;
-    color: var(--nh-muted);
-}
-
-/* --- the phone ------------------------------------------------------------
-   Taller than the card on purpose: it stands on the bottom edge and the card
-   crops it, so what is seen is the top of a phone rather than a whole one. */
+/* --- the phone -------------------------------------------------------------
+   As wide as the card allows and taller than it: it stands on the bottom
+   edge and the card crops it, so what is seen is the top of a phone. */
 
 .nm__phone {
     position: absolute;
-    right: 3%;
-    top: 5%;
-    height: 130%;
+    left: 50%;
+    top: 2.5%;
+    width: 93%;
     aspect-ratio: 4320 / 6577;   /* the photograph's own proportions */
-    pointer-events: none;        /* the frame and the padding around it */
+    transform: translateX(-50%);
+    pointer-events: none;
 }
 
 .nm__frame {
@@ -2222,7 +2166,7 @@ html {
     overflow: hidden;
     /* the photograph's corner radius, as an ellipse, so it stays circular */
     border-radius: 14.5% / 6.78%;
-    background: var(--nm-surface);
+    background: var(--nm-cream);
     pointer-events: auto;
 }
 
@@ -2230,12 +2174,10 @@ html {
 
 .nm-app {
     position: absolute;
-    inset: 0 0 auto 0;
-    /* the card crops the phone, so the app is as tall as the glass the card
-       shows — its bar lands just above the crop rather than under it */
-    height: 76%;
+    inset: 0;
     display: flex;
     flex-direction: column;
+    background: var(--nm-cream);
     font-family: var(--nh-font);
     color: var(--nm-ink);
     text-align: left;
@@ -2243,133 +2185,181 @@ html {
     user-select: none;
 }
 
+/* `hidden` is how the comments come and go, so it has to beat the flex
+   below it — otherwise the closed sheet still lies over the feed. */
+.nm [hidden] {
+    display: none;
+}
+
+/* what the prototype does not do is drawn in one quiet colour, so it is
+   clear at a glance what answers a touch */
+.nm .is-off {
+    color: var(--nm-off);
+    cursor: default;
+}
+
 .nm-app__top {
     flex: none;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 2cqi;
-    padding: 4cqi 4.1cqi 2.8cqi;
-    background: var(--nm-top);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2.8cqi 2cqi;
+    padding: 5.4cqi 5.4cqi 4.4cqi;
+    border-radius: 0 0 8cqi 8cqi;
+    background: var(--nm-blue);
+    color: var(--nm-cream);
 }
 
 .nm-app__welcome {
     margin: 0;
-    font-size: clamp(7px, 4.07cqi, 16px);
-    font-weight: var(--nh-semibold);
-    line-height: 1.4;
-    color: #000000;
+    font-size: clamp(7px, 4cqi, 15px);
+    font-weight: var(--nh-medium);
+    line-height: 1.3;
+    opacity: 0.78;
 }
 
 .nm-app__city {
     margin: 0;
-    font-size: clamp(13px, 8.4cqi, 33px);
-    font-weight: var(--nh-medium);
+    font-size: clamp(13px, 9cqi, 34px);
+    font-weight: var(--nh-semibold);
     line-height: 1.15;
-    letter-spacing: -0.01em;
-    color: #000000;
+    letter-spacing: -0.015em;
 }
 
 .nm-app__menu {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1.1cqi;
-    width: 6.8cqi;
+    gap: 1.4cqi;
+    width: 7cqi;
     padding-top: 2cqi;
 }
 
 .nm-app__menu span {
     display: block;
-    height: max(1px, 0.55cqi);
+    height: max(1.5px, 0.7cqi);
     border-radius: 2px;
-    background: #1E1E1E;
+    background: currentColor;
+    opacity: 0.55;
 }
 
-/* the white sheet the feed lives on */
-.nm-app__sheet {
-    position: relative;
-    z-index: 1;
+.nm-app__search {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 2.4cqi;
+    margin: 0;
+    padding: 2.4cqi 3.6cqi;
+    border-radius: 999px;
+    background: rgba(253, 246, 236, 0.16);
+    color: rgba(253, 246, 236, 0.62);
+    font-size: clamp(6.5px, 3.8cqi, 14px);
+    font-weight: var(--nh-regular);
+    line-height: 1.2;
+}
+
+.nm-app__search svg {
+    flex: none;
+    width: 4.6cqi;
+    height: 4.6cqi;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+.nm-app__body {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     min-height: 0;
-    margin-top: -3cqi;
-    border-radius: 5.3cqi 5.3cqi 0 0;
-    background: var(--nm-surface);
 }
+
+/* --- the three feeds, one of which is this one ------------------------------ */
 
 .nm-app__tabs {
     flex: none;
     display: flex;
-    gap: 1.6cqi;
-    padding: 2.8cqi 4.1cqi 2.2cqi;
+    gap: 2cqi;
+    padding: 3.4cqi 5.4cqi 2.8cqi;
 }
 
 .nm .nm-tab {
-    flex: 1 1 0;
+    flex: 0 1 auto;
     min-width: 0;
     overflow: hidden;
-    padding: 1.8cqi 0.8cqi;
+    padding: 2.2cqi 3.4cqi;
     border: 0;
     border-radius: 999px;
-    background: var(--nm-chip);
-    color: var(--nm-ink);
+    background: rgba(185, 175, 164, 0.22);
+    color: var(--nm-off);
     font-family: inherit;
-    font-size: clamp(6px, 2.9cqi, 12px);
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: clamp(6px, 3.6cqi, 13px);
     font-weight: var(--nh-medium);
-    line-height: 1.3;
-    letter-spacing: 0.01em;
-    opacity: 0.45;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     cursor: default;
 }
 
-.nm-tab.is-on {
-    background: var(--nm-primary);
-    color: var(--nm-on-primary);
-    opacity: 1;
+.nm .nm-tab.is-on {
+    background: var(--nm-orange);
+    color: #FFFFFF;
+    font-weight: var(--nh-semibold);
+    cursor: pointer;
 }
 
-/* --- the feed -------------------------------------------------------------
-   It scrolls inside the glass and keeps its scrolling to itself, so reading
-   the feed never moves the page behind it. */
+/* --- the feed --------------------------------------------------------------
+   Dragged rather than scrolled: the pointer pulls it the way a thumb would,
+   and it keeps the movement to itself, so reading the feed never moves the
+   page behind it. */
 
 .nm-feed {
     flex: 1 1 auto;
     min-height: 0;
-    padding: 0 4.1cqi 4cqi;
+    padding: 0 5.4cqi 8cqi;
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    touch-action: pan-y;
 }
 
 .nm-feed::-webkit-scrollbar {
     display: none;
 }
 
+.nm-feed.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+}
+
+/* --- a review --------------------------------------------------------------- */
+
+.nm-post {
+    padding: 3.4cqi;
+    border-radius: 6.4cqi;
+    background: var(--nm-paper);
+    box-shadow: 0 1px 2px rgba(34, 28, 20, 0.05), 0 10px 22px -18px rgba(34, 28, 20, 0.5);
+}
+
 .nm-post + .nm-post {
-    margin-top: 6cqi;
-    padding-top: 6cqi;
-    border-top: 1px solid var(--nm-line);
+    margin-top: 4.4cqi;
 }
 
 .nm-post__head {
     display: flex;
     align-items: center;
-    gap: 3cqi;
-    padding-bottom: 3cqi;
+    gap: 2.6cqi;
+    padding-bottom: 2.8cqi;
 }
 
 .nm-post__avatar {
     flex: none;
-    width: 10.2cqi;
+    width: 11cqi;
     aspect-ratio: 1;
     border-radius: 50%;
     object-fit: cover;
-    background: var(--nm-primary);
+    background: var(--nm-line);
 }
 
 .nm-post__who {
@@ -2379,49 +2369,46 @@ html {
 }
 
 .nm-post__name {
-    font-size: clamp(7px, 4.07cqi, 16px);
-    font-weight: var(--nh-medium);
+    font-size: clamp(7px, 4.4cqi, 16px);
+    font-weight: var(--nh-semibold);
     line-height: 1.25;
     color: var(--nm-ink);
 }
 
 .nm-post__handle {
-    font-size: clamp(6px, 3.05cqi, 12px);
+    font-size: clamp(6px, 3.6cqi, 13px);
     font-weight: var(--nh-regular);
     line-height: 1.3;
-    color: var(--nm-ink-soft);
+    color: var(--nm-soft);
 }
 
 .nm-post__more {
     margin-left: auto;
-    font-size: clamp(6px, 3.5cqi, 14px);
+    font-size: clamp(6px, 4cqi, 15px);
     line-height: 1;
-    letter-spacing: 0.06em;
-    color: var(--nm-ink-soft);
+    letter-spacing: 0.08em;
 }
 
-/* --- the two photographs --------------------------------------------------- */
+/* --- the two photographs ----------------------------------------------------- */
 
 .nm-post__media {
     position: relative;
     overflow: hidden;
-    border-radius: 3.05cqi;
-    background: var(--nm-sheet);
-    aspect-ratio: 7 / 5;
-    touch-action: pan-y;        /* a vertical swipe still scrolls the feed */
-    cursor: grab;
+    border-radius: 4.6cqi;
+    background: var(--nm-line);
+    aspect-ratio: 16 / 9;
+    touch-action: pan-y;        /* a vertical drag still moves the feed */
 }
 
 .nm-post__rail {
     display: flex;
     width: 100%;
     height: 100%;
-    transition: transform 320ms var(--nh-ease);
+    transition: transform 340ms var(--nh-ease);
 }
 
 .nm-post__rail.is-dragging {
     transition: none;
-    cursor: grabbing;
 }
 
 .nm-post__rail img {
@@ -2433,144 +2420,144 @@ html {
     user-select: none;
 }
 
-.nm-post__dots {
+/* the score, on the photograph, the way the references badge a card */
+.nm-post__badge {
     position: absolute;
-    left: 50%;
-    bottom: 2.4cqi;
+    left: 3cqi;
+    bottom: 3cqi;
     display: flex;
+    align-items: center;
     gap: 1.4cqi;
-    padding: 1.2cqi 2cqi;
-    transform: translateX(-50%);
+    padding: 1.6cqi 3cqi;
     border-radius: 999px;
-    background: rgba(29, 27, 32, 0.38);
+    background: var(--nm-yellow);
+    color: #2A1E06;
+    font-size: clamp(6px, 3.8cqi, 14px);
+    font-weight: var(--nh-semibold);
+    line-height: 1;
 }
 
-.nm-post__dot {
-    width: max(3px, 1.5cqi);
+.nm-post__badge svg {
+    width: 4cqi;
+    height: 4cqi;
+    fill: currentColor;
+}
+
+.nm-post__dots {
+    position: absolute;
+    right: 3cqi;
+    bottom: 3.4cqi;
+    display: flex;
+    gap: 1.6cqi;
+}
+
+.nm .nm-post__dot {
+    width: max(4px, 2cqi);
     aspect-ratio: 1;
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 1px 2px rgba(34, 28, 20, 0.35);
     cursor: pointer;
     transition: background-color var(--nh-fast) ease, transform var(--nh-fast) ease;
 }
 
-.nm-post__dot.is-on {
+.nm .nm-post__dot.is-on {
     background: #FFFFFF;
-    transform: scale(1.15);
+    transform: scale(1.25);
 }
 
-/* --- the place ------------------------------------------------------------- */
+/* --- the place ---------------------------------------------------------------- */
 
 .nm-post__place {
     display: flex;
-    align-items: center;
-    gap: 3.5cqi;
-    margin-top: 3cqi;
-    padding: 2.6cqi 3cqi;
-    border-radius: 3.05cqi;
-    background: var(--nm-sheet);
-}
-
-.nm-post__score {
-    flex: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1cqi;
-    padding-right: 3.5cqi;
-    border-right: 1px solid var(--nm-line);
-}
-
-.nm-post__rating {
-    display: flex;
-    align-items: center;
-    gap: 1.2cqi;
-    font-size: clamp(8px, 5.2cqi, 21px);
-    font-weight: var(--nh-medium);
-    line-height: 1;
-    color: var(--nm-ink-soft);
-}
-
-.nm-post__seal {
-    width: 5.6cqi;
-    height: 5.6cqi;
-    fill: none;
-    stroke: var(--nm-ink-soft);
-    stroke-width: 1.6;
-    stroke-linejoin: round;
-}
-
-.nm-post__price {
-    display: flex;
-    gap: 1.2cqi;
-    font-size: clamp(6px, 3.3cqi, 13px);
-    font-weight: var(--nh-medium);
-    line-height: 1;
-    color: var(--nm-ink-soft);
-}
-
-.nm-post__coin.is-off {
-    opacity: 0.35;
-}
-
-.nm-post__about {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8cqi;
-    min-width: 0;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1.4cqi 2.4cqi;
+    padding-top: 2.8cqi;
 }
 
 .nm-post__title {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 1.6cqi;
-    font-size: clamp(7px, 3.9cqi, 15px);
+    font-size: clamp(8px, 5.2cqi, 19px);
     font-weight: var(--nh-semibold);
     line-height: 1.2;
+    letter-spacing: -0.01em;
     color: var(--nm-ink);
 }
 
 .nm-post__cat {
-    font-size: 0.78em;
-    font-weight: var(--nh-regular);
-    color: var(--nm-ink-soft);
+    padding: 1cqi 2.4cqi;
+    border-radius: 999px;
+    background: rgba(106, 159, 50, 0.16);
+    color: #4C7522;
+    font-size: clamp(5.5px, 3.3cqi, 12px);
+    font-weight: var(--nh-medium);
+    line-height: 1.3;
+}
+
+.nm-post__price {
+    margin-left: auto;
+    font-size: clamp(6px, 3.8cqi, 14px);
+    font-weight: var(--nh-semibold);
+    line-height: 1.2;
+    color: var(--nm-lime);
+}
+
+.nm-post__coin.is-off {
+    color: var(--nm-off);
 }
 
 .nm-post__address {
-    font-size: clamp(6px, 3.3cqi, 13px);
+    display: block;
+    padding-top: 1.4cqi;
+    font-size: clamp(5.5px, 3.5cqi, 13px);
     font-weight: var(--nh-regular);
-    line-height: 1.3;
-    color: var(--nm-ink-soft);
+    line-height: 1.35;
+    color: var(--nm-soft);
 }
 
-/* --- the things a visitor can do ------------------------------------------- */
+.nm-post__text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin: 2.8cqi 0 0;
+    font-size: clamp(6px, 4cqi, 15px);
+    font-weight: var(--nh-regular);
+    line-height: 1.45;
+    color: var(--nm-ink);
+}
+
+/* --- what a visitor can do to a review ----------------------------------------- */
 
 .nm-post__actions {
     display: flex;
     align-items: center;
-    gap: 4.5cqi;
-    padding: 2.8cqi 0 2cqi;
+    gap: 4.4cqi;
+    margin-top: 2.8cqi;
+    padding-top: 2.8cqi;
+    border-top: 1px solid var(--nm-line);
 }
 
 .nm .nm-post__action {
     display: inline-flex;
     align-items: center;
-    gap: 1.4cqi;
+    gap: 1.6cqi;
     padding: 0;
     border: 0;
     background: none;
-    color: #1E1E1E;
+    color: var(--nm-ink);
     font-family: inherit;
-    font-size: clamp(6px, 3.05cqi, 12px);
+    font-size: clamp(6px, 3.6cqi, 13px);
     font-weight: var(--nh-semibold);
     line-height: 1;
     cursor: pointer;
+    transition: color var(--nh-fast) ease;
 }
 
-.nm-post__action.is-quiet {
+.nm .nm-post__action.is-off {
+    color: var(--nm-off);
     cursor: default;
 }
 
@@ -2579,26 +2566,26 @@ html {
 }
 
 .nm-post__icon {
-    width: 6.1cqi;
-    height: 6.1cqi;
+    width: 6.4cqi;
+    height: 6.4cqi;
     fill: none;
     stroke: currentColor;
-    stroke-width: 1.7;
+    stroke-width: 1.8;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: fill var(--nh-fast) ease, stroke var(--nh-fast) ease;
+    transition: fill var(--nh-fast) ease;
 }
 
-.nm-post__action.is-on {
-    color: var(--nm-heart);
+.nm .nm-post__action.is-on {
+    color: var(--nm-red);
 }
 
-.nm-post__action.is-on .nm-post__icon {
+.nm .nm-post__save.is-on {
+    color: var(--nm-yellow);
+}
+
+.nm .nm-post__action.is-on .nm-post__icon {
     fill: currentColor;
-}
-
-.nm-post__save.is-on {
-    color: #E8A33D;
 }
 
 /* one small beat when either is turned over */
@@ -2610,109 +2597,45 @@ html {
 
 @keyframes nm-beat {
     0%   { transform: scale(1); }
-    35%  { transform: scale(1.28); }
+    35%  { transform: scale(1.3); }
     100% { transform: scale(1); }
 }
 
-.nm-post__text {
-    margin: 0;
-    font-size: clamp(6.5px, 3.8cqi, 14px);
-    font-weight: var(--nh-regular);
-    line-height: 1.4;
-    color: var(--nm-ink);
-}
-
-.nm-post__text b {
-    font-weight: var(--nh-semibold);
-}
-
 .nm-post__when {
-    margin: 1.4cqi 0 0;
-    font-size: clamp(5.5px, 2.8cqi, 11px);
+    margin: 2.4cqi 0 0;
+    font-size: clamp(5px, 3.2cqi, 12px);
     font-weight: var(--nh-medium);
     line-height: 1.3;
-    color: #7D7D7D;
+    color: var(--nm-off);
 }
 
-/* --- the bar at the foot of the app ---------------------------------------- */
+/* --- the comments, over the feed ------------------------------------------------ */
 
-.nm-nav {
-    flex: none;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 2cqi 1.5cqi 3cqi;
-    background: var(--nm-sheet);
-}
-
-.nm-nav__item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8cqi;
-    flex: 1 1 0;
-    font-size: clamp(5px, 2.6cqi, 10px);
-    font-weight: var(--nh-medium);
-    line-height: 1.3;
-    color: var(--nm-ink-soft);
-}
-
-.nm-nav__pill {
-    display: grid;
-    place-items: center;
-    width: 14cqi;
-    height: 8cqi;
-    border-radius: 999px;
-}
-
-.nm-nav__item.is-on .nm-nav__pill {
-    background: var(--nm-active);
-}
-
-.nm-nav__item svg {
-    width: 6.1cqi;
-    height: 6.1cqi;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.6;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.nm-nav__item.is-on {
-    color: #4A4459;
-}
-
-/* --- the comments, over the feed ------------------------------------------- */
-
-/* `hidden` is how the comments come and go, so it has to beat the flex
-   below it — otherwise the closed sheet still lies over the feed. */
-.nm [hidden] {
-    display: none;
-}
-
+/* The card crops the phone, so the comments rise to the bottom of the glass
+   the card actually shows — a sheet that opened below the crop would be a
+   sheet nobody sees. */
 .nm-sheet {
     position: absolute;
-    inset: 0;
+    inset: 0 0 29% 0;
     z-index: 3;
     display: flex;
     align-items: flex-end;
-    background: rgba(29, 27, 32, 0);
+    background: rgba(34, 28, 20, 0);
     transition: background-color 240ms var(--nh-ease);
 }
 
 .nm-sheet.is-open {
-    background: rgba(29, 27, 32, 0.32);
+    background: rgba(34, 28, 20, 0.36);
 }
 
 .nm-sheet__panel {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-height: 72%;
-    padding: 2.4cqi 4.1cqi 5cqi;
-    border-radius: 7cqi 7cqi 0 0;
-    background: var(--nm-surface);
+    max-height: 74%;
+    padding: 3cqi 5.4cqi 6cqi;
+    border-radius: 8cqi 8cqi 0 0;
+    background: var(--nm-paper);
     transform: translateY(100%);
     transition: transform 260ms var(--nh-ease);
 }
@@ -2726,59 +2649,59 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 2cqi;
+    padding-bottom: 2.4cqi;
 }
 
 .nm-sheet__grip {
     position: absolute;
     top: 0;
     left: 50%;
-    width: 9cqi;
-    height: max(2px, 1cqi);
+    width: 11cqi;
+    height: max(2px, 1.2cqi);
     transform: translateX(-50%);
     border-radius: 999px;
     background: var(--nm-line);
 }
 
 .nm-sheet__title {
-    margin: 3cqi 0 0;
-    font-size: clamp(7px, 3.9cqi, 15px);
+    margin: 4cqi 0 0;
+    font-size: clamp(7px, 4.6cqi, 17px);
     font-weight: var(--nh-semibold);
     line-height: 1.2;
     color: var(--nm-ink);
 }
 
-.nm-sheet__close {
+.nm .nm-sheet__close {
     position: absolute;
     right: 0;
-    bottom: 1.4cqi;
+    bottom: 1.2cqi;
     display: grid;
     place-items: center;
-    width: 7cqi;
-    height: 7cqi;
+    width: 8cqi;
+    height: 8cqi;
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: var(--nm-chip);
+    background: rgba(185, 175, 164, 0.22);
     color: var(--nm-ink);
     cursor: pointer;
 }
 
 .nm-sheet__close svg {
-    width: 4.2cqi;
-    height: 4.2cqi;
+    width: 4.6cqi;
+    height: 4.6cqi;
     fill: none;
     stroke: currentColor;
-    stroke-width: 2;
+    stroke-width: 2.2;
     stroke-linecap: round;
 }
 
 .nm-sheet__place {
-    margin: 0 0 2.6cqi;
-    font-size: clamp(6px, 3.05cqi, 12px);
+    margin: 0 0 3cqi;
+    font-size: clamp(6px, 3.6cqi, 13px);
     font-weight: var(--nh-regular);
     line-height: 1.3;
-    color: var(--nm-ink-soft);
+    color: var(--nm-soft);
 }
 
 .nm-sheet__list {
@@ -2797,9 +2720,9 @@ html {
 .nm-sheet__comment {
     display: flex;
     align-items: flex-start;
-    gap: 2.4cqi;
-    padding: 1.8cqi 0;
-    font-size: clamp(6px, 3.2cqi, 12px);
+    gap: 2.8cqi;
+    padding: 2.2cqi 0;
+    font-size: clamp(6px, 3.8cqi, 14px);
     font-weight: var(--nh-regular);
     line-height: 1.4;
     color: var(--nm-ink);
@@ -2813,18 +2736,18 @@ html {
     flex: none;
     display: grid;
     place-items: center;
-    width: 7cqi;
+    width: 8cqi;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: var(--nm-primary);
-    color: var(--nm-on-primary);
-    font-size: clamp(6px, 3.05cqi, 12px);
+    background: rgba(238, 115, 2, 0.16);
+    color: #A64F00;
+    font-size: clamp(6px, 3.6cqi, 13px);
     font-weight: var(--nh-semibold);
 }
 
 /* keyboard focus, inside a screen that is mostly pictures */
 .nm-app :focus-visible {
-    outline: 2px solid var(--nm-on-primary);
+    outline: 2px solid var(--nm-orange);
     outline-offset: 2px;
 }
 

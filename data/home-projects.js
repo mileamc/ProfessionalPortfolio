@@ -86,17 +86,6 @@ window.homeProjects = {
             media: []
         },
         {
-            id: "imb",
-            title: "IMB website redesign",
-            href: null,
-            size: "medium",
-            frame: "browser",
-            tone: null,
-            media: [
-                { src: "imagesProjects/imb/home.jpg", alt: "", ratio: "3:2" }
-            ]
-        },
-        {
             // The social feed, running inside the phone. Its markup is the
             // <template data-nh-card="nommu"> in index.html and its behaviour
             // is scripts/nommu-feed.js — so no `media` here. Only the arrow
@@ -105,10 +94,21 @@ window.homeProjects = {
             title: "NOMMU",
             href: null,
             linkArea: "arrow",
-            size: "large",
+            size: "medium",
             frame: "custom",
             tone: null,
             media: []
+        },
+        {
+            id: "imb",
+            title: "IMB website redesign",
+            href: null,
+            size: "large",
+            frame: "browser",
+            tone: null,
+            media: [
+                { src: "imagesProjects/imb/home.jpg", alt: "", ratio: "3:2" }
+            ]
         }
     ],
 

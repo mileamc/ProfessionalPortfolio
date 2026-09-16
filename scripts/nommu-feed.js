@@ -26,7 +26,7 @@
             category: "Cocktail Bar",
             price: 2,                      // of three
             rating: 4.5,
-            address: "Rua das Flores, 218, Curitiba - PR",
+            address: "218 Blossom Street, Curitiba",
             text: "Great drinks, cozy atmosphere, and a playlist that makes you want to stay a little longer.",
             when: "20 minutes ago",
             photos: [
@@ -53,7 +53,7 @@
             category: "Matcha Café",
             price: 1,
             rating: 4.8,
-            address: "Alameda Dom Pedro II, 47, Curitiba - PR",
+            address: "47 Garden Avenue, Curitiba",
             text: "Creamy matcha with just the right amount of bitterness. The kind of café you want to come back to every week.",
             when: "2 hours ago",
             photos: [
@@ -80,7 +80,7 @@
             category: "Pizzeria",
             price: 3,
             rating: 4.7,
-            address: "Rua Trajano Reis, 930, Curitiba - PR",
+            address: "930 Moonlight Street, Curitiba",
             text: "Light crust, airy edges, and amazing ingredients. The pistachio pizza was the surprise of the night.",
             when: "yesterday",
             photos: [
@@ -146,17 +146,21 @@
 
         // --- a post ---------------------------------------------------------
 
+        // Each post keeps its own carousel, and hands the feed a way to
+        // drive it while a sideways drag is in flight.
+        var rails = new Map();
+
         var buildPost = function (review) {
             var post = element(
                 '<article class="nm-post" data-nm-post="' + escapeHtml(review.id) + '">' +
 
                 '<header class="nm-post__head">' +
-                '<img class="nm-post__avatar" src="' + escapeHtml(review.avatar) + '" alt="" loading="lazy"/>' +
+                '<img class="nm-post__avatar" src="' + escapeHtml(review.avatar) + '" alt="" loading="lazy" draggable="false"/>' +
                 '<span class="nm-post__who">' +
                 '<span class="nm-post__name">' + escapeHtml(review.name) + "</span>" +
                 '<span class="nm-post__handle">' + escapeHtml(review.handle) + "</span>" +
                 "</span>" +
-                '<span class="nm-post__more" aria-hidden="true">•••</span>' +
+                '<span class="nm-post__more is-off" aria-hidden="true">•••</span>' +
                 "</header>" +
 
                 '<div class="nm-post__media">' +
@@ -165,24 +169,20 @@
                     return '<img src="' + escapeHtml(photo.src) + '" alt="' + escapeHtml(photo.alt) + '" loading="lazy" draggable="false"/>';
                 }).join("") +
                 "</div>" +
-                '<div class="nm-post__dots" data-nm-dots>' +
+                '<span class="nm-post__badge">' + svg("seal", "") + review.rating.toFixed(1) + "</span>" +
+                '<div class="nm-post__dots">' +
                 review.photos.map(function (photo, index) {
                     return '<button class="nm-post__dot' + (index ? "" : " is-on") + '" type="button" data-nm-go="' + index +
-                        '" aria-label="Photo ' + (index + 1) + ' of ' + review.photos.length + '"></button>';
+                        '" aria-label="Photo ' + (index + 1) + " of " + review.photos.length + '"></button>';
                 }).join("") +
                 "</div>" +
                 "</div>" +
 
                 '<div class="nm-post__place">' +
-                '<span class="nm-post__score">' +
-                '<span class="nm-post__rating">' + svg("seal", "nm-post__seal") + review.rating.toFixed(1) + "</span>" +
+                '<span class="nm-post__title">' + escapeHtml(review.place) + "</span>" +
+                '<span class="nm-post__cat">' + escapeHtml(review.category) + "</span>" +
                 '<span class="nm-post__price">' + priceMarks(review.price) + "</span>" +
-                "</span>" +
-                '<span class="nm-post__about">' +
-                '<span class="nm-post__title">' + escapeHtml(review.place) +
-                '<span class="nm-post__cat">' + escapeHtml(review.category) + "</span></span>" +
                 '<span class="nm-post__address">' + escapeHtml(review.address) + "</span>" +
-                "</span>" +
                 "</div>" +
 
                 '<div class="nm-post__actions">' +
@@ -190,12 +190,12 @@
                 svg("heart", "nm-post__icon") + '<span data-nm-likes>' + review.likes + "</span></button>" +
                 '<button class="nm-post__action" type="button" data-nm-comments aria-label="Open comments">' +
                 svg("comment", "nm-post__icon") + "<span>" + review.commentCount + "</span></button>" +
-                '<span class="nm-post__action is-quiet">' + svg("send", "nm-post__icon") + "<span>" + review.shares + "</span></span>" +
+                '<span class="nm-post__action is-off" aria-hidden="true">' + svg("send", "nm-post__icon") + "<span>" + review.shares + "</span></span>" +
                 '<button class="nm-post__action nm-post__save" type="button" data-nm-save aria-pressed="false" aria-label="Save this place">' +
                 svg("star", "nm-post__icon") + "</button>" +
                 "</div>" +
 
-                '<p class="nm-post__text"><b>' + escapeHtml(review.handle) + "</b> " + escapeHtml(review.text) + "</p>" +
+                '<p class="nm-post__text">' + escapeHtml(review.text) + "</p>" +
                 '<p class="nm-post__when">' + escapeHtml(review.when) + "</p>" +
 
                 "</article>"
@@ -206,7 +206,6 @@
             var rail = post.querySelector("[data-nm-rail]");
             var dots = Array.prototype.slice.call(post.querySelectorAll("[data-nm-go]"));
             var at = 0;
-            var drag = null;
 
             var show = function (index) {
                 at = Math.min(Math.max(index, 0), review.photos.length - 1);
@@ -222,48 +221,16 @@
                 });
             });
 
-            rail.addEventListener("pointerdown", function (event) {
-                if (event.pointerType === "mouse" && event.button !== 0) {
-                    return;
+            rails.set(rail, {
+                grab: function () { rail.classList.add("is-dragging"); },
+                move: function (dx) {
+                    rail.style.transform = "translateX(" + ((at * -100) + (dx / rail.clientWidth) * 100) + "%)";
+                },
+                drop: function (dx) {
+                    rail.classList.remove("is-dragging");
+                    show(dx <= -SWIPE ? at + 1 : dx >= SWIPE ? at - 1 : at);
                 }
-                drag = { id: event.pointerId, x: event.clientX, y: event.clientY, sideways: false };
-                rail.classList.add("is-dragging");
             });
-
-            rail.addEventListener("pointermove", function (event) {
-                if (!drag || event.pointerId !== drag.id) {
-                    return;
-                }
-                var dx = event.clientX - drag.x;
-                var dy = event.clientY - drag.y;
-
-                // a vertical movement is the feed scrolling, not a swipe
-                if (!drag.sideways && Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(dy)) {
-                    drag.sideways = true;
-                    try { rail.setPointerCapture(drag.id); } catch (error) { /* older browsers */ }
-                }
-                if (!drag.sideways) {
-                    return;
-                }
-
-                event.preventDefault();
-                var held = (at * -100) + (dx / rail.clientWidth) * 100;
-                rail.style.transform = "translateX(" + held + "%)";
-            });
-
-            var release = function (event) {
-                if (!drag || (event && event.pointerId !== drag.id)) {
-                    return;
-                }
-                var dx = event && drag.sideways ? event.clientX - drag.x : 0;
-                rail.classList.remove("is-dragging");
-                drag = null;
-                show(dx <= -SWIPE ? at + 1 : dx >= SWIPE ? at - 1 : at);
-            };
-
-            rail.addEventListener("pointerup", release);
-            rail.addEventListener("pointercancel", release);
-            rail.addEventListener("dragstart", function (event) { event.preventDefault(); });
 
             show(0);
 
@@ -278,9 +245,7 @@
                 like.classList.toggle("is-on", liked);
                 like.setAttribute("aria-pressed", liked ? "true" : "false");
                 count.textContent = review.likes + (liked ? 1 : 0);
-                like.classList.remove("is-beating");
-                void like.offsetWidth;          // so the beat plays again
-                like.classList.add("is-beating");
+                beat(like);
             });
 
             var save = post.querySelector("[data-nm-save]");
@@ -291,9 +256,7 @@
                 save.classList.toggle("is-on", saved);
                 save.setAttribute("aria-pressed", saved ? "true" : "false");
                 save.setAttribute("aria-label", saved ? "Saved" : "Save this place");
-                save.classList.remove("is-beating");
-                void save.offsetWidth;
-                save.classList.add("is-beating");
+                beat(save);
             });
 
             post.querySelector("[data-nm-comments]").addEventListener("click", function () {
@@ -303,9 +266,135 @@
             return post;
         };
 
+        var beat = function (button) {
+            button.classList.remove("is-beating");
+            void button.offsetWidth;          // so the beat plays again
+            button.classList.add("is-beating");
+        };
+
         REVIEWS.forEach(function (review) {
             feed.appendChild(buildPost(review));
         });
+
+        // --- dragging the feed, the way a thumb would -------------------------
+        //
+        // One gesture, one decision: the first few pixels say whether this is
+        // the feed being pulled up or a photograph being pushed aside, and the
+        // rest of the drag goes there. A drag that has moved is not a click,
+        // so the button it ends on is not pressed.
+
+        var FRICTION = 0.93;    // how quickly a flick runs out
+        var AXIS = 5;           // px before the gesture picks its direction
+        var TAP = 6;            // px of movement still counted as a tap
+
+        var hold = null;
+        var glide = 0;
+        var moved = false;
+
+        var stopGlide = function () {
+            if (glide) {
+                window.cancelAnimationFrame(glide);
+                glide = 0;
+            }
+        };
+
+        var coast = function (speed) {
+            var last = window.performance.now();
+            var step = function (now) {
+                var ms = Math.min(now - last, 40);
+                last = now;
+                feed.scrollTop -= speed * ms;
+                speed *= Math.pow(FRICTION, ms / 16);
+                glide = Math.abs(speed) > 0.02 ? window.requestAnimationFrame(step) : 0;
+            };
+            glide = window.requestAnimationFrame(step);
+        };
+
+        feed.addEventListener("pointerdown", function (event) {
+            if (event.pointerType === "mouse" && event.button !== 0) {
+                return;
+            }
+            stopGlide();
+            moved = false;
+            hold = {
+                id: event.pointerId,
+                x: event.clientX,
+                y: event.clientY,
+                top: feed.scrollTop,
+                axis: null,
+                rail: rails.get(event.target.closest ? event.target.closest("[data-nm-rail]") : null) || null,
+                lastY: event.clientY,
+                lastAt: event.timeStamp,
+                speed: 0
+            };
+        });
+
+        feed.addEventListener("pointermove", function (event) {
+            if (!hold || event.pointerId !== hold.id) {
+                return;
+            }
+            var dx = event.clientX - hold.x;
+            var dy = event.clientY - hold.y;
+
+            if (!hold.axis) {
+                if (Math.abs(dx) < AXIS && Math.abs(dy) < AXIS) {
+                    return;
+                }
+                hold.axis = Math.abs(dx) > Math.abs(dy) && hold.rail ? "x" : "y";
+                moved = true;
+                try { feed.setPointerCapture(hold.id); } catch (error) { /* older browsers */ }
+                if (hold.axis === "x") {
+                    hold.rail.grab();
+                } else {
+                    feed.classList.add("is-dragging");
+                }
+            }
+
+            event.preventDefault();
+
+            if (hold.axis === "x") {
+                hold.rail.move(dx);
+                return;
+            }
+
+            feed.scrollTop = hold.top - dy;
+            var ms = event.timeStamp - hold.lastAt;
+            if (ms > 0) {
+                hold.speed = (event.clientY - hold.lastY) / ms;
+                hold.lastY = event.clientY;
+                hold.lastAt = event.timeStamp;
+            }
+        });
+
+        var release = function (event) {
+            if (!hold || (event && event.pointerId !== hold.id)) {
+                return;
+            }
+            var drag = hold;
+            hold = null;
+            feed.classList.remove("is-dragging");
+
+            if (drag.axis === "x") {
+                drag.rail.drop(event ? event.clientX - drag.x : 0);
+                return;
+            }
+            if (drag.axis === "y" && Math.abs(drag.speed) > 0.05) {
+                coast(drag.speed);
+            }
+        };
+
+        feed.addEventListener("pointerup", release);
+        feed.addEventListener("pointercancel", release);
+        feed.addEventListener("dragstart", function (event) { event.preventDefault(); });
+
+        // a drag that ends on a button does not press it
+        feed.addEventListener("click", function (event) {
+            if (moved) {
+                moved = false;
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        }, true);
 
         // --- the comments ---------------------------------------------------
 
