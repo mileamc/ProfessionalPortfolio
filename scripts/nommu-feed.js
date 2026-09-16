@@ -22,6 +22,7 @@
             name: "Lia Martins",
             handle: "@liamartins",
             avatar: "assets/girl-profile.jpeg",
+            verified: true,
             place: "Afterglow",
             category: "Cocktail Bar",
             price: 2,                      // of three
@@ -123,16 +124,30 @@
         return out;
     };
 
+    // The icons. The roll is the supplied artwork (assets/roll-rating.svg and
+    // roll-verified.svg are the same shape in two colours), inlined so it can
+    // take a colour from the interface rather than carrying its own; the rest
+    // are drawn centred on the same 24 x 24 grid, so an icon and the number
+    // beside it sit on one line.
+    var ROLL = "M346.424 155.088C341.61 149.446 331.476 143.879 329.99 136.808C328.298 128.758 333.243 122.909 334.785 115.217C340.482 86.7427 320.269 54.7328 290.542 51.4416C282.024 50.5012 273.788 53.5856 266.399 47.4356C261.322 43.204 260.044 33.4995 256.565 27.2555C241.316 -0.109015 205.215 -8.30896 179.173 9.27579C171.257 14.617 168.549 21.9895 156.929 18.9991C153.3 18.0588 149.22 14.0904 145.685 12.4166C116.578 -1.38791 79.8184 13.357 71.1127 44.7838C69.4392 50.8397 69.8529 59.303 65.9607 64.0424C60.8088 70.324 48.5493 69.5529 40.6333 72.4868C14.723 82.0973 1.95588 111.343 9.43941 137.466C11.7898 145.685 20.2698 155.427 20.0442 162.536C19.8186 169.382 9.64624 177.563 6.09251 184.315C-7.2575 209.667 2.0687 242.053 26.8696 256.102C32.8113 259.468 43.9426 261.744 47.628 266.295C52.7611 272.614 50.3168 280.081 50.9561 287.359C53.8141 319.369 85.7601 341.392 116.822 334.509C124.532 332.797 130.041 327.4 138.408 330.334C144.801 332.572 148.411 340.414 153.638 345.116C175.562 364.845 209.934 363.51 229.658 341.355C234.679 335.713 238.533 324.504 244.475 321.438C252.128 317.488 260.044 322.416 268.091 322.623C281.667 322.961 297.104 316.755 306.712 307.238C318.652 295.39 323.296 279.629 322.037 263.004C321.773 259.6 320.288 256.196 320.137 252.698C319.592 239.777 328.091 239.062 336.421 233.251C361.899 215.478 366.637 178.766 346.424 155.088ZM286.311 183.111C278.17 241.921 210.31 272.652 160.595 239.664C89.8591 192.703 159.956 97.4064 222.551 142.017C259.649 168.441 227.571 220.123 190.097 201.711C187.822 200.602 181.504 195.618 180.357 193.624C178.101 189.712 179.248 182.904 183.29 180.497C192.429 175.061 195.493 184.747 202.432 185.612C221.329 187.944 226.198 166.918 209.802 156.668C165.917 129.247 121.899 194.884 173.927 225.408C206.249 244.366 249.796 229.997 263.428 194.959C279.617 153.339 249.871 114.859 209.708 105.155C130.342 85.9716 71.7144 175.024 120 240.887C124.644 247.225 136.095 254.785 127.954 263.079C118.421 272.784 107.816 256.948 102.739 249.707C56.1456 183.337 98.64 90.222 179.304 83.5643C236.183 78.8625 294.791 122.006 286.33 183.13L286.311 183.111Z";
+
     var ICONS = {
-        heart: '<path d="M12 20s-7-4.35-7-9.2A4.1 4.1 0 0 1 12 8a4.1 4.1 0 0 1 7 2.8C19 15.65 12 20 12 20z"/>',
-        comment: '<path d="M20 12a7 7 0 0 1-7 7H5l2-2.5A7 7 0 1 1 20 12z"/>',
-        send: '<path d="M20 4 4 11l6 2.5L12.5 20z"/><path d="M20 4 10 13.5"/>',
-        star: '<path d="m12 4 2.4 5.1 5.6.6-4.2 3.8 1.2 5.5-5-2.9-5 2.9 1.2-5.5L4 9.7l5.6-.6z"/>',
-        seal: '<circle cx="12" cy="12" r="9"/><path d="m12 7.4 1.4 3 3.2.4-2.4 2.2.7 3.1-2.9-1.6-2.9 1.6.7-3.1-2.4-2.2 3.2-.4z"/>'
+        heart: '<path d="M12 19.5c-.3 0-.6-.1-.8-.3l-6-5.4A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 6.8 7.2l-6 5.4c-.2.2-.5.3-.8.3z"/>',
+        comment: '<path d="M12 4.5a7.5 7.5 0 0 1 0 15H4.9l1.8-2.7A7.5 7.5 0 0 1 12 4.5z"/>',
+        send: '<path d="M20.3 4.2 3.9 10.7l6.1 2.6 2.6 6.1z"/><path d="M20.3 4.2 10 13.3"/>',
+        star: '<path d="m12 4.5 2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.6-4.8 2.6.9-5.4L4.2 10.2l5.4-.8z"/>',
+        roll: '<path d="' + ROLL + '" transform="scale(0.0669)"/>'
     };
 
     var svg = function (name, cls) {
         return '<svg class="' + cls + '" viewBox="0 0 24 24" aria-hidden="true">' + ICONS[name] + "</svg>";
+    };
+
+    // the supplied roll, at its own size, in whatever colour it is given
+    var roll = function (cls, label) {
+        return '<svg class="' + cls + '" viewBox="0 0 359 359" ' +
+            (label ? 'role="img" aria-label="' + escapeHtml(label) + '"' : 'aria-hidden="true"') +
+            '><path d="' + ROLL + '"/></svg>';
     };
 
     var initCard = function (root) {
@@ -157,7 +172,8 @@
                 '<header class="nm-post__head">' +
                 '<img class="nm-post__avatar" src="' + escapeHtml(review.avatar) + '" alt="" loading="lazy" draggable="false"/>' +
                 '<span class="nm-post__who">' +
-                '<span class="nm-post__name">' + escapeHtml(review.name) + "</span>" +
+                '<span class="nm-post__name">' + escapeHtml(review.name) +
+                (review.verified ? roll("nm-post__verified", "Verified account") : "") + "</span>" +
                 '<span class="nm-post__handle">' + escapeHtml(review.handle) + "</span>" +
                 "</span>" +
                 '<span class="nm-post__more is-off" aria-hidden="true">•••</span>' +
@@ -169,7 +185,7 @@
                     return '<img src="' + escapeHtml(photo.src) + '" alt="' + escapeHtml(photo.alt) + '" loading="lazy" draggable="false"/>';
                 }).join("") +
                 "</div>" +
-                '<span class="nm-post__badge">' + svg("seal", "") + review.rating.toFixed(1) + "</span>" +
+                '<span class="nm-post__badge">' + roll("nm-post__roll") + "<span>" + review.rating.toFixed(1) + "</span></span>" +
                 '<div class="nm-post__dots">' +
                 review.photos.map(function (photo, index) {
                     return '<button class="nm-post__dot' + (index ? "" : " is-on") + '" type="button" data-nm-go="' + index +

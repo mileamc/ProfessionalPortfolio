@@ -520,12 +520,12 @@ html {
    so it takes nine columns and the card beside it gives up the width. Its
    height is the standard one — the list of machines is what sets it, and
    the table scrolls under the machines it cannot show at once. */
-.nh-grid > [data-project="imb-compare"]  { grid-column: span 8; }
-.nh-grid > [data-project="imb"]          { grid-column: span 8; }
+.nh-grid > [data-project="imb-compare"]  { grid-column: span 9; }
+.nh-grid > [data-project="imb"]          { grid-column: span 9; }
 
-/* NOMMU holds a whole phone, so it is a tall card: four columns beside the
+/* NOMMU holds a whole phone, so it is a tall card: three columns beside the
    comparison and the landing pages, and as deep as the two of them. */
-.nh-grid > [data-project="nommu"]        { grid-column: span 4; grid-row: span 8; }
+.nh-grid > [data-project="nommu"]        { grid-column: span 3; grid-row: span 6; }
 .nh-grid > .nh-card--text                { grid-column: 1 / -1; }
 
 
@@ -1609,36 +1609,36 @@ html {
 /* --- the list on the left ------------------------------------------------ */
 
 .ic__aside {
-    flex: 0 0 31.571cqi;
+    flex: 0 0 28.042cqi;
     display: flex;
     flex-direction: column;
-    gap: 2.12cqi;
+    gap: 1.883cqi;
     min-width: 0;
     /* the head lines up with the panel's eyebrow, and the card's arrow sits
        in this corner, which the list ends just above */
-    padding: 2.142cqi 2.481cqi 6.089cqi;
+    padding: 1.903cqi 2.204cqi 5.408cqi;
     /* the panel's own edge, as in the design: it sits above the comparison */
-    box-shadow: 0.451cqi 0 1.353cqi -0.113cqi rgba(15, 23, 34, 0.1);
+    box-shadow: 0.401cqi 0 1.202cqi -0.1cqi rgba(15, 23, 34, 0.1);
     z-index: 1;
 }
 
 .ic__aside-head {
     display: flex;
     align-items: center;
-    gap: 0.902cqi;
+    gap: 0.801cqi;
     min-width: 0;
 }
 
 .ic__mark {
     flex: none;
-    width: max(2px, 0.338cqi);
+    width: max(2px, 0.3cqi);
     height: 1.1em;
     background: var(--ic-orange);
 }
 
 .ic__aside-title {
     margin: 0;
-    font-size: clamp(9.5px, 1.376cqi, 13px);
+    font-size: clamp(9.5px, 1.222cqi, 13px);
     font-weight: 700;
     line-height: 1.4;
     letter-spacing: 0.04em;
@@ -1649,7 +1649,7 @@ html {
 .ic__count {
     margin: 0 0 0 auto;
     white-space: nowrap;
-    font-size: clamp(9px, 1.263cqi, 12px);
+    font-size: clamp(9px, 1.122cqi, 12px);
     font-weight: 500;
     line-height: 1.3;
     color: var(--ic-grey);
@@ -1664,7 +1664,7 @@ html {
 .ic__machines {
     display: flex;
     flex-direction: column;
-    gap: 2.12cqi;              /* the same spacing as the head above them */
+    gap: 1.883cqi;              /* the same spacing as the head above them */
     min-height: 0;
 }
 
@@ -1675,10 +1675,10 @@ html {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 1.128cqi;
-    padding: 0.507cqi 3.721cqi 0.507cqi 0.507cqi;
-    border: max(2px, 0.214cqi) solid #C2CAD3;
-    border-radius: 1.579cqi;
+    gap: 1.002cqi;
+    padding: 0.45cqi 3.305cqi 0.45cqi 0.45cqi;
+    border: max(2px, 0.19cqi) solid #C2CAD3;
+    border-radius: 1.402cqi;
     background: var(--ic-field);
     text-align: left;
     cursor: pointer;
@@ -1714,15 +1714,15 @@ html {
 .ic__thumb {
     flex: none;
     display: block;
-    width: 5.412cqi;
+    width: 4.807cqi;
     min-width: 40px;
     /* Square while the name fits one line, and as deep as the card when it
        does not — the photo is cropped to the new shape rather than leaving
        the taller card half empty. */
     align-self: stretch;
-    min-height: max(40px, 5.412cqi);
+    min-height: max(40px, 4.807cqi);
     overflow: hidden;
-    border-radius: 1.015cqi;
+    border-radius: 0.902cqi;
     background: var(--ic-shade);
 }
 
@@ -1736,19 +1736,19 @@ html {
 .ic__machine-text {
     display: flex;
     flex-direction: column;
-    gap: 0.113cqi;
+    gap: 0.1cqi;
     min-width: 0;
 }
 
 .ic__machine-name {
-    font-size: clamp(10px, 1.488cqi, 14px);
+    font-size: clamp(10px, 1.322cqi, 14px);
     font-weight: 600;
     line-height: 1.1;
     color: var(--ic-ink);
 }
 
 .ic__machine-sub {
-    font-size: clamp(9.5px, 1.376cqi, 13px);
+    font-size: clamp(9.5px, 1.222cqi, 13px);
     font-weight: 400;
     line-height: 1;
     color: var(--ic-body);
@@ -1758,11 +1758,11 @@ html {
    Turning it over is a fade and a quarter turn, not a swap. */
 .ic__toggle {
     position: absolute;
-    top: 0.677cqi;
-    right: 0.677cqi;
+    top: 0.601cqi;
+    right: 0.601cqi;
     display: grid;
     place-items: center;
-    width: 2.368cqi;
+    width: 2.103cqi;
     min-width: 16px;
     aspect-ratio: 1;
     border-radius: 999px;
@@ -1811,21 +1811,21 @@ html {
     flex-direction: column;
     /* The gap and the floor are tight because the table can scroll sideways
        here, and a classic scrollbar takes its height out of the stage. */
-    gap: 1.2cqi;
+    gap: 1.066cqi;
     min-width: 0;
-    padding: 2.142cqi 2.481cqi 0.5cqi 2.932cqi;
+    padding: 1.903cqi 2.204cqi 0.444cqi 2.604cqi;
 }
 
 .ic__panel-head {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 2.255cqi;
+    gap: 2.003cqi;
 }
 
 .ic__eyebrow {
-    margin: 0 0 0.451cqi;
-    font-size: clamp(10px, 1.579cqi, 15px);
+    margin: 0 0 0.401cqi;
+    font-size: clamp(10px, 1.402cqi, 15px);
     font-weight: 600;
     line-height: 1.35;
     letter-spacing: 0.01em;
@@ -1835,7 +1835,7 @@ html {
 
 .ic__title {
     margin: 0;
-    font-size: clamp(13px, 2.311cqi, 21px);
+    font-size: clamp(13px, 2.053cqi, 21px);
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.01em;
@@ -1845,13 +1845,13 @@ html {
 
 .ic .ic__clear {
     flex: none;
-    padding: 0.789cqi 1.579cqi;
+    padding: 0.701cqi 1.402cqi;
     border: 0;
     border-radius: 999px;
     background: #DCE1E7;
     color: var(--ic-body);
     font-family: var(--nh-font);
-    font-size: clamp(9px, 1.376cqi, 13px);
+    font-size: clamp(9px, 1.222cqi, 13px);
     font-weight: 600;
     line-height: 1.3;
     letter-spacing: 0.04em;
@@ -1886,8 +1886,8 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.015cqi;
-    padding-bottom: 2.255cqi;
+    gap: 0.902cqi;
+    padding-bottom: 2.003cqi;
     text-align: center;
     color: #949494;
 }
@@ -1895,16 +1895,16 @@ html {
 /* the two arrows keep their own proportions — width only, height follows */
 .ic__empty-icon {
     display: block;
-    width: 12.403cqi;
+    width: 11.016cqi;
     min-width: 78px;
     height: auto;
-    margin-bottom: 1.579cqi;
+    margin-bottom: 1.402cqi;
     fill: currentColor;
 }
 
 .ic__empty-title {
     margin: 0;
-    font-size: clamp(11px, 1.827cqi, 17px);
+    font-size: clamp(11px, 1.623cqi, 17px);
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: 0.04em;
@@ -1913,8 +1913,8 @@ html {
 
 .ic__empty-note {
     margin: 0;
-    max-width: 33.826cqi;
-    font-size: clamp(9.5px, 1.488cqi, 14px);
+    max-width: 30.045cqi;
+    font-size: clamp(9.5px, 1.322cqi, 14px);
     font-weight: 400;
     line-height: 1.35;
 }
@@ -1934,7 +1934,7 @@ html {
     top: 0;
     right: 0;
     bottom: 0;
-    width: 4.51cqi;
+    width: 4.006cqi;
     background: linear-gradient(to right, rgba(245, 247, 250, 0), var(--ic-paper));
     pointer-events: none;
 }
@@ -1956,13 +1956,13 @@ html {
 }
 
 .ic__corner {
-    width: 12.403cqi;
+    width: 11.016cqi;
     border-bottom: 1px solid var(--ic-line);
 }
 
 .ic__table thead th {
-    width: 30.669cqi;
-    padding: 0 0 0.677cqi 0.902cqi;
+    width: 27.241cqi;
+    padding: 0 0 0.601cqi 0.801cqi;
     border-bottom: 1px solid var(--ic-line);
     border-left: 1px solid var(--ic-line);
     vertical-align: bottom;
@@ -1971,21 +1971,21 @@ html {
 .ic__col {
     display: flex;
     align-items: center;
-    gap: 0.789cqi;
+    gap: 0.701cqi;
     min-width: 0;
 }
 
 .ic__col-text {
     display: flex;
     flex-direction: column;
-    gap: 0.113cqi;
+    gap: 0.1cqi;
     min-width: 0;
 }
 
 .ic__shot {
     flex: none;
     display: block;
-    width: 6.314cqi;
+    width: 5.608cqi;
     aspect-ratio: 1;
 }
 
@@ -1998,7 +1998,7 @@ html {
 
 .ic__col-name {
     display: block;
-    font-size: clamp(10px, 1.601cqi, 15px);
+    font-size: clamp(10px, 1.422cqi, 15px);
     font-weight: 600;
     line-height: 1.15;
     color: var(--ic-ink);
@@ -2006,7 +2006,7 @@ html {
 
 .ic__col-sub {
     display: block;
-    font-size: clamp(8.5px, 1.184cqi, 11px);
+    font-size: clamp(8.5px, 1.052cqi, 11px);
     font-weight: 500;
     line-height: 1.35;
     color: var(--ic-body);
@@ -2021,11 +2021,11 @@ html {
 .ic__section-label {
     display: flex;
     align-items: center;
-    gap: 0.564cqi;
+    gap: 0.501cqi;
     width: max-content;
-    padding: 0.451cqi 0.902cqi;
+    padding: 0.401cqi 0.801cqi;
     background: var(--ic-band);
-    font-size: clamp(9.5px, 1.488cqi, 14px);
+    font-size: clamp(9.5px, 1.322cqi, 14px);
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: 0.02em;
@@ -2034,10 +2034,10 @@ html {
 }
 
 .ic__table tbody th[scope="row"] {
-    padding: 0.812cqi 0.902cqi;
-    padding-left: calc(0.902cqi + max(2px, 0.338cqi) + 0.564cqi);
+    padding: 0.721cqi 0.801cqi;
+    padding-left: calc(0.801cqi + max(2px, 0.3cqi) + 0.501cqi);
     border-bottom: 1px solid var(--ic-line);
-    font-size: clamp(9.5px, 1.376cqi, 13px);
+    font-size: clamp(9.5px, 1.222cqi, 13px);
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: 0.01em;
@@ -2047,7 +2047,7 @@ html {
 }
 
 .ic__table td {
-    padding: 0.812cqi 0.902cqi;
+    padding: 0.721cqi 0.801cqi;
     border-bottom: 1px solid var(--ic-line);
     border-left: 1px solid var(--ic-line);
     vertical-align: middle;
@@ -2055,14 +2055,14 @@ html {
 
 .ic__value {
     display: block;
-    font-size: clamp(10px, 1.488cqi, 14px);
+    font-size: clamp(10px, 1.322cqi, 14px);
     font-weight: 400;
     line-height: 1.25;
     color: var(--ic-body);
 }
 
 .ic__figure {
-    font-size: clamp(11px, 1.714cqi, 16px);
+    font-size: clamp(11px, 1.522cqi, 16px);
     font-weight: 600;
     color: var(--ic-body);
 }
@@ -2076,8 +2076,8 @@ html {
 .ic__bar {
     display: block;
     width: 80%;
-    height: max(3px, 0.406cqi);
-    margin-top: 0.451cqi;
+    height: max(3px, 0.361cqi);
+    margin-top: 0.401cqi;
     overflow: hidden;
     border-radius: 999px;
     background: var(--ic-shade);
@@ -2147,14 +2147,16 @@ html {
        is the margin between the phone and the card — not between the card
        and a transparent edge. The file itself hangs outside the card, where
        nothing is drawn anyway. */
-    --nm-edge: 16px;
+    --nm-edge: 32px;
 
     position: absolute;
-    left: var(--nm-edge);
-    right: var(--nm-edge);
-    top: 50%;
-    transform: translateY(-50%);
-    aspect-ratio: 2804 / 5696;   /* the body's own proportions */
+    left: 50%;
+    top: var(--nm-edge);
+    /* the card is deeper than it is wide, so the phone takes the height it
+       is given and the width follows from the body's own proportions */
+    height: calc(100% - 2 * var(--nm-edge));
+    aspect-ratio: 2804 / 5696;
+    transform: translateX(-50%);
     pointer-events: none;
 }
 
@@ -2196,8 +2198,8 @@ html {
 
 /* --- the app ---------------------------------------------------------------
 
-   Spacing is one ladder, in the screen's own units (1cqi is a hundredth of
-   the glass, so 4.37cqi is sixteen pixels at the size the card renders it):
+   Spacing is one ladder, in the screen's own units (1.35cqi is a hundredth of
+   the glass, so 5.9cqi is sixteen pixels at the size the card renders it):
 
      16px   the margin between the phone's edge and the content, and the gap
             between one part of the app and the next
@@ -2208,9 +2210,9 @@ html {
 --------------------------------------------------------------------------- */
 
 .nm-app {
-    --nm-16: 4.37cqi;
-    --nm-8:  2.19cqi;
-    --nm-4:  1.09cqi;
+    --nm-16: 5.9cqi;
+    --nm-8:  2.957cqi;
+    --nm-4:  1.472cqi;
 
     position: absolute;
     inset: 0;
@@ -2242,8 +2244,8 @@ html {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: var(--nm-16) var(--nm-8);
-    padding: 6cqi var(--nm-16) var(--nm-16);
-    border-radius: 0 0 5.6cqi 5.6cqi;
+    padding: 8.1cqi var(--nm-16) var(--nm-16);
+    border-radius: 0 0 7.56cqi 7.56cqi;
     background: var(--nm-deep);
     color: #FFFFFF;
 }
@@ -2256,7 +2258,7 @@ html {
 
 .nm-app__welcome {
     margin: 0;
-    font-size: clamp(7px, 3.3cqi, 14px);
+    font-size: clamp(7px, 4.455cqi, 14px);
     font-weight: var(--nh-medium);
     line-height: 1.2;
     opacity: 0.78;
@@ -2264,7 +2266,7 @@ html {
 
 .nm-app__city {
     margin: 0;
-    font-size: clamp(13px, 6.6cqi, 28px);
+    font-size: clamp(13px, 8.91cqi, 28px);
     font-weight: var(--nh-semibold);
     line-height: 1.1;
     letter-spacing: -0.015em;
@@ -2275,12 +2277,12 @@ html {
     flex-direction: column;
     justify-content: center;
     gap: var(--nm-4);
-    width: 5.5cqi;
+    width: 7.425cqi;
 }
 
 .nm-app__menu span {
     display: block;
-    height: max(1.5px, 0.6cqi);
+    height: max(1.5px, 0.81cqi);
     border-radius: 2px;
     background: currentColor;
     opacity: 0.55;
@@ -2296,15 +2298,15 @@ html {
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.14);
     color: rgba(255, 255, 255, 0.66);
-    font-size: clamp(6.5px, 3.1cqi, 13px);
+    font-size: clamp(6.5px, 4.185cqi, 13px);
     font-weight: var(--nh-regular);
     line-height: 1.2;
 }
 
 .nm-app__search svg {
     flex: none;
-    width: 3.8cqi;
-    height: 3.8cqi;
+    width: 5.13cqi;
+    height: 5.13cqi;
     fill: none;
     stroke: currentColor;
     stroke-width: 2;
@@ -2323,7 +2325,7 @@ html {
 .nm-app__tabs {
     flex: none;
     display: flex;
-    gap: var(--nm-8);
+    gap: 1.6cqi;
     padding: var(--nm-16) var(--nm-16) var(--nm-8);
 }
 
@@ -2331,13 +2333,15 @@ html {
     flex: 0 1 auto;
     min-width: 0;
     overflow: hidden;
-    padding: var(--nm-8) 3.3cqi;
+    padding: var(--nm-8) 3.4cqi;
     border: 0;
     border-radius: 999px;
     background: rgba(183, 177, 194, 0.22);
     color: var(--nm-off);
     font-family: inherit;
-    font-size: clamp(6px, 3.1cqi, 13px);
+    /* the three names have to fit the row whole — an ellipsis on a feed's
+       own name reads as a bug, not as a truncation */
+    font-size: clamp(6px, 3.5cqi, 13px);
     font-weight: var(--nh-medium);
     line-height: 1.2;
     white-space: nowrap;
@@ -2399,7 +2403,7 @@ html {
 
 .nm-post__avatar {
     flex: none;
-    width: 8.5cqi;
+    width: 11.475cqi;
     aspect-ratio: 1;
     border-radius: 50%;
     object-fit: cover;
@@ -2414,14 +2418,25 @@ html {
 }
 
 .nm-post__name {
-    font-size: clamp(7px, 3.8cqi, 16px);
+    display: flex;
+    align-items: center;
+    gap: var(--nm-4);
+    font-size: clamp(7px, 5.13cqi, 16px);
     font-weight: var(--nh-semibold);
     line-height: 1.15;
     color: var(--nm-ink);
 }
 
+/* the account's mark, cut to the height of the name it follows */
+.nm-post__verified {
+    flex: none;
+    width: 1em;
+    height: 1em;
+    fill: #0088FF;
+}
+
 .nm-post__handle {
-    font-size: clamp(6px, 3.1cqi, 13px);
+    font-size: clamp(6px, 4.185cqi, 13px);
     font-weight: var(--nh-regular);
     line-height: 1.15;
     color: var(--nm-soft);
@@ -2429,7 +2444,7 @@ html {
 
 .nm-post__more {
     margin-left: auto;
-    font-size: clamp(6px, 3.4cqi, 14px);
+    font-size: clamp(6px, 4.59cqi, 14px);
     line-height: 1;
     letter-spacing: 0.08em;
 }
@@ -2439,7 +2454,7 @@ html {
 .nm-post__media {
     position: relative;
     overflow: hidden;
-    border-radius: 3.3cqi;
+    border-radius: 4.455cqi;
     background: var(--nm-line);
     aspect-ratio: 5 / 4;
     touch-action: pan-y;        /* a vertical drag still moves the feed */
@@ -2465,26 +2480,36 @@ html {
     user-select: none;
 }
 
-/* the score, on the photograph, the way the references badge a card */
+/* the score, on the photograph, the way the references badge a card: the
+   supplied roll and the number, both centred on the line they share */
 .nm-post__badge {
     position: absolute;
     left: var(--nm-8);
     bottom: var(--nm-8);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: var(--nm-4);
     padding: var(--nm-4) var(--nm-8);
     border-radius: 999px;
     background: var(--nm-yellow);
     color: #33240A;
-    font-size: clamp(6px, 3.1cqi, 13px);
+    font-size: clamp(6px, 4.185cqi, 13px);
     font-weight: var(--nh-semibold);
     line-height: 1;
 }
 
-.nm-post__badge svg {
-    width: 3.4cqi;
-    height: 3.4cqi;
+.nm-post__badge > span {
+    display: block;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+/* the roll, at the size of the type it stands beside */
+.nm-post__roll {
+    display: block;
+    flex: none;
+    width: 1.25em;
+    height: 1.25em;
     fill: currentColor;
 }
 
@@ -2497,7 +2522,7 @@ html {
 }
 
 .nm .nm-post__dot {
-    width: max(4px, 1.7cqi);
+    width: max(4px, 2.295cqi);
     aspect-ratio: 1;
     padding: 0;
     border: 0;
@@ -2524,7 +2549,7 @@ html {
 }
 
 .nm-post__title {
-    font-size: clamp(8px, 4.4cqi, 18px);
+    font-size: clamp(8px, 5.94cqi, 18px);
     font-weight: var(--nh-semibold);
     line-height: 1.15;
     letter-spacing: -0.01em;
@@ -2536,14 +2561,14 @@ html {
     border-radius: 999px;
     background: rgba(106, 159, 50, 0.15);
     color: #4C7522;
-    font-size: clamp(5.5px, 2.8cqi, 12px);
+    font-size: clamp(5.5px, 3.78cqi, 12px);
     font-weight: var(--nh-medium);
     line-height: 1.2;
 }
 
 .nm-post__price {
     margin-left: auto;
-    font-size: clamp(6px, 3.3cqi, 14px);
+    font-size: clamp(6px, 4.455cqi, 14px);
     font-weight: var(--nh-semibold);
     line-height: 1.2;
     color: var(--nm-green);
@@ -2557,7 +2582,7 @@ html {
     display: block;
     flex-basis: 100%;   /* its own line under the name and the price */
     padding-top: var(--nm-4);
-    font-size: clamp(5.5px, 2.8cqi, 12px);
+    font-size: clamp(5.5px, 3.78cqi, 12px);
     font-weight: var(--nh-regular);
     line-height: 1.3;
     color: var(--nm-soft);
@@ -2574,6 +2599,9 @@ html {
     border-top: 1px solid var(--nm-line);
 }
 
+/* An icon and its number, centred on the line they share. The number's
+   digits are tabular and its box is fixed at three of them, so liking a
+   review never nudges the icon beside it. */
 .nm .nm-post__action {
     display: inline-flex;
     align-items: center;
@@ -2583,11 +2611,19 @@ html {
     background: none;
     color: var(--nm-ink);
     font-family: inherit;
-    font-size: clamp(6px, 3cqi, 13px);
+    font-size: clamp(6px, 4.05cqi, 13px);
     font-weight: var(--nh-semibold);
     line-height: 1;
     cursor: pointer;
     transition: color var(--nh-fast) ease;
+}
+
+.nm .nm-post__action > span {
+    display: block;
+    min-width: 3ch;
+    line-height: 1;
+    text-align: left;
+    font-variant-numeric: tabular-nums;
 }
 
 .nm .nm-post__action.is-off {
@@ -2600,8 +2636,10 @@ html {
 }
 
 .nm-post__icon {
-    width: 5.2cqi;
-    height: 5.2cqi;
+    display: block;
+    flex: none;
+    width: 7.02cqi;
+    height: 7.02cqi;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.8;
@@ -2642,7 +2680,7 @@ html {
     overflow: hidden;
     margin: var(--nm-8) 0 0;
     padding-inline: var(--nm-4);
-    font-size: clamp(6px, 3.1cqi, 13px);
+    font-size: clamp(6px, 4.185cqi, 13px);
     font-weight: var(--nh-regular);
     line-height: 1.4;
     color: var(--nm-ink);
@@ -2651,7 +2689,7 @@ html {
 .nm-post__when {
     margin: var(--nm-4) 0 0;
     padding-inline: var(--nm-4);
-    font-size: clamp(5px, 2.6cqi, 11px);
+    font-size: clamp(5px, 3.51cqi, 11px);
     font-weight: var(--nh-medium);
     line-height: 1.2;
     color: var(--nm-off);
@@ -2674,16 +2712,16 @@ html {
 }
 
 .nm-sheet__panel {
-    --nm-16: 4.37cqi;
-    --nm-8:  2.19cqi;
-    --nm-4:  1.09cqi;
+    --nm-16: 5.9cqi;
+    --nm-8:  2.957cqi;
+    --nm-4:  1.472cqi;
 
     display: flex;
     flex-direction: column;
     width: 100%;
     max-height: 72%;
     padding: var(--nm-8) var(--nm-16) var(--nm-16);
-    border-radius: 6.5cqi 6.5cqi 0 0;
+    border-radius: 8.775cqi 8.775cqi 0 0;
     background: var(--nm-paper);
     transform: translateY(100%);
     transition: transform 260ms var(--nh-ease);
@@ -2705,8 +2743,8 @@ html {
     position: absolute;
     top: 0;
     left: 50%;
-    width: 9cqi;
-    height: max(2px, 1cqi);
+    width: 12.15cqi;
+    height: max(2px, 1.35cqi);
     transform: translateX(-50%);
     border-radius: 999px;
     background: var(--nm-line);
@@ -2714,7 +2752,7 @@ html {
 
 .nm-sheet__title {
     margin: var(--nm-16) 0 0;
-    font-size: clamp(7px, 3.9cqi, 16px);
+    font-size: clamp(7px, 5.265cqi, 16px);
     font-weight: var(--nh-semibold);
     line-height: 1.2;
     color: var(--nm-ink);
@@ -2726,8 +2764,8 @@ html {
     bottom: var(--nm-4);
     display: grid;
     place-items: center;
-    width: 6.6cqi;
-    height: 6.6cqi;
+    width: 8.91cqi;
+    height: 8.91cqi;
     padding: 0;
     border: 0;
     border-radius: 50%;
@@ -2737,8 +2775,8 @@ html {
 }
 
 .nm-sheet__close svg {
-    width: 3.8cqi;
-    height: 3.8cqi;
+    width: 5.13cqi;
+    height: 5.13cqi;
     fill: none;
     stroke: currentColor;
     stroke-width: 2.2;
@@ -2747,7 +2785,7 @@ html {
 
 .nm-sheet__place {
     margin: 0 0 var(--nm-8);
-    font-size: clamp(6px, 3.1cqi, 13px);
+    font-size: clamp(6px, 4.185cqi, 13px);
     font-weight: var(--nh-regular);
     line-height: 1.2;
     color: var(--nm-soft);
@@ -2771,7 +2809,7 @@ html {
     align-items: flex-start;
     gap: var(--nm-8);
     padding: var(--nm-8) 0;
-    font-size: clamp(6px, 3.1cqi, 13px);
+    font-size: clamp(6px, 4.185cqi, 13px);
     font-weight: var(--nh-regular);
     line-height: 1.35;
     color: var(--nm-ink);
@@ -2785,12 +2823,12 @@ html {
     flex: none;
     display: grid;
     place-items: center;
-    width: 6.6cqi;
+    width: 8.91cqi;
     aspect-ratio: 1;
     border-radius: 50%;
     background: var(--nm-tint);
     color: var(--nm-deep);
-    font-size: clamp(6px, 3cqi, 12px);
+    font-size: clamp(6px, 4.05cqi, 12px);
     font-weight: var(--nh-semibold);
 }
 
@@ -3175,7 +3213,7 @@ html {
     .nh-grid > [data-size="medium"] { grid-row: span 3; }
 
     /* the phone's card keeps the depth of the two cards beside it */
-    .nh-grid > [data-project="nommu"] { grid-row: span 6; }
+    .nh-grid > [data-project="nommu"] { grid-row: span 4; }
 
 }
 
