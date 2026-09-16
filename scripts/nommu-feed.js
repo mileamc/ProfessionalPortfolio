@@ -165,6 +165,48 @@
         // drive it while a sideways drag is in flight.
         var rails = new Map();
 
+        // --- a caption, kept to two lines -----------------------------------
+        //
+        // The word that opens the rest has to sit inside the text, not over
+        // it, so the caption is cut back word by word until "\u2026 more" fits
+        // the second line with it. Returns the measuring, to be run again
+        // whenever the card changes size: the type scales with it.
+
+        var fitCaption = function (caption, full) {
+            var text = caption.querySelector(".nm-post__text");
+            var body = caption.querySelector("[data-nm-body]");
+            var expand = caption.querySelector("[data-nm-expand]");
+
+            return function () {
+                if (caption.classList.contains("is-open")) {
+                    return;
+                }
+                body.textContent = full;
+                expand.hidden = true;
+
+                var line = parseFloat(window.getComputedStyle(text).lineHeight);
+                var room = line * 2 + 1;
+                if (text.scrollHeight <= room) {
+                    return;                      // it was never cut short
+                }
+
+                expand.hidden = false;
+                var words = full.split(" ");
+                var few = 1;
+                var many = words.length;
+                while (few < many) {
+                    var mid = Math.ceil((few + many) / 2);
+                    body.textContent = words.slice(0, mid).join(" ") + "\u2026 ";
+                    if (text.scrollHeight <= room) {
+                        few = mid;
+                    } else {
+                        many = mid - 1;
+                    }
+                }
+                body.textContent = words.slice(0, few).join(" ") + "\u2026 ";
+            };
+        };
+
         var buildPost = function (review) {
             var post = element(
                 '<article class="nm-post" data-nm-post="' + escapeHtml(review.id) + '">' +
@@ -211,7 +253,10 @@
                 svg("star", "nm-post__icon") + "</button>" +
                 "</div>" +
 
-                '<p class="nm-post__text">' + escapeHtml(review.text) + "</p>" +
+                '<div class="nm-post__caption" data-nm-caption>' +
+                '<p class="nm-post__text"><span data-nm-body>' + escapeHtml(review.text) + "</span>" +
+                '<button class="nm-post__expand" type="button" data-nm-expand hidden>more</button></p>' +
+                "</div>" +
                 '<p class="nm-post__when">' + escapeHtml(review.when) + "</p>" +
 
                 "</article>"
@@ -279,6 +324,22 @@
                 openComments(review);
             });
 
+            // --- the rest of what was written --------------------------------
+            //
+            // A caption is kept to two lines so a post stays a post; the word
+            // that opens the rest sits on the second line, over its ellipsis.
+
+            var caption = post.querySelector("[data-nm-caption]");
+            var expand = post.querySelector("[data-nm-expand]");
+
+            caption.fit = fitCaption(caption, review.text);
+
+            expand.addEventListener("click", function () {
+                caption.querySelector("[data-nm-body]").textContent = review.text;
+                caption.classList.add("is-open");
+                expand.hidden = true;
+            });
+
             return post;
         };
 
@@ -291,6 +352,19 @@
         REVIEWS.forEach(function (review) {
             feed.appendChild(buildPost(review));
         });
+
+        // Measured once the posts are in the document, and again on a resize.
+        var fitCaptions = function () {
+            feed.querySelectorAll("[data-nm-caption]").forEach(function (caption) {
+                caption.fit();
+            });
+        };
+
+        fitCaptions();
+
+        if (window.ResizeObserver) {
+            new window.ResizeObserver(fitCaptions).observe(feed);
+        }
 
         // --- dragging the feed, the way a thumb would -------------------------
         //

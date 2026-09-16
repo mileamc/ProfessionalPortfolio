@@ -2678,17 +2678,43 @@ html {
     100% { transform: scale(1); }
 }
 
+.nm-post__caption {
+    margin-top: var(--nm-8);
+}
+
 .nm-post__text {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    max-height: 2.8em;               /* two lines of it, and no more */
     overflow: hidden;
-    margin: var(--nm-8) 0 0;
+    margin: 0;
     padding-inline: var(--nm-4);
     font-size: clamp(6px, 4.185cqi, 13px);
     font-weight: var(--nh-regular);
     line-height: 1.4;
     color: var(--nm-ink);
+}
+
+.nm-post__caption.is-open .nm-post__text {
+    max-height: none;
+    overflow: visible;
+}
+
+/* the word that opens the rest — part of the sentence it ends, so it reads
+   as the caption carrying on rather than as a control laid over it */
+.nm .nm-post__expand {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--nm-off);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: var(--nh-medium);
+    line-height: inherit;
+    cursor: pointer;
+}
+
+.nm .nm-post__expand:hover,
+.nm .nm-post__expand:focus-visible {
+    color: var(--nm-purple);
 }
 
 .nm-post__when {
