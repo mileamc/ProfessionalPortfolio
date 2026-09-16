@@ -521,7 +521,12 @@ html {
    height is the standard one — the list of machines is what sets it, and
    the table scrolls under the machines it cannot show at once. */
 .nh-grid > [data-project="imb-compare"]  { grid-column: span 8; }
-.nh-grid > [data-project="nommu"]        { grid-column: span 4; }
+.nh-grid > [data-project="imb"]          { grid-column: span 8; }
+
+/* NOMMU holds a whole phone, so it is a tall card: four columns beside the
+   comparison and the landing pages, and as deep as the two of them. */
+.nh-grid > [data-project="nommu"]        { grid-column: span 4; grid-row: span 8; }
+.nh-grid > .nh-card--text                { grid-column: 1 / -1; }
 
 
 /* ===========================================================================
@@ -2147,7 +2152,8 @@ html {
     position: absolute;
     left: var(--nm-edge);
     right: var(--nm-edge);
-    top: var(--nm-edge);
+    top: 50%;
+    transform: translateY(-50%);
     aspect-ratio: 2804 / 5696;   /* the body's own proportions */
     pointer-events: none;
 }
@@ -2188,9 +2194,24 @@ html {
     pointer-events: auto;
 }
 
-/* --- the app --------------------------------------------------------------- */
+/* --- the app ---------------------------------------------------------------
+
+   Spacing is one ladder, in the screen's own units (1cqi is a hundredth of
+   the glass, so 4.37cqi is sixteen pixels at the size the card renders it):
+
+     16px   the margin between the phone's edge and the content, and the gap
+            between one part of the app and the next
+      8px   between elements that belong together
+      4px   between two halves of the same thing
+
+   Nothing else is used.
+--------------------------------------------------------------------------- */
 
 .nm-app {
+    --nm-16: 4.37cqi;
+    --nm-8:  2.19cqi;
+    --nm-4:  1.09cqi;
+
     position: absolute;
     inset: 0;
     display: flex;
@@ -2220,26 +2241,32 @@ html {
     flex: none;
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: 2.2cqi 1.71cqi;
-    padding: 4cqi 4.6cqi 3cqi;
-    border-radius: 0 0 5.928cqi 5.928cqi;
+    gap: var(--nm-16) var(--nm-8);
+    padding: 6cqi var(--nm-16) var(--nm-16);
+    border-radius: 0 0 5.6cqi 5.6cqi;
     background: var(--nm-deep);
     color: #FFFFFF;
 }
 
+.nm-app__hello {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nm-4);
+}
+
 .nm-app__welcome {
     margin: 0;
-    font-size: clamp(7px, 2.964cqi, 15px);
+    font-size: clamp(7px, 3.3cqi, 14px);
     font-weight: var(--nh-medium);
-    line-height: 1.3;
+    line-height: 1.2;
     opacity: 0.78;
 }
 
 .nm-app__city {
     margin: 0;
-    font-size: clamp(13px, 6.669cqi, 34px);
+    font-size: clamp(13px, 6.6cqi, 28px);
     font-weight: var(--nh-semibold);
-    line-height: 1.15;
+    line-height: 1.1;
     letter-spacing: -0.015em;
 }
 
@@ -2247,14 +2274,13 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1.037cqi;
-    width: 5.187cqi;
-    padding-top: 1.482cqi;
+    gap: var(--nm-4);
+    width: 5.5cqi;
 }
 
 .nm-app__menu span {
     display: block;
-    height: max(1.5px, 0.519cqi);
+    height: max(1.5px, 0.6cqi);
     border-radius: 2px;
     background: currentColor;
     opacity: 0.55;
@@ -2264,21 +2290,21 @@ html {
     grid-column: 1 / -1;
     display: flex;
     align-items: center;
-    gap: 1.778cqi;
+    gap: var(--nm-8);
     margin: 0;
-    padding: 1.778cqi 2.668cqi;
+    padding: var(--nm-8) var(--nm-16);
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.14);
     color: rgba(255, 255, 255, 0.66);
-    font-size: clamp(6.5px, 2.816cqi, 14px);
+    font-size: clamp(6.5px, 3.1cqi, 13px);
     font-weight: var(--nh-regular);
     line-height: 1.2;
 }
 
 .nm-app__search svg {
     flex: none;
-    width: 3.409cqi;
-    height: 3.409cqi;
+    width: 3.8cqi;
+    height: 3.8cqi;
     fill: none;
     stroke: currentColor;
     stroke-width: 2;
@@ -2297,21 +2323,21 @@ html {
 .nm-app__tabs {
     flex: none;
     display: flex;
-    gap: 1.482cqi;
-    padding: 2cqi 4.001cqi 1.6cqi;
+    gap: var(--nm-8);
+    padding: var(--nm-16) var(--nm-16) var(--nm-8);
 }
 
 .nm .nm-tab {
     flex: 0 1 auto;
     min-width: 0;
     overflow: hidden;
-    padding: 1.63cqi 2.519cqi;
+    padding: var(--nm-8) 3.3cqi;
     border: 0;
     border-radius: 999px;
     background: rgba(183, 177, 194, 0.22);
     color: var(--nm-off);
     font-family: inherit;
-    font-size: clamp(6px, 2.668cqi, 13px);
+    font-size: clamp(6px, 3.1cqi, 13px);
     font-weight: var(--nh-medium);
     line-height: 1.2;
     white-space: nowrap;
@@ -2334,7 +2360,7 @@ html {
 .nm-feed {
     flex: 1 1 auto;
     min-height: 0;
-    padding: 0 4.001cqi 5.928cqi;
+    padding: var(--nm-8) var(--nm-16) var(--nm-16);
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-width: none;
@@ -2354,26 +2380,26 @@ html {
 /* --- a review --------------------------------------------------------------- */
 
 .nm-post {
-    padding: 2.2cqi;
-    border-radius: 4.742cqi;
+    padding: var(--nm-8);
+    border-radius: var(--nm-16);
     background: var(--nm-paper);
     box-shadow: 0 1px 2px rgba(29, 27, 37, 0.05), 0 10px 22px -18px rgba(29, 27, 37, 0.55);
 }
 
 .nm-post + .nm-post {
-    margin-top: 3.26cqi;
+    margin-top: var(--nm-16);
 }
 
 .nm-post__head {
     display: flex;
     align-items: center;
-    gap: 1.927cqi;
-    padding-bottom: 2cqi;
+    gap: var(--nm-8);
+    padding: var(--nm-4) var(--nm-4) var(--nm-8);
 }
 
 .nm-post__avatar {
     flex: none;
-    width: 7.6cqi;
+    width: 8.5cqi;
     aspect-ratio: 1;
     border-radius: 50%;
     object-fit: cover;
@@ -2383,26 +2409,27 @@ html {
 .nm-post__who {
     display: flex;
     flex-direction: column;
+    gap: var(--nm-4);
     min-width: 0;
 }
 
 .nm-post__name {
-    font-size: clamp(7px, 3.26cqi, 16px);
+    font-size: clamp(7px, 3.8cqi, 16px);
     font-weight: var(--nh-semibold);
-    line-height: 1.25;
+    line-height: 1.15;
     color: var(--nm-ink);
 }
 
 .nm-post__handle {
-    font-size: clamp(6px, 2.668cqi, 13px);
+    font-size: clamp(6px, 3.1cqi, 13px);
     font-weight: var(--nh-regular);
-    line-height: 1.3;
+    line-height: 1.15;
     color: var(--nm-soft);
 }
 
 .nm-post__more {
     margin-left: auto;
-    font-size: clamp(6px, 2.964cqi, 15px);
+    font-size: clamp(6px, 3.4cqi, 14px);
     line-height: 1;
     letter-spacing: 0.08em;
 }
@@ -2412,9 +2439,9 @@ html {
 .nm-post__media {
     position: relative;
     overflow: hidden;
-    border-radius: 3.409cqi;
+    border-radius: 3.3cqi;
     background: var(--nm-line);
-    aspect-ratio: 2.35 / 1;
+    aspect-ratio: 5 / 4;
     touch-action: pan-y;        /* a vertical drag still moves the feed */
 }
 
@@ -2441,36 +2468,36 @@ html {
 /* the score, on the photograph, the way the references badge a card */
 .nm-post__badge {
     position: absolute;
-    left: 2.223cqi;
-    bottom: 2.223cqi;
+    left: var(--nm-8);
+    bottom: var(--nm-8);
     display: flex;
     align-items: center;
-    gap: 1.037cqi;
-    padding: 1.186cqi 2.223cqi;
+    gap: var(--nm-4);
+    padding: var(--nm-4) var(--nm-8);
     border-radius: 999px;
     background: var(--nm-yellow);
     color: #33240A;
-    font-size: clamp(6px, 2.816cqi, 14px);
+    font-size: clamp(6px, 3.1cqi, 13px);
     font-weight: var(--nh-semibold);
     line-height: 1;
 }
 
 .nm-post__badge svg {
-    width: 2.964cqi;
-    height: 2.964cqi;
+    width: 3.4cqi;
+    height: 3.4cqi;
     fill: currentColor;
 }
 
 .nm-post__dots {
     position: absolute;
-    right: 2.223cqi;
-    bottom: 2.519cqi;
+    right: var(--nm-8);
+    bottom: var(--nm-8);
     display: flex;
-    gap: 1.186cqi;
+    gap: var(--nm-4);
 }
 
 .nm .nm-post__dot {
-    width: max(4px, 1.482cqi);
+    width: max(4px, 1.7cqi);
     aspect-ratio: 1;
     padding: 0;
     border: 0;
@@ -2492,31 +2519,31 @@ html {
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
-    gap: 1cqi 1.778cqi;
-    padding-top: 1.5cqi;
+    gap: var(--nm-4) var(--nm-8);
+    padding: var(--nm-8) var(--nm-4) 0;
 }
 
 .nm-post__title {
-    font-size: clamp(8px, 3.853cqi, 19px);
+    font-size: clamp(8px, 4.4cqi, 18px);
     font-weight: var(--nh-semibold);
-    line-height: 1.2;
+    line-height: 1.15;
     letter-spacing: -0.01em;
     color: var(--nm-ink);
 }
 
 .nm-post__cat {
-    padding: 0.741cqi 1.778cqi;
+    padding: var(--nm-4) var(--nm-8);
     border-radius: 999px;
     background: rgba(106, 159, 50, 0.15);
     color: #4C7522;
-    font-size: clamp(5.5px, 2.445cqi, 12px);
+    font-size: clamp(5.5px, 2.8cqi, 12px);
     font-weight: var(--nh-medium);
-    line-height: 1.3;
+    line-height: 1.2;
 }
 
 .nm-post__price {
     margin-left: auto;
-    font-size: clamp(6px, 2.816cqi, 14px);
+    font-size: clamp(6px, 3.3cqi, 14px);
     font-weight: var(--nh-semibold);
     line-height: 1.2;
     color: var(--nm-green);
@@ -2529,23 +2556,11 @@ html {
 .nm-post__address {
     display: block;
     flex-basis: 100%;   /* its own line under the name and the price */
-    padding-top: 1.037cqi;
-    font-size: clamp(5.5px, 2.593cqi, 13px);
+    padding-top: var(--nm-4);
+    font-size: clamp(5.5px, 2.8cqi, 12px);
     font-weight: var(--nh-regular);
-    line-height: 1.35;
+    line-height: 1.3;
     color: var(--nm-soft);
-}
-
-.nm-post__text {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-    margin: 2.075cqi 0 0;
-    font-size: clamp(6px, 2.964cqi, 15px);
-    font-weight: var(--nh-regular);
-    line-height: 1.45;
-    color: var(--nm-ink);
 }
 
 /* --- what a visitor can do to a review ----------------------------------------- */
@@ -2553,22 +2568,22 @@ html {
 .nm-post__actions {
     display: flex;
     align-items: center;
-    gap: 3.26cqi;
-    margin-top: 1.6cqi;
-    padding-top: 1.6cqi;
+    gap: var(--nm-16);
+    margin-top: var(--nm-8);
+    padding: var(--nm-8) var(--nm-4) 0;
     border-top: 1px solid var(--nm-line);
 }
 
 .nm .nm-post__action {
     display: inline-flex;
     align-items: center;
-    gap: 1.186cqi;
+    gap: var(--nm-4);
     padding: 0;
     border: 0;
     background: none;
     color: var(--nm-ink);
     font-family: inherit;
-    font-size: clamp(6px, 2.668cqi, 13px);
+    font-size: clamp(6px, 3cqi, 13px);
     font-weight: var(--nh-semibold);
     line-height: 1;
     cursor: pointer;
@@ -2585,8 +2600,8 @@ html {
 }
 
 .nm-post__icon {
-    width: 4.742cqi;
-    height: 4.742cqi;
+    width: 5.2cqi;
+    height: 5.2cqi;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.8;
@@ -2620,22 +2635,33 @@ html {
     100% { transform: scale(1); }
 }
 
+.nm-post__text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin: var(--nm-8) 0 0;
+    padding-inline: var(--nm-4);
+    font-size: clamp(6px, 3.1cqi, 13px);
+    font-weight: var(--nh-regular);
+    line-height: 1.4;
+    color: var(--nm-ink);
+}
+
 .nm-post__when {
-    margin: 1.778cqi 0 0;
-    font-size: clamp(5px, 2.371cqi, 12px);
+    margin: var(--nm-4) 0 0;
+    padding-inline: var(--nm-4);
+    font-size: clamp(5px, 2.6cqi, 11px);
     font-weight: var(--nh-medium);
-    line-height: 1.3;
+    line-height: 1.2;
     color: var(--nm-off);
 }
 
 /* --- the comments, over the feed ------------------------------------------------ */
 
-/* The card crops the phone, so the comments rise to the bottom of the glass
-   the card actually shows — a sheet that opened below the crop would be a
-   sheet nobody sees. */
 .nm-sheet {
     position: absolute;
-    inset: 0 0 50% 0;
+    inset: 0;
     z-index: 3;
     display: flex;
     align-items: flex-end;
@@ -2648,12 +2674,16 @@ html {
 }
 
 .nm-sheet__panel {
+    --nm-16: 4.37cqi;
+    --nm-8:  2.19cqi;
+    --nm-4:  1.09cqi;
+
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-height: 74%;
-    padding: 2.223cqi 4.001cqi 4.446cqi;
-    border-radius: 5.928cqi 5.928cqi 0 0;
+    max-height: 72%;
+    padding: var(--nm-8) var(--nm-16) var(--nm-16);
+    border-radius: 6.5cqi 6.5cqi 0 0;
     background: var(--nm-paper);
     transform: translateY(100%);
     transition: transform 260ms var(--nh-ease);
@@ -2668,23 +2698,23 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 1.778cqi;
+    padding-bottom: var(--nm-8);
 }
 
 .nm-sheet__grip {
     position: absolute;
     top: 0;
     left: 50%;
-    width: 8.151cqi;
-    height: max(2px, 0.889cqi);
+    width: 9cqi;
+    height: max(2px, 1cqi);
     transform: translateX(-50%);
     border-radius: 999px;
     background: var(--nm-line);
 }
 
 .nm-sheet__title {
-    margin: 2.964cqi 0 0;
-    font-size: clamp(7px, 3.409cqi, 17px);
+    margin: var(--nm-16) 0 0;
+    font-size: clamp(7px, 3.9cqi, 16px);
     font-weight: var(--nh-semibold);
     line-height: 1.2;
     color: var(--nm-ink);
@@ -2693,11 +2723,11 @@ html {
 .nm .nm-sheet__close {
     position: absolute;
     right: 0;
-    bottom: 0.889cqi;
+    bottom: var(--nm-4);
     display: grid;
     place-items: center;
-    width: 5.928cqi;
-    height: 5.928cqi;
+    width: 6.6cqi;
+    height: 6.6cqi;
     padding: 0;
     border: 0;
     border-radius: 50%;
@@ -2707,8 +2737,8 @@ html {
 }
 
 .nm-sheet__close svg {
-    width: 3.409cqi;
-    height: 3.409cqi;
+    width: 3.8cqi;
+    height: 3.8cqi;
     fill: none;
     stroke: currentColor;
     stroke-width: 2.2;
@@ -2716,16 +2746,16 @@ html {
 }
 
 .nm-sheet__place {
-    margin: 0 0 2.223cqi;
-    font-size: clamp(6px, 2.668cqi, 13px);
+    margin: 0 0 var(--nm-8);
+    font-size: clamp(6px, 3.1cqi, 13px);
     font-weight: var(--nh-regular);
-    line-height: 1.3;
+    line-height: 1.2;
     color: var(--nm-soft);
 }
 
 .nm-sheet__list {
     margin: 0;
-    padding: 0 0 0.741cqi;
+    padding: 0;
     list-style: none;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -2739,11 +2769,11 @@ html {
 .nm-sheet__comment {
     display: flex;
     align-items: flex-start;
-    gap: 2.075cqi;
-    padding: 1.63cqi 0;
-    font-size: clamp(6px, 2.816cqi, 14px);
+    gap: var(--nm-8);
+    padding: var(--nm-8) 0;
+    font-size: clamp(6px, 3.1cqi, 13px);
     font-weight: var(--nh-regular);
-    line-height: 1.4;
+    line-height: 1.35;
     color: var(--nm-ink);
 }
 
@@ -2755,12 +2785,12 @@ html {
     flex: none;
     display: grid;
     place-items: center;
-    width: 5.928cqi;
+    width: 6.6cqi;
     aspect-ratio: 1;
     border-radius: 50%;
     background: var(--nm-tint);
     color: var(--nm-deep);
-    font-size: clamp(6px, 2.668cqi, 13px);
+    font-size: clamp(6px, 3cqi, 12px);
     font-weight: var(--nh-semibold);
 }
 
@@ -3143,6 +3173,9 @@ html {
        cards already carry the height at the top */
     .nh-grid > [data-size="large"]  { grid-row: span 3; }
     .nh-grid > [data-size="medium"] { grid-row: span 3; }
+
+    /* the phone's card keeps the depth of the two cards beside it */
+    .nh-grid > [data-project="nommu"] { grid-row: span 6; }
 
 }
 
