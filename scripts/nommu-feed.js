@@ -349,38 +349,17 @@
             button.classList.add("is-beating");
         };
 
+        var list = root.querySelector("[data-nm-posts]") || feed;
+
         REVIEWS.forEach(function (review) {
-            feed.appendChild(buildPost(review));
+            list.appendChild(buildPost(review));
         });
-
-        // --- the welcome and its tabs, carried off the top ---------------------
-        //
-        // Neither is inside the feed, so the feed hands them its own scroll:
-        // they rise by what has been scrolled and hand the same height down,
-        // leaving the screen to the reviews.
-
-        var chrome = root.querySelector(".nm-app__chrome");
-        var app = root.querySelector("[data-nm-app]");
-
-        var carryTop = function () {
-            if (!chrome || !app) {
-                return;
-            }
-            // rounded up, so no sliver of either is left behind
-            var height = Math.ceil(chrome.getBoundingClientRect().height);
-            var gone = Math.max(0, Math.min(feed.scrollTop, height));
-            app.style.setProperty("--nm-lift", gone + "px");
-        };
-
-        feed.addEventListener("scroll", carryTop);
-        carryTop();
 
         // Measured once the posts are in the document, and again on a resize.
         var fitCaptions = function () {
             feed.querySelectorAll("[data-nm-caption]").forEach(function (caption) {
                 caption.fit();
             });
-            carryTop();
         };
 
         fitCaptions();

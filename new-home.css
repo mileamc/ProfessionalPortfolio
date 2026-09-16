@@ -2214,10 +2214,6 @@ html {
     --nm-8:  2.957cqi;
     --nm-4:  1.472cqi;
 
-    /* how much of the welcome and its tabs has been carried off the top —
-       set by the feed as it scrolls */
-    --nm-lift: 0px;
-
     position: absolute;
     inset: 0;
     display: flex;
@@ -2243,15 +2239,12 @@ html {
     cursor: default;
 }
 
-/* Scrolling down carries the welcome and the tabs off the top of the screen
-   together: they move up by what has been scrolled and give the same amount
-   back to the feed below, so the feed ends up with the screen to itself. */
+/* The welcome and the tabs are the head of the feed rather than a bar above
+   it: they scroll away with the reviews, at the same pace, and the feed has
+   the screen to itself once they have gone. Their own edges reach past the
+   feed's padding, so the purple meets the top of the screen. */
 .nm-app__chrome {
-    position: relative;
-    z-index: 1;
-    flex: none;
-    margin-bottom: calc(-1 * var(--nm-lift));
-    transform: translateY(calc(-1 * var(--nm-lift)));
+    margin: calc(-1 * var(--nm-8)) calc(-1 * var(--nm-16)) var(--nm-8);
 }
 
 .nm-app__top {
@@ -2325,13 +2318,6 @@ html {
     stroke: currentColor;
     stroke-width: 2;
     stroke-linecap: round;
-}
-
-.nm-app__body {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
 }
 
 /* --- the three feeds, one of which is this one ------------------------------ */
