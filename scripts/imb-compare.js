@@ -252,15 +252,13 @@
             });
         }
 
-        // The arrows of the empty state start swinging the first time the icon
-        // is hovered, and keep swinging from then on — hovering only sets how
-        // far they reach, which is what lets them ease home afterwards.
-        var icon = root.querySelector(".ic__empty-icon");
-        if (icon) {
-            icon.addEventListener("pointerenter", function () {
-                icon.classList.add("is-breathing");
-            }, { once: true });
-        }
+        // The arrows of the empty state start swinging the first time the card
+        // is hovered anywhere at all, and keep swinging from then on — the
+        // pointer only sets how far they reach, which is what lets them ease
+        // home afterwards.
+        root.addEventListener("pointerenter", function () {
+            root.classList.add("is-breathing");
+        }, { once: true });
 
         // clicks inside the comparison are its own — they never reach the card
         root.addEventListener("click", function (event) { event.stopPropagation(); });

@@ -1905,10 +1905,12 @@ html {
 }
 
 /* --- the two arrows, breathing under the pointer ----------------------------
-   The swing itself never stops once the icon has been hovered the first time;
+   The swing itself never stops once the card has been hovered the first time;
    what the pointer changes is how far it reaches. So arriving opens the
    arrows up and leaving eases them home, rather than cutting the movement
-   off wherever it happened to be. */
+   off wherever it happened to be. The whole card is the trigger — the list
+   on the left as much as the panel on the right — and the reach is inherited
+   down to the arrows from there. */
 
 @property --ic-apart {
     syntax: "<length>";
@@ -1916,19 +1918,19 @@ html {
     initial-value: 0px;
 }
 
-.ic__empty-icon {
+.ic {
     --ic-apart: 0px;
     transition: --ic-apart 360ms ease;
 }
 
-.ic__empty-icon:hover {
-    --ic-apart: 12px;      /* in the icon's own units: about 5px on screen */
+.ic:hover {
+    --ic-apart: 12px;      /* in the icon's own units: about 6px on screen */
 }
 
 .ic__empty-arrow--left  { --ic-sign: -1; }
 .ic__empty-arrow--right { --ic-sign:  1; }
 
-.ic__empty-icon.is-breathing .ic__empty-arrow {
+.ic.is-breathing .ic__empty-arrow {
     animation: ic-breathe 1500ms ease-in-out infinite;
 }
 
@@ -1938,7 +1940,7 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .ic__empty-icon.is-breathing .ic__empty-arrow {
+    .ic.is-breathing .ic__empty-arrow {
         animation: none;
     }
 }
