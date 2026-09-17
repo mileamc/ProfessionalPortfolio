@@ -2294,9 +2294,14 @@ html {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: var(--nm-16) var(--nm-8);
-    padding: 8.1cqi var(--nm-16) var(--nm-16);
+    /* the sides clear the feed's own padding and a review's, so the welcome
+       starts on the same vertical line as the photograph below it */
+    padding: 8.1cqi calc(var(--nm-16) + var(--nm-8)) var(--nm-16);
     border-radius: 0 0 7.56cqi 7.56cqi;
-    background: var(--nm-deep);
+    /* the purple it always was, opening out to a lighter one across the
+       width, with the supplied texture lying over the whole of it */
+    background: url("assets/texture-header.svg") center / cover no-repeat,
+                linear-gradient(75deg, var(--nm-deep) 0%, #8A6EDC 100%);
     color: #FFFFFF;
 }
 
