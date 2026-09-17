@@ -2199,8 +2199,31 @@ html {
        is given and the width follows from the body's own proportions */
     height: calc(100% - 2 * var(--nm-edge));
     aspect-ratio: 2804 / 5696;
-    transform: translateX(-50%);
     pointer-events: none;
+
+    /* At rest the phone sits close in, all but touching the card top and
+       bottom; hovering the card draws it back to the size and place it is
+       laid out at. Nothing here changes the layout — the screen's container
+       is the same box either way, so the app inside never reflows. */
+    --nm-near: 1.1;
+    transform: translateX(-50%) scale(var(--nm-near));
+    transform-origin: center;
+    transition: transform 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* keyboard focus draws it back too, but a click does not keep it there:
+   pressing a button inside the app should not hold the phone open once the
+   pointer has gone */
+.nm:hover .nm__phone,
+.nm:has(:focus-visible) .nm__phone {
+    --nm-near: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nm__phone {
+        --nm-near: 1;
+        transition: none;
+    }
 }
 
 /* The file, placed so its phone lands exactly on the box above. It names
