@@ -14,11 +14,12 @@
    The grid
 
    Twelve columns, the same gutters and gap as the home's. The text holds the
-   left six; the other six are a column of their own, with the two square
-   cards — the photographs and the playlist — side by side at the top, and
-   under them a card kept empty until it has something to hold, which takes
-   whatever depth the text leaves. The squares stay square because their
-   width comes from the columns and their height from that width.
+   left six; the other six are a column of their own, split in two: the
+   photographs and the playlist stacked on the left of it, and on the right a
+   card kept empty until it has something to hold, as deep as the text leaves
+   the row. The photographs stay square because their width comes from the
+   columns and their height from that width; the playlist is only as deep as
+   its player needs.
 --------------------------------------------------------------------------- */
 
 .ab-grid {
@@ -35,18 +36,26 @@
     grid-row: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto minmax(352px, 1fr);
+    grid-template-rows: auto auto;
+    align-content: start;
     gap: var(--nh-gap);
     min-width: 0;
 }
 
-.ab-photos,
-.ab-music {
+.ab-photos {
+    grid-column: 1;
+    grid-row: 1;
     aspect-ratio: 1;
 }
 
+.ab-music {
+    grid-column: 1;
+    grid-row: 2;
+}
+
 .ab-next {
-    grid-column: 1 / -1;
+    grid-column: 2;
+    grid-row: 1 / span 2;
 }
 
 /* Entry: the same quiet rise the home's cards come in on, in reading order —
@@ -166,34 +175,12 @@
 /* ---------------------------------------------------------------------------
    3 — The playlist
 
-   The card is ours — its heading, its line of text, its link — and the
-   player in the middle is Spotify's, which is the part that cannot be
-   restyled: it is a document from another origin, so nothing here reaches
-   inside it, and the API that drives it drives that same player.
-
-   What the height chooses is which of its two layouts it draws. 152px is
-   its compact one and the one that suits a square; the tall layout wants
-   352px or more, and anything between the two is drawn tall and cut off,
-   which is what broke. So the player is given exactly its 152, and the
-   space around it is the card's to spend.
+   Spotify's own embed, unchanged: it is a document from another origin, so
+   nothing here reaches inside it anyway. What the height chooses is which of
+   its two layouts it draws — 152px for the compact one, 352 and over for the
+   tall one, and anything between them drawn tall and cut off. This is the
+   smaller of the two, and the card is cut to it.
 --------------------------------------------------------------------------- */
-
-.ab-music__title {
-    margin: 0;
-    font-size: var(--nh-size-body);
-    font-weight: var(--nh-semibold);
-    line-height: 1.3;
-    color: var(--nh-ink);
-}
-
-/* the player takes the middle of the card, at the one height it is happy at */
-.ab-music__player {
-    display: flex;
-    align-items: center;
-    flex: 1 1 auto;
-    min-height: 0;
-    margin-block: var(--nh-space-3);
-}
 
 .ab-music iframe {
     display: block;
@@ -201,29 +188,6 @@
     height: 152px;      /* Spotify's compact layout, and nothing in between */
     border: 0;
     border-radius: 12px;
-}
-
-.nh .ab-music__link {
-    align-self: start;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--nh-space-1);
-    font-size: var(--nh-size-small);
-    font-weight: var(--nh-medium);
-    line-height: 1.2;
-    color: var(--nh-ink);
-    text-decoration: none;
-    border-bottom: 1px solid currentColor;
-    transition: color var(--nh-base) var(--nh-ease);
-}
-
-.nh .ab-music__link:hover {
-    color: var(--nh-accent);
-}
-
-.ab-music__link:focus-visible {
-    outline: 2px solid var(--nh-ink);
-    outline-offset: 3px;
 }
 
 
