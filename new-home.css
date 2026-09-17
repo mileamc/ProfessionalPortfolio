@@ -2201,15 +2201,13 @@ html {
     aspect-ratio: 2804 / 5696;
     pointer-events: none;
 
-    /* At rest the phone lies tilted and a little smaller, whole inside the
-       card with room at every corner; hovering rights it and brings it up to
-       exactly the size and place it is laid out at. Nothing is ever drawn
-       larger than its own size, so the screen stays sharp in both states,
-       and the transform leaves the screen's container alone — the app
-       inside neither reflows nor resizes. */
-    --nm-tilt: -7deg;
-    --nm-near: 0.93;
-    transform: translateX(-50%) rotate(var(--nm-tilt)) scale(var(--nm-near));
+    /* At rest the phone lies tilted, whole inside the card; hovering rights
+       it into the place it is laid out at. The tilt is the only difference
+       between the two states — the phone is never drawn at another size, so
+       nothing is resampled but the turn itself, and the app inside neither
+       reflows nor resizes. */
+    --nm-tilt: -6deg;
+    transform: translateX(-50%) rotate(var(--nm-tilt));
     transform-origin: center;
     transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -2220,13 +2218,11 @@ html {
 .nm:hover .nm__phone,
 .nm:has(:focus-visible) .nm__phone {
     --nm-tilt: 0deg;
-    --nm-near: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
     .nm__phone {
         --nm-tilt: 0deg;
-        --nm-near: 1;
         transition: none;
     }
 }
