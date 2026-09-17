@@ -182,6 +182,12 @@
    cover above the list instead, and nothing is squeezed.
 --------------------------------------------------------------------------- */
 
+/* the embed is its own framed thing, so the card keeps half the inset the
+   cards of running text want — and the player gets the width back */
+.ab-music {
+    padding: calc(var(--nh-card-pad) / 2);
+}
+
 .ab-music iframe {
     display: block;
     width: 100%;
