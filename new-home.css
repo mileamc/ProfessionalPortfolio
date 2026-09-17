@@ -2201,16 +2201,16 @@ html {
     aspect-ratio: 2804 / 5696;
     pointer-events: none;
 
-    /* At rest the phone stands close to the glass: it is held near the card's
-       top edge and drawn large, so only its upper part is in the card and the
-       rest of the feed runs off the bottom. Hovering the card takes it back
-       to exactly the size and place it is laid out at. It is a transform, so
+    /* At rest the phone lies tilted and low in the card, a little larger than
+       its place and cut by the edges; hovering brings it upright and whole,
+       at exactly the size and place it is laid out at. It is a transform, so
        the screen's container is the same box either way — the app inside
        neither reflows nor resizes. */
-    --nm-near: 1.35;
-    --nm-rise: -24px;
-    transform: translateX(-50%) translateY(var(--nm-rise)) scale(var(--nm-near));
-    transform-origin: center top;
+    --nm-tilt: -7deg;
+    --nm-rise: 26px;
+    --nm-near: 1.1;
+    transform: translateX(-50%) translateY(var(--nm-rise)) rotate(var(--nm-tilt)) scale(var(--nm-near));
+    transform-origin: center;
     transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -2219,14 +2219,16 @@ html {
    pointer has gone */
 .nm:hover .nm__phone,
 .nm:has(:focus-visible) .nm__phone {
-    --nm-near: 1;
+    --nm-tilt: 0deg;
     --nm-rise: 0px;
+    --nm-near: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
     .nm__phone {
-        --nm-near: 1;
+        --nm-tilt: 0deg;
         --nm-rise: 0px;
+        --nm-near: 1;
         transition: none;
     }
 }
