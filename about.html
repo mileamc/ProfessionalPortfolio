@@ -15,8 +15,8 @@
      the navigation, the card surface and the photo stack. about.css only
      lays out this page's four cards and styles what is new here. Neither
      file is changed by this page. -->
-<link rel="stylesheet" href="new-home.css?v=about-2"/>
-<link rel="stylesheet" href="about.css?v=about-2"/>
+<link rel="stylesheet" href="new-home.css?v=about-3"/>
+<link rel="stylesheet" href="about.css?v=about-3"/>
 </head>
 <body class="nh">
 
@@ -83,10 +83,21 @@
             <div class="nh-stack" data-nh-stack></div>
         </section>
 
-        <!-- 3 — the playlist -------------------------------------------- -->
+        <!-- 3 — the playlist --------------------------------------------
+             The card is ours; the player inside it is Spotify's and cannot
+             be anything else — the embed is another origin, so no rule here
+             reaches inside it. What we can choose is which of its two
+             layouts to ask for: at 152px it draws its compact one, which is
+             the one that fits a square. Anything between that and 352px
+             gets the tall layout with its foot cut off. -->
         <section class="nh-card nh-card--content ab-card ab-music" style="--i: 2" aria-labelledby="ab-music-title">
-            <h2 class="nh-visually-hidden" id="ab-music-title">What I listen to</h2>
-            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6Qekp3svohdz9GMWyMvGjs?utm_source=generator&amp;theme=0&amp;si=eb3523677cbc404d" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Milena's playlist on Spotify"></iframe>
+            <h2 class="ab-music__title" id="ab-music-title">What I listen to</h2>
+            <div class="ab-music__player">
+                <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/playlist/6Qekp3svohdz9GMWyMvGjs?utm_source=generator&amp;theme=0&amp;si=eb3523677cbc404d" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Milena's playlist on Spotify"></iframe>
+            </div>
+            <a class="ab-music__link" href="https://open.spotify.com/playlist/6Qekp3svohdz9GMWyMvGjs" target="_blank" rel="noopener noreferrer">
+                Open in Spotify<span class="ab-btn__ext" aria-hidden="true">↗</span><span class="nh-visually-hidden"> (opens in a new tab)</span>
+            </a>
         </section>
 
         <!-- 4 — empty for now, holding the width of the column and the
@@ -109,7 +120,7 @@
 <!-- The photographs come from the home page's data and its script: every
      other thing new-home.js sets up is keyed to markup that is not on this
      page, so it does nothing here. -->
-<script src="data/home-projects.js?v=about-2"></script>
-<script src="scripts/new-home.js?v=about-2"></script>
+<script src="data/home-projects.js?v=about-3"></script>
+<script src="scripts/new-home.js?v=about-3"></script>
 </body>
 </html>
