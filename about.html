@@ -15,8 +15,8 @@
      the navigation, the card surface and the photo stack. about.css only
      lays out this page's four cards and styles what is new here. Neither
      file is changed by this page. -->
-<link rel="stylesheet" href="new-home.css?v=imb-plain"/>
-<link rel="stylesheet" href="about.css?v=imb-plain"/>
+<link rel="stylesheet" href="new-home.css?v=about-2"/>
+<link rel="stylesheet" href="about.css?v=about-2"/>
 </head>
 <body class="nh">
 
@@ -38,13 +38,14 @@
 
     <h1 class="nh-visually-hidden">About Milena Caldas</h1>
 
-    <!-- FOUR CARDS, in a twelve-column grid.
+    <!-- THREE CARDS, in a twelve-column grid.
 
-         The text takes the left half. The other half holds the two square
-         cards — the photographs and the CV — side by side, with the playlist
-         under them, as deep as the text leaves it.
+         The text takes the left half, and ends on the link to the CV. The
+         other half holds the two square cards — the photographs and the
+         playlist — side by side, with one card under them kept empty until
+         it has something to hold.
 
-         A fifth card (the contact form) goes at the end as its own row —
+         A further card (the contact form) goes at the end as its own row —
          see the note at the foot of about.css. Nothing above it moves. -->
     <div class="nh-shell ab-grid">
 
@@ -61,11 +62,15 @@
                 <h3 class="ab-lead">What I'm looking for</h3>
                 <p>I'm interested in Product Design, Human-Computer Interaction, and Learning Design, particularly when technology can help create meaningful experiences for people. I want to keep exploring ideas, asking better questions, and building things that are worth making.</p>
                 <p>I'm currently based in Curitiba, Paraná, Brazil, where I was born and raised. I'm also open to remote positions or relocating for the right opportunity.</p>
+
+                <a class="ab-btn" href="https://drive.google.com/file/d/1WG09ALGNQ5KiSSS-kCT83zfYBZXryvSZ/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                    View my CV<span class="ab-btn__ext" aria-hidden="true">↗</span><span class="nh-visually-hidden"> (opens in a new tab)</span>
+                </a>
             </div>
         </section>
 
-        <!-- the three cards beside the text: the photographs and the CV
-             square at the top, the playlist filling what is left below -->
+        <!-- the cards beside the text: the photographs and the playlist,
+             square, side by side, and the card under them still to come -->
         <div class="ab-side">
 
         <!-- 2 — the photographs ----------------------------------------
@@ -78,25 +83,15 @@
             <div class="nh-stack" data-nh-stack></div>
         </section>
 
-        <!-- 4 — the CV --------------------------------------------------
-             The file stack is decorative: assets/about/file-stack.json, held
-             at its first frame and played through once on hover by
-             scripts/about.js. -->
-        <section class="nh-card nh-card--content ab-card ab-cv" style="--i: 2" aria-labelledby="ab-cv-title">
-            <h2 class="nh-visually-hidden" id="ab-cv-title">Curriculum vitae</h2>
-            <div class="ab-cv__inner">
-                <div class="ab-cv__anim" data-ab-lottie="assets/about/file-stack.json" aria-hidden="true"></div>
-                <a class="ab-btn" href="https://drive.google.com/file/d/1WG09ALGNQ5KiSSS-kCT83zfYBZXryvSZ/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                    View my CV<span class="ab-btn__ext" aria-hidden="true">↗</span><span class="nh-visually-hidden"> (opens in a new tab)</span>
-                </a>
-            </div>
-        </section>
-
         <!-- 3 — the playlist -------------------------------------------- -->
-        <section class="nh-card nh-card--content ab-card ab-music" style="--i: 3" aria-labelledby="ab-music-title">
+        <section class="nh-card nh-card--content ab-card ab-music" style="--i: 2" aria-labelledby="ab-music-title">
             <h2 class="nh-visually-hidden" id="ab-music-title">What I listen to</h2>
             <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6Qekp3svohdz9GMWyMvGjs?utm_source=generator&amp;theme=0&amp;si=eb3523677cbc404d" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Milena's playlist on Spotify"></iframe>
         </section>
+
+        <!-- 4 — empty for now, holding the width of the column and the
+             depth the playlist used to take -->
+        <div class="nh-card nh-card--content ab-card ab-next" style="--i: 3" aria-hidden="true"></div>
 
         </div>
 
@@ -114,9 +109,7 @@
 <!-- The photographs come from the home page's data and its script: every
      other thing new-home.js sets up is keyed to markup that is not on this
      page, so it does nothing here. -->
-<script src="data/home-projects.js?v=imb-plain"></script>
-<script src="scripts/new-home.js?v=imb-plain"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
-<script src="scripts/about.js?v=imb-plain"></script>
+<script src="data/home-projects.js?v=about-2"></script>
+<script src="scripts/new-home.js?v=about-2"></script>
 </body>
 </html>

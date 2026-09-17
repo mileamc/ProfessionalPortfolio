@@ -1,11 +1,11 @@
 /* ===========================================================================
-   ABOUT — the four cards of about.html
+   ABOUT — the cards of about.html
 
    The page borrows everything it can from new-home.css: the tokens, the
    floating navigation, the card surface and shadow, the footer and the photo
-   stack. This file only does what is particular to this page — how the four
-   cards sit in the grid, and the two things the home has no equivalent of
-   (the running text and the CV button).
+   stack. This file only does what is particular to this page — how the cards
+   sit in the grid, and the two things the home has no equivalent of (the
+   running text and the CV button it ends on).
 
    Desktop only for now, like the home page's product cards.
 =========================================================================== */
@@ -15,10 +15,10 @@
 
    Twelve columns, the same gutters and gap as the home's. The text holds the
    left six; the other six are a column of their own, with the two square
-   cards side by side at the top and the playlist filling whatever depth the
-   text leaves under them. The squares stay square because their width comes
-   from the columns and their height from that width; the playlist is the one
-   that stretches, which suits it — a taller embed simply lists more tracks.
+   cards — the photographs and the playlist — side by side at the top, and
+   under them a card kept empty until it has something to hold, which takes
+   whatever depth the text leaves. The squares stay square because their
+   width comes from the columns and their height from that width.
 --------------------------------------------------------------------------- */
 
 .ab-grid {
@@ -41,17 +41,17 @@
 }
 
 .ab-photos,
-.ab-cv {
+.ab-music {
     aspect-ratio: 1;
 }
 
-.ab-music {
+.ab-next {
     grid-column: 1 / -1;
 }
 
 /* Entry: the same quiet rise the home's cards come in on, in reading order —
-   the text, the photographs, the CV, the playlist. The keyframes are the
-   home's own (nh-rise); only the order is this page's. */
+   the text, the photographs, the playlist, the card still to come. The
+   keyframes are the home's own (nh-rise); only the order is this page's. */
 @media (prefers-reduced-motion: no-preference) {
     .ab-card {
         animation: nh-rise 700ms var(--nh-ease) backwards;
@@ -166,15 +166,18 @@
 /* ---------------------------------------------------------------------------
    3 — The playlist
 
-   Spotify's own embed, at its own height, rounded like the screenshots on
-   the home page.
+   Spotify's own embed, filling the square it is given rather than standing
+   at its default depth, and rounded like the screenshots on the home page.
+   The embed lays itself out to whatever height it has: in a square it shows
+   the cover and the first of the tracks.
 --------------------------------------------------------------------------- */
 
 .ab-music iframe {
     display: block;
     flex: 1 1 auto;
     width: 100%;
-    min-height: 352px;    /* the height the embed is given; it grows from there */
+    height: 100%;
+    min-height: 0;
     border: 0;
     border-radius: 12px;
 }
@@ -183,38 +186,19 @@
 /* ---------------------------------------------------------------------------
    4 — The CV
 
-   A decorative stack of files over the one link the card carries. The
-   animation is held at its first frame and plays through on hover —
-   scripts/about.js — so the card is still while the page is.
---------------------------------------------------------------------------- */
+   No longer a card of its own: the text ends on the link, which sits under
+   the last paragraph at the width of its own label rather than the column's.
 
-.ab-cv__inner {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--nh-space-5);
-    min-height: 0;
-}
-
-/* what the square card has left once the button has its room — sized so it
-   never has to be squeezed, which would take the square off it */
-.ab-cv__anim {
-    flex: none;
-    width: min(100%, 14vw);
-    max-width: 180px;
-    aspect-ratio: 1;
-}
-
-.ab-cv__anim svg {
-    display: block;
-}
-
-/* The one button on the page: the ink pill the arrows on the home page fill
+   The one button on the page: the ink pill the arrows on the home page fill
    in with on hover, at text size. Named with the page class as well, because
    `.nh a { color: inherit }` would otherwise paint the label the same ink as
    the pill. */
+
+.ab-prose > .ab-btn {
+    justify-self: start;
+    margin-top: var(--nh-space-3);
+}
+
 .nh .ab-btn {
     display: inline-flex;
     align-items: center;
