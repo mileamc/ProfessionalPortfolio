@@ -2308,7 +2308,7 @@ html {
 .nm-app__hello {
     display: flex;
     flex-direction: column;
-    gap: var(--nm-4);
+    gap: calc(var(--nm-4) / 2);
 }
 
 .nm-app__welcome {
