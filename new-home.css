@@ -2205,11 +2205,20 @@ html {
        it into the place it is laid out at. The tilt is the only difference
        between the two states — the phone is never drawn at another size, so
        nothing is resampled but the turn itself, and the app inside neither
-       reflows nor resizes. */
+       reflows nor resizes.
+
+       The layer is kept promoted, and the turn stops a hundredth of a degree
+       short of square. Neither is decorative: text inside a turned layer is
+       drawn one way and text on a square one another, and landing exactly on
+       zero makes the browser swap between them — every glyph snapping to the
+       pixel grid at once, which reads as the content jumping rather than
+       coming into focus. Staying a whisker off square keeps both states on
+       the same path; 0.04deg is 0.14px across the whole phone. */
     --nm-tilt: -6deg;
     transform: translateX(-50%) rotate(var(--nm-tilt));
     transform-origin: center;
     transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
 }
 
 /* keyboard focus draws it back too, but a click does not keep it there:
@@ -2217,7 +2226,7 @@ html {
    pointer has gone */
 .nm:hover .nm__phone,
 .nm:has(:focus-visible) .nm__phone {
-    --nm-tilt: 0deg;
+    --nm-tilt: 0.04deg;
 }
 
 @media (prefers-reduced-motion: reduce) {
