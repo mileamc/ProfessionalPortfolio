@@ -55,9 +55,17 @@
    because the height is the only measurement the embed is particular about
    and the width is free — so a square is allowed as long as its side is at
    least the 352px its tall layout asks for. */
-.ab-music {
+/* named with its parent as well: .ab-card sets min-width: 0 for the text
+   cards and comes later in the file, which would undo the floor below */
+.ab-side .ab-music {
     grid-column: 1 / -1;
     grid-row: 2;
+    justify-self: start;
+    /* two thirds of the row, square, and never so narrow that the square
+       falls under the 352px the embed's tall layout needs: 384 is that plus
+       the inset on either side at its widest */
+    width: 66.67%;
+    min-width: 384px;
     aspect-ratio: 1;
 }
 
