@@ -2293,10 +2293,13 @@ html {
 .nm-app__top {
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: var(--nm-16) var(--nm-8);
+    /* half the row the welcome used to keep above the search: what it gives
+       up there it takes above itself, so the two lines sit lower as one and
+       the search stays where it was */
+    gap: calc(var(--nm-16) / 2) var(--nm-8);
     /* the sides clear the feed's own padding and a review's, so the welcome
        starts on the same vertical line as the photograph below it */
-    padding: 8.1cqi calc(var(--nm-16) + var(--nm-8)) var(--nm-16);
+    padding: calc(8.1cqi + var(--nm-16) / 2) calc(var(--nm-16) + var(--nm-8)) var(--nm-16);
     border-radius: 0 0 7.56cqi 7.56cqi;
     /* the purple it always was, opening out to a lighter one across the
        width, with the supplied texture lying over the whole of it */
