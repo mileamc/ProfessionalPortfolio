@@ -14,12 +14,11 @@
    The grid
 
    Twelve columns, the same gutters and gap as the home's. The text holds the
-   left six; the other six are a column of their own, split in two: the
-   photographs and the playlist stacked on the left of it, and on the right a
-   card kept empty until it has something to hold, as deep as the text leaves
-   the row. The photographs stay square because their width comes from the
-   columns and their height from that width; the playlist is only as deep as
-   its player needs.
+   left six; the other six are a column of their own: the photographs and a
+   card kept empty until it has something to hold, square and side by side,
+   and the playlist under the two of them, as wide as the column and only as
+   deep as its player needs. The squares stay square because their width
+   comes from the columns and their height from that width.
 --------------------------------------------------------------------------- */
 
 .ab-grid {
@@ -42,20 +41,20 @@
     min-width: 0;
 }
 
-.ab-photos {
-    grid-column: 1;
+.ab-photos,
+.ab-next {
     grid-row: 1;
     aspect-ratio: 1;
 }
 
-.ab-music {
-    grid-column: 1;
-    grid-row: 2;
-}
+.ab-photos { grid-column: 1; }
+.ab-next   { grid-column: 2; }
 
-.ab-next {
-    grid-column: 2;
-    grid-row: 1 / span 2;
+/* the playlist runs under both of them: the embed's own layout puts the
+   cover beside the list, so a half-column starves the track names */
+.ab-music {
+    grid-column: 1 / -1;
+    grid-row: 2;
 }
 
 /* Entry: the same quiet rise the home's cards come in on, in reading order —
@@ -175,17 +174,18 @@
 /* ---------------------------------------------------------------------------
    3 — The playlist
 
-   Spotify's own embed, unchanged: it is a document from another origin, so
-   nothing here reaches inside it anyway. What the height chooses is which of
-   its two layouts it draws — 152px for the compact one, 352 and over for the
-   tall one, and anything between them drawn tall and cut off. This is the
-   smaller of the two, and the card is cut to it.
+   Spotify's own embed at the size it is published at: 352px, the height its
+   own code comes with. Its two layouts are chosen by height — the compact
+   one at 152px, this one at 352 and over — and the compact one lays the
+   cover beside the list, which needs more width than half this column has;
+   the names were being cut. At full width and its own height it lays the
+   cover above the list instead, and nothing is squeezed.
 --------------------------------------------------------------------------- */
 
 .ab-music iframe {
     display: block;
     width: 100%;
-    height: 152px;      /* Spotify's compact layout, and nothing in between */
+    height: 352px;      /* Spotify's own, and nothing between it and 152 */
     border: 0;
     border-radius: 12px;
 }

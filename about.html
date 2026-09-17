@@ -15,8 +15,8 @@
      the navigation, the card surface and the photo stack. about.css only
      lays out this page's four cards and styles what is new here. Neither
      file is changed by this page. -->
-<link rel="stylesheet" href="new-home.css?v=about-4"/>
-<link rel="stylesheet" href="about.css?v=about-4"/>
+<link rel="stylesheet" href="new-home.css?v=about-5"/>
+<link rel="stylesheet" href="about.css?v=about-5"/>
 </head>
 <body class="nh">
 
@@ -84,14 +84,13 @@
         </section>
 
         <!-- 3 — the playlist --------------------------------------------
-             Spotify's embed as it comes, under the photographs. It has two
-             layouts and picks between them by height: compact at 152px, the
-             tall one at 352 and over, and anything between the two is drawn
-             tall with its foot cut off. This is the smaller of the two, and
-             the card is only as deep as it needs. -->
+             Spotify's embed as it comes, at the 352px its own code carries,
+             under the two cards above and as wide as the column: its compact
+             layout puts the cover beside the list, which a half-column was
+             cutting short. -->
         <section class="nh-card nh-card--content ab-card ab-music" style="--i: 2" aria-labelledby="ab-music-title">
             <h2 class="nh-visually-hidden" id="ab-music-title">What I listen to</h2>
-            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6Qekp3svohdz9GMWyMvGjs?utm_source=generator&amp;theme=0&amp;si=eb3523677cbc404d" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Milena's playlist on Spotify"></iframe>
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6Qekp3svohdz9GMWyMvGjs?utm_source=generator&amp;theme=0&amp;si=eb3523677cbc404d" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Milena's playlist on Spotify"></iframe>
         </section>
 
         <!-- 4 — empty for now, beside the two of them and as deep as the
@@ -114,7 +113,7 @@
 <!-- The photographs come from the home page's data and its script: every
      other thing new-home.js sets up is keyed to markup that is not on this
      page, so it does nothing here. -->
-<script src="data/home-projects.js?v=about-4"></script>
-<script src="scripts/new-home.js?v=about-4"></script>
+<script src="data/home-projects.js?v=about-5"></script>
+<script src="scripts/new-home.js?v=about-5"></script>
 </body>
 </html>
