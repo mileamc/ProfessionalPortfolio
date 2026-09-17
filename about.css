@@ -14,10 +14,10 @@
    The grid
 
    Twelve columns, the same gutters and gap as the home's. The text holds the
-   left six; the other six are a column of their own: the photographs and a
-   card kept empty until it has something to hold, square and side by side,
-   and the playlist under the two of them, as wide as the column and only as
-   deep as its player needs. The squares stay square because their width
+   left six; the other six are a column of their own: the playlist across the
+   top of it, as wide as the column and only as deep as its player needs, and
+   under it the photographs and a card kept empty until it has something to
+   hold, square and side by side. The squares stay square because their width
    comes from the columns and their height from that width.
 --------------------------------------------------------------------------- */
 
@@ -35,39 +35,33 @@
     grid-row: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    align-content: start;
+    /* Square as a whole, in two rows of equal height: two square cards side
+       by side plus the gap between them come to the column's own width, so
+       the row above them is exactly as deep as they are. */
+    aspect-ratio: 1;
+    grid-template-rows: 1fr 1fr;
     gap: var(--nh-gap);
     min-width: 0;
 }
 
+/* the playlist runs across the top of the column, as wide as it is: the
+   embed's own layout puts the cover beside the list, and the width is the
+   one measurement it is not particular about */
+.ab-music {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-content: center;
+}
+
+/* the two squares under it */
 .ab-photos,
 .ab-next {
-    grid-row: 1;
+    grid-row: 2;
     aspect-ratio: 1;
 }
 
 .ab-photos { grid-column: 1; }
 .ab-next   { grid-column: 2; }
-
-/* the playlist runs under both of them: the embed's own layout puts the
-   cover beside the list, so a half-column starves the track names. Square,
-   because the height is the only measurement the embed is particular about
-   and the width is free — so a square is allowed as long as its side is at
-   least the 352px its tall layout asks for. */
-/* named with its parent as well: .ab-card sets min-width: 0 for the text
-   cards and comes later in the file, which would undo the floor below */
-.ab-side .ab-music {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    justify-self: start;
-    /* two thirds of the row, square, and never so narrow that the square
-       falls under the 352px the embed's tall layout needs: 384 is that plus
-       the inset on either side at its widest */
-    width: 66.67%;
-    min-width: 384px;
-    aspect-ratio: 1;
-}
 
 /* Entry: the same quiet rise the home's cards come in on, in reading order —
    the text, the photographs, the playlist, the card still to come. The
@@ -187,11 +181,10 @@
    3 — The playlist
 
    Spotify's own embed at the size it is published at: 352px, the height its
-   own code comes with. Its two layouts are chosen by height — the compact
-   one at 152px, this one at 352 and over — and the compact one lays the
-   cover beside the list, which needs more width than half this column has;
-   the names were being cut. At full width and its own height it lays the
-   cover above the list instead, and nothing is squeezed.
+   own code comes with, and the width of the column. Its two layouts are
+   chosen by height — the compact one at 152px, this one at 352 and over —
+   and anything between the two is drawn tall and cut off. The theme is the
+   one thing its surface lets us choose: theme=1, the light one.
 --------------------------------------------------------------------------- */
 
 /* the embed is its own framed thing, so the card keeps half the inset the
@@ -202,11 +195,13 @@
 
 .ab-music iframe {
     display: block;
-    flex: 1 1 auto;
     width: 100%;
-    height: 100%;
-    /* never between 152 and 352, where the tall layout is drawn and cut */
-    min-height: 352px;
+    /* The compact layout, at the one height it is drawn at. A card as deep
+       as the squares below leaves 284px inside it, and 284 is in the band
+       between the embed's two layouts, where the tall one is drawn and cut
+       off — so the compact one it is, centred in the card. Sideways it has
+       the whole column, which is what the narrow card had starved. */
+    height: 152px;
     border: 0;
     border-radius: 12px;
 }
