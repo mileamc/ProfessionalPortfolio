@@ -49,9 +49,13 @@
     var mediaHtml = function (item, className, eager) {
         var ratio = cssRatio(item && item.ratio);
         var style = ratio ? ' style="--ratio: ' + ratio + '"' : "";
+        // The first two cards are on the first screen and are fetched at the
+        // usual priority; everything under them waits for that screen to be
+        // drawn before it competes for the connection.
         var img = item && item.src
             ? '<img src="' + escapeHtml(item.src) + '" alt="' + escapeHtml(item.alt || "") + '"' +
-              ' loading="' + (eager ? "eager" : "lazy") + '" decoding="async">'
+              ' loading="' + (eager ? "eager" : "lazy") + '"' +
+              ' fetchpriority="' + (eager ? "high" : "low") + '" decoding="async">'
             : "";
 
         return '<span class="' + className + (img ? "" : " is-pending") + '"' + style + ">" + img + "</span>";
@@ -271,6 +275,11 @@
                 img.alt = photo.alt || "Photo of Milena Caldas";
                 img.draggable = false;
                 img.decoding = "async";
+                // All six are in the page from the start, since any of them
+                // can be a drag away. Only the top one is looked at, though,
+                // so it goes to the front of the queue and the rest to the
+                // back, where they do not hold up the first screen.
+                img.setAttribute("fetchpriority", index === 0 ? "high" : "low");
                 img.addEventListener("error", function () {
                     img.replaceWith(Object.assign(document.createElement("span"), { className: "nh-stack__ph" }));
                 }, { once: true });

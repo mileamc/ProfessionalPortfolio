@@ -212,7 +212,7 @@
                 '<article class="nm-post" data-nm-post="' + escapeHtml(review.id) + '">' +
 
                 '<header class="nm-post__head">' +
-                '<img class="nm-post__avatar" src="' + escapeHtml(review.avatar) + '" alt="" loading="lazy" draggable="false"/>' +
+                '<img class="nm-post__avatar" src="' + escapeHtml(review.avatar) + '" alt="" loading="lazy" fetchpriority="low" draggable="false"/>' +
                 '<span class="nm-post__who">' +
                 '<span class="nm-post__name">' + escapeHtml(review.name) +
                 (review.verified ? roll("nm-post__verified", "Verified account") : "") + "</span>" +
@@ -224,7 +224,11 @@
                 '<div class="nm-post__media">' +
                 '<div class="nm-post__rail" data-nm-rail>' +
                 review.photos.map(function (photo) {
-                    return '<img src="' + escapeHtml(photo.src) + '" alt="' + escapeHtml(photo.alt) + '" loading="lazy" draggable="false"/>';
+                    // Last in the queue: these are the heaviest files on the
+                    // page and none of them is on the first screen, so they
+                    // wait for everything that is.
+                    return '<img src="' + escapeHtml(photo.src) + '" alt="' + escapeHtml(photo.alt) +
+                        '" loading="lazy" fetchpriority="low" draggable="false"/>';
                 }).join("") +
                 "</div>" +
                 '<span class="nm-post__badge">' + roll("nm-post__roll") + "<span>" + review.rating.toFixed(1) + "</span></span>" +

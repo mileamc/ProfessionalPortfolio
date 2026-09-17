@@ -125,7 +125,7 @@
             var card = element(
                 '<button class="ic__machine nh-card__interactive" type="button" aria-pressed="false" ' +
                 'data-ic-pick="' + escapeHtml(machine.id) + '">' +
-                '<span class="ic__thumb"><img src="assets/imb/card-' + escapeHtml(machine.id) + '.png" alt="" loading="lazy"/></span>' +
+                '<span class="ic__thumb"><img src="assets/imb/card-' + escapeHtml(machine.id) + '.png" alt="" loading="lazy" fetchpriority="low"/></span>' +
                 '<span class="ic__machine-text">' +
                 '<span class="ic__machine-name">' + escapeHtml(machine.name) + '</span>' +
                 '<span class="ic__machine-sub">' + escapeHtml(machine.type) + '</span>' +

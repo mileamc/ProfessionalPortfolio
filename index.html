@@ -14,7 +14,17 @@
 <!-- Self-contained: this page does not load tokens.css, components.css or
      page-style.css. Its visual language is scoped to .nh in new-home.css so
      the existing pages keep rendering exactly as they do today. -->
-<link rel="stylesheet" href="new-home.css?v=phone-6"/>
+<link rel="stylesheet" href="new-home.css?v=assets-1"/>
+
+<!-- The three files the first screen needs and the parser cannot see: the
+     court the LUDIS board is drawn over and the paper the handwriting is
+     written on both arrive inside templates, and the photograph on top of the
+     stack is put there by a script. Asked for here, they are on their way
+     while the stylesheet is still being read, rather than a round trip later.
+     97KB in all; everything heavier waits for scripts/warm-assets.js. -->
+<link rel="preload" as="image" type="image/svg+xml" href="assets/ludis/quadra-fundo.svg"/>
+<link rel="preload" as="image" type="image/svg+xml" href="assets/mosaico/paper.svg"/>
+<link rel="preload" as="image" href="assets/about/1.jpeg" fetchpriority="high"/>
 </head>
 <body class="nh">
 
@@ -249,7 +259,11 @@
             </div>
 
             <!-- the supplied phone, over the app: frame only, never moves -->
-            <img class="nm__frame" src="assets/mockup-phone.png" alt="" draggable="false"/>
+            <!-- The one heavy file that is worth hurrying: without it the app
+                 has no phone around it. High priority puts it straight after
+                 the first screen instead of behind the reviews' photographs,
+                 which is where the browser's own guess had it. -->
+            <img class="nm__frame" src="assets/mockup-phone.png" alt="" fetchpriority="high" draggable="false"/>
 
         </div>
     </div>
@@ -338,11 +352,13 @@
     </div>
 </template>
 
-<script src="data/home-projects.js?v=phone-6"></script>
-<script src="scripts/new-home.js?v=phone-6"></script>
-<script src="scripts/ludis-play.js?v=phone-6"></script>
-<script src="scripts/mosaico-write.js?v=phone-6"></script>
-<script src="scripts/imb-compare.js?v=phone-6"></script>
-<script src="scripts/nommu-feed.js?v=phone-6"></script>
+<script src="data/home-projects.js?v=assets-1"></script>
+<script src="scripts/new-home.js?v=assets-1"></script>
+<script src="scripts/ludis-play.js?v=assets-1"></script>
+<script src="scripts/mosaico-write.js?v=assets-1"></script>
+<script src="scripts/imb-compare.js?v=assets-1"></script>
+<script src="scripts/nommu-feed.js?v=assets-1"></script>
+<!-- and, once the page is done, the screenful after this one -->
+<script src="scripts/warm-assets.js?v=assets-1" defer></script>
 </body>
 </html>
