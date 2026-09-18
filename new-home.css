@@ -32,6 +32,7 @@
        float on a soft shadow; nothing is outlined. */
     --nh-canvas:        #FFFFFF;
     --nh-card:          #F5F7FA;   /* a very light cool grey — tonal against white */
+    --nh-water:         #E2EDFA;   /* the same grey turned to water, under the prints */
 
     /* The highlighter stroke behind "product designer" */
     --nh-highlight:     rgba(126, 186, 240, 0.42);
@@ -1142,21 +1143,14 @@ html {
     width: var(--print-w);
     aspect-ratio: 1;
     border-radius: 4px;
-    /* --print-lap is how far each piece lies over the one before it, and
-       --print-open how far the fan is opened; the card's hover, further
-       down, changes both and these two properties carry the move. */
+    /* --print-lap is how far each piece lies over the one before it. The
+       drift on the front is the piece's own, written frame by frame by
+       scripts/gd-prints.js while the card is hovered: no transition on it,
+       because that script eases the motion itself. */
     transform:
-        rotate(calc(var(--lean) * var(--print-open, 1)))
-        translateY(calc(var(--rise) * var(--print-open, 1)));
-    /* Closing. The pile goes back on the soft curve: --nh-ease would leap
-       away from the open pile and then crawl the last few pixels home.
-       flex-shrink is in here too — it is a number, and interpolating it is
-       what keeps the pieces from snapping back to full size the instant the
-       pointer leaves. */
-    transition:
-        transform var(--nh-slow) var(--nh-ease-soft),
-        margin var(--nh-slow) var(--nh-ease-soft),
-        flex-shrink var(--nh-slow) var(--nh-ease-soft);
+        translate3d(var(--float-x, 0px), var(--float-y, 0px), 0)
+        rotate(var(--lean))
+        translateY(var(--rise));
 }
 
 .nh-shot--print + .nh-shot--print {
@@ -2964,6 +2958,13 @@ html {
    in the corner as the product cards.
 =========================================================================== */
 
+.nh-card--text {
+    transition:
+        box-shadow var(--nh-slow) var(--nh-ease),
+        transform var(--nh-slow) var(--nh-ease),
+        background-color var(--nh-slow) var(--nh-ease);
+}
+
 .nh-card--text .nh-card__stage {
     position: relative;
     display: flex;
@@ -2985,6 +2986,7 @@ html {
     left: var(--nh-tag-x);
     max-width: calc(100% - var(--nh-tag-x) - var(--nh-card-pad));
     margin: 0;
+    transition: opacity var(--nh-base) var(--nh-ease);
 }
 
 .nh-card--text .nh-frame--prints {
@@ -2992,28 +2994,19 @@ html {
     min-height: 120px;
 }
 
-/* Hovering the card opens the pile: the pieces slide out from under one
-   another and their lean doubles, so the fan reads as a fan. They close
-   again when the pointer leaves. */
-.nh-card--text:hover .nh-frame--prints,
-.nh-card--text:has(.nh-card__link:focus-visible) .nh-frame--prints {
-    --print-lap: -0.08;
-    --print-open: 2;
+/* Hovering the card turns the surface under the pile to water, and takes the
+   card's name off it: the pieces are what the card is about, and they are
+   about to move. Where they go is scripts/gd-prints.js — the pile drifts
+   apart, rides the swell and keeps out of the pointer's way, and the card
+   clips whatever floats past its edge. */
+.nh-card--text:hover,
+.nh-card--text:has(.nh-card__link:focus-visible) {
+    background: var(--nh-water);
 }
 
-/* Opened, the pile can want more room than the card has. Letting the pieces
-   give way keeps it inside: where there is room they stay their full size,
-   and where there is not they shrink to fit rather than push out of the
-   card. They only give way while it is open — the pile at rest is untouched. */
-.nh-card--text:hover .nh-shot--print,
-.nh-card--text:has(.nh-card__link:focus-visible) .nh-shot--print {
-    flex-shrink: 1;
-    min-width: 0;
-    /* opening keeps the page's own curve; only the way back is softened */
-    transition:
-        transform var(--nh-slow) var(--nh-ease),
-        margin var(--nh-slow) var(--nh-ease),
-        flex-shrink var(--nh-slow) var(--nh-ease);
+.nh-card--text:hover .nh-gd__title,
+.nh-card--text:has(.nh-card__link:focus-visible) .nh-gd__title {
+    opacity: 0;
 }
 
 
@@ -3661,14 +3654,14 @@ html {
         transform: none;
     }
 
-    /* a tap would leave the pile of prints fanned open for good */
-    .nh-card--text:hover .nh-frame--prints {
-        --print-lap: -0.34;
-        --print-open: 1;
+    /* a tap would otherwise leave the card under water for good; the pile
+       itself is held back by its script, which lets no touch set it afloat */
+    .nh-card--text:hover {
+        background: var(--tone, var(--nh-card));
     }
 
-    .nh-card--text:hover .nh-shot--print {
-        flex-shrink: 0;
+    .nh-card--text:hover .nh-gd__title {
+        opacity: 1;
     }
 }
 
