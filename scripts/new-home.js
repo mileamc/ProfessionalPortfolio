@@ -183,27 +183,22 @@
             "</article>";
     };
 
-    // Graphic design: the one card with text — label, title, description and
-    // a call to action — above a small pile of printed pieces.
+    // Graphic design: the one card that says its own name, over a small pile
+    // of printed pieces. Everything else about it — the surface, the
+    // whole-card link, the arrow in the corner — is the product cards'.
     var graphicDesignCardHtml = function (gd, index) {
-        var label = (gd.label || []).map(function (part) {
-            return "<span>" + escapeHtml(part) + "</span>";
-        }).join("");
+        var title = gd.title || "Graphic Design";
 
         return "<article" + cardAttrs({
                 id: gd.id || "graphic-design", domId: "graphic-design", index: index + 1,
                 tone: gd.tone, href: gd.href, size: "medium", extraClass: "nh-card--text"
             }) + ' aria-labelledby="gd-title">' +
             '<div class="nh-card__stage">' +
-            '<div class="nh-gd__text">' +
-            (label ? '<p class="nh-label">' + label + "</p>" : "") +
-            '<h2 class="nh-gd__title" id="gd-title">' + escapeHtml(gd.title || "Graphic Design") + "</h2>" +
-            (gd.description ? '<p class="nh-gd__desc">' + escapeHtml(gd.description) + "</p>" : "") +
-            (gd.cta ? '<p class="nh-gd__cta">' + escapeHtml(gd.cta) + ' <span class="nh-arrow" aria-hidden="true">→</span></p>' : "") +
-            "</div>" +
+            '<h2 class="nh-gd__title" id="gd-title">' + escapeHtml(title) + "</h2>" +
             frameHtml({ frame: "prints", media: gd.media }, false) +
             "</div>" +
-            linkHtml(gd.href, (gd.cta || "Open") + ": " + (gd.title || "Graphic Design"), "") +
+            linkHtml(gd.href, "Open " + title,
+                '<span class="nh-card__arrow">' + ARROW + "</span>") +
             "</article>";
     };
 

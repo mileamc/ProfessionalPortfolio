@@ -6,8 +6,7 @@
 //
 // PRODUCT DESIGN CARDS carry NO visible text. `title` is used only as the
 // accessible name of the card's link ("Open Mosaico") for screen readers.
-// The GRAPHIC DESIGN card is the exception: it shows its label, title,
-// description and call to action.
+// The GRAPHIC DESIGN card is the exception: it shows its title.
 //
 // HOW TO FILL IT IN
 //
@@ -116,14 +115,11 @@ window.homeProjects = {
         }
     ],
 
-    // The graphic design card — visual + text. It closes the last row of the
-    // grid, beside the last `large` project.
+    // The graphic design card — its name over a pile of printed pieces. It
+    // sits beside the landing pages, closing the last row of the grid.
     graphicDesign: {
         id: "graphic-design",
-        label: ["Archive", "Visual communication"],
         title: "Graphic Design",
-        description: "Campaigns, editorial and social media for health, education and consumer brands.",
-        cta: "View collection",
         href: "design-grafico.html",
         tone: null,
         media: [

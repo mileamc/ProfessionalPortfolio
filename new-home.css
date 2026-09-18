@@ -241,33 +241,6 @@ html {
     color: var(--nh-ink);
 }
 
-/* Small tracked label — metadata only, never prose */
-.nh-label {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--nh-space-1) var(--nh-space-2);
-    font-size: var(--nh-size-label);
-    font-weight: var(--nh-medium);
-    line-height: 1.4;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--nh-muted);
-}
-
-.nh-label > span + span::before {
-    content: "";
-    display: inline-block;
-    width: 3px;
-    height: 3px;
-    margin-right: var(--nh-space-2);
-    vertical-align: middle;
-    border-radius: 50%;
-    background: currentColor;
-    opacity: 0.6;
-    transform: translateY(-1px);
-}
-
 /* Inline text link: underline always visible — it is what tells a link
    apart from text. */
 .nh-link {
@@ -294,12 +267,6 @@ html {
 .nh-link:hover .nh-link__ext {
     transform: translate(1px, -1px);
 }
-
-.nh-arrow {
-    display: inline-block;
-    transition: transform var(--nh-base) var(--nh-ease);
-}
-
 
 /* ===========================================================================
    3. NAVIGATION
@@ -2961,9 +2928,9 @@ html {
 /* ===========================================================================
    8. GRAPHIC DESIGN CARD
 
-   The exception to the visual-only rule: label, title, description and a
-   call to action, above the pile of prints. Same surface, same shadow, same
-   whole-card link as the product cards.
+   The exception to the visual-only rule: it says its own name, above the pile
+   of prints. Same surface, same shadow, same whole-card link and same arrow
+   in the corner as the product cards.
 =========================================================================== */
 
 .nh-card--text .nh-card__stage {
@@ -2974,14 +2941,7 @@ html {
     padding: var(--nh-card-pad);
 }
 
-.nh-gd__text {
-    display: grid;
-    justify-items: start;
-    gap: var(--nh-space-2);
-}
-
 .nh-gd__title {
-    margin-top: var(--nh-space-1);
     font-size: var(--nh-size-card-title);
     font-weight: var(--nh-medium);
     line-height: 1.2;
@@ -2989,30 +2949,10 @@ html {
     color: var(--nh-ink);
 }
 
-.nh-gd__desc {
-    max-width: 26rem;
-    font-size: var(--nh-size-small);
-    line-height: 1.55;
-    color: var(--nh-muted);
-}
-
-.nh-gd__cta {
-    margin-top: var(--nh-space-1);
-    font-size: var(--nh-size-small);
-    font-weight: var(--nh-medium);
-    line-height: 1.5;
-    color: var(--nh-ink);
-}
-
 .nh-card--text .nh-frame--prints {
     flex: 1 1 auto;
     min-height: 120px;
     margin-top: var(--nh-space-4);
-}
-
-.nh-card--text:hover .nh-arrow,
-.nh-card--text:has(.nh-card__link:focus-visible) .nh-arrow {
-    transform: translateX(3px);
 }
 
 /* Hovering the card opens the pile: the pieces slide out from under one
@@ -3643,6 +3583,13 @@ html {
         grid-row: span 2;
     }
 
+    /* and the graphic design card stands beside it, in the columns the laptop
+       leaves free and to the same depth */
+    .nh-grid > .nh-card--text {
+        grid-column: 6 / span 4;
+        grid-row: span 2;
+    }
+
 }
 
 @media (min-width: 720px) and (max-width: 1279.98px) {
@@ -3710,11 +3657,6 @@ html {
     .nh-card--text .nh-frame--prints {
         min-height: 180px;
         --print-w: 30vw;
-    }
-
-    .nh-card__arrow {
-        top: 12px;
-        right: 12px;
     }
 
     .nh-contact__body {
