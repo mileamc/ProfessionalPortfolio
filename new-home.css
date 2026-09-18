@@ -530,7 +530,7 @@ html {
 /* The landing pages hold a laptop. At this width every card takes the whole
    row, the introduction included, and the depth here is what the laptop needs
    to come forward on hover without reaching the card's edges. */
-.nh-grid > [data-project="hpp"]          { grid-column: 1 / -1; grid-row: span 5; }
+.nh-grid > [data-project="hpp"]          { grid-column: 1 / -1; grid-row: span 4; }
 .nh-grid > .nh-card--text                { grid-column: 1 / -1; }
 
 
@@ -3144,21 +3144,27 @@ html {
    card brings it forward. The card clips, so it can come forward without
    reaching past its own edges, and nothing in the page moves either way. */
 .hl__scene {
-    /* the box the laptop is measured against: the card, in cqw and cqh */
-    container-type: size;
     --hl-near: 1;
+    position: relative;
+    /* the card, in cqw and cqh: the laptop is measured against both */
+    container-type: size;
     width: 100%;
-    height: 100%;           /* a definite height, so the laptop can take a share of it */
-    display: grid;
-    place-items: center;
+    height: 100%;           /* a definite height: the laptop is placed in it by share */
+    /* The two frames were measured off the references. At rest the laptop is
+       70.9 per cent of the card across with its top 17.07 per cent down, which
+       leaves the band of card above it and takes the foot of the keyboard just
+       past the bottom edge. On hover it is 94.7 per cent across with its top
+       1.6 per cent down, which cuts the keyboard away. Growing from 57 per
+       cent down the card is what carries it from the first to the second. */
     transform: scale(var(--hl-near));
+    transform-origin: 50% 57%;
     transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
 }
 
 .hl:hover .hl__scene,
 .hl:has(:focus-visible) .hl__scene {
-    --hl-near: 1.22;
+    --hl-near: 1.336;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3173,7 +3179,9 @@ html {
    state that changes. */
 .hl__owner {
     position: absolute;
-    top: var(--nh-card-pad);
+    /* centred in the band of card above the laptop: the band is 17.07% of the
+       card deep and the pill about 26px, so half of what is left is above it */
+    top: calc(8.535% - 13px);
     right: var(--nh-card-pad);
     z-index: 2;
     margin: 0;
@@ -3186,24 +3194,36 @@ html {
     color: #1560A8;
     white-space: nowrap;
     pointer-events: none;
+    /* the band it sits in closes as the laptop comes forward, so it steps
+       aside on the way — same 620ms and same curve, so the two read as one */
+    transition: opacity 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hl:hover .hl__owner,
+.hl:has(:focus-visible) .hl__owner {
+    opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hl__owner {
+        transition: none;
+    }
 }
 
 /* The laptop's own body box: the photograph hangs outside it, where only
    transparency is drawn. */
 .hl__laptop {
-    position: relative;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    top: 17.07%;            /* 106 of 623, off the reference */
+    /* 880 of the reference's 1241 across, or of its 623 down — whichever the
+       card runs out of first. A card exactly the reference's shape gives the
+       same answer either way; a flatter one keeps the framing down the card,
+       which is the one the crop at the foot of the keyboard depends on. */
+    width: min(70.9cqw, 141.25cqh);
     aspect-ratio: 1070 / 698;
-
-    /* Measured across, because width is what runs out first in a card this
-       shape: 76 per cent of it leaves the laptop somewhere to come forward to,
-       and it still does not reach the sides at 1.22.
-
-       Down the card the limit is the tag in the corner. The tag takes about
-       66px off the top, and the scene grows about the card's centre, so a
-       laptop 1.22 deep must still clear that band on both sides: its depth can
-       be at most (card - 2 x 66) / 1.22, and its width 1070/698 of that —
-       1.256 x card - 166px. Whichever of the two runs out first wins. */
-    width: max(160px, min(76cqw, 125.6cqh - 166px));
 }
 
 .hl .hl__frame {
@@ -3613,7 +3633,7 @@ html {
        come forward on hover without meeting the tag in the corner. */
     .nh-grid > [data-project="hpp"] {
         grid-column: 1 / span 5;
-        grid-row: span 4;
+        grid-row: span 2;
     }
 
 }
@@ -3664,6 +3684,16 @@ html {
     .nh-grid > [data-size="lead-below"]  { aspect-ratio: 1 / 0.86; }
     .nh-grid > [data-size="large"]       { aspect-ratio: 1 / 0.9; }
     .nh-grid > [data-size="medium"]      { aspect-ratio: 1 / 0.8; }
+
+    /* the laptop's card keeps its landscape shape all the way down */
+    .nh-grid > [data-project="hpp"]      { aspect-ratio: 1241 / 623; }
+
+    /* and the band above the laptop is shallow at this size, so the tag in it
+       is drawn smaller to match */
+    .hl__owner {
+        padding: 3px 9px;
+        font-size: 0.625rem;
+    }
 
     /* the text card sizes itself to its text plus a band of prints */
     .nh-grid > .nh-card--text {
