@@ -3188,15 +3188,22 @@ html {
     user-select: none;
 }
 
-/* The screen, in the bezel: the picture's own lit area runs 208-971 across
-   and 265-726 down, measured off the file; a pixel over on each side so the
-   page meets the bezel with no thread of the picture's white left showing. */
+/* The screen, in the bezel. The laptop is photographed with a little
+   perspective, so its glass is not a rectangle: measured off the file, it runs
+   209-970 across at the top and 213-966 at the bottom, 265 to 726 down. A
+   rectangle can only match one of those two widths, and whichever it matches
+   the other edge shows a thread of the picture's own bezel highlight.
+
+   So the box is the trapezoid's outer bounds, a pixel clear of the highlight
+   all the way round, and clip-path cuts it back to the glass itself: no gap on
+   any edge, and nothing of a page drawn on the bezel. */
 .hl__screen {
     position: absolute;
-    left: 14.206%;
-    top: 3.868%;
-    width: 71.589%;
-    height: 66.189%;
+    left: 14.112%;
+    top: 3.582%;
+    width: 71.776%;
+    height: 66.905%;
+    clip-path: polygon(0.26% 0.21%, 99.74% 0.21%, 99.22% 99.57%, 0.78% 99.57%);
     z-index: 1;
     display: flex;
     flex-direction: column;
