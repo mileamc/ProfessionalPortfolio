@@ -142,12 +142,5 @@ window.homeProjects = {
         { src: "assets/about/4.jpeg", alt: "" },
         { src: "assets/about/5.jpeg", alt: "" },
         { src: "assets/about/6.jpeg", alt: "" }
-    ],
-
-    // Links shown in Contact. null = not shown.
-    links: {
-        linkedin: null,   // TODO: profile URL
-        behance: null,    // TODO: profile URL
-        instagram: null   // TODO: profile URL, if it should be listed at all
-    }
+    ]
 };

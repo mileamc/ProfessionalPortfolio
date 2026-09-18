@@ -411,25 +411,6 @@
         layout();
     };
 
-    var renderContactLinks = function () {
-        var list = document.querySelector("[data-nh-contact-links]");
-        var links = data && data.links;
-        if (!list || !links) {
-            return;
-        }
-
-        [["LinkedIn", links.linkedin], ["Behance", links.behance], ["Instagram", links.instagram]]
-            .filter(function (entry) { return /^https:\/\//.test(entry[1] || ""); })
-            .forEach(function (entry) {
-                var li = document.createElement("li");
-                li.innerHTML = '<a class="nh-link" href="' + escapeHtml(entry[1]) + '" target="_blank" rel="noopener noreferrer">' +
-                    escapeHtml(entry[0]) + '<span class="nh-link__ext" aria-hidden="true">↗</span>' +
-                    '<span class="nh-visually-hidden"> (opens in a new tab)</span></a>';
-                list.appendChild(li);
-            });
-    };
-
-
     /* ---------------------------------------------------------------------
        Navigation: current section
     --------------------------------------------------------------------- */
@@ -770,7 +751,6 @@
 
     renderGrid();
     initPhotoStack();
-    renderContactLinks();
     initNavigation();
     initExpand();
     initBubble();

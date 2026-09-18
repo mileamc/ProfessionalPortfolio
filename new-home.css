@@ -66,7 +66,6 @@
     --nh-size-display: clamp(2rem, 1.2rem + 1.9vw, 2.5rem);
     --nh-size-h2:      1.5rem;
     --nh-size-card-title: 1.375rem;
-    --nh-size-email:   clamp(1.5rem, 1rem + 2vw, 2.5rem);
     --nh-size-body:    0.9375rem;
     --nh-size-small:   0.875rem;
     --nh-size-tiny:    0.8125rem;
@@ -471,7 +470,9 @@ html {
     grid-auto-rows: var(--nh-row);
     grid-auto-flow: row dense;
     gap: var(--nh-gap);
-    padding-block: var(--nh-nav-clear) 0;
+    /* the room under the last row is the grid's own: nothing stands between it
+       and the footer's rule */
+    padding-block: var(--nh-nav-clear) var(--nh-space-16);
 }
 
 /* Card footprints — tablet and default. Desktop overrides the lead cards in
@@ -3017,62 +3018,8 @@ html {
 
 
 /* ===========================================================================
-   9. CONTACT AND FOOTER
+   9. FOOTER
 =========================================================================== */
-
-.nh-contact {
-    margin-top: var(--nh-space-24);
-}
-
-.nh-contact__inner {
-    display: grid;
-    gap: var(--nh-space-6);
-    padding-block: var(--nh-space-10) var(--nh-space-16);
-    border-top: 1px solid var(--nh-line);
-}
-
-.nh-contact__body {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--nh-space-4) var(--nh-space-8);
-}
-
-.nh-contact__email {
-    font-size: var(--nh-size-email);
-    font-weight: var(--nh-light);
-    line-height: 1.2;
-    letter-spacing: -0.03em;
-    color: var(--nh-ink);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-decoration-color: var(--nh-line-strong);
-    text-underline-offset: 0.2em;
-    overflow-wrap: anywhere;
-    transition: color var(--nh-fast) ease, text-decoration-color var(--nh-fast) ease;
-}
-
-.nh-contact__email:hover {
-    color: var(--nh-accent);
-    text-decoration-color: currentColor;
-}
-
-.nh-contact__list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 var(--nh-space-6);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: var(--nh-size-small);
-}
-
-.nh-contact__list .nh-link {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-}
 
 .nh-footer {
     border-top: 1px solid var(--nh-line);
@@ -3694,10 +3641,6 @@ html {
         --print-w: 30vw;
     }
 
-    .nh-contact__body {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 }
 
 /* Touch screens have no hover: keep cards at rest. */
