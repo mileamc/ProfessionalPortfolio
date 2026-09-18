@@ -3368,286 +3368,32 @@ html {
 
 
 /* --- 1. Verão Maior ---------------------------------------------------------
-   The page's own sections, in its own order: the artwork, the sand and sea
-   band, the mid blue it reads on (#118abf), and the deep blue the ask, the
-   form and the sign-off share (#12719b). The colours are the page's. */
+   Nothing of this page is styled here: hpp/verao-maior.html is the page as
+   published and brings its own stylesheets, which is exactly why it is given
+   a document of its own — rules written for a whole page would otherwise
+   land on the portfolio around it.
 
-.hp-verao__hero {
-    background: #FCE9A8;
+   What is set here is the size of that document. It is laid out at the width
+   a desktop gives it (1280px, from scripts/hpp-pages.js) and scaled down to
+   the laptop's screen, so the layout that shows is the published one rather
+   than the narrow one the laptop's own width would ask for. --hp-k is that
+   scale, measured from the screen and kept up to date as the card resizes. */
+
+.hp-page--framed {
+    overflow: hidden;       /* the document inside does the scrolling */
 }
 
-/* The band the hero's artwork runs into: the sea the illustration ends on,
-   carried on in a gradient of its own so the section never waits for a file
-   to arrive, with the campaign's own words on it. */
-.hp-verao__sea {
-    padding: 16px 18px 20px;
-    background:
-        repeating-linear-gradient(-4deg, rgba(255, 255, 255, 0.08) 0 2px, transparent 2px 11px),
-        linear-gradient(180deg, #3BA6DE 0%, #2E97D2 100%);
-    color: #FFFFFF;
-    text-align: center;
-}
-
-.hp-verao__sea p {
-    font-size: 7px;
-    font-weight: var(--nh-semibold);
-    line-height: 1.65;
-}
-
-.hp-verao__sea p + p {
-    margin-top: 6px;
-}
-
-.hp-verao__sea b {
-    font-weight: var(--nh-bold);
-}
-
-.hp-verao__sea h2 {
-    margin: 14px 0 10px;
-    font-size: 9.5px;
-    font-weight: var(--nh-bold);
-    color: #FFFFFF;
-}
-
-.hp-verao__cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 7px;
-}
-
-.hp-verao__card-art {
+.hl .hp-frame {
     display: block;
-    overflow: hidden;
-    aspect-ratio: 3 / 4;
-    border-radius: 7px;
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 2px 8px rgba(9, 60, 95, 0.2);
-}
-
-.hp-verao__card-art img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.hp-verao__read {
-    padding: 18px;
-    background: #118ABF;      /* the page's own */
-    color: #FFFFFF;
-    text-align: center;
-}
-
-.hp-verao__read h2 {
-    margin-bottom: 8px;
-    font-size: 10.5px;
-    font-weight: var(--nh-bold);
-    line-height: 1.25;
-}
-
-.hp-verao__read p {
-    font-size: 6.8px;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.92);
-}
-
-.hp-verao__read p + p {
-    margin-top: 5px;
-}
-
-.hp-verao__videos-title {
-    margin-top: 12px;
-    font-weight: var(--nh-semibold);
-}
-
-.hp-verao__videos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 7px;
-    margin-top: 9px;
-}
-
-/* a still stands in for each video: a prototype does not need to play them */
-.hp-verao__video {
-    position: relative;
-    display: block;
-    aspect-ratio: 16 / 9;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.18);
-}
-
-.hp-verao__video::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    width: 0;
-    height: 0;
-    border-left: 8px solid rgba(255, 255, 255, 0.9);
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-}
-
-.hp-verao__give {
-    display: grid;
-    justify-items: center;
-    gap: 9px;
-    padding: 18px;
-    background: #12719B;      /* the page's own */
-    color: #FFFFFF;
-    text-align: center;
-}
-
-.hp-verao__give p {
-    font-size: 7px;
-    line-height: 1.65;
-}
-
-.hp-verao__give b {
-    font-weight: var(--nh-bold);
-}
-
-/* the code the page hands out, as the square it is */
-.hp-verao__qr {
-    display: block;
-    width: 52px;
-    height: 52px;
-    padding: 4px;
-    border-radius: 5px;
-    background:
-        repeating-conic-gradient(#12719B 0% 25%, #FFFFFF 0% 50%) 0 0 / 7px 7px,
-        #FFFFFF;
-    box-shadow: 0 0 0 4px #FFFFFF;
-}
-
-.hp-verao__give small {
-    font-size: 5.5px;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.82);
-}
-
-.hp-verao__form {
-    padding: 18px;
-    background: #12719B;
-    color: #FFFFFF;
-    text-align: center;
-}
-
-.hp-verao__form h2 {
-    font-size: 10px;
-    font-weight: var(--nh-bold);
-    line-height: 1.3;
-}
-
-.hp-verao__form-sub {
-    margin-top: 4px;
-    font-size: 7px;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* the form's own white box, at the radius the page gives it */
-.hp-verao__box {
-    display: grid;
-    gap: 7px;
-    margin-top: 12px;
-    padding: 14px 16px 12px;
-    border-radius: 21px;
-    background: #FFFFFF;
-    color: #40525E;
-    text-align: left;
-}
-
-.hp-verao__box label {
-    display: grid;
-    gap: 3px;
-    font-size: 6px;
-    font-weight: var(--nh-semibold);
-}
-
-.hp-verao__box input {
-    padding: 5px 7px;
-    border: 1px solid #CFD8DE;
-    border-radius: 4px;
-    background: #FFFFFF;
-    font-size: 6.5px;
-    color: var(--hp-ink);
-}
-
-.hp-verao__phone {
-    display: flex;
-    align-items: stretch;
-    gap: 4px;
-}
-
-.hp-verao__phone input {
-    flex: 1 1 auto;
-    min-width: 0;
-}
-
-/* the country the number is dialled from, as the page shows it */
-.hp-verao__flag {
-    flex: none;
-    width: 14px;
-    border: 1px solid #CFD8DE;
-    border-radius: 4px;
-    background: linear-gradient(#1B9A47 0 38%, #F7D116 38% 62%, #1B9A47 62%);
-}
-
-.hp-verao__consent {
-    display: flex;
-    align-items: flex-start;
-    gap: 5px;
-    font-size: 5.2px;
-    line-height: 1.45;
-    color: #6B7A85;
-}
-
-.hp-verao__consent i {
-    flex: none;
-    width: 7px;
-    height: 7px;
-    margin-top: 1px;
-    border: 1px solid #CFD8DE;
-    border-radius: 2px;
-}
-
-.hp-verao__sum {
-    max-width: 62px;
-}
-
-.hp-verao__box button {
-    justify-self: stretch;
-    padding: 7px;
+    /* 100% of the screen, divided by the scale, is the width the page is laid
+       out at; scaling it back down fills the screen exactly */
+    width: calc(100% / var(--hp-k, 0.37));
+    height: calc(100% / var(--hp-k, 0.37));
     border: 0;
-    border-radius: 999px;
-    background: #F58220;
-    color: #FFFFFF;
-    font-size: 7.5px;
-    font-weight: var(--nh-bold);
-}
-
-.hp-verao__close {
-    display: grid;
-    justify-items: center;
-    gap: 6px;
-    padding: 18px 18px 24px;
-    background: #12719B;
-    color: #FFFFFF;
-    text-align: center;
-}
-
-.hp-verao__close-lead {
-    font-size: 9px;
-    font-weight: var(--nh-bold);
-}
-
-.hp-verao__close p {
-    font-size: 7px;
-    line-height: 1.55;
-}
-
-.hp-verao__close .hp-mark {
-    margin-top: 6px;
-    color: #FFFFFF;
+    transform: scale(var(--hp-k, 0.37));
+    transform-origin: top left;
+    background: #FFFFFF;
+    color-scheme: light;
 }
 
 

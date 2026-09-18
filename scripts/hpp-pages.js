@@ -31,74 +31,24 @@
        and its red for the season's name.
     --------------------------------------------------------------------- */
 
-    // The page itself, section by section, in its own order and its own
-    // words — taken from the page's markup. The artwork inside the sections
-    // is served from the campaign's own library; each one is dropped if it
-    // does not arrive, and the section keeps its colour and its text either
-    // way. The cookie notice and the pop-up the page carries are not here:
-    // neither belongs in a prototype of the design.
-    var CDN = "https://d335luupugsy2.cloudfront.net/cms/files/75347/";
-
-    var VERAO = '' +
-        // 1 — the hero, the campaign's own artwork
-        '<header class="hp-verao__hero">' +
-            '<img src="imagesProjects/home-previews/hpp-landing-verao.jpg" alt="Cuidados de verão com o Hospital Pequeno Príncipe no Verão Maior Paraná" loading="lazy"/>' +
-        '</header>' +
-
-        // 2 — sand and sea: what the campaign is, and the four cards
-        '<section class="hp-verao__sea">' +
-            '<p>Verão é sinônimo de atividades em família, tempo de qualidade, bagunça na areia, pé descalço e muita energia.</p>' +
-            '<p>Pensando nisso, preparamos conteúdos especiais para quem vai passar a temporada com as crianças.</p>' +
-            '<p>Estamos no litoral junto com o <b>Verão Maior Paraná</b>, levando na bagagem aquilo em que mais acreditamos: informação que cuida.</p>' +
-            '<h2>Cuidados que fazem diferença no calor:</h2>' +
-            '<div class="hp-verao__cards">' +
-                '<span class="hp-verao__card-art"><img src="' + CDN + '1766162199/$4x9wnvig67o" alt="" loading="lazy" data-hpp-art/></span>' +
-                '<span class="hp-verao__card-art"><img src="' + CDN + '1766162199/$cbvirwujqei" alt="" loading="lazy" data-hpp-art/></span>' +
-                '<span class="hp-verao__card-art"><img src="' + CDN + '1766162199/$60kx5ta3xxh" alt="" loading="lazy" data-hpp-art/></span>' +
-                '<span class="hp-verao__card-art"><img src="' + CDN + '1766162199/$h5ydlbxhk6t" alt="" loading="lazy" data-hpp-art/></span>' +
-            '</div>' +
-        '</section>' +
-
-        // 3 — the reading and the videos, on the campaign's mid blue
-        '<section class="hp-verao__read">' +
-            '<h2>Descanso, diversão e cuidado caminham juntos</h2>' +
-            '<p>Entre o guarda-sol e o baldinho, vale reservar alguns minutos para se informar.</p>' +
-            '<p>Você pode ler as dicas da nossa equipe médica, com orientações sobre proteção solar, alimentação, acidentes comuns, prevenção de viroses e muito mais.</p>' +
-            '<p class="hp-verao__videos-title">Ou, se preferir, assista aos vídeos que selecionamos:</p>' +
-            '<div class="hp-verao__videos">' +
-                '<span class="hp-verao__video"></span>' +
-                '<span class="hp-verao__video"></span>' +
-                '<span class="hp-verao__video"></span>' +
-            '</div>' +
-        '</section>' +
-
-        // 4 — the ask, on the deep blue
-        '<section class="hp-verao__give">' +
-            '<p>Ao apoiar o <b>Pequeno Príncipe</b>, você fortalece o maior hospital exclusivamente pediátrico do país. Sua doação faz diferença agora, no verão, e no ano inteiro.</p>' +
-            '<span class="hp-verao__qr" aria-hidden="true"></span>' +
-            '<small>Doações via Pix não oferecem abatimento fiscal. Para saber como destinar parte do seu Imposto de Renda aos projetos do Hospital, <u>clique aqui.</u></small>' +
-        '</section>' +
-
-        // 5 — the form, in its white box
-        '<section class="hp-verao__form">' +
-            '<h2>Quer ter acesso às fotos do Verão Maior?</h2>' +
-            '<p class="hp-verao__form-sub">Cadastre-se e conheça a Galeria de Fotos Exclusiva</p>' +
-            '<div class="hp-verao__box">' +
-                '<label>Nome*<input type="text" tabindex="-1" readonly/></label>' +
-                '<label>Email*<input type="text" tabindex="-1" readonly/></label>' +
-                '<label>Celular*<span class="hp-verao__phone"><i class="hp-verao__flag" aria-hidden="true"></i><input type="text" tabindex="-1" readonly/></span></label>' +
-                '<p class="hp-verao__consent"><i aria-hidden="true"></i>Eu aceito receber correspondências institucionais e relativas a doações ao Pequeno Príncipe no endereço informado, de acordo com a Política de Privacidade.</p>' +
-                '<label class="hp-verao__sum">7 + 7 = ?<input type="text" tabindex="-1" readonly/></label>' +
-                '<button type="button" tabindex="-1">Enviar</button>' +
-            '</div>' +
-        '</section>' +
-
-        // 6 — the sign-off
-        '<footer class="hp-verao__close">' +
-            '<p class="hp-verao__close-lead">O verão passa rápido. Já o cuidado, não.</p>' +
-            '<p>Que o ano de sua família comece com boas histórias para contar!</p>' +
-            '<span class="hp-mark"><b>pequeno</b>PRÍNCIPE</span>' +
-        '</footer>';
+    // Verão Maior is not rebuilt here: hpp/verao-maior.html is the page as
+    // published, saved into this repository and served from it. Its markup,
+    // its stylesheets and the sources of its pictures are its own, untouched;
+    // what was taken out is every <script> — its tracking, its form handler
+    // and the pop-up library — the cookie notice and the tag manager's frame.
+    //
+    // It is shown in a document of its own so that its stylesheets, which are
+    // written for a whole page (body, h1, .bricks--section), stay inside it
+    // and never reach the portfolio around it. The document is this
+    // repository's own file; nothing of the live site is fetched but the
+    // pictures it points at.
+    //
+    // It is laid out at the width a desktop gives it and then scaled down to
+    // the laptop's screen, which is what a screen inside a screen has to do:
+    // at the laptop's own width the page would draw its narrow layout, and
+    // this is the published one.
+    var VERAO_SRC = "hpp/verao-maior.html";
+    var VERAO_WIDTH = 1280;       // the width the page is laid out at
 
     /* ---------------------------------------------------------------------
        2 — Pix Automático
@@ -224,7 +174,7 @@
         '</footer>';
 
     var PAGES = [
-        { id: "verao",  label: "Verão Maior",    url: "hospital-pequeno-principe.rds.land/acao_verao_maior", html: VERAO },
+        { id: "verao",  label: "Verão Maior",    url: "hospital-pequeno-principe.rds.land/acao_verao_maior", src: VERAO_SRC },
         { id: "pix",    label: "Pix Automático", url: "conteudo.doepequenoprincipe.org.br/pix_automatico",   html: PIX },
         { id: "brasil", label: "Todo o Brasil",  url: "lp.pequenoprincipe.org.br/todo-o-brasil",             html: BRASIL }
     ];
@@ -247,10 +197,45 @@
             pane.className = "hp-page hp-page--" + page.id;
             pane.setAttribute("data-hpp-pane", page.id);
             pane.hidden = index > 0;
-            pane.innerHTML = page.html;
+
+            if (page.src) {
+                // the page as published, in a document of its own
+                var frame = document.createElement("iframe");
+                frame.className = "hp-frame";
+                frame.src = page.src;
+                frame.title = page.label + " — landing page";
+                frame.loading = "lazy";
+                frame.setAttribute("scrolling", "yes");
+                pane.classList.add("hp-page--framed");
+                pane.appendChild(frame);
+                pane.frame = frame;
+            } else {
+                pane.innerHTML = page.html;
+            }
+
             stack.appendChild(pane);
             return pane;
         });
+
+        // A screen inside a screen: the page is laid out at a desktop's width
+        // and scaled to the laptop's, so what shows is the layout the visitor
+        // would see on a desktop rather than the narrow one.
+        var screen = root.querySelector(".hl__screen");
+
+        var fitFrames = function () {
+            if (!screen) {
+                return;
+            }
+            var wide = screen.getBoundingClientRect().width;
+            if (wide) {
+                screen.style.setProperty("--hp-k", (wide / VERAO_WIDTH).toFixed(5));
+            }
+        };
+
+        fitFrames();
+        if (window.ResizeObserver && screen) {
+            new window.ResizeObserver(fitFrames).observe(screen);
+        }
 
         var tabs = PAGES.map(function (page, index) {
             var tab = document.createElement("button");
@@ -278,8 +263,16 @@
             at = Math.min(Math.max(index, 0), PAGES.length - 1);
             panes.forEach(function (pane, i) {
                 pane.hidden = i !== at;
-                if (i === at) {
-                    pane.scrollTop = 0;        // a page is opened at its top
+                if (i !== at) {
+                    return;
+                }
+                pane.scrollTop = 0;            // a page is opened at its top
+                if (pane.frame && pane.frame.contentWindow) {
+                    try {
+                        pane.frame.contentWindow.scrollTo(0, 0);
+                    } catch (ignore) {
+                        // a document that will not be scrolled from here
+                    }
                 }
             });
             tabs.forEach(function (tab, i) {
