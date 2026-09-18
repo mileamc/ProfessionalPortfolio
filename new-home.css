@@ -527,9 +527,9 @@ html {
    comparison and the landing pages, and as deep as the two of them. */
 .nh-grid > [data-project="nommu"]        { grid-column: span 3; grid-row: span 6; }
 
-/* The landing pages hold a laptop, which is a wide object: the card takes the
-   whole row under the website redesign, and the depth the laptop needs to
-   come forward on hover without reaching the card's edges. */
+/* The landing pages hold a laptop. At this width every card takes the whole
+   row, the introduction included, and the depth here is what the laptop needs
+   to come forward on hover without reaching the card's edges. */
 .nh-grid > [data-project="hpp"]          { grid-column: 1 / -1; grid-row: span 5; }
 .nh-grid > .nh-card--text                { grid-column: 1 / -1; }
 
@@ -3144,6 +3144,8 @@ html {
    card brings it forward. The card clips, so it can come forward without
    reaching past its own edges, and nothing in the page moves either way. */
 .hl__scene {
+    /* the box the laptop is measured against: the card, in cqw and cqh */
+    container-type: size;
     --hl-near: 1;
     width: 100%;
     height: 100%;           /* a definite height, so the laptop can take a share of it */
@@ -3165,15 +3167,43 @@ html {
     }
 }
 
+/* Whose work this is. The same pill as "Available for work" in the
+   introduction — same height, radius, padding and type — in the hospital's
+   own blue, and with no light in it: it reports who owns these pages, not a
+   state that changes. */
+.hl__owner {
+    position: absolute;
+    top: var(--nh-card-pad);
+    right: var(--nh-card-pad);
+    z-index: 2;
+    margin: 0;
+    padding: 4px 12px;
+    border: 1px solid rgba(21, 96, 168, 0.45);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: var(--nh-medium);
+    line-height: 1.5;
+    color: #1560A8;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
 /* The laptop's own body box: the photograph hangs outside it, where only
    transparency is drawn. */
 .hl__laptop {
     position: relative;
-    /* far enough back at rest to have somewhere to come forward to: at this
-       share of the card it grows to 95 per cent of its depth on hover and
-       still does not reach the edges */
-    height: 78%;
     aspect-ratio: 1070 / 698;
+
+    /* Measured across, because width is what runs out first in a card this
+       shape: 76 per cent of it leaves the laptop somewhere to come forward to,
+       and it still does not reach the sides at 1.22.
+
+       Down the card the limit is the tag in the corner. The tag takes about
+       66px off the top, and the scene grows about the card's centre, so a
+       laptop 1.22 deep must still clear that band on both sides: its depth can
+       be at most (card - 2 x 66) / 1.22, and its width 1070/698 of that —
+       1.256 x card - 166px. Whichever of the two runs out first wins. */
+    width: max(160px, min(76cqw, 125.6cqh - 166px));
 }
 
 .hl .hl__frame {
@@ -3204,6 +3234,9 @@ html {
     width: 71.776%;
     height: 66.905%;
     clip-path: polygon(0.26% 0.21%, 99.74% 0.21%, 99.22% 99.57%, 0.78% 99.57%);
+    /* the tab strip and the address are drawn in terms of this box, so a
+       narrower card draws a smaller browser rather than an overflowing one */
+    container-type: inline-size;
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -3221,27 +3254,27 @@ html {
 .hl__chrome {
     flex: none;
     background: #23262B;
-    padding: 4px 6px 0;
+    padding: 0.838cqi 1.256cqi 0;
 }
 
 .hl__tabs {
     display: flex;
     align-items: flex-end;
-    gap: 2px;
+    gap: 0.419cqi;
 }
 
 .hl .hp-tab {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 0.838cqi;
     min-width: 0;
-    padding: 4px 9px 5px;
+    padding: 0.838cqi 1.884cqi 1.047cqi;
     border: 0;
-    border-radius: 7px 7px 0 0;
+    border-radius: 1.466cqi 1.466cqi 0 0;
     background: rgba(255, 255, 255, 0.09);
     color: rgba(255, 255, 255, 0.62);
     font-family: var(--nh-font);
-    font-size: 7.5px;
+    font-size: 1.570cqi;
     font-weight: var(--nh-semibold);
     line-height: 1.2;
     letter-spacing: 0.01em;
@@ -3268,8 +3301,8 @@ html {
 
 .hp-tab__dot {
     flex: none;
-    width: 5px;
-    height: 5px;
+    width: 1.047cqi;
+    height: 1.047cqi;
     border-radius: 50%;
     background: currentColor;
     opacity: 0.85;
@@ -3289,12 +3322,12 @@ html {
 .hl__url {
     display: flex;
     align-items: center;
-    margin: 4px 0 0;
-    padding: 3px 8px;
+    margin: 0.838cqi 0 0;
+    padding: 0.628cqi 1.675cqi;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.72);
-    font-size: 6.5px;
+    font-size: 1.361cqi;
     font-weight: var(--nh-regular);
     line-height: 1.2;
     white-space: nowrap;
@@ -3575,8 +3608,13 @@ html {
     /* the phone's card keeps the depth of the two cards beside it */
     .nh-grid > [data-project="nommu"] { grid-row: span 4; }
 
-    /* the laptop's card is measured the same way as the rest at this width */
-    .nh-grid > [data-project="hpp"] { grid-row: span 4; }
+    /* the laptop's card is the introduction's card: the same five columns on
+       the left. It keeps its depth, which is what leaves the laptop room to
+       come forward on hover without meeting the tag in the corner. */
+    .nh-grid > [data-project="hpp"] {
+        grid-column: 1 / span 5;
+        grid-row: span 4;
+    }
 
 }
 
