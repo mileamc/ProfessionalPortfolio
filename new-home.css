@@ -40,7 +40,7 @@
     --nh-wash-blue:     #E2EDFA;   /* graphic design, water under the prints */
     --nh-wash-purple:   #EAE4F7;   /* NOMMU */
     --nh-wash-sand:     #FAF1D9;   /* the hospital's landing pages */
-    --nh-wash-violet:   #F4F1FB;   /* LUDIS — barely off white */
+    --nh-wash-violet:   #E4DBFA;   /* LUDIS, off the violet its own players wear */
     --nh-wash-amber:    #FCEDE0;   /* the IMB comparison, from its own orange */
 
     /* The highlighter stroke behind "product designer" */
@@ -1613,6 +1613,24 @@ html {
    split between the two sides, so the two numbers can never disagree. */
 .nh-grid > [data-project="imb-compare"] {
     --ic-k: 0.9356;
+}
+
+/* And the card comes forward a little as the pointer reaches it. This is a
+   transform on the card, outside the prototype: nothing inside it is measured
+   in screen pixels — the comparison reads layout widths only, and the only
+   pointer it listens for is the one entering the card — so how it works is
+   untouched. The card already carries a transition on transform, and the
+   rules that hold an arrow-link card still on hover are answered here. */
+.nh-grid > [data-project="imb-compare"]:hover,
+.nh-grid > [data-project="imb-compare"]:has(.nh-card__link:focus-visible) {
+    transform: scale(1.015);
+    z-index: 1;                 /* it comes forward over the card beside it */
+}
+
+@media (hover: none) {
+    .nh-grid > [data-project="imb-compare"]:hover {
+        transform: none;        /* a tap must not leave it forward for good */
+    }
 }
 
 .nh-grid > [data-project="imb-compare"] .nh-card__stage {
