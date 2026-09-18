@@ -183,18 +183,18 @@
             "</article>";
     };
 
-    // Graphic design: the one card that says its own name, over a small pile
-    // of printed pieces. Everything else about it — the surface, the
-    // whole-card link, the arrow in the corner — is the product cards'.
+    // Graphic design: a pile of printed pieces, and nothing written on the
+    // card. Its title is the link's accessible name, as on the product cards;
+    // the surface, the whole-card link and the arrow in the corner are theirs
+    // too. What the pile does under a pointer is scripts/gd-prints.js.
     var graphicDesignCardHtml = function (gd, index) {
         var title = gd.title || "Graphic Design";
 
         return "<article" + cardAttrs({
                 id: gd.id || "graphic-design", domId: "graphic-design", index: index + 1,
                 tone: gd.tone, href: gd.href, size: "medium", extraClass: "nh-card--text"
-            }) + ' aria-labelledby="gd-title">' +
+            }) + ">" +
             '<div class="nh-card__stage">' +
-            '<h2 class="nh-tag nh-gd__title" id="gd-title">' + escapeHtml(title) + "</h2>" +
             frameHtml({ frame: "prints", media: gd.media }, false) +
             "</div>" +
             linkHtml(gd.href, "Open " + title,

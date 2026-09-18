@@ -32,7 +32,14 @@
        float on a soft shadow; nothing is outlined. */
     --nh-canvas:        #FFFFFF;
     --nh-card:          #F5F7FA;   /* a very light cool grey — tonal against white */
-    --nh-water:         #E2EDFA;   /* the same grey turned to water, under the prints */
+
+    /* The wash a card takes while it is hovered: the same light grey with the
+       project's own colour run through it, never enough to read as a colour
+       field. A card names its own with --nh-wash; one that names none keeps
+       its surface. */
+    --nh-wash-blue:     #E2EDFA;   /* graphic design, water under the prints */
+    --nh-wash-purple:   #EAE4F7;   /* NOMMU */
+    --nh-wash-sand:     #FAF1D9;   /* the hospital's landing pages */
 
     /* The highlighter stroke behind "product designer" */
     --nh-highlight:     rgba(126, 186, 240, 0.42);
@@ -496,6 +503,11 @@ html {
    comparison and the landing pages, and as deep as the two of them. */
 .nh-grid > [data-project="nommu"]        { grid-column: span 3; grid-row: span 6; }
 
+/* the wash each of the three takes on hover */
+.nh-grid > [data-project="nommu"]        { --nh-wash: var(--nh-wash-purple); }
+.nh-grid > [data-project="hpp"]          { --nh-wash: var(--nh-wash-sand); }
+.nh-grid > .nh-card--text                { --nh-wash: var(--nh-wash-blue); }
+
 /* The landing pages hold a laptop. At this width every card takes the whole
    row, the introduction included, and the depth here is what the laptop needs
    to come forward on hover without reaching the card's edges. */
@@ -828,7 +840,16 @@ html {
     isolation: isolate;
     transition:
         box-shadow var(--nh-slow) var(--nh-ease),
-        transform var(--nh-slow) var(--nh-ease);
+        transform var(--nh-slow) var(--nh-ease),
+        background-color var(--nh-slow) var(--nh-ease);
+}
+
+/* A card that names a wash takes it while it is looked at. The fallback chain
+   ends at the card's own surface, so this does nothing to a card that names
+   none. */
+.nh-card:hover,
+.nh-card:has(.nh-card__link:focus-visible) {
+    background: var(--nh-wash, var(--tone, var(--nh-card)));
 }
 
 .nh-card.is-dark {
@@ -2173,7 +2194,7 @@ html {
     position: relative;
     height: 100%;
     overflow: hidden;
-    background: var(--nh-card);
+    background: transparent;    /* the card's own surface, so its wash shows */
 }
 
 /* --- the phone -------------------------------------------------------------
@@ -2953,60 +2974,27 @@ html {
 /* ===========================================================================
    8. GRAPHIC DESIGN CARD
 
-   The exception to the visual-only rule: it says its own name, above the pile
-   of prints. Same surface, same shadow, same whole-card link and same arrow
-   in the corner as the product cards.
-=========================================================================== */
+   The one card built from pictures it did not take itself: a pile of printed
+   pieces, and nothing written on it. Same surface, same shadow, same
+   whole-card link and same arrow in the corner as the product cards.
 
-.nh-card--text {
-    transition:
-        box-shadow var(--nh-slow) var(--nh-ease),
-        transform var(--nh-slow) var(--nh-ease),
-        background-color var(--nh-slow) var(--nh-ease);
-}
+   Hovering it turns the surface under the pile to water (the wash in section
+   6). Where the pieces go from there is scripts/gd-prints.js — the pile
+   drifts apart, rides the swell and keeps out of the pointer's way, and the
+   card clips whatever floats past its edge.
+=========================================================================== */
 
 .nh-card--text .nh-card__stage {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;  /* the pile of prints sits at the card's foot */
     min-height: 100%;
-    padding: calc(var(--nh-tag-y) + var(--nh-tag-h) + 17px)
-             var(--nh-card-pad) var(--nh-card-pad);
-}
-
-/* The card's own name, in the same place on the card as the tag on the one
-   beside it — the pill is taken out of the flow for that, so the pile below
-   it is free to fill what is left. */
-.nh-gd__title {
-    --nh-tag-ink:  #6B58A6;     /* the purple the phone's card is built on */
-    --nh-tag-line: rgba(107, 88, 166, 0.45);
-    position: absolute;
-    top: var(--nh-tag-y);
-    left: var(--nh-tag-x);
-    max-width: calc(100% - var(--nh-tag-x) - var(--nh-card-pad));
-    margin: 0;
-    transition: opacity var(--nh-base) var(--nh-ease);
+    padding: var(--nh-card-pad);
 }
 
 .nh-card--text .nh-frame--prints {
     flex: 1 1 auto;
     min-height: 120px;
-}
-
-/* Hovering the card turns the surface under the pile to water, and takes the
-   card's name off it: the pieces are what the card is about, and they are
-   about to move. Where they go is scripts/gd-prints.js — the pile drifts
-   apart, rides the swell and keeps out of the pointer's way, and the card
-   clips whatever floats past its edge. */
-.nh-card--text:hover,
-.nh-card--text:has(.nh-card__link:focus-visible) {
-    background: var(--nh-water);
-}
-
-.nh-card--text:hover .nh-gd__title,
-.nh-card--text:has(.nh-card__link:focus-visible) .nh-gd__title {
-    opacity: 0;
 }
 
 
@@ -3053,7 +3041,7 @@ html {
     place-items: center;
     height: 100%;
     overflow: hidden;
-    background: var(--nh-card);
+    background: transparent;    /* the card's own surface, so its wash shows */
 }
 
 /* One object, one transform. At rest it sits back in the card; hovering the
@@ -3654,14 +3642,10 @@ html {
         transform: none;
     }
 
-    /* a tap would otherwise leave the card under water for good; the pile
-       itself is held back by its script, which lets no touch set it afloat */
-    .nh-card--text:hover {
+    /* a tap would otherwise leave a card washed for good; the pile of prints
+       is held back by its script, which lets no touch set it afloat */
+    .nh-card:hover {
         background: var(--tone, var(--nh-card));
-    }
-
-    .nh-card--text:hover .nh-gd__title {
-        opacity: 1;
     }
 }
 
