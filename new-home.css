@@ -1202,6 +1202,29 @@ html {
    to LUDIS, not to the portfolio.
 =========================================================================== */
 
+/* The board comes forward under the pointer, the same two per cent the IMB
+   prototype takes and on the same curve; the card around it does not move. It
+   grows into the margin the card already gives it, 8px of the 32 at the sides.
+   scripts/ludis-play.js reads this scale back off the board when it places the
+   tooltip, so what the pointer is over is still what the tooltip points at. */
+.nh-grid > [data-project="ludis"] .lp {
+    --lp-near: 1;
+    transform: scale(var(--lp-near));
+    transition: transform var(--nh-slow) var(--nh-ease);
+    will-change: transform;
+}
+
+.nh-grid > [data-project="ludis"]:hover .lp,
+.nh-grid > [data-project="ludis"]:has(.nh-card__link:focus-visible) .lp {
+    --lp-near: 1.02;
+}
+
+@media (hover: none) {
+    .nh-grid > [data-project="ludis"]:hover .lp {
+        --lp-near: 1;           /* a tap must not leave it forward for good */
+    }
+}
+
 .lp {
     --lp-ink:   #1A202C;
     --lp-bar:   #EDF2F7;
@@ -1635,16 +1658,22 @@ html {
                   calc((1 - var(--ic-near)) * var(--ic-k) * 50%))
         scale(calc(var(--ic-k) * var(--ic-near)));
     transform-origin: top left;
+    will-change: transform;     /* one layer, rasterised once rather than every frame */
     border-radius: calc(10px / var(--ic-k));
     box-shadow: var(--nh-shadow-shot);
 }
 
 /* The prototype comes forward under the pointer; the card around it does not
-   move. It grows into its own margin — 16px of the 32 at the sides — so the
-   card's edge is where it always was. */
+   move. It grows into its own margin — 10px of the 32 at the sides — so the
+   card's edge is where it always was.
+
+   Two per cent and not more: growing a prototype grows the type in it, and
+   type that grows has its lines land on new pixels. At three per cent the last
+   line of the tightest machine card moved almost a pixel against the name
+   above it, which reads as a twitch; at two it is under half of one. */
 .nh-grid > [data-project="imb-compare"]:hover .ic,
 .nh-grid > [data-project="imb-compare"]:has(.nh-card__link:focus-visible) .ic {
-    --ic-near: 1.03;
+    --ic-near: 1.02;
 }
 
 @media (hover: none) {

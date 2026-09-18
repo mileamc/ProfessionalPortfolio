@@ -348,17 +348,26 @@
                 return;
             }
 
+            // The board may be drawn at a scale of its own — the card grows it a
+            // little under the pointer — so the distance from the pointer is
+            // taken back to the board's own pixels before it is written as one.
+            // At rest the scale is 1 and this is the arithmetic it always was.
             var box = root.getBoundingClientRect();
-            var x = event.clientX - box.left + TIP_OFFSET.x;
-            var y = event.clientY - box.top + TIP_OFFSET.y;
+            var scale = root.offsetWidth ? box.width / root.offsetWidth : 1;
+            var reach = (event.clientX - box.left) / scale;
+            var drop = (event.clientY - box.top) / scale;
+            var width = box.width / scale;
+            var height = box.height / scale;
+            var x = reach + TIP_OFFSET.x;
+            var y = drop + TIP_OFFSET.y;
 
             // it stays inside the screen: past the right edge or the bottom it
             // flips to the other side of the pointer
-            if (x + tip.offsetWidth > box.width - 8) {
-                x = event.clientX - box.left - TIP_OFFSET.x - tip.offsetWidth;
+            if (x + tip.offsetWidth > width - 8) {
+                x = reach - TIP_OFFSET.x - tip.offsetWidth;
             }
-            if (y + tip.offsetHeight > box.height - 8) {
-                y = event.clientY - box.top - TIP_OFFSET.y - tip.offsetHeight;
+            if (y + tip.offsetHeight > height - 8) {
+                y = drop - TIP_OFFSET.y - tip.offsetHeight;
             }
 
             tip.style.transform = "translate(" + Math.round(x) + "px, " + Math.round(y) + "px)";
@@ -456,7 +465,9 @@
             var point = svg.createSVGPoint();
             point.x = TOUCHLINE_X;
             point.y = 0;
-            var left = point.matrixTransform(matrix).x - root.getBoundingClientRect().left;
+            var box = root.getBoundingClientRect();
+            var scale = root.offsetWidth ? box.width / root.offsetWidth : 1;
+            var left = (point.matrixTransform(matrix).x - box.left) / scale;
             root.style.setProperty("--lp-court-left", Math.max(10, Math.round(left)) + "px");
         };
 
