@@ -31,41 +31,73 @@
        and its red for the season's name.
     --------------------------------------------------------------------- */
 
+    // The page itself, section by section, in its own order and its own
+    // words — taken from the page's markup. The artwork inside the sections
+    // is served from the campaign's own library; each one is dropped if it
+    // does not arrive, and the section keeps its colour and its text either
+    // way. The cookie notice and the pop-up the page carries are not here:
+    // neither belongs in a prototype of the design.
+    var CDN = "https://d335luupugsy2.cloudfront.net/cms/files/75347/";
+
     var VERAO = '' +
+        // 1 — the hero, the campaign's own artwork
         '<header class="hp-verao__hero">' +
             '<img src="imagesProjects/home-previews/hpp-landing-verao.jpg" alt="Cuidados de verão com o Hospital Pequeno Príncipe no Verão Maior Paraná" loading="lazy"/>' +
         '</header>' +
 
+        // 2 — sand and sea: what the campaign is, and the four cards
         '<section class="hp-verao__sea">' +
             '<p>Verão é sinônimo de atividades em família, tempo de qualidade, bagunça na areia, pé descalço e muita energia.</p>' +
             '<p>Pensando nisso, preparamos conteúdos especiais para quem vai passar a temporada com as crianças.</p>' +
-        '</section>' +
-
-        '<section class="hp-verao__tips">' +
-            '<h2>O que você vai receber</h2>' +
-            '<div class="hp-verao__grid">' +
-                '<article><span class="hp-verao__ico" data-ico="sun"></span><h3>Sol sem sustos</h3><p>Protetor solar, horários e a sombra que a pele de uma criança pede.</p></article>' +
-                '<article><span class="hp-verao__ico" data-ico="wave"></span><h3>Água com atenção</h3><p>Mar, piscina e rio: o que muda em cada um e o que nunca muda.</p></article>' +
-                '<article><span class="hp-verao__ico" data-ico="plate"></span><h3>Comida na praia</h3><p>O que levar na bolsa térmica e o que é melhor deixar em casa.</p></article>' +
-                '<article><span class="hp-verao__ico" data-ico="bug"></span><h3>Bichos e picadas</h3><p>Repelente, água-viva e o que fazer nos primeiros minutos.</p></article>' +
+            '<p>Estamos no litoral junto com o <b>Verão Maior Paraná</b>, levando na bagagem aquilo em que mais acreditamos: informação que cuida.</p>' +
+            '<h2>Cuidados que fazem diferença no calor:</h2>' +
+            '<div class="hp-verao__cards">' +
+                '<span class="hp-verao__card-art"><img src="' + CDN + '1766162199/$4x9wnvig67o" alt="" loading="lazy" data-hpp-art/></span>' +
+                '<span class="hp-verao__card-art"><img src="' + CDN + '1766162199/$cbvirwujqei" alt="" loading="lazy" data-hpp-art/></span>' +
+                '<span class="hp-verao__card-art"><img src="' + CDN + '1766162199/$60kx5ta3xxh" alt="" loading="lazy" data-hpp-art/></span>' +
+                '<span class="hp-verao__card-art"><img src="' + CDN + '1766162199/$h5ydlbxhk6t" alt="" loading="lazy" data-hpp-art/></span>' +
             '</div>' +
         '</section>' +
 
+        // 3 — the reading and the videos, on the campaign's mid blue
+        '<section class="hp-verao__read">' +
+            '<h2>Descanso, diversão e cuidado caminham juntos</h2>' +
+            '<p>Entre o guarda-sol e o baldinho, vale reservar alguns minutos para se informar.</p>' +
+            '<p>Você pode ler as dicas da nossa equipe médica, com orientações sobre proteção solar, alimentação, acidentes comuns, prevenção de viroses e muito mais.</p>' +
+            '<p class="hp-verao__videos-title">Ou, se preferir, assista aos vídeos que selecionamos:</p>' +
+            '<div class="hp-verao__videos">' +
+                '<span class="hp-verao__video"></span>' +
+                '<span class="hp-verao__video"></span>' +
+                '<span class="hp-verao__video"></span>' +
+            '</div>' +
+        '</section>' +
+
+        // 4 — the ask, on the deep blue
+        '<section class="hp-verao__give">' +
+            '<p>Ao apoiar o <b>Pequeno Príncipe</b>, você fortalece o maior hospital exclusivamente pediátrico do país. Sua doação faz diferença agora, no verão, e no ano inteiro.</p>' +
+            '<span class="hp-verao__qr" aria-hidden="true"></span>' +
+            '<small>Doações via Pix não oferecem abatimento fiscal. Para saber como destinar parte do seu Imposto de Renda aos projetos do Hospital, <u>clique aqui.</u></small>' +
+        '</section>' +
+
+        // 5 — the form, in its white box
         '<section class="hp-verao__form">' +
-            '<div class="hp-verao__card">' +
-                '<h2>Receba o material completo</h2>' +
-                '<p>Preencha e receba por e-mail os conteúdos de verão do Hospital Pequeno Príncipe.</p>' +
-                '<label>Nome<input type="text" placeholder="Seu nome" tabindex="-1" readonly/></label>' +
-                '<label>E-mail<input type="text" placeholder="voce@email.com" tabindex="-1" readonly/></label>' +
-                '<label>Cidade<input type="text" placeholder="Onde você vai passar o verão" tabindex="-1" readonly/></label>' +
-                '<button type="button" tabindex="-1">Quero receber</button>' +
-                '<small>Seus dados estão seguros e você pode cancelar quando quiser.</small>' +
+            '<h2>Quer ter acesso às fotos do Verão Maior?</h2>' +
+            '<p class="hp-verao__form-sub">Cadastre-se e conheça a Galeria de Fotos Exclusiva</p>' +
+            '<div class="hp-verao__box">' +
+                '<label>Nome*<input type="text" tabindex="-1" readonly/></label>' +
+                '<label>Email*<input type="text" tabindex="-1" readonly/></label>' +
+                '<label>Celular*<span class="hp-verao__phone"><i class="hp-verao__flag" aria-hidden="true"></i><input type="text" tabindex="-1" readonly/></span></label>' +
+                '<p class="hp-verao__consent"><i aria-hidden="true"></i>Eu aceito receber correspondências institucionais e relativas a doações ao Pequeno Príncipe no endereço informado, de acordo com a Política de Privacidade.</p>' +
+                '<label class="hp-verao__sum">7 + 7 = ?<input type="text" tabindex="-1" readonly/></label>' +
+                '<button type="button" tabindex="-1">Enviar</button>' +
             '</div>' +
         '</section>' +
 
-        '<footer class="hp-verao__foot">' +
+        // 6 — the sign-off
+        '<footer class="hp-verao__close">' +
+            '<p class="hp-verao__close-lead">O verão passa rápido. Já o cuidado, não.</p>' +
+            '<p>Que o ano de sua família comece com boas histórias para contar!</p>' +
             '<span class="hp-mark"><b>pequeno</b>PRÍNCIPE</span>' +
-            '<p>Maior e mais completo hospital exclusivamente pediátrico do Brasil.</p>' +
         '</footer>';
 
     /* ---------------------------------------------------------------------
@@ -231,6 +263,13 @@
                 '<span class="hp-tab__label">' + escapeHtml(page.label) + "</span>";
             strip.appendChild(tab);
             return tab;
+        });
+
+        // artwork that is served from the campaign's own library: if it does
+        // not arrive, the tile it is in keeps the colour and the page reads
+        // on, rather than showing a broken picture
+        stack.querySelectorAll("[data-hpp-art]").forEach(function (art) {
+            art.addEventListener("error", function () { art.remove(); }, { once: true });
         });
 
         var at = 0;

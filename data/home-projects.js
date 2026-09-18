@@ -100,17 +100,6 @@ window.homeProjects = {
             media: []
         },
         {
-            id: "imb",
-            title: "IMB website redesign",
-            href: null,
-            size: "large",
-            frame: "browser",
-            tone: null,
-            media: [
-                { src: "imagesProjects/imb/home.jpg", alt: "", ratio: "3:2" }
-            ]
-        },
-        {
             // Three landing pages for the Hospital Pequeno Príncipe, rebuilt
             // and running inside a laptop. Its markup is the
             // <template data-nh-card="hpp"> in index.html and its behaviour is
