@@ -3154,10 +3154,10 @@ html {
        70.9 per cent of the card across with its top 17.07 per cent down, which
        leaves the band of card above it and takes the foot of the keyboard just
        past the bottom edge. On hover it is 94.7 per cent across with its top
-       1.6 per cent down, which cuts the keyboard away. Growing from 57 per
+       1.6 per cent down, which cuts the keyboard away. Growing from 69.25 per
        cent down the card is what carries it from the first to the second. */
     transform: scale(var(--hl-near));
-    transform-origin: 50% 57%;
+    transform-origin: 50% 69.25%;
     transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
 }
@@ -3179,12 +3179,16 @@ html {
    state that changes. */
 .hl__owner {
     position: absolute;
-    /* centred in the band of card above the laptop: the band is 17.07% of the
-       card deep and the pill about 26px, so half of what is left is above it */
+    /* across the middle of the card, near the top of the band above the
+       laptop: the band is 20.15% of the card deep, and the pill sits at about
+       the same distance from the card's edge as it did from the laptop */
     top: calc(8.535% - 13px);
-    right: var(--nh-card-pad);
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: max-content;
+    max-width: calc(100% - 24px);
     z-index: 2;
-    margin: 0;
     padding: 4px 12px;
     border: 1px solid rgba(21, 96, 168, 0.45);
     border-radius: 999px;
@@ -3193,6 +3197,8 @@ html {
     line-height: 1.5;
     color: #1560A8;
     white-space: nowrap;
+    overflow: hidden;           /* a card too narrow for the line cuts it, not the pill */
+    text-overflow: ellipsis;
     pointer-events: none;
     /* the band it sits in closes as the laptop comes forward, so it steps
        aside on the way — same 620ms and same curve, so the two read as one */
@@ -3217,7 +3223,8 @@ html {
     left: 0;
     right: 0;
     margin-inline: auto;
-    top: 17.07%;            /* 106 of 623, off the reference */
+    top: 20.15%;            /* 106 of 623 off the reference, plus twice the
+                               gap it left between the tag and the lid */
     /* 880 of the reference's 1241 across, or of its 623 down — whichever the
        card runs out of first. A card exactly the reference's shape gives the
        same answer either way; a flatter one keeps the framing down the card,
