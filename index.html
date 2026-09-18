@@ -14,7 +14,7 @@
 <!-- Self-contained: this page does not load tokens.css, components.css or
      page-style.css. Its visual language is scoped to .nh in new-home.css so
      the existing pages keep rendering exactly as they do today. -->
-<link rel="stylesheet" href="new-home.css?v=assets-1"/>
+<link rel="stylesheet" href="new-home.css?v=hpp-1"/>
 
 <!-- The three files the first screen needs and the parser cannot see: the
      court the LUDIS board is drawn over and the paper the handwriting is
@@ -352,13 +352,51 @@
     </div>
 </template>
 
-<script src="data/home-projects.js?v=assets-1"></script>
-<script src="scripts/new-home.js?v=assets-1"></script>
-<script src="scripts/ludis-play.js?v=assets-1"></script>
-<script src="scripts/mosaico-write.js?v=assets-1"></script>
-<script src="scripts/imb-compare.js?v=assets-1"></script>
-<script src="scripts/nommu-feed.js?v=assets-1"></script>
+<!-- =====================================================================
+     HPP — three landing pages, rebuilt, inside the laptop
+
+     The photograph is the laptop; everything on its screen is markup of this
+     page's own. The screen is the white rectangle in the file, measured from
+     it: x 211-968 and y 265-726 of 1171 square, which is what the percentages
+     in section 7f come from. The browser's strip and the window under it sit
+     exactly in that rectangle, and both are inside .hl__scene, so hovering
+     the card brings the whole thing forward as one object rather than
+     enlarging the laptop around a website that stayed where it was.
+
+     No frame, no embed, nothing fetched from the campaigns themselves —
+     scripts/hpp-pages.js writes the three pages and drives the tabs.
+================================================================== -->
+<template data-nh-card="hpp">
+    <div class="hl" data-hpp>
+        <div class="hl__scene">
+            <div class="hl__laptop">
+
+                <img class="hl__frame" src="assets/hpp-laptop.png"
+                     alt="A laptop showing the landing pages designed for the Hospital Pequeno Príncipe"
+                     draggable="false"/>
+
+                <div class="hl__screen nh-card__interactive">
+                    <div class="hl__chrome">
+                        <div class="hl__tabs" data-hpp-tabs role="tablist" aria-label="Landing pages"></div>
+                        <p class="hl__url"><span data-hpp-url></span></p>
+                    </div>
+                    <!-- one scrolling window per page, from scripts/hpp-pages.js -->
+                    <div class="hl__stack" data-hpp-stack></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<script src="data/home-projects.js?v=hpp-1"></script>
+<script src="scripts/new-home.js?v=hpp-1"></script>
+<script src="scripts/ludis-play.js?v=hpp-1"></script>
+<script src="scripts/mosaico-write.js?v=hpp-1"></script>
+<script src="scripts/imb-compare.js?v=hpp-1"></script>
+<script src="scripts/nommu-feed.js?v=hpp-1"></script>
+<script src="scripts/hpp-pages.js?v=hpp-1"></script>
 <!-- and, once the page is done, the screenful after this one -->
-<script src="scripts/warm-assets.js?v=assets-1" defer></script>
+<script src="scripts/warm-assets.js?v=hpp-1" defer></script>
 </body>
 </html>

@@ -526,6 +526,11 @@ html {
 /* NOMMU holds a whole phone, so it is a tall card: three columns beside the
    comparison and the landing pages, and as deep as the two of them. */
 .nh-grid > [data-project="nommu"]        { grid-column: span 3; grid-row: span 6; }
+
+/* The landing pages hold a laptop, which is a wide object: the card takes the
+   whole row under the website redesign, and the depth the laptop needs to
+   come forward on hover without reaching the card's edges. */
+.nh-grid > [data-project="hpp"]          { grid-column: 1 / -1; grid-row: span 5; }
 .nh-grid > .nh-card--text                { grid-column: 1 / -1; }
 
 
@@ -3109,6 +3114,762 @@ html {
 
 
 /* ===========================================================================
+   7f. HPP — THREE LANDING PAGES IN A LAPTOP
+
+   The photograph (assets/hpp-laptop.png) is the frame and nothing else: the
+   browser and the three pages are markup, and they sit exactly in the white
+   rectangle the file leaves for them.
+
+   The measurements, taken off the file itself. It is 1171 square; the laptop
+   in it runs from x 55 to 1124 and y 238 to 935, and its screen — the white
+   rectangle inside the bezel — from x 211 to 968 and y 265 to 726. The box
+   below IS the laptop's own body, so the photograph is placed by the numbers
+   that put it there, and the screen by the numbers that put it in the bezel.
+
+   Everything that scales on hover is inside .hl__scene: the laptop, the tab
+   strip and the pages. It is one transform on one element, so nothing is left
+   behind at its old size and nothing in the grid moves.
+=========================================================================== */
+
+.hl {
+    /* the palette of these campaigns, not of this portfolio */
+    --hp-blue:   #1560A8;
+    --hp-deep:   #0E4C86;
+    --hp-red:    #E4402A;
+    --hp-sea:    #2AA3DC;
+    --hp-sand:   #FBDE8C;
+    --hp-ink:    #253746;
+    --hp-line:   #DCE3EA;
+
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 100%;
+    overflow: hidden;
+    background: var(--nh-card);
+}
+
+/* One object, one transform. At rest it sits back in the card; hovering the
+   card brings it forward. The card clips, so it can come forward without
+   reaching past its own edges, and nothing in the page moves either way. */
+.hl__scene {
+    --hl-near: 1;
+    width: 100%;
+    height: 100%;           /* a definite height, so the laptop can take a share of it */
+    display: grid;
+    place-items: center;
+    transform: scale(var(--hl-near));
+    transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+}
+
+.hl:hover .hl__scene,
+.hl:has(:focus-visible) .hl__scene {
+    --hl-near: 1.22;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hl__scene {
+        transition: none;
+    }
+}
+
+/* The laptop's own body box: the photograph hangs outside it, where only
+   transparency is drawn. */
+.hl__laptop {
+    position: relative;
+    /* far enough back at rest to have somewhere to come forward to: at this
+       share of the card it grows to 95 per cent of its depth on hover and
+       still does not reach the edges */
+    height: 78%;
+    aspect-ratio: 1070 / 698;
+}
+
+.hl .hl__frame {
+    position: absolute;
+    left: -5.14%;           /* -55 of 1070 */
+    top: -34.097%;          /* -238 of 698 */
+    width: 109.439%;        /* 1171 of 1070 */
+    max-width: none;        /* .nh img { max-width: 100% } would clamp it */
+    height: auto;
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* The screen, in the bezel: 211-968 across and 265-726 down, in the body
+   box's own terms. */
+.hl__screen {
+    position: absolute;
+    left: 14.579%;
+    top: 3.868%;
+    width: 70.841%;
+    height: 66.189%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;       /* nothing of a page is ever drawn on the bezel */
+    background: #FFFFFF;
+    text-align: left;
+}
+
+
+/* --- the browser ------------------------------------------------------------
+   A tab strip and a line of address, at the scale of the screen they are on:
+   the whole composition is scaled by .hl__scene, so these are drawn once at
+   the size they have at rest and grow with everything else. */
+
+.hl__chrome {
+    flex: none;
+    background: #23262B;
+    padding: 4px 6px 0;
+}
+
+.hl__tabs {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.hl .hp-tab {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 4px 9px 5px;
+    border: 0;
+    border-radius: 7px 7px 0 0;
+    background: rgba(255, 255, 255, 0.09);
+    color: rgba(255, 255, 255, 0.62);
+    font-family: var(--nh-font);
+    font-size: 7.5px;
+    font-weight: var(--nh-semibold);
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background-color var(--nh-base) var(--nh-ease),
+        color var(--nh-base) var(--nh-ease);
+}
+
+.hl .hp-tab:hover {
+    background: rgba(255, 255, 255, 0.16);
+    color: #FFFFFF;
+}
+
+/* the picked tab carries its page's colour and rises to the page below it */
+.hl .hp-tab.is-on {
+    color: #FFFFFF;
+}
+
+.hl .hp-tab--verao.is-on  { background: #2E86C8; }
+.hl .hp-tab--pix.is-on    { background: #2BB39F; }
+.hl .hp-tab--brasil.is-on { background: #E4402A; }
+
+.hp-tab__dot {
+    flex: none;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.85;
+}
+
+.hl .hp-tab--verao  .hp-tab__dot { background: #2E86C8; }
+.hl .hp-tab--pix    .hp-tab__dot { background: #2BB39F; }
+.hl .hp-tab--brasil .hp-tab__dot { background: #E4402A; }
+
+.hl .hp-tab.is-on .hp-tab__dot { background: rgba(255, 255, 255, 0.9); }
+
+.hl .hp-tab:focus-visible {
+    outline: 2px solid #FFFFFF;
+    outline-offset: -2px;
+}
+
+.hl__url {
+    display: flex;
+    align-items: center;
+    margin: 4px 0 0;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 6.5px;
+    font-weight: var(--nh-regular);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* --- the window the pages scroll in ---------------------------------------- */
+
+.hl__stack {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.hl [hidden] {
+    display: none;          /* beats the flex and the absolute below */
+}
+
+.hp-page {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;   /* the portfolio never scrolls instead */
+    scrollbar-width: thin;
+    background: #FFFFFF;
+    color: var(--hp-ink);
+    font-family: "Poppins", var(--nh-font);
+    font-size: 7px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.hp-page::-webkit-scrollbar { width: 4px; }
+.hp-page::-webkit-scrollbar-thumb { border-radius: 4px; background: rgba(0, 0, 0, 0.22); }
+
+.hp-page h1, .hp-page h2, .hp-page h3, .hp-page p, .hp-page ol, .hp-page figure {
+    margin: 0;
+}
+
+.hp-page img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.hp-page button,
+.hp-page input {
+    font-family: inherit;
+    cursor: default;
+}
+
+/* the hospital's signature, at the foot of each page */
+.hp-mark {
+    display: inline-block;
+    color: var(--hp-blue);
+    font-size: 9px;
+    font-weight: var(--nh-bold);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.hp-mark b {
+    font-weight: var(--nh-regular);
+    text-transform: lowercase;
+}
+
+
+/* --- 1. Verão Maior ---------------------------------------------------------
+   Sand above, sea below. The hero is the campaign's own artwork, the one
+   piece of it that is in this repository. */
+
+.hp-verao__hero {
+    background: #FCE9A8;
+}
+
+.hp-verao__sea {
+    display: grid;
+    gap: 6px;
+    padding: 16px 20px 20px;
+    background: var(--hp-sea);
+    color: #FFFFFF;
+    font-size: 7px;
+    font-weight: var(--nh-semibold);
+    line-height: 1.6;
+}
+
+.hp-verao__tips {
+    padding: 20px;
+    background: #FFFFFF;
+}
+
+.hp-verao__tips h2 {
+    margin-bottom: 12px;
+    color: var(--hp-blue);
+    font-size: 11px;
+    font-weight: var(--nh-bold);
+    line-height: 1.25;
+}
+
+.hp-verao__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.hp-verao__grid article {
+    padding: 10px;
+    border-radius: 8px;
+    background: #F3F8FC;
+}
+
+.hp-verao__grid h3 {
+    margin: 6px 0 3px;
+    color: var(--hp-deep);
+    font-size: 8px;
+    font-weight: var(--nh-bold);
+}
+
+.hp-verao__grid p {
+    font-size: 6.5px;
+    line-height: 1.5;
+    color: #56656F;
+}
+
+.hp-verao__ico {
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--hp-sand);
+}
+
+.hp-verao__ico[data-ico="wave"]  { background: #BEE3F5; }
+.hp-verao__ico[data-ico="plate"] { background: #CFE8C6; }
+.hp-verao__ico[data-ico="bug"]   { background: #F6C9BE; }
+
+.hp-verao__form {
+    padding: 20px;
+    background: var(--hp-sand);
+}
+
+.hp-verao__card {
+    display: grid;
+    gap: 7px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    box-shadow: 0 6px 18px rgba(20, 60, 100, 0.12);
+}
+
+.hp-verao__card h2 {
+    color: var(--hp-blue);
+    font-size: 10px;
+    font-weight: var(--nh-bold);
+}
+
+.hp-verao__card > p {
+    font-size: 6.5px;
+    color: #56656F;
+}
+
+.hp-verao__card label,
+.hp-pix__panel label {
+    display: grid;
+    gap: 3px;
+    font-size: 6px;
+    font-weight: var(--nh-medium);
+    color: #6B7A85;
+}
+
+.hp-verao__card input,
+.hp-pix__panel input {
+    padding: 5px 7px;
+    border: 1px solid var(--hp-line);
+    border-radius: 5px;
+    background: #FFFFFF;
+    font-size: 6.5px;
+    color: var(--hp-ink);
+}
+
+.hp-verao__card button {
+    padding: 7px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--hp-red);
+    color: #FFFFFF;
+    font-size: 7.5px;
+    font-weight: var(--nh-bold);
+}
+
+.hp-verao__card small {
+    font-size: 5.5px;
+    color: #8A97A0;
+}
+
+.hp-verao__foot,
+.hp-pix__foot,
+.hp-br__foot {
+    display: grid;
+    gap: 5px;
+    padding: 16px 20px 22px;
+    background: #EEF3F7;
+    font-size: 6px;
+    color: #6B7A85;
+}
+
+
+/* --- 2. Pix Automático ------------------------------------------------------
+   A donation page: the amounts first, what they do second, how the
+   authorisation works third. */
+
+.hp-pix__hero {
+    display: grid;
+    grid-template-columns: 1fr 0.9fr;
+    gap: 14px;
+    padding: 20px;
+    background: linear-gradient(160deg, #0E4C86 0%, #1B74C0 100%);
+    color: #FFFFFF;
+}
+
+.hp-pix__flag {
+    display: inline-block;
+    margin-bottom: 7px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: #2BB39F;
+    font-size: 5.5px;
+    font-weight: var(--nh-bold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.hp-pix__hero h1 {
+    font-size: 13px;
+    font-weight: var(--nh-bold);
+    line-height: 1.2;
+}
+
+.hp-pix__hero h1 em {
+    font-style: normal;
+    color: #7FE3D3;
+}
+
+.hp-pix__copy p {
+    margin-top: 7px;
+    font-size: 6.5px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.hp-pix__panel {
+    display: grid;
+    gap: 6px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    color: var(--hp-ink);
+    box-shadow: 0 8px 20px rgba(6, 34, 64, 0.25);
+}
+
+.hp-pix__panel-title {
+    font-size: 6.5px;
+    font-weight: var(--nh-semibold);
+    color: #6B7A85;
+}
+
+.hp-pix__amounts,
+.hp-br__amounts {
+    display: flex;
+    gap: 4px;
+}
+
+.hp-pix__amounts button,
+.hp-br__amounts button {
+    flex: 1 1 auto;
+    padding: 5px 0;
+    border: 1px solid var(--hp-line);
+    border-radius: 6px;
+    background: #FFFFFF;
+    font-size: 6.5px;
+    font-weight: var(--nh-semibold);
+    color: var(--hp-ink);
+}
+
+.hp-pix__amounts button.is-on {
+    border-color: #2BB39F;
+    background: #E7F7F4;
+    color: #17796A;
+}
+
+.hp-pix__go {
+    padding: 7px;
+    border: 0;
+    border-radius: 999px;
+    background: #2BB39F;
+    color: #FFFFFF;
+    font-size: 7.5px;
+    font-weight: var(--nh-bold);
+}
+
+.hp-pix__panel small {
+    font-size: 5.5px;
+    color: #8A97A0;
+}
+
+.hp-pix__what {
+    padding: 20px;
+}
+
+.hp-pix__what h2,
+.hp-pix__how h2,
+.hp-pix__faq h2 {
+    margin-bottom: 10px;
+    color: var(--hp-deep);
+    font-size: 10.5px;
+    font-weight: var(--nh-bold);
+}
+
+.hp-pix__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.hp-pix__cards article {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--hp-line);
+}
+
+.hp-pix__cards strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #17796A;
+    font-size: 9px;
+}
+
+.hp-pix__cards p {
+    font-size: 6px;
+    line-height: 1.5;
+    color: #56656F;
+}
+
+.hp-pix__how {
+    padding: 20px;
+    background: #F2F7FB;
+}
+
+.hp-pix__how ol {
+    display: grid;
+    gap: 7px;
+    padding: 0;
+    list-style: none;
+}
+
+.hp-pix__how li {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+}
+
+.hp-pix__how span {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--hp-blue);
+    color: #FFFFFF;
+    font-size: 6.5px;
+    font-weight: var(--nh-bold);
+}
+
+.hp-pix__how p {
+    font-size: 6.5px;
+    color: #45525C;
+}
+
+.hp-pix__faq {
+    padding: 20px;
+}
+
+.hp-pix__faq details {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--hp-line);
+}
+
+.hp-pix__faq summary {
+    font-size: 7px;
+    font-weight: var(--nh-semibold);
+    color: var(--hp-ink);
+    cursor: default;
+}
+
+.hp-pix__faq p {
+    margin-top: 5px;
+    font-size: 6.5px;
+    color: #56656F;
+}
+
+
+/* --- 3. Todo o Brasil -------------------------------------------------------
+   Reach: where the children come from, in numbers, then the ask. */
+
+.hp-br__hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 14px;
+    align-items: center;
+    padding: 22px 20px;
+    background: #F7F3EC;
+}
+
+.hp-br__hero h1 {
+    color: var(--hp-deep);
+    font-size: 14px;
+    font-weight: var(--nh-bold);
+    line-height: 1.18;
+}
+
+.hp-br__hero h1 em {
+    font-style: normal;
+    color: var(--hp-red);
+}
+
+.hp-br__copy p {
+    margin: 8px 0 10px;
+    font-size: 6.5px;
+    line-height: 1.6;
+    color: #56656F;
+}
+
+.hp-br__copy button {
+    padding: 6px 14px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--hp-red);
+    color: #FFFFFF;
+    font-size: 7px;
+    font-weight: var(--nh-bold);
+}
+
+/* the country as a shape and the places the patients come from as points on
+   it — a drawing, not a map anyone should navigate by */
+.hp-br__map {
+    position: relative;
+    aspect-ratio: 1;
+    padding: 8px;
+    border-radius: 12px;
+    background: #FFFFFF;
+    box-shadow: inset 0 0 0 1px var(--hp-line);
+}
+
+.hp-br__shape {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: #D3E5F5;
+    stroke: #AFCFEA;
+    stroke-width: 0.8;
+    stroke-linejoin: round;
+}
+
+.hp-br__pin {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: 5px;
+    height: 5px;
+    margin: -2.5px 0 0 -2.5px;
+    border-radius: 50%;
+    background: var(--hp-blue);
+}
+
+.hp-br__pin--home {
+    width: 9px;
+    height: 9px;
+    margin: -4.5px 0 0 -4.5px;
+    background: var(--hp-red);
+    box-shadow: 0 0 0 3px rgba(228, 64, 42, 0.22);
+}
+
+.hp-br__numbers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 18px 20px;
+    background: var(--hp-deep);
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.hp-br__numbers strong {
+    display: block;
+    font-size: 13px;
+    line-height: 1.1;
+}
+
+.hp-br__numbers p {
+    margin-top: 3px;
+    font-size: 5.5px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.hp-br__story {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 12px;
+    align-items: center;
+    padding: 20px;
+}
+
+.hp-br__photo {
+    aspect-ratio: 4 / 3;
+    border-radius: 8px;
+    background: linear-gradient(150deg, #DCE9F4, #F3E7D8);
+}
+
+.hp-br__text h2 {
+    margin-bottom: 6px;
+    color: var(--hp-deep);
+    font-size: 10.5px;
+    font-weight: var(--nh-bold);
+}
+
+.hp-br__text p + p {
+    margin-top: 5px;
+}
+
+.hp-br__text p {
+    font-size: 6.5px;
+    line-height: 1.6;
+    color: #56656F;
+}
+
+.hp-br__cta {
+    display: grid;
+    gap: 8px;
+    padding: 20px;
+    background: #FDF3E7;
+    text-align: center;
+}
+
+.hp-br__cta h2 {
+    color: var(--hp-deep);
+    font-size: 10.5px;
+    font-weight: var(--nh-bold);
+}
+
+.hp-br__amounts button.is-on {
+    border-color: var(--hp-red);
+    background: #FDE7E2;
+    color: #B32E1C;
+}
+
+.hp-br__go {
+    justify-self: center;
+    padding: 7px 22px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--hp-red);
+    color: #FFFFFF;
+    font-size: 7.5px;
+    font-weight: var(--nh-bold);
+}
+
+
+/* ===========================================================================
    10. EXPAND-TO-PAGE TRANSITION
 
    On a plain click on a linked card, a layer in the canvas colour grows out
@@ -3328,6 +4089,9 @@ html {
 
     /* the phone's card keeps the depth of the two cards beside it */
     .nh-grid > [data-project="nommu"] { grid-row: span 4; }
+
+    /* the laptop's card is measured the same way as the rest at this width */
+    .nh-grid > [data-project="hpp"] { grid-row: span 4; }
 
 }
 

@@ -109,6 +109,21 @@ window.homeProjects = {
             media: [
                 { src: "imagesProjects/imb/home.jpg", alt: "", ratio: "3:2" }
             ]
+        },
+        {
+            // Three landing pages for the Hospital Pequeno Príncipe, rebuilt
+            // and running inside a laptop. Its markup is the
+            // <template data-nh-card="hpp"> in index.html and its behaviour is
+            // scripts/hpp-pages.js — so no `media` here. Only the arrow opens
+            // the case page; the rest of the card is the browser.
+            id: "hpp",
+            title: "HPP landing pages",
+            href: null,
+            linkArea: "arrow",
+            size: "large",
+            frame: "custom",
+            tone: null,
+            media: []
         }
     ],
 
