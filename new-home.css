@@ -40,6 +40,8 @@
     --nh-wash-blue:     #E2EDFA;   /* graphic design, water under the prints */
     --nh-wash-purple:   #EAE4F7;   /* NOMMU */
     --nh-wash-sand:     #FAF1D9;   /* the hospital's landing pages */
+    --nh-wash-violet:   #F4F1FB;   /* LUDIS — barely off white */
+    --nh-wash-amber:    #FCEDE0;   /* the IMB comparison, from its own orange */
 
     /* The highlighter stroke behind "product designer" */
     --nh-highlight:     rgba(126, 186, 240, 0.42);
@@ -503,7 +505,11 @@ html {
    comparison and the landing pages, and as deep as the two of them. */
 .nh-grid > [data-project="nommu"]        { grid-column: span 3; grid-row: span 6; }
 
-/* the wash each of the three takes on hover */
+/* The wash each card takes on hover. Mosaico names none on purpose: the word
+   it writes is the only thing on it, and the page keeps one card that does
+   not colour. */
+.nh-grid > [data-project="ludis"]        { --nh-wash: var(--nh-wash-violet); }
+.nh-grid > [data-project="imb-compare"]  { --nh-wash: var(--nh-wash-amber); }
 .nh-grid > [data-project="nommu"]        { --nh-wash: var(--nh-wash-purple); }
 .nh-grid > [data-project="hpp"]          { --nh-wash: var(--nh-wash-sand); }
 .nh-grid > .nh-card--text                { --nh-wash: var(--nh-wash-blue); }
@@ -1595,6 +1601,32 @@ html {
    IMB, not to the portfolio. The surface, though, is the portfolio's card
    grey, so the prototype sits in the page like every other bento.
 =========================================================================== */
+
+/* The prototype sits in the card the way the LUDIS one does: a margin of card
+   all the way round it, and the whole thing drawn at the size it had when it
+   filled the card and then scaled down to fit. Laying it out at its old size
+   and scaling the result is what keeps it a scale and not a reflow — every
+   measure inside it, the ones in container units and the ones in pixels
+   alike, keeps its proportion, and nothing about how it behaves changes.
+
+   --ic-k is how much of the card it takes across; the margin is what is left,
+   split between the two sides, so the two numbers can never disagree. */
+.nh-grid > [data-project="imb-compare"] {
+    --ic-k: 0.9356;
+}
+
+.nh-grid > [data-project="imb-compare"] .nh-card__stage {
+    padding: calc((1 - var(--ic-k)) / 2 * 100cqw);
+}
+
+.nh-grid > [data-project="imb-compare"] .ic {
+    width: calc(100% / var(--ic-k));
+    height: calc(100% / var(--ic-k));
+    transform: scale(var(--ic-k));
+    transform-origin: top left;
+    border-radius: calc(10px / var(--ic-k));
+    box-shadow: var(--nh-shadow-shot);
+}
 
 .ic {
     --ic-orange: #EA7805;
