@@ -663,7 +663,28 @@ html {
     background: color-mix(in srgb, currentColor 6%, transparent);
 }
 
-/* Availability: a green outlined pill with a light that breathes. */
+/* A pill that names something: outlined, hugging its text, no background of
+   its own, and told its colour by the two properties below. The cards use it
+   to say whose work they are and what they are. It is the shape the
+   availability tag under it carries too, which keeps its own rule because of
+   the light it holds. */
+.nh-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border: 1px solid var(--nh-tag-line);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: var(--nh-medium);
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: var(--nh-tag-ink);
+    white-space: nowrap;
+    overflow: hidden;           /* a card too narrow for the line cuts it, not the pill */
+    text-overflow: ellipsis;
+}
+
+/* Availability: the same pill in green, with a light that breathes. */
 .nh-status {
     display: inline-flex;
     align-items: center;
@@ -2942,11 +2963,11 @@ html {
 }
 
 .nh-gd__title {
-    font-size: var(--nh-size-card-title);
-    font-weight: var(--nh-medium);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--nh-ink);
+    --nh-tag-ink:  #6B58A6;     /* the purple the phone's card is built on */
+    --nh-tag-line: rgba(107, 88, 166, 0.45);
+    align-self: start;          /* the pill hugs its text, the card does not */
+    max-width: 100%;
+    margin: 0;
 }
 
 .nh-card--text .nh-frame--prints {
@@ -3118,27 +3139,15 @@ html {
    own blue, and with no light in it: it reports who owns these pages, not a
    state that changes. */
 .hl__owner {
+    --nh-tag-ink:  #1560A8;     /* the hospital's own blue */
+    --nh-tag-line: rgba(21, 96, 168, 0.45);
     position: absolute;
-    /* across the middle of the card, near the top of the band above the
-       laptop: the band is 20.15% of the card deep, and the pill sits at about
-       the same distance from the card's edge as it did from the laptop */
+    /* in the band of card above the laptop, from the same edge as everything
+       else in the card: the band is 20.15% of the card deep */
     top: calc(8.535% - 13px);
-    left: 0;
-    right: 0;
-    margin-inline: auto;
-    width: max-content;
-    max-width: calc(100% - 24px);
+    left: var(--nh-card-pad);
+    max-width: calc(100% - 2 * var(--nh-card-pad));
     z-index: 2;
-    padding: 4px 12px;
-    border: 1px solid rgba(21, 96, 168, 0.45);
-    border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: var(--nh-medium);
-    line-height: 1.5;
-    color: #1560A8;
-    white-space: nowrap;
-    overflow: hidden;           /* a card too narrow for the line cuts it, not the pill */
-    text-overflow: ellipsis;
     pointer-events: none;
     /* the band it sits in closes as the laptop comes forward, so it steps
        aside on the way — same 620ms and same curve, so the two read as one */

@@ -194,7 +194,7 @@
                 tone: gd.tone, href: gd.href, size: "medium", extraClass: "nh-card--text"
             }) + ' aria-labelledby="gd-title">' +
             '<div class="nh-card__stage">' +
-            '<h2 class="nh-gd__title" id="gd-title">' + escapeHtml(title) + "</h2>" +
+            '<h2 class="nh-tag nh-gd__title" id="gd-title">' + escapeHtml(title) + "</h2>" +
             frameHtml({ frame: "prints", media: gd.media }, false) +
             "</div>" +
             linkHtml(gd.href, "Open " + title,
