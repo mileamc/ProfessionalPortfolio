@@ -806,6 +806,15 @@ html {
 =========================================================================== */
 
 .nh-card {
+    /* Where a card's floating chrome sits. The arrow in the corner is 14px
+       from the left and the foot; a tag at the top is on the same line up from
+       that corner, and far enough down to have air above it. --nh-tag-h is the
+       pill's own height, which the laptop's card needs to know to leave room
+       for it. */
+    --nh-tag-x: 14px;
+    --nh-tag-y: 21px;
+    --nh-tag-h: 28px;
+
     position: relative;
     width: 100%;
     min-width: 0;
@@ -2958,22 +2967,28 @@ html {
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;  /* the pile of prints sits at the card's foot */
     min-height: 100%;
-    padding: var(--nh-card-pad);
+    padding: calc(var(--nh-tag-y) + var(--nh-tag-h) + 17px)
+             var(--nh-card-pad) var(--nh-card-pad);
 }
 
+/* The card's own name, in the same place on the card as the tag on the one
+   beside it — the pill is taken out of the flow for that, so the pile below
+   it is free to fill what is left. */
 .nh-gd__title {
     --nh-tag-ink:  #6B58A6;     /* the purple the phone's card is built on */
     --nh-tag-line: rgba(107, 88, 166, 0.45);
-    align-self: start;          /* the pill hugs its text, the card does not */
-    max-width: 100%;
+    position: absolute;
+    top: var(--nh-tag-y);
+    left: var(--nh-tag-x);
+    max-width: calc(100% - var(--nh-tag-x) - var(--nh-card-pad));
     margin: 0;
 }
 
 .nh-card--text .nh-frame--prints {
     flex: 1 1 auto;
     min-height: 120px;
-    margin-top: var(--nh-space-4);
 }
 
 /* Hovering the card opens the pile: the pieces slide out from under one
@@ -3114,11 +3129,13 @@ html {
     /* The two frames were measured off the references. At rest the laptop is
        70.9 per cent of the card across with its top 17.07 per cent down, which
        leaves the band of card above it and takes the foot of the keyboard just
-       past the bottom edge. On hover it is 94.7 per cent across with its top
-       1.6 per cent down, which cuts the keyboard away. Growing from 69.25 per
-       cent down the card is what carries it from the first to the second. */
+       past the bottom edge. On hover it is 94.7 per cent across and its lid
+       comes up to about ten pixels off the top edge, which cuts the keyboard
+       away. Growing from 82.1 per cent down the card is what carries it from
+       the first to the second — low, because the tag above it holds the
+       resting frame further down the card than the reference did. */
     transform: scale(var(--hl-near));
-    transform-origin: 50% 69.25%;
+    transform-origin: 50% 82.1%;
     transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
 }
@@ -3142,11 +3159,9 @@ html {
     --nh-tag-ink:  #1560A8;     /* the hospital's own blue */
     --nh-tag-line: rgba(21, 96, 168, 0.45);
     position: absolute;
-    /* in the band of card above the laptop, from the same edge as everything
-       else in the card: the band is 20.15% of the card deep */
-    top: calc(8.535% - 13px);
-    left: var(--nh-card-pad);
-    max-width: calc(100% - 2 * var(--nh-card-pad));
+    top: var(--nh-tag-y);
+    left: var(--nh-tag-x);
+    max-width: calc(100% - var(--nh-tag-x) - var(--nh-card-pad));
     z-index: 2;
     pointer-events: none;
     /* the band it sits in closes as the laptop comes forward, so it steps
@@ -3172,8 +3187,9 @@ html {
     left: 0;
     right: 0;
     margin-inline: auto;
-    top: 20.15%;            /* 106 of 623 off the reference, plus twice the
-                               gap it left between the tag and the lid */
+    /* under the tag: its inset, its own height, and twice the air the
+       reference left between it and the lid */
+    top: calc(var(--nh-tag-y) + var(--nh-tag-h) + 17px);
     /* 880 of the reference's 1241 across, or of its 623 down — whichever the
        card runs out of first. A card exactly the reference's shape gives the
        same answer either way; a flatter one keeps the framing down the card,
@@ -3587,17 +3603,21 @@ html {
     /* the laptop's card is the introduction's card: the same five columns on
        the left. It keeps its depth, which is what leaves the laptop room to
        come forward on hover without meeting the tag in the corner. */
-    .nh-grid > [data-project="hpp"] {
-        grid-column: 1 / span 5;
+    /* Two rows, and eleven pixels more: the grid's row is a fixed unit and the
+       step above two rows is four, so the air the tag gained above it is added
+       to the card itself rather than to the track. It grows into the space
+       before Contact, which is the last thing under this row. */
+    .nh-grid > [data-project="hpp"],
+    .nh-grid > .nh-card--text {
         grid-row: span 2;
+        height: calc(100% + 11px);
     }
 
-    /* and the graphic design card stands beside it, in the columns the laptop
+    .nh-grid > [data-project="hpp"] { grid-column: 1 / span 5; }
+
+    /* the graphic design card stands beside it, in the columns the laptop
        leaves free and to the same depth */
-    .nh-grid > .nh-card--text {
-        grid-column: 6 / span 4;
-        grid-row: span 2;
-    }
+    .nh-grid > .nh-card--text { grid-column: 6 / span 4; }
 
 }
 
@@ -3648,12 +3668,18 @@ html {
     .nh-grid > [data-size="large"]       { aspect-ratio: 1 / 0.9; }
     .nh-grid > [data-size="medium"]      { aspect-ratio: 1 / 0.8; }
 
-    /* the laptop's card keeps its landscape shape all the way down */
-    .nh-grid > [data-project="hpp"]      { aspect-ratio: 1241 / 623; }
+    /* The laptop's card keeps its landscape shape all the way down, a little
+       deeper than the reference: the tag above the laptop is a fixed size and
+       takes a larger share of a card this small, so the card gives it back. */
+    .nh-grid > [data-project="hpp"]      { aspect-ratio: 1241 / 713; }
 
-    /* and the band above the laptop is shallow at this size, so the tag in it
-       is drawn smaller to match */
-    .hl__owner {
+    /* and the band above the laptop is shallow at this size, so the pills are
+       drawn smaller to match */
+    .nh-card {
+        --nh-tag-h: 23px;
+    }
+
+    .nh-tag {
         padding: 3px 9px;
         font-size: 0.625rem;
     }
