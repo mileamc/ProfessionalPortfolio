@@ -114,7 +114,7 @@ window.homeProjects = {
             id: "hpp",
             brief: { name: "HPP", text: "A collection of landing pages designed to support external communication and connect audiences with healthcare and institutional initiatives." },
             title: "HPP landing pages",
-            href: null,
+            href: "case-hpp.html",
             linkArea: "arrow",
             size: "large",
             frame: "custom",

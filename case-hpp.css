@@ -1,0 +1,381 @@
+/* ===========================================================================
+   HPP — the case page
+
+   The fourth case on the same model. Its accent is the pair the hospital's
+   card already wears on this site: the sand its bento takes on hover, and the
+   hospital's own blue — the one the "Designed in-house" pill is written in on
+   the home page. Sand fills, blue reads.
+
+   Four .pp-slots wait for screenshots. Three of the four pages were rebuilt
+   for this portfolio and are served from hpp/, so those slots carry a link to
+   the page itself: the design can be read now, not only described.
+=========================================================================== */
+
+.pp-page {
+    --nh-mark: var(--nh-wash-sand);
+    --nh-mark-ink: var(--nh-tag-blue);
+
+    display: grid;
+    gap: var(--nh-gap);
+    padding-block: 0 var(--nh-space-16);
+}
+
+.pp-back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nh-space-2);
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--nh-base) var(--nh-ease);
+}
+
+.pp-back:hover { color: var(--nh-ink); }
+
+.pp-back:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.pp-card {
+    padding: var(--nh-card-pad);
+}
+
+
+/* --- type ----------------------------------------------------------------- */
+
+/* The number a section carries in the brief, kept: it sits over the title on
+   a line of its own, in the accent, so the title is still the title. */
+.pp-h2 {
+    margin: 0 0 var(--nh-space-5);
+    font-size: var(--nh-size-display);
+    font-weight: var(--nh-medium);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+    color: var(--nh-ink);
+    text-wrap: balance;
+}
+
+.pp-n {
+    display: block;
+    margin-bottom: var(--nh-space-2);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.12em;
+    color: var(--nh-mark-ink);
+}
+
+.pp-card :where(p) {
+    max-width: 68ch;
+    margin: 0 0 var(--nh-space-4);
+    font-size: var(--nh-size-body);
+    line-height: 1.75;
+    color: var(--nh-text);
+    text-wrap: pretty;
+}
+
+.pp-card :where(p:last-child) { margin-bottom: 0; }
+
+.pp-card strong {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+/* The label a paragraph opens on — "The decision.", "The trade-off." It is
+   the brief's own device, so it keeps its place in the line rather than
+   becoming a heading of its own. */
+.pp-card :where(p) > b:first-child {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+.pp-card em {
+    font-style: italic;
+}
+
+.pp-card h3 {
+    margin: 0 0 var(--nh-space-2);
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-semibold);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+/* the line under a page's title */
+.pp-standfirst {
+    margin-top: calc(-1 * var(--nh-space-2)) !important;
+    margin-bottom: var(--nh-space-6) !important;
+    font-size: var(--nh-size-card-title) !important;
+    font-weight: var(--nh-light);
+    font-style: italic;
+    line-height: 1.4 !important;
+    color: var(--nh-muted) !important;
+}
+
+
+/* --- a picture that is not here yet --------------------------------------- */
+
+.pp-shot {
+    margin: var(--nh-space-6) 0;
+}
+
+.pp-slot {
+    display: grid;
+    place-items: center;
+    aspect-ratio: var(--ratio, 16 / 9);
+    padding: var(--nh-space-6);
+    overflow: hidden;
+    border: 1px dashed var(--nh-line-strong);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 3%, #FFFFFF);
+}
+
+.pp-slot img {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pp-slot__note {
+    grid-area: 1 / 1;
+    max-width: 44ch;
+    margin: 0;
+    font-size: var(--nh-size-small);
+    line-height: 1.6;
+    text-align: center;
+    color: var(--nh-muted);
+}
+
+.pp-slot__note b {
+    display: block;
+    margin-bottom: var(--nh-space-1);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-ink);
+}
+
+.pp-slot:not(:has(img)) { max-height: 420px; }
+
+.pp-slot:has(img) {
+    padding: 0;
+    border-style: none;
+    background: none;
+}
+
+.pp-slot:has(img) .pp-slot__note { display: none; }
+
+/* the way to the page itself, under its picture */
+.pp-shot figcaption {
+    margin-top: var(--nh-space-3);
+    font-size: var(--nh-size-small);
+}
+
+.pp-open {
+    color: var(--nh-mark-ink);
+    font-weight: var(--nh-medium);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color var(--nh-base) var(--nh-ease);
+}
+
+.pp-open:hover { color: var(--nh-ink); }
+
+.pp-open:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+
+/* --- the opening ----------------------------------------------------------- */
+
+.pp-hero__name {
+    max-width: 22ch;
+    margin: 0 0 var(--nh-space-6);
+    font-size: clamp(2rem, 1.2rem + 2.4vw, 3.25rem);
+    font-weight: var(--nh-semibold);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    color: var(--nh-ink);
+    text-wrap: balance;
+}
+
+.pp-intro {
+    max-width: 62ch;
+    margin: 0 0 var(--nh-space-6);
+    padding-left: var(--nh-space-6);
+    border-left: 3px solid var(--nh-mark-ink);
+}
+
+.pp-intro p {
+    font-size: var(--nh-size-card-title) !important;
+    font-weight: var(--nh-light);
+    line-height: 1.45 !important;
+}
+
+
+/* --- the note set apart ---------------------------------------------------- */
+
+.pp-aside {
+    margin-top: var(--nh-space-8);
+    padding: var(--nh-space-6);
+    border-left: 3px solid var(--nh-mark-ink);
+    border-radius: 0 calc(var(--nh-radius-card) - 6px) calc(var(--nh-radius-card) - 6px) 0;
+    background: var(--nh-mark);
+}
+
+.pp-aside p {
+    max-width: 68ch;
+    font-size: var(--nh-size-small) !important;
+    line-height: 1.65 !important;
+}
+
+.pp-aside b {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+/* the one that carries the numbers reads a size up */
+.pp-aside--figures {
+    margin-top: 0;
+    margin-bottom: var(--nh-space-8);
+}
+
+.pp-aside--figures p {
+    font-size: var(--nh-size-body) !important;
+    line-height: 1.7 !important;
+}
+
+/* and the one that weighs a decision */
+.pp-quote {
+    margin: var(--nh-space-8) 0 0;
+    padding: var(--nh-space-6);
+    border-left: 3px solid var(--nh-mark-ink);
+    border-radius: 0 calc(var(--nh-radius-card) - 6px) calc(var(--nh-radius-card) - 6px) 0;
+    background: var(--nh-mark);
+}
+
+.pp-quote p {
+    max-width: 68ch;
+    font-size: var(--nh-size-small) !important;
+    line-height: 1.65 !important;
+}
+
+
+/* --- the four pages, side by side ------------------------------------------
+   Three columns that only mean anything read across, so it stays a table.
+   Below the breakpoint it scrolls sideways inside its own box rather than
+   being taken apart, which would cost a screen reader the row it belongs to.
+--------------------------------------------------------------------------- */
+
+.pp-tablewrap {
+    margin: var(--nh-space-6) 0 var(--nh-space-8);
+    overflow-x: auto;
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.pp-tablewrap:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 2px;
+}
+
+.pp-table {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: collapse;
+    font-size: var(--nh-size-small);
+    line-height: 1.5;
+    text-align: left;
+}
+
+.pp-table th,
+.pp-table td {
+    padding: var(--nh-space-4) var(--nh-space-5);
+    vertical-align: top;
+    color: var(--nh-text);
+}
+
+.pp-table thead th {
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-muted);
+    border-bottom: 1px solid var(--nh-line);
+}
+
+.pp-table tbody th {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+    white-space: nowrap;
+}
+
+.pp-table tbody tr + tr th,
+.pp-table tbody tr + tr td {
+    border-top: 1px solid var(--nh-line);
+}
+
+
+/* --- who made what --------------------------------------------------------- */
+
+.pp-credit {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--nh-space-2) var(--nh-space-4);
+    margin-top: var(--nh-space-8) !important;
+    padding-top: var(--nh-space-5);
+    border-top: 1px solid var(--nh-line);
+    font-size: var(--nh-size-small) !important;
+    color: var(--nh-muted) !important;
+}
+
+.pp-credit__host {
+    font-weight: var(--nh-medium);
+    color: var(--nh-mark-ink);
+    word-break: break-word;
+}
+
+
+/* --- what the set taught me ------------------------------------------------ */
+
+.pp-lessons {
+    display: grid;
+    gap: var(--nh-space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pp-lessons > li {
+    padding-left: var(--nh-space-5);
+    border-left: 2px solid var(--nh-mark-ink);
+}
+
+.pp-lessons h3 {
+    font-size: var(--nh-size-body);
+    line-height: 1.35;
+}
+
+
+/* ===========================================================================
+   ON A PHONE
+=========================================================================== */
+
+@media (max-width: 719.98px) {
+    .pp-credit {
+        flex-direction: column;
+        gap: var(--nh-space-1);
+    }
+
+    /* the table keeps its shape and scrolls; the box says so by its edge */
+    .pp-tablewrap {
+        box-shadow: inset -12px 0 12px -12px rgba(15, 23, 34, 0.25);
+    }
+}

@@ -49,6 +49,7 @@ window.workProjects = [
     {
         id: "hpp",
         name: "HPP",
+        href: "case-hpp.html",
         desc: "A collection of landing pages designed to support external communication and connect audiences with healthcare and institutional initiatives.",
         cover: { src: "assets/capas-work/capa-hpp.jpeg", w: 1024, h: 1024 },
         tags: [
