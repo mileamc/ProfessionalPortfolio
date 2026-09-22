@@ -3910,6 +3910,28 @@ body.is-phone-home .nh-grid > .nh-intro {
         display: none;
     }
 
+    /* The line over the grid goes: on a phone the introduction is the first
+       thing under the bar, and says for itself what the page is. The room the
+       bar needs was the line's to carry, so it passes back to the grid, which
+       is where it lives when there is nothing above it. Only the line over the
+       home's grid: the Work page's own is not this one's to take. */
+    .nh-kicker:has(+ .nh-grid) {
+        display: none;
+    }
+
+    .nh-kicker + .nh-grid {
+        padding-block-start: var(--nh-nav-clear);
+    }
+
+    /* And the message bubble with it. It invites the visitor to interact with
+       everything, and on a phone there is nothing here to interact with — the
+       prototypes it means are not built at this width. initBubble() in
+       scripts/new-home.js stops as well, so nothing is timed or measured for
+       a button that is not there. */
+    .nh-bubble {
+        display: none;
+    }
+
     /* One column. Every item goes back to automatic placement, and each card
        takes proportions that suit its content instead of a shrunken slice of
        the desktop composition. */

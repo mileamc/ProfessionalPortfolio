@@ -577,6 +577,12 @@
         var bubble = document.querySelector("[data-nh-bubble]");
         if (!bubble) return;
 
+        // Not on a phone. The bubble asks the visitor to interact with
+        // everything, and at this width there is nothing to interact with:
+        // the prototypes it means are not built. new-home.css takes it off
+        // the screen; this keeps it from being timed and measured anyway.
+        if (window.matchMedia("(max-width: 719.98px)").matches) return;
+
         var text = bubble.querySelector("[data-nh-bubble-text]");
         if (!text) return;
 

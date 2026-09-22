@@ -61,6 +61,27 @@
 .ab-photos { grid-column: 1; }
 .ab-next   { grid-column: 2; }
 
+/* --- on a phone -----------------------------------------------------------
+   Nothing stands beside anything else here but the two squares. The text
+   takes the whole column, the playlist takes the whole column under it, and
+   the photographs and the card still to come share the row below.
+
+   That last row is the arrangement .ab-side already holds — the playlist
+   across its top, the two squares under it — so it has only to stop being a
+   column beside the text and become a band across the page. Its insides are
+   not touched, and neither is the composition above: both rules are held
+   behind the site's own breakpoint.
+--------------------------------------------------------------------------- */
+
+@media (max-width: 719.98px) {
+    .ab-about,
+    .ab-side {
+        grid-column: 1 / -1;
+        grid-row: auto;
+    }
+}
+
+
 /* Entry: the same quiet rise the home's cards come in on, in reading order —
    the text, the photographs, the playlist, the card still to come. The
    keyframes are the home's own (nh-rise); only the order is this page's. */
