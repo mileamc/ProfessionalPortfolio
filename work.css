@@ -111,9 +111,10 @@
     color: var(--nh-text);
 }
 
-/* Not pills: a line of words, each in its own colour, with a dot between
-   them. The dot is drawn by the list rather than typed into it, so the words
-   stay words — the markup is still a list of what the project was. */
+/* Not pills: a line of words in one grey, with a dot between them. The dot is
+   drawn by the list rather than typed into it, so the words stay words — the
+   markup is still a list of what the project was — and it takes the same grey
+   as they do, from the line itself. */
 .wk-card__tags {
     display: flex;
     flex-wrap: wrap;
@@ -124,49 +125,13 @@
     font-size: var(--nh-size-small);
     font-weight: var(--nh-medium);
     line-height: 1.5;
-}
-
-.wk-card__tags li {
-    color: var(--wk-tag-ink, var(--nh-muted));
+    color: var(--nh-muted);
 }
 
 .wk-card__tags li + li::before {
     content: "\2022";
     margin-inline: 0.55em;
-    color: var(--nh-muted);
-    opacity: 0.55;
 }
-
-/* The colour of a word is bound to what it says rather than to the card it is
-   on, so a discipline is the same colour everywhere it appears and a new card
-   picks its colours up without being told. They are dealt so that no card
-   repeats one. */
-.wk-list {
-    --wk-tag-pink:   #B42E6E;
-    --wk-tag-green:  var(--nh-signal-text);  /* the availability tag's green */
-    --wk-tag-blue:   #1560A8;                /* the laptop's tag's blue */
-    --wk-tag-purple: #6B58A6;                /* the purple the phone is built on */
-    /* the comparison's own orange is #EA7805, which is a colour for a button
-       and not for a line of text — it holds 2.7:1 on the card. This is that
-       orange taken down until it holds 5:1, and still reads as the orange. */
-    --wk-tag-orange: #A84E00;
-}
-
-.wk-card__tags [data-tag="product-design"] { --wk-tag-ink: var(--wk-tag-pink); }
-
-.wk-card__tags [data-tag="ux-research"],
-.wk-card__tags [data-tag="ux-ui"]          { --wk-tag-ink: var(--wk-tag-green); }
-
-.wk-card__tags [data-tag="lxd"]            { --wk-tag-ink: var(--wk-tag-blue); }
-
-.wk-card__tags [data-tag="webdesign"]      { --wk-tag-ink: var(--wk-tag-orange); }
-
-.wk-card__tags [data-tag="wireframing"]    { --wk-tag-ink: var(--wk-tag-purple); }
-
-/* Not a discipline but a credit, and the one of these that is also on the
-   home: it keeps the hospital's blue it has over there, word for word. */
-.wk-card__tags [data-tag="in-house"]       { --wk-tag-ink: var(--wk-tag-blue); }
-
 
 /* --- the colour a card takes while it is read ------------------------------
    The home's own washes, one per project, named here: new-home.css already
