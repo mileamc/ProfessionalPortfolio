@@ -1,0 +1,851 @@
+/* ===========================================================================
+   MOSAICO — the case page
+
+   Same shape as the LUDIS case: a column of cards at .nh-shell's width, on
+   the site's own canvas, borrowing the tokens, the bar, the card surface, the
+   pill and the footer from new-home.css. This file lays out what is
+   particular to this case.
+
+   The difference is what fills the cards. Mosaico's study has no screenshots
+   yet, so every picture on this page is one of two things:
+
+     · .ms-slot      a waiting picture — a screenshot, a photograph of the
+                     guide, a participant's own artefact. It says what belongs
+                     in it and steps aside the moment an <img> is dropped in.
+
+     · everything    a diagram, a matrix, a run of steps, a set of boxes —
+       else          drawn in markup. It stays sharp at any size, reflows on a
+                     phone, and can be read aloud.
+=========================================================================== */
+
+.ms-page {
+    display: grid;
+    gap: var(--nh-gap);
+    padding-block: 0 var(--nh-space-16);
+}
+
+.ms-back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nh-space-2);
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--nh-base) var(--nh-ease);
+}
+
+.ms-back:hover { color: var(--nh-ink); }
+
+.ms-back:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.ms-card {
+    padding: var(--nh-card-pad);
+}
+
+
+/* --- type ----------------------------------------------------------------- */
+
+.ms-h2 {
+    margin: 0 0 var(--nh-space-5);
+    font-size: var(--nh-size-display);
+    font-weight: var(--nh-medium);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+    color: var(--nh-ink);
+    text-wrap: balance;
+}
+
+/* the line under a section title that names the thing itself */
+.ms-h3-lead {
+    margin: calc(-1 * var(--nh-space-2)) 0 var(--nh-space-5);
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-semibold);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+/* :where() keeps this at one class's weight, so anything named below wins on
+   order alone and no rule on this page needs !important */
+.ms-card :where(p) {
+    max-width: 62ch;
+    margin: 0 0 var(--nh-space-4);
+    font-size: var(--nh-size-body);
+    line-height: 1.75;
+    color: var(--nh-text);
+    text-wrap: pretty;
+}
+
+.ms-card :where(p:last-child) { margin-bottom: 0; }
+
+.ms-card strong {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+.ms-card h3 {
+    margin: 0 0 var(--nh-space-2);
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-semibold);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+.ms-card h4 {
+    margin: 0 0 var(--nh-space-2);
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-semibold);
+    line-height: 1.35;
+    color: var(--nh-ink);
+}
+
+.ms-para-lg {
+    font-size: clamp(1.0625rem, 0.92rem + 0.66vw, 1.5rem);
+    font-weight: var(--nh-light);
+    line-height: 1.5;
+    color: var(--nh-text);
+}
+
+.ms-list {
+    display: grid;
+    gap: var(--nh-space-2);
+    margin: 0 0 var(--nh-space-6);
+    padding-left: var(--nh-space-5);
+    max-width: 62ch;
+    font-size: var(--nh-size-body);
+    line-height: 1.75;
+    color: var(--nh-text);
+}
+
+
+/* --- a picture that is not here yet ----------------------------------------
+   A dashed field at the proportion the picture will have, saying what goes in
+   it. Put an <img> inside and the note stands down and the field becomes the
+   frame — no other change, and no broken-image icon in the meantime.
+--------------------------------------------------------------------------- */
+
+.ms-slot {
+    display: grid;
+    place-items: center;
+    aspect-ratio: var(--ratio, 16 / 9);
+    margin-block: var(--nh-space-6);
+    padding: var(--nh-space-6);
+    overflow: hidden;
+    border: 1px dashed var(--nh-line-strong);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 3%, #FFFFFF);
+}
+
+.ms-slot img {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ms-slot__note {
+    grid-area: 1 / 1;
+    max-width: 44ch;
+    margin: 0;
+    font-size: var(--nh-size-small);
+    line-height: 1.6;
+    text-align: center;
+    color: var(--nh-muted);
+}
+
+.ms-slot__note b {
+    display: block;
+    margin-bottom: var(--nh-space-1);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-ink);
+}
+
+/* Empty, it is a note rather than a picture, so it keeps the proportion but
+   never runs to a whole screenful of dashes. The cap lifts the moment a real
+   picture is in it and the slot goes back to the exact shape it reserved. */
+.ms-slot:not(:has(img)) {
+    max-height: 420px;
+}
+
+/* the picture arrived */
+.ms-slot:has(img) {
+    padding: 0;
+    border-style: none;
+    background: none;
+}
+
+.ms-slot:has(img) .ms-slot__note { display: none; }
+
+
+/* --- 1. the opening -------------------------------------------------------- */
+
+.ms-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
+    align-items: start;
+    gap: var(--nh-space-10);
+}
+
+.ms-hero__name {
+    margin: 0 0 var(--nh-space-6);
+    font-size: clamp(2.75rem, 1.6rem + 3.4vw, 4.5rem);
+    font-weight: var(--nh-semibold);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    color: var(--nh-ink);
+}
+
+.ms-lead {
+    font-size: clamp(1.0625rem, 0.92rem + 0.66vw, 1.5rem);
+    font-weight: var(--nh-light);
+    line-height: 1.5;
+    color: var(--nh-text);
+}
+
+.ms-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nh-space-2);
+    margin: 0 0 var(--nh-space-6);
+    padding: 0;
+    list-style: none;
+}
+
+.ms-tags [data-tag="discipline"] { --nh-tag-ink: var(--nh-tag-pink); --nh-tag-line: var(--nh-tag-pink-line); }
+.ms-tags [data-tag="craft"]      { --nh-tag-ink: var(--nh-tag-blue); --nh-tag-line: var(--nh-tag-blue-line); }
+.ms-tags [data-tag="status"]     { --nh-tag-ink: var(--nh-signal-text); --nh-tag-line: var(--nh-signal-line); }
+
+.ms-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nh-space-3);
+    margin-top: var(--nh-space-6);
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-medium);
+    color: var(--nh-ink);
+    text-decoration: none;
+}
+
+.ms-jump__mark {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 1px 2px rgba(15, 23, 34, 0.08), 0 4px 12px -6px rgba(15, 23, 34, 0.18);
+    transition: background-color var(--nh-base) ease, color var(--nh-base) ease,
+                transform var(--nh-base) var(--nh-ease);
+}
+
+.ms-jump__mark svg { width: 17px; height: 17px; }
+
+.ms-jump:hover .ms-jump__mark {
+    background: var(--nh-ink);
+    color: #FFFFFF;
+    transform: translateY(2px);
+}
+
+.ms-jump:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 4px;
+    border-radius: 999px;
+}
+
+/* the facts of the project, as a list of terms */
+.ms-meta {
+    display: grid;
+    gap: var(--nh-space-5);
+    margin: 0;
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.ms-meta dt {
+    margin-bottom: var(--nh-space-1);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-muted);
+}
+
+.ms-meta dd {
+    margin: 0;
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-medium);
+    line-height: 1.5;
+    color: var(--nh-ink);
+}
+
+
+/* --- 3. the question, and the flow under it -------------------------------- */
+
+.ms-question {
+    max-width: 44ch;
+    margin: var(--nh-space-6) 0;
+    padding-left: var(--nh-space-6);
+    border-left: 3px solid var(--nh-line-strong);
+}
+
+.ms-question p {
+    font-size: clamp(1.0625rem, 0.92rem + 0.5vw, 1.375rem);
+    font-weight: var(--nh-medium);
+    line-height: 1.45;
+    color: var(--nh-ink);
+}
+
+/* three boxes and the arrows between them */
+.ms-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: var(--nh-space-3);
+    margin: var(--nh-space-8) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ms-flow > li {
+    display: flex;
+    align-items: center;
+    gap: var(--nh-space-3);
+    flex: 1 1 180px;
+}
+
+.ms-flow__box {
+    display: grid;
+    place-items: center;
+    flex: 1 1 auto;
+    min-height: 76px;
+    padding: var(--nh-space-4) var(--nh-space-5);
+    border: 1px solid var(--nh-line);
+    border-radius: calc(var(--nh-radius-card) - 6px);
+    background: color-mix(in srgb, var(--nh-ink) 3%, #FFFFFF);
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-medium);
+    line-height: 1.35;
+    text-align: center;
+    color: var(--nh-ink);
+}
+
+/* where it arrives is the one that is filled in */
+.ms-flow__box--end {
+    border-color: transparent;
+    background: var(--nh-ink);
+    color: var(--nh-canvas);
+}
+
+.ms-flow > li:not(:last-child)::after {
+    content: "";
+    flex: 0 0 auto;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid var(--nh-line-strong);
+    border-right: 2px solid var(--nh-line-strong);
+    transform: rotate(45deg);
+}
+
+
+/* --- 4. the five stages ---------------------------------------------------- */
+
+.ms-strip {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--nh-space-3);
+    margin: var(--nh-space-8) 0 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+}
+
+.ms-strip > li {
+    position: relative;
+    padding: var(--nh-space-5) var(--nh-space-4);
+    border-radius: calc(var(--nh-radius-card) - 6px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.ms-strip b {
+    display: block;
+    margin-bottom: var(--nh-space-2);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.04em;
+    color: var(--nh-muted);
+}
+
+.ms-strip span {
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-semibold);
+    line-height: 1.3;
+    color: var(--nh-ink);
+}
+
+/* the run reads left to right: a thin rule joins one stage to the next */
+.ms-strip > li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: calc(-1 * var(--nh-space-3));
+    width: var(--nh-space-3);
+    height: 1px;
+    background: var(--nh-line-strong);
+}
+
+
+/* --- 5. the three methods -------------------------------------------------- */
+
+.ms-methods {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: var(--nh-space-6) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ms-methods > li {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+
+/* --- 6. the cohort ---------------------------------------------------------
+   Eight marks and two facts. Nothing is drawn about any one participant that
+   the study did not say, so the marks carry no labels.
+--------------------------------------------------------------------------- */
+
+.ms-cohort {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--nh-space-8);
+    margin-bottom: var(--nh-space-6);
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.ms-cohort__marks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nh-space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ms-cohort__marks > li {
+    width: 34px;
+    height: 44px;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--nh-ink) 16%, #FFFFFF);
+}
+
+.ms-cohort__count b {
+    font-size: clamp(2.25rem, 1.4rem + 2vw, 3rem);
+    font-weight: var(--nh-semibold);
+    letter-spacing: -0.03em;
+    color: var(--nh-ink);
+}
+
+.ms-cohort__count {
+    display: flex;
+    align-items: baseline;
+    gap: var(--nh-space-2);
+    margin-bottom: var(--nh-space-1);
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-medium);
+    color: var(--nh-ink);
+}
+
+.ms-cohort__range {
+    font-size: var(--nh-size-small);
+    color: var(--nh-muted);
+}
+
+
+/* --- 7. the four dimensions ------------------------------------------------ */
+
+.ms-matrix {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: var(--nh-space-6) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ms-matrix > li {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+
+/* --- 8. the counts ---------------------------------------------------------
+   Four out of eight, and the denominator is never dropped: a bare "5" would
+   say something the study did not.
+--------------------------------------------------------------------------- */
+
+.ms-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: var(--nh-space-6) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ms-stats > li {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.ms-stat__n {
+    display: flex;
+    align-items: baseline;
+    gap: var(--nh-space-2);
+    margin-bottom: var(--nh-space-3);
+}
+
+.ms-stat__n b {
+    font-size: clamp(2.5rem, 1.5rem + 2.4vw, 3.5rem);
+    font-weight: var(--nh-semibold);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--nh-ink);
+}
+
+.ms-stat__n span {
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-medium);
+    color: var(--nh-muted);
+}
+
+
+/* --- 9. an observation, and the 25 steps ----------------------------------- */
+
+.ms-obs + .ms-obs {
+    margin-top: var(--nh-space-12);
+    padding-top: var(--nh-space-10);
+    border-top: 1px solid var(--nh-line);
+}
+
+.ms-obs:first-of-type {
+    margin-top: var(--nh-space-8);
+}
+
+.ms-progress {
+    margin: var(--nh-space-6) 0 0;
+}
+
+.ms-progress__rail {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 56px;
+}
+
+/* each tick a little taller than the last: the run goes somewhere */
+.ms-progress__tick {
+    flex: 1 1 0;
+    border-radius: 3px;
+    background: color-mix(in srgb, var(--nh-ink) 14%, #FFFFFF);
+    height: 40%;
+}
+
+.ms-progress__tick:nth-child(n + 6)  { height: 52%; }
+.ms-progress__tick:nth-child(n + 11) { height: 64%; }
+.ms-progress__tick:nth-child(n + 16) { height: 76%; }
+.ms-progress__tick:nth-child(n + 21) { height: 88%; }
+.ms-progress__tick:last-child {
+    height: 100%;
+    background: var(--nh-ink);
+}
+
+.ms-progress figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--nh-space-3);
+    margin-top: var(--nh-space-3);
+    font-size: var(--nh-size-small);
+    color: var(--nh-muted);
+}
+
+.ms-progress figcaption b {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+
+/* --- 10. finding to direction ---------------------------------------------- */
+
+.ms-opps {
+    display: grid;
+    gap: var(--nh-gap);
+    margin: var(--nh-space-6) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ms-opps > li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--nh-space-3) var(--nh-space-5);
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.ms-opps b {
+    grid-row: 1 / span 2;
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-semibold);
+    letter-spacing: -0.02em;
+    color: color-mix(in srgb, var(--nh-ink) 36%, #FFFFFF);
+}
+
+.ms-opps h3 { margin: 0; }
+
+
+/* --- 11. the validation swap ----------------------------------------------- */
+
+.ms-swap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--nh-space-5);
+    margin: var(--nh-space-6) 0 0;
+}
+
+.ms-swap__side {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.ms-swap__label {
+    margin-bottom: var(--nh-space-4);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-muted);
+}
+
+.ms-swap__steps {
+    display: grid;
+    gap: var(--nh-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ms-swap__steps > li {
+    padding: var(--nh-space-3) var(--nh-space-4);
+    border: 1px solid var(--nh-line);
+    border-radius: 10px;
+    background: #FFFFFF;
+    font-size: var(--nh-size-small);
+    line-height: 1.4;
+    color: var(--nh-text);
+}
+
+/* the one that came out, and the one that went in — said by more than colour:
+   the first is struck through, the second is filled in */
+.ms-swap__steps > li.is-removed {
+    border-style: dashed;
+    background: none;
+    color: var(--nh-muted);
+    text-decoration: line-through;
+}
+
+.ms-swap__steps > li.is-added {
+    border-color: transparent;
+    background: var(--nh-ink);
+    font-weight: var(--nh-medium);
+    color: var(--nh-canvas);
+}
+
+.ms-swap__arrow {
+    margin: 0;
+    color: var(--nh-line-strong);
+}
+
+.ms-swap__arrow svg { width: 26px; height: 26px; }
+
+
+/* --- 12. finding beside decision ------------------------------------------- */
+
+.ms-pairs {
+    display: grid;
+    gap: var(--nh-gap);
+    margin: var(--nh-space-6) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ms-pairs > li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--nh-space-5);
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.ms-pairs__label {
+    margin-bottom: var(--nh-space-2);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-muted);
+}
+
+.ms-pairs__did p:last-child {
+    font-weight: var(--nh-medium);
+    color: var(--nh-ink);
+}
+
+.ms-pairs__arrow {
+    margin: 0;
+    color: var(--nh-line-strong);
+}
+
+.ms-pairs__arrow svg { width: 26px; height: 26px; }
+
+
+/* --- 13. where it goes next ------------------------------------------------ */
+
+.ms-road {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: var(--nh-space-6) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ms-road > li {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+
+/* --- 15. the sentence to keep ---------------------------------------------- */
+
+.ms-takeaway {
+    padding-block: var(--nh-space-12);
+}
+
+.ms-takeaway__head {
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-muted);
+}
+
+.ms-takeaway__line {
+    max-width: 34ch;
+    font-size: clamp(1.25rem, 0.95rem + 1.4vw, 2rem);
+    font-weight: var(--nh-light);
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+
+/* ===========================================================================
+   ON A PHONE
+
+   The site's own breakpoint. Every grid becomes one column, the flows turn to
+   run downward, and nothing is hidden.
+=========================================================================== */
+
+@media (max-width: 719.98px) {
+    .ms-hero,
+    .ms-methods,
+    .ms-matrix,
+    .ms-stats,
+    .ms-road {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ms-hero { gap: var(--nh-space-8); }
+
+    /* the five stages become a column, and the rule between them turns to
+       stand upright */
+    .ms-strip {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--nh-space-4);
+    }
+
+    .ms-strip > li:not(:last-child)::after {
+        top: auto;
+        right: auto;
+        bottom: calc(-1 * var(--nh-space-4));
+        left: var(--nh-space-6);
+        width: 1px;
+        height: var(--nh-space-4);
+    }
+
+    /* and the three boxes stack, with the arrow turned to point down */
+    .ms-flow > li {
+        flex: 1 1 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ms-flow__box { width: 100%; }
+
+    .ms-flow > li:not(:last-child)::after {
+        align-self: center;
+        transform: rotate(135deg);
+    }
+
+    /* before and after go one above the other, arrow between */
+    .ms-swap,
+    .ms-pairs > li {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: stretch;
+    }
+
+    .ms-swap__arrow,
+    .ms-pairs__arrow {
+        justify-self: center;
+        transform: rotate(90deg);
+    }
+
+    .ms-opps > li {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--nh-space-2);
+    }
+
+    .ms-opps b { grid-row: auto; }
+
+    /* twenty-five ticks in a hand's width are hairlines; fewer gaps keeps
+       them visible */
+    .ms-progress__rail { gap: 2px; height: 44px; }
+
+    .ms-cohort { gap: var(--nh-space-5); }
+
+    .ms-cohort__marks > li { width: 26px; height: 34px; }
+}

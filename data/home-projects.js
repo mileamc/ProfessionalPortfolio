@@ -68,7 +68,7 @@ window.homeProjects = {
             id: "mosaico",
             brief: { name: "MOSAICO", text: "A narrative writing companion designed to guide young learners through the creative process of developing stories." },
             title: "Mosaico",
-            href: null,          // existing page: case-mosaico-lp.html
+            href: "case-mosaico.html",
             size: "lead-below",
             frame: "custom",
             tone: null,          // null = the standard card grey

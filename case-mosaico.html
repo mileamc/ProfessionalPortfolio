@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Mosaico &mdash; Milena Caldas</title>
+<meta name="description" content="Mosaico: a structured writing tool for narrative development, evaluated over twelve months with eight writers and redesigned from what the study found."/>
+<meta name="theme-color" content="#FFFFFF"/>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/ui/favicon.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/ui/favicon-32.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500&amp;display=swap"/>
+<!-- The site's own language: new-home.css carries the tokens, the bar, the
+     card surface, the pill the tags are made of, the button and the footer.
+     case-mosaico.css only lays out what is particular to this case. -->
+<link rel="stylesheet" href="new-home.css?v=mosaico-1"/>
+<link rel="stylesheet" href="case-mosaico.css?v=mosaico-1"/>
+</head>
+<body class="nh">
+
+<a class="nh-skip" href="#case">Skip to content</a>
+
+<header class="nh-header">
+    <nav class="nh-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="work.html">Work</a>
+        <a aria-disabled="true">Contact</a>
+    </nav>
+</header>
+
+<main id="top">
+
+    <p class="nh-shell nh-kicker"><a class="ms-back" href="work.html"><span aria-hidden="true">&larr;</span> Selected work</a></p>
+
+    <!-- =====================================================================
+         PICTURES STILL TO COME
+
+         Every .ms-slot on this page is a waiting picture: a screenshot, a
+         photograph of the guide, or a participant's own artefact — the things
+         only the study itself can supply. Each one says what belongs in it.
+
+         To fill one, put the picture inside its slot:
+
+             <div class="ms-slot" style="--ratio: 16 / 9">
+                 <img src="imagesProjects/mosaico/product-showcase.jpg"
+                      alt="…" loading="lazy" decoding="async"/>
+                 <p class="ms-slot__note">…</p>
+             </div>
+
+         The note steps aside on its own once an <img> is there, and the
+         dashed box becomes the picture's frame. Nothing else changes.
+
+         Everything that is a diagram, a matrix, a sequence or a set of boxes
+         is drawn in markup further down instead — it stays sharp, it reflows
+         on a phone, and it can be read by a screen reader.
+    ===================================================================== -->
+
+    <div class="nh-shell ms-page" id="case">
+
+        <!-- ===============================================================
+             1 — What Mosaico is, and what I did on it.
+        =============================================================== -->
+        <article class="nh-card nh-card--content ms-card ms-hero" style="--i: 0" aria-labelledby="ms-title">
+
+            <div class="ms-hero__copy">
+                <h1 class="ms-hero__name" id="ms-title">Mosaico</h1>
+
+                <ul class="ms-tags">
+                    <li class="nh-tag" data-tag="discipline">UX research</li>
+                    <li class="nh-tag" data-tag="craft">Product design</li>
+                    <li class="nh-tag" data-tag="status">12 months</li>
+                </ul>
+
+                <p class="ms-lead">A structured writing tool designed to support narrative development and creative exploration.</p>
+
+                <a class="ms-jump" href="#product">
+                    <span class="ms-jump__mark" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 3.5v9M4.5 9 8 12.5 11.5 9"/></svg>
+                    </span>Read the case</a>
+            </div>
+
+            <dl class="ms-meta">
+                <div><dt>Role</dt><dd>UX Researcher &amp; Product Designer</dd></div>
+                <div><dt>Timeline</dt><dd>12 months</dd></div>
+                <div><dt>Methods</dt><dd>Digital Logbook &middot; Semi-structured Interviews &middot; QUIS</dd></div>
+                <div><dt>Focus</dt><dd>Learning Experience &middot; Usability &middot; Creative Writing &middot; User Research</dd></div>
+            </dl>
+
+        </article>
+
+        <!-- ===============================================================
+             2 — The product.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" id="product" style="--i: 1" aria-labelledby="ms-product-title">
+            <h2 class="ms-h2" id="ms-product-title">The product</h2>
+            <p class="ms-para-lg">Mosaico is a structured digital guide that helps writers develop narratives through a step-by-step creative process.</p>
+
+            <!-- picture: the product itself -->
+            <div class="ms-slot" style="--ratio: 16 / 9">
+                <p class="ms-slot__note"><b>Product showcase</b>Two or three screenshots of Mosaico, side by side: the guide, a writing activity, and the overall visual language.</p>
+            </div>
+
+            <p>The product breaks narrative development into 25 steps, guiding users from initial ideas to a developed story while allowing them to adapt the process to their own way of working.</p>
+        </section>
+
+        <!-- ===============================================================
+             3 — The challenge, and the question underneath it.
+             The diagram is drawn here, not exported.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 2" aria-labelledby="ms-challenge-title">
+            <h2 class="ms-h2" id="ms-challenge-title">The challenge</h2>
+            <p>Creative writing involves coordinating multiple elements &mdash; characters, plot, chronology, setting, and narrative progression.</p>
+            <p>The question was not simply whether users could follow the method, but:</p>
+
+            <blockquote class="ms-question">
+                <p>Could a structured process support creative writing without limiting individual ways of working?</p>
+            </blockquote>
+
+            <ol class="ms-flow" aria-label="From structure to individual adaptation">
+                <li><span class="ms-flow__box">Structure</span></li>
+                <li><span class="ms-flow__box">Creative process</span></li>
+                <li><span class="ms-flow__box ms-flow__box--end">Individual adaptation</span></li>
+            </ol>
+        </section>
+
+        <!-- ===============================================================
+             4 — My role, and the shape of the work.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 3" aria-labelledby="ms-role-title">
+            <h2 class="ms-h2" id="ms-role-title">My role</h2>
+            <p>I worked independently across the research and product design process, from defining the evaluation approach to translating findings into product improvements.</p>
+            <p>I was responsible for:</p>
+
+            <ul class="ms-list">
+                <li>Planning and conducting user research</li>
+                <li>Defining evaluation criteria and metrics</li>
+                <li>Collecting and analyzing qualitative and quantitative data</li>
+                <li>Identifying usability and learning barriers</li>
+                <li>Translating findings into product recommendations</li>
+                <li>Applying research insights to the product and visual language</li>
+            </ul>
+
+            <ol class="ms-strip" aria-label="The five stages of the work">
+                <li><b aria-hidden="true">01</b><span>Research</span></li>
+                <li><b aria-hidden="true">02</b><span>Evaluate</span></li>
+                <li><b aria-hidden="true">03</b><span>Analyze</span></li>
+                <li><b aria-hidden="true">04</b><span>Recommend</span></li>
+                <li><b aria-hidden="true">05</b><span>Redesign</span></li>
+            </ol>
+        </section>
+
+        <!-- ===============================================================
+             5 — How it was studied.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 4" aria-labelledby="ms-research-title">
+            <h2 class="ms-h2" id="ms-research-title">Research</h2>
+            <h3 class="ms-h3-lead">A longitudinal evaluation</h3>
+            <p>Instead of evaluating Mosaico through a single usability session, I followed participants over 12 months. The research combined three methods:</p>
+
+            <ul class="ms-methods">
+                <li>
+                    <h4>Digital Logbook</h4>
+                    <p>Ongoing documentation of participants&rsquo; experiences.</p>
+                </li>
+                <li>
+                    <h4>Semi-structured Interviews</h4>
+                    <p>End-of-study conversations about understanding, challenges, and adaptations.</p>
+                </li>
+                <li>
+                    <h4>QUIS Questionnaire</h4>
+                    <p>Measurement of satisfaction with the interaction experience.</p>
+                </li>
+            </ul>
+
+            <!-- picture: the instruments themselves -->
+            <div class="ms-slot" style="--ratio: 16 / 9">
+                <p class="ms-slot__note"><b>Research setup</b>The three instruments together: a digital logbook screen, interview notes, and the QUIS questionnaire or its results.</p>
+            </div>
+        </section>
+
+        <!-- ===============================================================
+             6 — Who took part. Drawn, not exported: the cohort is eight
+             marks and two facts, and nothing is claimed about any one of
+             them that the study did not say.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 5" aria-labelledby="ms-people-title">
+            <h2 class="ms-h2" id="ms-people-title">Participants</h2>
+
+            <div class="ms-cohort">
+                <ul class="ms-cohort__marks" aria-hidden="true">
+                    <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+                </ul>
+                <div class="ms-cohort__facts">
+                    <p class="ms-cohort__count"><b>8</b> participants</p>
+                    <p class="ms-cohort__range">20&ndash;52 years old</p>
+                </div>
+            </div>
+
+            <p>The group included both beginners and participants with previous creative writing experience.</p>
+        </section>
+
+        <!-- ===============================================================
+             7 — The four dimensions, as a matrix rather than a picture.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 6" aria-labelledby="ms-eval-title">
+            <h2 class="ms-h2" id="ms-eval-title">What I evaluated</h2>
+            <p>I evaluated Mosaico across four dimensions:</p>
+
+            <ul class="ms-matrix">
+                <li>
+                    <h3>Effectiveness</h3>
+                    <p>Could participants progress through the process independently?</p>
+                </li>
+                <li>
+                    <h3>Learnability</h3>
+                    <p>Could they understand the guide and its instructions?</p>
+                </li>
+                <li>
+                    <h3>Adaptability</h3>
+                    <p>Could they adjust the structure to their own creative process?</p>
+                </li>
+                <li>
+                    <h3>Satisfaction</h3>
+                    <p>Did the experience feel useful and appropriate for their needs?</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- ===============================================================
+             8 — What the numbers were. Four counts out of eight, drawn as
+             cards so the denominator is never lost.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 7" aria-labelledby="ms-findings-title">
+            <h2 class="ms-h2" id="ms-findings-title">Findings</h2>
+            <h3 class="ms-h3-lead">What the data showed</h3>
+            <p>The evaluation revealed a distinction between following the structured process and adapting it to individual workflows.</p>
+
+            <ul class="ms-stats">
+                <li>
+                    <p class="ms-stat__n"><b>5</b><span>/ 8</span></p>
+                    <h4>Completed at least 18 of 25 steps independently</h4>
+                    <p>All participants completed the timeline activity, indicating that the core process was accessible to most participants.</p>
+                </li>
+                <li>
+                    <p class="ms-stat__n"><b>5</b><span>/ 8</span></p>
+                    <h4>Understood the tool after one reading</h4>
+                    <p>Three participants needed to revisit parts of the material.</p>
+                </li>
+                <li>
+                    <p class="ms-stat__n"><b>7</b><span>/ 8</span></p>
+                    <h4>Recalled the names of the steps</h4>
+                    <p>However, only four could explain the purpose of each step, highlighting a gap between recognizing the structure and understanding its underlying logic.</p>
+                </li>
+                <li>
+                    <p class="ms-stat__n"><b>2</b><span>/ 8</span></p>
+                    <h4>Adapted the process to their own workflow</h4>
+                    <p>While most participants followed the proposed sequence, two modified the order or format of activities to meet their individual needs.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- ===============================================================
+             9 — Beyond the numbers. Four observations: the first is drawn,
+             the other three are participants' own work and wait for it.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 8" aria-labelledby="ms-beyond-title">
+            <h2 class="ms-h2" id="ms-beyond-title">Beyond the numbers</h2>
+            <p>The qualitative research helped explain how participants interacted with the structure.</p>
+
+            <div class="ms-obs">
+                <h3>The process supported progression</h3>
+                <p>Participants described the steps as interconnected and progressive, providing a logical path through narrative development.</p>
+
+                <!-- The 25 steps as a run, from one end to the other. The
+                     count is the study's; the names of the steps are not in
+                     this brief, so the run is drawn without them. -->
+                <figure class="ms-progress">
+                    <div class="ms-progress__rail" role="img" aria-label="A run of twenty-five steps, from initial ideas to a developed story">
+                        <span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span>
+                        <span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span>
+                        <span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span>
+                        <span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span>
+                        <span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span>
+                    </div>
+                    <figcaption><span>Initial ideas</span><b>25 steps</b><span>A developed story</span></figcaption>
+                </figure>
+            </div>
+
+            <div class="ms-obs">
+                <h3>Flexibility emerged through individual adaptations</h3>
+                <p>Although most participants followed the proposed process, two reorganized or modified activities. This demonstrated that adaptation was possible within the structure, rather than being a behavior shared across the entire group.</p>
+
+                <div class="ms-slot" style="--ratio: 4 / 3">
+                    <p class="ms-slot__note"><b>Participant artefact</b>One participant&rsquo;s own reorganized workflow &mdash; the order or format they changed. Anonymized, used with permission.</p>
+                </div>
+            </div>
+
+            <div class="ms-obs">
+                <h3>Creative expression extended beyond written text</h3>
+                <p>Participants explored alternative ways of recording ideas, including illustrations, showing that creative output was not limited to a single format.</p>
+
+                <div class="ms-slot" style="--ratio: 4 / 3">
+                    <p class="ms-slot__note"><b>Participant illustration</b>A drawing or other non-textual artefact made during the study. Anonymized, used with permission.</p>
+                </div>
+            </div>
+
+            <div class="ms-obs">
+                <h3>Educational applications emerged as an opportunity</h3>
+                <p>Teacher feedback suggested potential for using Mosaico in classroom settings, creating an opportunity for future research into facilitated group experiences.</p>
+
+                <div class="ms-slot" style="--ratio: 4 / 3">
+                    <p class="ms-slot__note"><b>Teacher feedback</b>The classroom context, and the teacher&rsquo;s own words. The quote is not in this brief &mdash; it goes here once it is to hand.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===============================================================
+             10 — Finding to direction. Four rows, drawn.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 9" aria-labelledby="ms-opps-title">
+            <h2 class="ms-h2" id="ms-opps-title">From research to product</h2>
+            <p>The findings highlighted opportunities to improve the balance between structured guidance, comprehension, and flexibility.</p>
+
+            <ol class="ms-opps">
+                <li>
+                    <b aria-hidden="true">01</b>
+                    <h3>Improve onboarding and comprehension</h3>
+                    <p>Participants could often recognize the steps without fully understanding their purpose. The introductory material and explanations needed to communicate the logic of the process more clearly.</p>
+                </li>
+                <li>
+                    <b aria-hidden="true">02</b>
+                    <h3>Support flexible workflows</h3>
+                    <p>While most participants followed the proposed sequence, some adapted activities to their own needs. This reinforced the value of allowing flexibility within a structured method.</p>
+                </li>
+                <li>
+                    <b aria-hidden="true">03</b>
+                    <h3>Reconsider external validation</h3>
+                    <p>Participant feedback questioned the role of external reader validation, informing changes to how reflection and validation were integrated into the process.</p>
+                </li>
+                <li>
+                    <b aria-hidden="true">04</b>
+                    <h3>Reduce perceived complexity</h3>
+                    <p>The visual language and terminology could be refined to make the guide easier to approach and understand.</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ===============================================================
+             11 — What I changed. Two of the three want a picture of the
+             material; the validation swap is a flow, so it is drawn.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 10" aria-labelledby="ms-changes-title">
+            <h2 class="ms-h2" id="ms-changes-title">Design changes</h2>
+
+            <div class="ms-obs">
+                <h3><span aria-hidden="true">01 &mdash;</span> Simplified introduction</h3>
+                <p>I rewrote the introductory content using clearer, more approachable language and reduced unnecessary technical terminology.</p>
+
+                <div class="ms-slot" style="--ratio: 16 / 9">
+                    <p class="ms-slot__note"><b>Before and after</b>The original introduction beside the rewritten one, so the change in language is readable.</p>
+                </div>
+            </div>
+
+            <div class="ms-obs">
+                <h3><span aria-hidden="true">02 &mdash;</span> Restructured validation</h3>
+                <p>Research feedback led me to rethink the role of external validation within the process. I removed and reorganized validation steps, introducing <strong>Internal Validation</strong> as a stronger point of reflection within the writing process.</p>
+
+                <!-- The swap itself, drawn: what came out and what went in. -->
+                <div class="ms-swap">
+                    <div class="ms-swap__side ms-swap__side--was">
+                        <p class="ms-swap__label">Before</p>
+                        <ol class="ms-swap__steps">
+                            <li>Writing process</li>
+                            <li class="is-removed">External reader validation</li>
+                            <li>Revision</li>
+                        </ol>
+                    </div>
+                    <p class="ms-swap__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+                    </p>
+                    <div class="ms-swap__side ms-swap__side--is">
+                        <p class="ms-swap__label">After</p>
+                        <ol class="ms-swap__steps">
+                            <li>Writing process</li>
+                            <li class="is-added">Internal validation</li>
+                            <li>Revision</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ms-obs">
+                <h3><span aria-hidden="true">03 &mdash;</span> Updated visual language</h3>
+                <p>I refined the interface and guide through:</p>
+                <ul class="ms-list">
+                    <li>More accessible terminology</li>
+                    <li>A clearer visual hierarchy</li>
+                    <li>Colors and supporting graphics</li>
+                    <li>Simpler presentation of instructions</li>
+                </ul>
+
+                <div class="ms-slot" style="--ratio: 16 / 9">
+                    <p class="ms-slot__note"><b>The redesigned guide</b>The strongest of the new screens or pages, showing the refreshed visual language.</p>
+                </div>
+
+                <p>The goal was to make the experience easier to understand while preserving the structure of the creative writing methodology.</p>
+            </div>
+        </section>
+
+        <!-- ===============================================================
+             12 — Finding beside decision, three times. Drawn.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 11" aria-labelledby="ms-changed-title">
+            <h2 class="ms-h2" id="ms-changed-title">What changed</h2>
+            <p>The research informed changes to make Mosaico&rsquo;s structured process clearer, more approachable, and better suited to different ways of working.</p>
+
+            <ul class="ms-pairs">
+                <li>
+                    <div class="ms-pairs__find">
+                        <p class="ms-pairs__label">Research finding</p>
+                        <p>Participants could follow the proposed process, but some adapted the order or format of activities.</p>
+                    </div>
+                    <p class="ms-pairs__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+                    </p>
+                    <div class="ms-pairs__did">
+                        <p class="ms-pairs__label">Design response</p>
+                        <p>Refine the experience to better accommodate flexibility within the structured method.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="ms-pairs__find">
+                        <p class="ms-pairs__label">Research finding</p>
+                        <p>Some participants recognized the steps without fully understanding their purpose.</p>
+                    </div>
+                    <p class="ms-pairs__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+                    </p>
+                    <div class="ms-pairs__did">
+                        <p class="ms-pairs__label">Design response</p>
+                        <p>Improve introductory content, terminology, and visual hierarchy to support comprehension.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="ms-pairs__find">
+                        <p class="ms-pairs__label">Research finding</p>
+                        <p>Participants questioned the role of external validation.</p>
+                    </div>
+                    <p class="ms-pairs__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+                    </p>
+                    <div class="ms-pairs__did">
+                        <p class="ms-pairs__label">Design response</p>
+                        <p>Reorganize validation steps and introduce Internal Validation to better align with the observed needs.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- ===============================================================
+             13 — Where it goes next. Drawn.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 12" aria-labelledby="ms-next-title">
+            <h2 class="ms-h2" id="ms-next-title">Next steps</h2>
+            <p>The research also identified opportunities for further product development.</p>
+
+            <ul class="ms-road">
+                <li>
+                    <h3>Educational testing</h3>
+                    <p>Evaluate Mosaico in teacher-facilitated classroom settings.</p>
+                </li>
+                <li>
+                    <h3>Digital experience</h3>
+                    <p>Continue refining the interface and instructions.</p>
+                </li>
+                <li>
+                    <h3>Broader research</h3>
+                    <p>Test the method with more specific audiences and writing contexts.</p>
+                </li>
+                <li>
+                    <h3>Usability validation</h3>
+                    <p>Complement longitudinal research with moderated usability testing, Think-Aloud, and standardized usability measures.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- ===============================================================
+             14 — What it came to.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card" style="--i: 13" aria-labelledby="ms-outcome-title">
+            <h2 class="ms-h2" id="ms-outcome-title">Outcome</h2>
+            <p>The evaluation showed that most participants could progress through Mosaico&rsquo;s structured writing process, while a smaller number adapted activities to their individual workflows.</p>
+            <p>The research identified opportunities to improve onboarding, clarify the purpose of each step, and make the experience more flexible and approachable.</p>
+            <p>I translated these findings into changes to the introduction, validation structure, and visual language, using participant feedback to guide product improvements.</p>
+            <p>The study also highlighted opportunities to investigate how structured creative tools can support different learning needs and educational contexts.</p>
+
+            <div class="ms-slot" style="--ratio: 16 / 9">
+                <p class="ms-slot__note"><b>Final showcase</b>The three or four strongest screens or artefacts, composed together &mdash; the last thing a reader sees of the product.</p>
+            </div>
+        </section>
+
+        <!-- ===============================================================
+             15 — The one sentence to keep.
+        =============================================================== -->
+        <section class="nh-card nh-card--content ms-card ms-takeaway" style="--i: 14" aria-labelledby="ms-takeaway-title">
+            <h2 class="ms-h2 ms-takeaway__head" id="ms-takeaway-title">Key takeaway</h2>
+            <p class="ms-takeaway__line">A structured learning experience can provide guidance while leaving room for individual ways of working. The challenge is to make both the structure and its flexibility understandable to users.</p>
+        </section>
+
+    </div>
+
+</main>
+
+<footer class="nh-footer">
+    <div class="nh-shell nh-footer__inner">
+        <p>&copy; 2026 Milena Caldas</p>
+    </div>
+</footer>
+
+<script src="scripts/new-home.js?v=mosaico-1"></script>
+</body>
+</html>

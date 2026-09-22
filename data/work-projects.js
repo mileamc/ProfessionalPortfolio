@@ -26,6 +26,7 @@ window.workProjects = [
     {
         id: "mosaico",
         name: "MOSAICO",
+        href: "case-mosaico.html",
         desc: "A narrative writing companion designed to guide young learners through the creative process of developing stories.",
         cover: { src: "assets/capas-work/capa-mosaico.jpeg", w: 1024, h: 1024 },
         tags: [
