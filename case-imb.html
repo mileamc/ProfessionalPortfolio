@@ -11,8 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500&amp;display=swap"/>
-<link rel="stylesheet" href="new-home.css?v=nommu-1"/>
-<link rel="stylesheet" href="case-imb.css?v=nommu-1"/>
+<link rel="stylesheet" href="new-home.css?v=head-1"/>
+<link rel="stylesheet" href="case-imb.css?v=head-1"/>
 </head>
 <body class="nh">
 
@@ -45,21 +45,37 @@
         <!-- ===============================================================
              1 — What it is, and the way to see it.
         =============================================================== -->
-        <article class="nh-card nh-card--content im-card im-hero" style="--i: 0" aria-labelledby="im-title">
-            <h1 class="im-hero__name" id="im-title">IMB</h1>
+        <!-- The header every case opens on. The two paragraphs that used to
+             open "The company" are its description and context now — moved,
+             not copied. -->
+        <header class="nh-card nh-card--content nh-casehead" style="--i: 0" aria-labelledby="im-title">
+            <h1 class="nh-casehead__name" id="im-title">IMB</h1>
+            <p class="nh-casehead__tagline">A technical catalogue for people who buy machines, not websites.</p>
 
-            <ul class="nh-termlist im-terms">
-                <li>UX/UI</li>
-                <li>Webdesign</li>
-                <li>Shipped</li>
-            </ul>
+            <div class="nh-casehead__cols">
+                <dl class="nh-casehead__meta">
+                    <div><dt>My role</dt><dd>UX/UI &amp; Webdesign<small>Research, architecture, components, front-end</small></dd></div>
+                    <div><dt>Team</dt><dd>Pedro Gradowski</dd></div>
+                    <div><dt>Tools</dt><dd>Figma, Claude Code</dd></div>
+                    <div><dt>Timeline</dt><dd>Two months &middot; Shipped</dd></div>
+                </dl>
 
-            <p class="im-lead">A technical catalogue for people who buy machines, not websites.</p>
+                <div class="nh-casehead__blocks">
+                    <div>
+                        <p class="nh-casehead__label">Description</p>
+                        <p>IMB has been manufacturing concrete extruders and pavers since 1992, from a factory in southern Brazil. Their equipment built the <strong>Rodoanel</strong> ring road in S&atilde;o Paulo and the <strong>Guaratuba</strong> bridge in Paran&aacute;.</p>
+                    </div>
+                    <div>
+                        <p class="nh-casehead__label">Context</p>
+                        <p>Their website was a Wix page with a duplicated menu, no technical specs, no lead form, and no way to compare models. <strong>A buyer researching a machine worth hundreds of thousands had less information available than someone shopping for a kettle.</strong></p>
+                    </div>
+                </div>
+            </div>
 
-            <a class="nh-btn" href="https://imb-brasil.com.br/index.html" target="_blank" rel="noopener noreferrer">
+            <a class="nh-btn im-visit" href="https://imb-brasil.com.br/index.html" target="_blank" rel="noopener noreferrer">
                 Visit the live site<span class="nh-btn__ext" aria-hidden="true">&#8599;</span><span class="nh-visually-hidden"> (opens in a new tab)</span>
             </a>
-        </article>
+        </header>
 
         <!-- ===============================================================
              2 — The site itself.
@@ -77,7 +93,6 @@
         =============================================================== -->
         <section class="nh-card nh-card--content im-card" style="--i: 2" aria-labelledby="im-company-title">
             <h2 class="im-h2" id="im-company-title">The company</h2>
-            <p>IMB has been manufacturing concrete extruders and pavers since 1992, from a factory in southern Brazil. Their equipment built the <strong>Rodoanel</strong> ring road in S&atilde;o Paulo and the <strong>Guaratuba</strong> bridge in Paran&aacute;.</p>
 
             <ul class="im-figures">
                 <li><b>1992</b><span>manufacturing since</span></li>
@@ -85,8 +100,6 @@
                 <li><b>15,000<i>+</i></b><span>machines produced</span></li>
                 <li><b>40<i>+</i></b><span>countries served</span></li>
             </ul>
-
-            <p>Their website was a Wix page with a duplicated menu, no technical specs, no lead form, and no way to compare models. <strong>A buyer researching a machine worth hundreds of thousands had less information available than someone shopping for a kettle.</strong></p>
         </section>
 
         <!-- ===============================================================
@@ -334,6 +347,6 @@
     </div>
 </footer>
 
-<script src="scripts/new-home.js?v=nommu-1"></script>
+<script src="scripts/new-home.js?v=head-1"></script>
 </body>
 </html>

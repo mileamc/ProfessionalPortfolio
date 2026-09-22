@@ -172,29 +172,14 @@
 .im-slot:has(img) .im-slot__note { display: none; }
 
 
-/* --- 1. the opening -------------------------------------------------------- */
+/* --- the way to the live site ----------------------------------------------
+   The header is the shared component now (section 10c of new-home.css), so
+   all this page says about its opening is where the one button stands.
+--------------------------------------------------------------------------- */
 
-.im-hero__name {
-    margin: 0 0 var(--nh-space-5);
-    font-size: clamp(2.75rem, 1.6rem + 3.4vw, 4.5rem);
-    font-weight: var(--nh-semibold);
-    line-height: 1.02;
-    letter-spacing: -0.04em;
-    color: var(--nh-ink);
+.im-visit {
+    margin-top: var(--nh-space-8);
 }
-
-.im-terms { margin-bottom: var(--nh-space-6); }
-
-.im-lead {
-    max-width: 30ch !important;
-    font-size: clamp(1.25rem, 0.95rem + 1.4vw, 2rem);
-    font-weight: var(--nh-light);
-    line-height: 1.35;
-    letter-spacing: -0.02em;
-    color: var(--nh-ink);
-}
-
-.im-hero .nh-btn { margin-top: var(--nh-space-8); }
 
 
 /* --- 3. the figures -------------------------------------------------------- */

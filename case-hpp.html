@@ -11,8 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500&amp;display=swap"/>
-<link rel="stylesheet" href="new-home.css?v=nommu-1"/>
-<link rel="stylesheet" href="case-hpp.css?v=nommu-1"/>
+<link rel="stylesheet" href="new-home.css?v=head-1"/>
+<link rel="stylesheet" href="case-hpp.css?v=head-1"/>
 </head>
 <body class="nh">
 
@@ -45,19 +45,36 @@
         <!-- ===============================================================
              The opening.
         =============================================================== -->
-        <article class="nh-card nh-card--content pp-card pp-hero" style="--i: 0" aria-labelledby="pp-title">
-            <h1 class="pp-hero__name" id="pp-title">our landing pages, four different reasons someone gives</h1>
+        <!-- The header every case opens on. The line the brief opened with is
+             the tagline; what followed it is the description and context. -->
+        <header class="nh-card nh-card--content nh-casehead" style="--i: 0" aria-labelledby="pp-title">
+            <h1 class="nh-casehead__name" id="pp-title">HPP</h1>
+            <p class="nh-casehead__tagline">our landing pages, four different reasons someone gives</p>
 
-            <blockquote class="pp-intro">
-                <p>In-house design work for Hospital Pequeno Pr&iacute;ncipe &mdash; Brazil&rsquo;s largest exclusively pediatric hospital. <strong>The projects are the hospital&rsquo;s; the design decisions are mine.</strong></p>
-            </blockquote>
+            <div class="nh-casehead__cols">
+                <dl class="nh-casehead__meta">
+                    <div><dt>My role</dt><dd>In-house Designer<small>Design and front-end delivery</small></dd></div>
+                    <div><dt>Team</dt><dd>Communications and marketing<small>Copy, approved by each department&rsquo;s director</small></dd></div>
+                    <div><dt>Tools</dt><dd>RD Station</dd></div>
+                    <div><dt>Timeline</dt><dd>One to two weeks per page</dd></div>
+                </dl>
 
-            <p>Design and front-end delivery, one to two weeks per page, inside a platform that didn&rsquo;t want to do half of what the briefs asked for.</p>
+                <div class="nh-casehead__blocks">
+                    <div>
+                        <p class="nh-casehead__label">Description</p>
+                        <p>In-house design work for Hospital Pequeno Pr&iacute;ncipe &mdash; Brazil&rsquo;s largest exclusively pediatric hospital. <strong>The projects are the hospital&rsquo;s; the design decisions are mine.</strong></p>
+                    </div>
+                    <div>
+                        <p class="nh-casehead__label">Context</p>
+                        <p>Design and front-end delivery, one to two weeks per page, inside a platform that didn&rsquo;t want to do half of what the briefs asked for.</p>
+                    </div>
+                </div>
+            </div>
 
             <aside class="pp-aside">
                 <p>The hospital&rsquo;s landing pages drew <strong>~98,000 visitors</strong> and <strong>~17,700 leads</strong> in H1 2026.</p>
             </aside>
-        </article>
+        </header>
 
         <!-- ===============================================================
              02
@@ -259,6 +276,6 @@
     </div>
 </footer>
 
-<script src="scripts/new-home.js?v=nommu-1"></script>
+<script src="scripts/new-home.js?v=head-1"></script>
 </body>
 </html>

@@ -194,28 +194,10 @@
 
 /* --- the opening ----------------------------------------------------------- */
 
-.pp-hero__name {
-    max-width: 22ch;
-    margin: 0 0 var(--nh-space-6);
-    font-size: clamp(2rem, 1.2rem + 2.4vw, 3.25rem);
-    font-weight: var(--nh-semibold);
-    line-height: 1.08;
-    letter-spacing: -0.035em;
-    color: var(--nh-ink);
-    text-wrap: balance;
-}
-
-.pp-intro {
-    max-width: 62ch;
-    margin: 0 0 var(--nh-space-6);
-    padding-left: var(--nh-space-6);
-    border-left: 3px solid var(--nh-mark-ink);
-}
-
-.pp-intro p {
-    font-size: var(--nh-size-card-title) !important;
-    font-weight: var(--nh-light);
-    line-height: 1.45 !important;
+/* The header is the shared component now (section 10c of new-home.css). The
+   figures the case opens on stay under it, inside the same card. */
+.nh-casehead .pp-aside {
+    margin-top: var(--nh-space-8);
 }
 
 
