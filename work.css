@@ -126,9 +126,10 @@
    appears and a new card picks its colours up without being told. The three
    are dealt so that no card repeats one. */
 .wk-list {
-    --wk-tag-pink:  #B42E6E;
-    --wk-tag-green: var(--nh-signal-text);   /* the availability tag's green */
-    --wk-tag-blue:  #1560A8;                 /* the laptop's tag's blue */
+    --wk-tag-pink:   #B42E6E;
+    --wk-tag-green:  var(--nh-signal-text);  /* the availability tag's green */
+    --wk-tag-blue:   #1560A8;                /* the laptop's tag's blue */
+    --wk-tag-purple: #6B58A6;                /* the purple the phone is built on */
 }
 
 .wk-card__tags .nh-tag {
@@ -140,9 +141,14 @@
 .wk-card__tags [data-tag="ux-research"],
 .wk-card__tags [data-tag="ux-ui"]          { --nh-tag-ink: var(--wk-tag-green); }
 
-.wk-card__tags [data-tag="wireframing"],
 .wk-card__tags [data-tag="lxd"],
 .wk-card__tags [data-tag="webdesign"]      { --nh-tag-ink: var(--wk-tag-blue); }
+
+.wk-card__tags [data-tag="wireframing"]    { --nh-tag-ink: var(--wk-tag-purple); }
+
+/* Not a discipline but a credit, and the one tag here that is also on the home:
+   it keeps the hospital's blue it has over there, word for word. */
+.wk-card__tags [data-tag="in-house"]       { --nh-tag-ink: var(--wk-tag-blue); }
 
 
 /* --- the colour a card takes while it is read ------------------------------
