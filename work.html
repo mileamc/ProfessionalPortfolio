@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Work &mdash; Milena Caldas</title>
+<meta name="description" content="The projects Milena Caldas has designed — product design, learning experience design and interface work, with what each one was."/>
+<meta name="theme-color" content="#FFFFFF"/>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/ui/favicon.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/ui/favicon-32.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500&amp;display=swap"/>
+<!-- Same visual language as the home page: new-home.css carries the tokens,
+     the navigation, the card surface, the pill the tags are made of and the
+     arrow in a card's corner. work.css only lays out this page's list.
+     Neither file is changed by this page. -->
+<link rel="stylesheet" href="new-home.css?v=work-1"/>
+<link rel="stylesheet" href="work.css?v=work-1"/>
+</head>
+<body class="nh">
+
+<a class="nh-skip" href="#work">Skip to content</a>
+
+<!-- The same bar as the home page's, saying which page this is: Work stays
+     lit here, and Contact, which has no page yet, keeps its place without
+     leading anywhere. -->
+<header class="nh-header">
+    <nav class="nh-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="work.html" aria-current="page">Work<span class="nh-nav__pill" aria-hidden="true"></span></a>
+        <a aria-disabled="true">Contact</a>
+    </nav>
+</header>
+
+<main id="top">
+
+    <h1 class="nh-visually-hidden">Work</h1>
+
+    <!-- A line over the list, at its left edge: what the page is. -->
+    <p class="nh-shell nh-kicker">Selected work</p>
+
+    <!-- One card per project, lying on its side: the square where the
+         photograph will go, what the project is, and the tags. The arrow in
+         the top corner fills in while the pointer is anywhere on the card.
+
+         None of the five leads anywhere yet: no case page exists to lead to.
+         Each card is already the link, so a project gets one by putting the
+         page's name in its href and dropping role and aria-disabled. -->
+    <div class="nh-shell wk-list" id="work">
+
+        <article class="nh-card nh-card--content wk-card" data-project="ludis" aria-labelledby="wk-ludis">
+
+            <!-- The photograph goes in here when there is one, and the name
+                 behind it steps aside on its own:
+                 <img src="imagesProjects/work/ludis.jpg" alt=""/> -->
+            <div class="wk-card__shot">
+                <span class="wk-card__shot-name">LUDIS</span>
+            </div>
+
+            <div class="wk-card__text">
+                <h2 class="wk-card__name" id="wk-ludis">LUDIS</h2>
+                <p class="wk-card__desc">A sports management app designed to help teams organize their activities and manage their sports experiences.</p>
+                <ul class="wk-card__tags">
+                <li class="nh-tag">Product Design</li>
+                <li class="nh-tag">UX Research</li>
+                <li class="nh-tag">Wireframing</li>
+                </ul>
+            </div>
+
+            <a class="nh-card__link" role="link" aria-label="Open LUDIS" aria-disabled="true"><span class="nh-card__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"/></svg></span></a>
+
+        </article>
+
+        <article class="nh-card nh-card--content wk-card" data-project="mosaico" aria-labelledby="wk-mosaico">
+
+            <!-- The photograph goes in here when there is one, and the name
+                 behind it steps aside on its own:
+                 <img src="imagesProjects/work/mosaico.jpg" alt=""/> -->
+            <div class="wk-card__shot">
+                <span class="wk-card__shot-name">MOSAICO</span>
+            </div>
+
+            <div class="wk-card__text">
+                <h2 class="wk-card__name" id="wk-mosaico">MOSAICO</h2>
+                <p class="wk-card__desc">A narrative writing companion designed to guide young learners through the creative process of developing stories.</p>
+                <ul class="wk-card__tags">
+                <li class="nh-tag">LXD</li>
+                <li class="nh-tag">UX Research</li>
+                <li class="nh-tag">Product Design</li>
+                </ul>
+            </div>
+
+            <a class="nh-card__link" role="link" aria-label="Open MOSAICO" aria-disabled="true"><span class="nh-card__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"/></svg></span></a>
+
+        </article>
+
+        <article class="nh-card nh-card--content wk-card" data-project="imb" aria-labelledby="wk-imb">
+
+            <!-- The photograph goes in here when there is one, and the name
+                 behind it steps aside on its own:
+                 <img src="imagesProjects/work/imb.jpg" alt=""/> -->
+            <div class="wk-card__shot">
+                <span class="wk-card__shot-name">IMB</span>
+            </div>
+
+            <div class="wk-card__text">
+                <h2 class="wk-card__name" id="wk-imb">IMB</h2>
+                <p class="wk-card__desc">A corporate website designed to communicate IMB&#39;s services and strengthen its digital presence through a clear and intuitive experience.</p>
+                <ul class="wk-card__tags">
+                <li class="nh-tag">UX/UI</li>
+                <li class="nh-tag">Webdesign</li>
+                </ul>
+            </div>
+
+            <a class="nh-card__link" role="link" aria-label="Open IMB" aria-disabled="true"><span class="nh-card__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"/></svg></span></a>
+
+        </article>
+
+        <article class="nh-card nh-card--content wk-card" data-project="hpp" aria-labelledby="wk-hpp">
+
+            <!-- The photograph goes in here when there is one, and the name
+                 behind it steps aside on its own:
+                 <img src="imagesProjects/work/hpp.jpg" alt=""/> -->
+            <div class="wk-card__shot">
+                <span class="wk-card__shot-name">HPP</span>
+            </div>
+
+            <div class="wk-card__text">
+                <h2 class="wk-card__name" id="wk-hpp">HPP</h2>
+                <p class="wk-card__desc">A collection of landing pages designed to support external communication and connect audiences with healthcare and institutional initiatives.</p>
+                <ul class="wk-card__tags">
+                <li class="nh-tag">UX/UI</li>
+                <li class="nh-tag">Webdesign</li>
+                </ul>
+            </div>
+
+            <a class="nh-card__link" role="link" aria-label="Open HPP" aria-disabled="true"><span class="nh-card__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"/></svg></span></a>
+
+        </article>
+
+        <article class="nh-card nh-card--content wk-card" data-project="nommu" aria-labelledby="wk-nommu">
+
+            <!-- The photograph goes in here when there is one, and the name
+                 behind it steps aside on its own:
+                 <img src="imagesProjects/work/nommu.jpg" alt=""/> -->
+            <div class="wk-card__shot">
+                <span class="wk-card__shot-name">NOMMU</span>
+            </div>
+
+            <div class="wk-card__text">
+                <h2 class="wk-card__name" id="wk-nommu">NOMMU</h2>
+                <p class="wk-card__desc">A social gastronomic diary designed to help people document, evaluate, and share their dining experiences with friends.</p>
+                <ul class="wk-card__tags">
+                <li class="nh-tag">Product Design</li>
+                <li class="nh-tag">UX/UI</li>
+                <li class="nh-tag">Wireframing</li>
+                </ul>
+            </div>
+
+            <a class="nh-card__link" role="link" aria-label="Open NOMMU" aria-disabled="true"><span class="nh-card__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"/></svg></span></a>
+
+        </article>
+
+    </div>
+
+</main>
+
+<footer class="nh-footer">
+    <div class="nh-shell nh-footer__inner">
+        <p>&copy; 2026 Milena Caldas</p>
+    </div>
+</footer>
+
+<!-- Only the navigation's own script is wanted here: everything else
+     new-home.js sets up is keyed to markup this page does not carry, so it
+     does nothing. The home's veil and the line under a card come from
+     scripts/card-brief.js, which is deliberately not loaded. -->
+<script src="scripts/new-home.js?v=work-1"></script>
+</body>
+</html>

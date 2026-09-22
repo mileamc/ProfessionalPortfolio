@@ -1,0 +1,154 @@
+/* ===========================================================================
+   WORK — the list of projects on work.html
+
+   The page borrows everything it can from new-home.css: the tokens, the
+   floating navigation, the card surface and shadow, the pill the tags are
+   made of, the arrow in a card's corner, and the footer. This file only does
+   what is particular to this page — one card per project, lying on its side
+   and running the width of the column the rest of the site keeps.
+
+   Desktop only for now, like the home page's product cards.
+=========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   The list
+
+   A single column, the same width, gutters and gap as the home's grid, so the
+   cards line up with everything else on the site.
+--------------------------------------------------------------------------- */
+
+.wk-list {
+    display: grid;
+    gap: var(--nh-gap);
+    padding-block: var(--nh-nav-clear) var(--nh-space-16);
+}
+
+.nh-kicker + .wk-list {
+    padding-block-start: 0;
+}
+
+
+/* ---------------------------------------------------------------------------
+   A project
+
+   A square on the left and what there is to say on the right, with the arrow
+   in the top corner. The square's side is what sets the card's depth: the
+   text is shorter than it, so the card is as deep as the photograph asks.
+--------------------------------------------------------------------------- */
+
+/* The card carries nh-card--content as well: over there that is the card whose
+   height comes from what is inside it rather than from the grid, which is
+   exactly this card, and it is what keeps new-home.css from making it a size
+   container — a container of that kind is sized without regard to its
+   contents, and this one has nothing else to be sized by. */
+.wk-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--nh-card-pad);
+    padding: var(--nh-card-pad);
+    /* room at the end of the line for the arrow, so a long word never runs
+       under it */
+    padding-right: calc(2 * var(--nh-chrome-inset) + var(--nh-arrow));
+}
+
+/* The photograph, until there is one. Drop an <img> into the square and it
+   takes over; the name behind it steps aside on its own. */
+.wk-card__shot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: clamp(140px, 14vw, 200px);
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: calc(var(--nh-radius-card) - 6px);
+    background: color-mix(in srgb, var(--nh-ink) 7%, #FFFFFF);
+}
+
+.wk-card__shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.wk-card__shot-name {
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--nh-muted) 70%, #FFFFFF);
+}
+
+.wk-card__shot:has(img) .wk-card__shot-name {
+    display: none;
+}
+
+
+/* --- what the project is --------------------------------------------------- */
+
+.wk-card__text {
+    display: grid;
+    justify-items: start;
+    gap: var(--nh-space-3);
+}
+
+.wk-card__name {
+    margin: 0;
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-semibold);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+.wk-card__desc {
+    max-width: 52ch;
+    margin: 0;
+    font-size: var(--nh-size-body);
+    line-height: 1.55;
+    color: var(--nh-text);
+}
+
+.wk-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nh-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* the same pill as the availability tag and the one on the laptop's card,
+   in the portfolio's own slate rather than a project's colour */
+.wk-card__tags .nh-tag {
+    --nh-tag-ink:  var(--nh-accent);
+    --nh-tag-line: color-mix(in srgb, var(--nh-accent) 45%, transparent);
+}
+
+
+/* --- the arrow ------------------------------------------------------------
+   The home's arrow, moved to the top corner. Here it answers the card rather
+   than itself: the pointer anywhere on the card fills it in, and that is the
+   whole of what it does — this page has no veil and nothing to say under a
+   card. scripts/card-brief.js, which is what draws those, is not loaded here.
+--------------------------------------------------------------------------- */
+
+.wk-card .nh-card__arrow {
+    top: var(--nh-chrome-inset);
+    right: var(--nh-chrome-inset);
+    bottom: auto;
+    left: auto;
+}
+
+.wk-card:hover .nh-card__arrow,
+.wk-card:has(.nh-card__link:focus-visible) .nh-card__arrow {
+    background: var(--nh-ink);
+    color: #FFFFFF;
+}
+
+.wk-card:hover .nh-card__arrow svg,
+.wk-card:has(.nh-card__link:focus-visible) .nh-card__arrow svg {
+    transform: translate(1px, -1px);
+}
