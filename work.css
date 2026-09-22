@@ -133,6 +133,23 @@
     margin-inline: 0.55em;
 }
 
+/* --- coming in ------------------------------------------------------------
+   The same quiet rise the home's cards and the About page's come in on, in
+   reading order, one after another. The keyframes are the home's own
+   (nh-rise, in section 6 of new-home.css) and so are the duration, the easing
+   and the sixty milliseconds between one card and the next; only the counting
+   is this page's, and it is done in the markup — style="--i: n" on each
+   card — because there is no script here to do it.
+--------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+    .wk-card {
+        animation: nh-rise 700ms var(--nh-ease) backwards;
+        animation-delay: calc(var(--i, 0) * 60ms);
+    }
+}
+
+
 /* --- the colour a card takes while it is read ------------------------------
    The home's own washes, one per project, named here: new-home.css already
    turns a card's surface to whatever --nh-wash holds while the pointer is on

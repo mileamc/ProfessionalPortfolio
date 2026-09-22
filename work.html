@@ -15,8 +15,8 @@
      the navigation, the card surface, the pill the tags are made of and the
      arrow in a card's corner. work.css only lays out this page's list.
      Neither file is changed by this page. -->
-<link rel="stylesheet" href="new-home.css?v=work-8"/>
-<link rel="stylesheet" href="work.css?v=work-8"/>
+<link rel="stylesheet" href="new-home.css?v=work-9"/>
+<link rel="stylesheet" href="work.css?v=work-9"/>
 <!-- This page is a desktop composition: a photograph and what there is to say
      abreast, at the width the rest of the site keeps. On a phone that list is
      not here — it is the foot of the home, under the introduction — so a phone
@@ -60,7 +60,7 @@ if (window.matchMedia("(max-width: 719.98px)").matches) {
          page's name in its href and dropping role and aria-disabled. -->
     <div class="nh-shell wk-list" id="work">
 
-        <article class="nh-card nh-card--content wk-card" data-project="ludis" aria-labelledby="wk-ludis">
+        <article class="nh-card nh-card--content wk-card" data-project="ludis" style="--i: 0" aria-labelledby="wk-ludis">
 
             <div class="wk-card__shot">
                 <img src="assets/capas-work/capa-ludis.jpeg" alt="" width="1024" height="1024"
@@ -82,7 +82,7 @@ if (window.matchMedia("(max-width: 719.98px)").matches) {
 
         </article>
 
-        <article class="nh-card nh-card--content wk-card" data-project="mosaico" aria-labelledby="wk-mosaico">
+        <article class="nh-card nh-card--content wk-card" data-project="mosaico" style="--i: 1" aria-labelledby="wk-mosaico">
 
             <div class="wk-card__shot">
                 <img src="assets/capas-work/capa-mosaico.jpeg" alt="" width="1024" height="1024"
@@ -104,7 +104,7 @@ if (window.matchMedia("(max-width: 719.98px)").matches) {
 
         </article>
 
-        <article class="nh-card nh-card--content wk-card" data-project="imb" aria-labelledby="wk-imb">
+        <article class="nh-card nh-card--content wk-card" data-project="imb" style="--i: 2" aria-labelledby="wk-imb">
 
             <div class="wk-card__shot">
                 <img src="assets/capas-work/capa-imb.jpg" alt="" width="1080" height="1080"
@@ -125,7 +125,7 @@ if (window.matchMedia("(max-width: 719.98px)").matches) {
 
         </article>
 
-        <article class="nh-card nh-card--content wk-card" data-project="hpp" aria-labelledby="wk-hpp">
+        <article class="nh-card nh-card--content wk-card" data-project="hpp" style="--i: 3" aria-labelledby="wk-hpp">
 
             <div class="wk-card__shot">
                 <img src="assets/capas-work/capa-hpp.jpeg" alt="" width="1024" height="1024"
@@ -147,7 +147,7 @@ if (window.matchMedia("(max-width: 719.98px)").matches) {
 
         </article>
 
-        <article class="nh-card nh-card--content wk-card" data-project="nommu" aria-labelledby="wk-nommu">
+        <article class="nh-card nh-card--content wk-card" data-project="nommu" style="--i: 4" aria-labelledby="wk-nommu">
 
             <div class="wk-card__shot">
                 <img src="assets/capas-work/capa-nommu.jpg" alt="" width="1080" height="1080"
@@ -171,7 +171,7 @@ if (window.matchMedia("(max-width: 719.98px)").matches) {
 
         <!-- The archive, which is not a project and so carries no disciplines.
              Its line is the one the home's card says under its arrow. -->
-        <article class="nh-card nh-card--content wk-card" data-project="graphic-design" aria-labelledby="wk-graphic-design">
+        <article class="nh-card nh-card--content wk-card" data-project="graphic-design" style="--i: 5" aria-labelledby="wk-graphic-design">
 
             <div class="wk-card__shot">
                 <img src="assets/capas-work/capa-graphic-design.jpg" alt="" width="1080" height="1080"
@@ -202,6 +202,6 @@ if (window.matchMedia("(max-width: 719.98px)").matches) {
      new-home.js sets up is keyed to markup this page does not carry, so it
      does nothing. The home's veil and the line under a card come from
      scripts/card-brief.js, which is deliberately not loaded. -->
-<script src="scripts/new-home.js?v=work-8"></script>
+<script src="scripts/new-home.js?v=work-9"></script>
 </body>
 </html>
