@@ -14,16 +14,20 @@
 <!-- Self-contained: this page does not load tokens.css, components.css or
      page-style.css. Its visual language is scoped to .nh in new-home.css so
      the existing pages keep rendering exactly as they do today. -->
-<link rel="stylesheet" href="new-home.css?v=brief-2"/>
+<link rel="stylesheet" href="new-home.css?v=mobile-1"/>
 
 <!-- The three files the first screen needs and the parser cannot see: the
      court the LUDIS board is drawn over and the paper the handwriting is
      written on both arrive inside templates, and the photograph on top of the
      stack is put there by a script. Asked for here, they are on their way
      while the stylesheet is still being read, rather than a round trip later.
-     97KB in all; everything heavier waits for scripts/warm-assets.js. -->
-<link rel="preload" as="image" type="image/svg+xml" href="assets/ludis/quadra-fundo.svg"/>
-<link rel="preload" as="image" type="image/svg+xml" href="assets/mosaico/paper.svg"/>
+     97KB in all; everything heavier waits for scripts/warm-assets.js.
+
+     The first two are a desktop errand and say so: on a phone neither the
+     court nor the paper is built, so neither is asked for. The portrait is
+     wanted at every width. -->
+<link rel="preload" as="image" type="image/svg+xml" href="assets/ludis/quadra-fundo.svg" media="(min-width: 720px)"/>
+<link rel="preload" as="image" type="image/svg+xml" href="assets/mosaico/paper.svg" media="(min-width: 720px)"/>
 <link rel="preload" as="image" href="assets/about/1.jpeg" fetchpriority="high"/>
 </head>
 <body class="nh">
@@ -384,16 +388,21 @@
     </div>
 </template>
 
-<script src="data/home-projects.js?v=brief-2"></script>
-<script src="scripts/new-home.js?v=brief-2"></script>
-<script src="scripts/ludis-play.js?v=brief-2"></script>
-<script src="scripts/mosaico-write.js?v=brief-2"></script>
-<script src="scripts/imb-compare.js?v=brief-2"></script>
-<script src="scripts/nommu-feed.js?v=brief-2"></script>
-<script src="scripts/hpp-pages.js?v=brief-2"></script>
-<script src="scripts/gd-prints.js?v=brief-2"></script>
-<script src="scripts/card-brief.js?v=brief-2"></script>
+<script src="data/home-projects.js?v=mobile-1"></script>
+<script src="data/work-projects.js?v=mobile-1"></script>
+<script src="scripts/new-home.js?v=mobile-1"></script>
+<!-- The home on a phone: the grid above keeps the introduction alone, and this
+     puts the projects under it. On any wider screen it returns without
+     touching the page. -->
+<script src="scripts/mobile-work.js?v=mobile-1"></script>
+<script src="scripts/ludis-play.js?v=mobile-1"></script>
+<script src="scripts/mosaico-write.js?v=mobile-1"></script>
+<script src="scripts/imb-compare.js?v=mobile-1"></script>
+<script src="scripts/nommu-feed.js?v=mobile-1"></script>
+<script src="scripts/hpp-pages.js?v=mobile-1"></script>
+<script src="scripts/gd-prints.js?v=mobile-1"></script>
+<script src="scripts/card-brief.js?v=mobile-1"></script>
 <!-- and, once the page is done, the screenful after this one -->
-<script src="scripts/warm-assets.js?v=brief-2" defer></script>
+<script src="scripts/warm-assets.js?v=mobile-1" defer></script>
 </body>
 </html>

@@ -223,9 +223,20 @@
     };
 
     // Cards go into the same grid as the introduction, after it.
+    //
+    // Except on a phone, where the grid keeps the introduction alone. Every
+    // card here is a prototype built for a pointer, and one of them runs three
+    // landing pages in a laptop; none of it is wanted at that width, and none
+    // of it — not the markup, not the photographs, not the pages — is fetched,
+    // because nothing is built to ask for it. What goes under the introduction
+    // instead is the list of projects, from scripts/mobile-work.js.
     var renderGrid = function () {
         var grid = document.querySelector("[data-nh-grid]");
         if (!grid || !data) {
+            return;
+        }
+
+        if (window.matchMedia("(max-width: 719.98px)").matches) {
             return;
         }
 

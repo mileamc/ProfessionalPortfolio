@@ -15,8 +15,18 @@
      the navigation, the card surface, the pill the tags are made of and the
      arrow in a card's corner. work.css only lays out this page's list.
      Neither file is changed by this page. -->
-<link rel="stylesheet" href="new-home.css?v=work-7"/>
-<link rel="stylesheet" href="work.css?v=work-7"/>
+<link rel="stylesheet" href="new-home.css?v=work-8"/>
+<link rel="stylesheet" href="work.css?v=work-8"/>
+<!-- This page is a desktop composition: a photograph and what there is to say
+     abreast, at the width the rest of the site keeps. On a phone that list is
+     not here — it is the foot of the home, under the introduction — so a phone
+     that arrives here is sent to it. Before anything is drawn, and in place of
+     this entry in the history, so Back still goes where it came from. -->
+<script>
+if (window.matchMedia("(max-width: 719.98px)").matches) {
+    location.replace("index.html#work");
+}
+</script>
 </head>
 <body class="nh">
 
@@ -192,6 +202,6 @@
      new-home.js sets up is keyed to markup this page does not carry, so it
      does nothing. The home's veil and the line under a card come from
      scripts/card-brief.js, which is deliberately not loaded. -->
-<script src="scripts/new-home.js?v=work-7"></script>
+<script src="scripts/new-home.js?v=work-8"></script>
 </body>
 </html>

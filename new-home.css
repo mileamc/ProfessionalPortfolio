@@ -486,7 +486,7 @@ html {
 }
 
 /* Card footprints — tablet and default. Desktop overrides the lead cards in
-   section 11 so they move up beside the introduction. */
+   section 12 so they move up beside the introduction. */
 .nh-grid > .nh-intro                     { grid-column: 1 / -1; grid-row: 1; }
 .nh-grid > [data-size="lead-wide"]       { grid-column: 1 / -1; grid-row: 2; }
 .nh-grid > [data-size="lead-below"]      { grid-column: 1 / -1; grid-row: span 3; }
@@ -3635,7 +3635,177 @@ html {
 
 
 /* ===========================================================================
-   11. RESPONSIVE
+   11. THE HOME ON A PHONE
+
+   A phone does not get the bento grid. Every card in it is a prototype built
+   for a pointer — a play to drag, a comparison to pick through, three landing
+   pages running inside a laptop — and none of that survives being shrunk to
+   the width of a hand. So at this width scripts/new-home.js builds none of
+   them, and scripts/mobile-work.js puts the list of projects under the
+   introduction instead: the same six the Work page lists, one above the other.
+
+   That is the whole of the home on a phone — introduction, then projects.
+   There is no separate Work page down here for the list to belong to.
+
+   Nothing in this section can reach the desktop: the markup it styles is only
+   ever built when the page loads under 720px, and the one rule that names the
+   grid is held behind the class that comes with it.
+=========================================================================== */
+
+/* The introduction keeps the full width of the grid however wide the window
+   becomes afterwards — a phone turned on its side, and nothing else, since a
+   page that loaded wider never gets here. And the room the grid keeps under
+   its last row belongs to the list now, which stands between the two. */
+body.is-phone-home .nh-grid {
+    padding-block-end: 0;
+}
+
+body.is-phone-home .nh-grid > .nh-intro {
+    grid-column: 1 / -1;
+}
+
+.nh-mob-list {
+    display: grid;
+    gap: var(--nh-gap);
+    padding-block: var(--nh-gap) var(--nh-space-16);
+
+    /* The pill in this list is the page's own .nh-tag, which is told its two
+       colours rather than holding them. These are the quiet pair: the page's
+       second grey, and the line grey a shade up from it. */
+    --nh-tag-ink:  var(--nh-muted);
+    --nh-tag-line: var(--nh-line-strong);
+}
+
+
+/* --- a project ------------------------------------------------------------
+   The photograph runs the full width at the top of the card, corner to
+   corner — the card's own rounding is what shapes it — and everything there
+   is to say sits under it.
+--------------------------------------------------------------------------- */
+
+/* nh-card--content as well as nh-card: over in section 6 that is the card
+   whose height comes from what is inside it, which is exactly this one, and
+   it is what keeps a card of this kind from being made a size container —
+   a container of that kind is sized without regard to its contents, and this
+   one has nothing else to be sized by. */
+.nh-mob-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.nh-mob-card__shot {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    /* until a photograph is there, the quiet tint the other empty slots take */
+    background: color-mix(in srgb, var(--nh-ink) 7%, #FFFFFF);
+}
+
+.nh-mob-card__shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nh-mob-card__text {
+    display: grid;
+    justify-items: start;
+    gap: var(--nh-space-3);
+    padding: var(--nh-card-pad);
+}
+
+.nh-mob-card__name {
+    margin: 0;
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-semibold);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+.nh-mob-card__desc {
+    margin: 0;
+    font-size: var(--nh-size-body);
+    line-height: 1.55;
+    color: var(--nh-text);
+}
+
+.nh-mob-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nh-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* The pill at the size the availability tag wears, rather than the smaller
+   one the band above the laptop asks for further down the file: these stand
+   on their own on a card, and are read. A label too long for the width wraps
+   inside the pill instead of being cut. */
+.nh-mob-card__tags .nh-tag {
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    white-space: normal;
+    overflow: visible;
+    text-align: center;
+}
+
+/* Not a discipline but a credit, and the one tag here that is also on the
+   home: it keeps the hospital's own blue, word for word. */
+.nh-mob-card__tags [data-tag="in-house"] {
+    --nh-tag-ink:  #1560A8;
+    --nh-tag-line: rgba(21, 96, 168, 0.45);
+}
+
+
+/* --- the arrow ------------------------------------------------------------
+   In the photograph's top corner, the same place the Work page puts it. It
+   does not answer a touch: the veil and the line that a pointer brings out
+   of a card's arrow on the desktop home are a pointer's, and the script that
+   draws them is not loaded here — nor would it find the card, which carries
+   nothing for it to say.
+--------------------------------------------------------------------------- */
+
+.nh-mob-card .nh-card__arrow {
+    top: var(--nh-chrome-inset);
+    right: var(--nh-chrome-inset);
+    bottom: auto;
+    left: auto;
+}
+
+
+/* --- side on --------------------------------------------------------------
+   A phone held sideways has room for the photograph and the words abreast,
+   which is the shape the Work page's cards keep. The photograph stops being
+   the width of the screen and becomes a square beside the text.
+--------------------------------------------------------------------------- */
+
+@media (min-width: 560px) {
+    .nh-mob-card {
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        gap: var(--nh-card-pad);
+        padding: var(--nh-card-pad);
+        /* room at the end of the line for the arrow, so a long word never
+           runs under it */
+        padding-right: calc(2 * var(--nh-chrome-inset) + var(--nh-arrow));
+    }
+
+    .nh-mob-card__shot {
+        width: clamp(150px, 26vw, 200px);
+        border-radius: calc(var(--nh-radius-card) - 6px);
+    }
+
+    .nh-mob-card__text {
+        padding: 0;
+    }
+}
+
+
+/* ===========================================================================
+   12. RESPONSIVE
 
    ≥ 1280   intro card 5 columns · lead 4 · lead-narrow 3, all in row 1
    720–1279 intro card across the top, then the cards in full-width rows
@@ -3732,6 +3902,14 @@ html {
         font-size: 0.8125rem;
     }
 
+    /* Work is not somewhere else to go down here: the list of projects is the
+       foot of the home, under the introduction. The bar drops the item rather
+       than pointing at a page that holds what is already on this one.
+       (Anyone who reaches work.html by a link is sent to that list.) */
+    .nh-nav a[href="work.html"] {
+        display: none;
+    }
+
     /* One column. Every item goes back to automatic placement, and each card
        takes proportions that suit its content instead of a shrunken slice of
        the desktop composition. */
@@ -3804,7 +3982,7 @@ html {
 
 
 /* ===========================================================================
-   12. REDUCED MOTION
+   13. REDUCED MOTION
 =========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {

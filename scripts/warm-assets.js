@@ -24,6 +24,12 @@
         "assets/imb/compare-5500hd-cronus.png"
     ];      // 1MB, wanted on a click, fetched before the click
 
+    // On a phone the comparison is not built at all, so there is no click
+    // coming and nothing to have ready for it.
+    if (window.matchMedia("(max-width: 719.98px)").matches) {
+        return;
+    }
+
     // Someone on a metered or a slow connection has asked, in the only way a
     // browser lets them, not to be sent anything they did not ask for.
     var link = navigator.connection;
