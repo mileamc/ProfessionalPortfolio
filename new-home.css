@@ -826,12 +826,15 @@ html {
 =========================================================================== */
 
 .nh-card {
-    /* Where a card's floating chrome sits. The arrow in the corner is 14px
-       from the left and the foot; a tag at the top is on the same line up from
-       that corner, and far enough down to have air above it. --nh-tag-h is the
-       pill's own height, which the laptop's card needs to know to leave room
-       for it. */
-    --nh-tag-x: 14px;
+    /* Where a card's floating chrome sits, and how big it is. The arrow in the
+       corner stands --nh-chrome-inset from the left and the foot; a tag at the
+       top stands on the same line up from that corner, and far enough down to
+       have air above it. --nh-tag-h is the pill's own height, which the
+       laptop's card needs to know to leave room for it. */
+    --nh-chrome-inset: 14px;
+    --nh-arrow: 48px;           /* the circle the arrow is drawn in */
+    --nh-arrow-mark: 21px;      /* and the arrow in it */
+    --nh-tag-x: var(--nh-chrome-inset);
     --nh-tag-y: 21px;
     --nh-tag-h: 28px;
 
@@ -893,10 +896,10 @@ html {
    same hover as every other card. */
 .nh-card.is-arrow-link .nh-card__link {
     inset: auto;
-    bottom: 14px;
-    left: 14px;
-    width: 32px;
-    height: 32px;
+    bottom: var(--nh-chrome-inset);
+    left: var(--nh-chrome-inset);
+    width: var(--nh-arrow);
+    height: var(--nh-arrow);
     border-radius: 50%;
 }
 
@@ -972,12 +975,12 @@ html {
    every product card. */
 .nh-card__arrow {
     position: absolute;
-    bottom: 14px;
-    left: 14px;
+    bottom: var(--nh-chrome-inset);
+    left: var(--nh-chrome-inset);
     display: grid;
     place-items: center;
-    width: 32px;
-    height: 32px;
+    width: var(--nh-arrow);
+    height: var(--nh-arrow);
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.92);
     color: var(--nh-ink);
@@ -989,8 +992,8 @@ html {
 }
 
 .nh-card__arrow svg {
-    width: 14px;
-    height: 14px;
+    width: var(--nh-arrow-mark);
+    height: var(--nh-arrow-mark);
     transition: transform var(--nh-base) var(--nh-ease);
 }
 
