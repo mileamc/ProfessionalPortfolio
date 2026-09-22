@@ -14,8 +14,8 @@
 <!-- The site's own language: new-home.css carries the tokens, the bar, the
      card surface, the pill the tags are made of, the button and the footer.
      case-mosaico.css only lays out what is particular to this case. -->
-<link rel="stylesheet" href="new-home.css?v=hpp-1"/>
-<link rel="stylesheet" href="case-mosaico.css?v=hpp-1"/>
+<link rel="stylesheet" href="new-home.css?v=nommu-1"/>
+<link rel="stylesheet" href="case-mosaico.css?v=nommu-1"/>
 </head>
 <body class="nh">
 
@@ -62,40 +62,50 @@
         <!-- ===============================================================
              1 — What Mosaico is, and what I did on it.
         =============================================================== -->
-        <article class="nh-card nh-card--content ms-card ms-hero" style="--i: 0" aria-labelledby="ms-title">
+        <!-- The header every case opens on. The four facts that were a small
+             table in here are now the left column; nothing else changed. -->
+        <header class="nh-card nh-card--content nh-casehead" style="--i: 0" aria-labelledby="ms-title">
+            <h1 class="nh-casehead__name" id="ms-title">Mosaico</h1>
+            <p class="nh-casehead__tagline">A structured writing tool designed to support narrative development and creative exploration.</p>
 
-            <div class="ms-hero__copy">
-                <h1 class="ms-hero__name" id="ms-title">Mosaico</h1>
+            <div class="nh-casehead__cols">
+                <dl class="nh-casehead__meta">
+                    <div><dt>My role</dt><dd>UX Researcher &amp; Product Designer</dd></div>
+                    <div><dt>Timeline</dt><dd>12 months</dd></div>
+                    <div><dt>Methods</dt><dd>Digital Logbook, Semi-structured Interviews, QUIS</dd></div>
+                    <div><dt>Focus</dt><dd>Learning Experience, Usability, Creative Writing, User Research</dd></div>
+                </dl>
 
-                <ul class="nh-termlist ms-terms">
-                    <li>UX research</li>
-                    <li>Product design</li>
-                    <li>12 months</li>
-                </ul>
-
-                <p class="ms-lead">A structured writing tool designed to support narrative development and creative exploration.</p>
-
-                <a class="ms-jump" href="#product">
-                    <span class="ms-jump__mark" aria-hidden="true">
-                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 3.5v9M4.5 9 8 12.5 11.5 9"/></svg>
-                    </span>Read the case</a>
+                <div class="nh-casehead__blocks">
+                    <div>
+                        <p class="nh-casehead__label">Description</p>
+                        <p>Mosaico is a structured digital guide that helps writers develop narratives through a step-by-step creative process.</p>
+                    </div>
+                    <div>
+                        <p class="nh-casehead__label">Context</p>
+                        <p>Creative writing involves coordinating multiple elements &mdash; characters, plot, chronology, setting, and narrative progression. The question was not simply whether users could follow the method, but whether <strong>a structured process could support creative writing without limiting individual ways of working</strong>.</p>
+                    </div>
+                </div>
             </div>
 
-            <dl class="ms-meta">
-                <div><dt>Role</dt><dd>UX Researcher &amp; Product Designer</dd></div>
-                <div><dt>Timeline</dt><dd>12 months</dd></div>
-                <div><dt>Methods</dt><dd>Digital Logbook &middot; Semi-structured Interviews &middot; QUIS</dd></div>
-                <div><dt>Focus</dt><dd>Learning Experience &middot; Usability &middot; Creative Writing &middot; User Research</dd></div>
-            </dl>
+            <a class="ms-jump" href="#product">
+                <span class="ms-jump__mark" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 3.5v9M4.5 9 8 12.5 11.5 9"/></svg>
+                </span>Read the case</a>
+        </header>
 
-        </article>
+        <!-- the hero picture, in a card of its own under the header -->
+        <div class="nh-card nh-card--content ms-card ms-herofig" style="--i: 1">
+            <div class="ms-slot" style="--ratio: 16 / 9">
+                <p class="ms-slot__note"><b>Hero image</b>The one picture the case opens on &mdash; the finished Mosaico guide, or the strongest screen of it.</p>
+            </div>
+        </div>
 
         <!-- ===============================================================
              2 — The product.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" id="product" style="--i: 1" aria-labelledby="ms-product-title">
+        <section class="nh-card nh-card--content ms-card" id="product" style="--i: 2" aria-labelledby="ms-product-title">
             <h2 class="ms-h2" id="ms-product-title">The product</h2>
-            <p class="ms-para-lg">Mosaico is a structured digital guide that helps writers develop narratives through a step-by-step creative process.</p>
 
             <!-- picture: the product itself -->
             <div class="ms-slot" style="--ratio: 16 / 9">
@@ -200,7 +210,7 @@
              3 — The challenge, and the question underneath it.
              The diagram is drawn here, not exported.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 2" aria-labelledby="ms-challenge-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 3" aria-labelledby="ms-challenge-title">
             <h2 class="ms-h2" id="ms-challenge-title">The challenge</h2>
             <p>Creative writing involves coordinating multiple elements &mdash; characters, plot, chronology, setting, and narrative progression.</p>
             <p>The question was not simply whether users could follow the method, but:</p>
@@ -219,7 +229,7 @@
         <!-- ===============================================================
              4 — My role, and the shape of the work.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 3" aria-labelledby="ms-role-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 4" aria-labelledby="ms-role-title">
             <h2 class="ms-h2" id="ms-role-title">My role</h2>
             <p>I worked independently across the research and product design process, from defining the evaluation approach to translating findings into product improvements.</p>
             <p>I was responsible for:</p>
@@ -245,7 +255,7 @@
         <!-- ===============================================================
              5 — How it was studied.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 4" aria-labelledby="ms-research-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 5" aria-labelledby="ms-research-title">
             <h2 class="ms-h2" id="ms-research-title">Research</h2>
             <h3 class="ms-h3-lead">A longitudinal evaluation</h3>
             <p>Instead of evaluating Mosaico through a single usability session, I followed participants over 12 months. The research combined three methods:</p>
@@ -276,7 +286,7 @@
              marks and two facts, and nothing is claimed about any one of
              them that the study did not say.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 5" aria-labelledby="ms-people-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 6" aria-labelledby="ms-people-title">
             <h2 class="ms-h2" id="ms-people-title">Participants</h2>
 
             <div class="ms-cohort">
@@ -295,7 +305,7 @@
         <!-- ===============================================================
              7 — The four dimensions, as a matrix rather than a picture.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 6" aria-labelledby="ms-eval-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 7" aria-labelledby="ms-eval-title">
             <h2 class="ms-h2" id="ms-eval-title">What I evaluated</h2>
             <p>I evaluated Mosaico across four dimensions:</p>
 
@@ -323,7 +333,7 @@
              8 — What the numbers were. Four counts out of eight, drawn as
              cards so the denominator is never lost.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 7" aria-labelledby="ms-findings-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 8" aria-labelledby="ms-findings-title">
             <h2 class="ms-h2" id="ms-findings-title">Findings</h2>
             <h3 class="ms-h3-lead">What the data showed</h3>
             <p>The evaluation revealed a distinction between following the structured process and adapting it to individual workflows.</p>
@@ -356,7 +366,7 @@
              9 — Beyond the numbers. Four observations: the first is drawn,
              the other three are participants' own work and wait for it.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 8" aria-labelledby="ms-beyond-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 9" aria-labelledby="ms-beyond-title">
             <h2 class="ms-h2" id="ms-beyond-title">Beyond the numbers</h2>
             <p>The qualitative research helped explain how participants interacted with the structure.</p>
 
@@ -404,7 +414,7 @@
         <!-- ===============================================================
              10 — Finding to direction. Four rows, drawn.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 9" aria-labelledby="ms-opps-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 10" aria-labelledby="ms-opps-title">
             <h2 class="ms-h2" id="ms-opps-title">From research to product</h2>
             <p>The findings highlighted opportunities to improve the balance between structured guidance, comprehension, and flexibility.</p>
 
@@ -436,7 +446,7 @@
              11 — What I changed. Two of the three want a picture of the
              material; the validation swap is a flow, so it is drawn.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 10" aria-labelledby="ms-changes-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 11" aria-labelledby="ms-changes-title">
             <h2 class="ms-h2" id="ms-changes-title">Design changes</h2>
 
             <div class="ms-obs">
@@ -497,7 +507,7 @@
         <!-- ===============================================================
              12 — Finding beside decision, three times. Drawn.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 11" aria-labelledby="ms-changed-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 12" aria-labelledby="ms-changed-title">
             <h2 class="ms-h2" id="ms-changed-title">What changed</h2>
             <p>The research informed changes to make Mosaico&rsquo;s structured process clearer, more approachable, and better suited to different ways of working.</p>
 
@@ -547,7 +557,7 @@
         <!-- ===============================================================
              13 — Where it goes next. Drawn.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 12" aria-labelledby="ms-next-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 13" aria-labelledby="ms-next-title">
             <h2 class="ms-h2" id="ms-next-title">Next steps</h2>
             <p>The research also identified opportunities for further product development.</p>
 
@@ -574,7 +584,7 @@
         <!-- ===============================================================
              14 — What it came to.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card" style="--i: 13" aria-labelledby="ms-outcome-title">
+        <section class="nh-card nh-card--content ms-card" style="--i: 14" aria-labelledby="ms-outcome-title">
             <h2 class="ms-h2" id="ms-outcome-title">Outcome</h2>
             <p>The evaluation showed that most participants could progress through Mosaico&rsquo;s structured writing process, while a smaller number adapted activities to their individual workflows.</p>
             <p>The research identified opportunities to improve onboarding, clarify the purpose of each step, and make the experience more flexible and approachable.</p>
@@ -589,7 +599,7 @@
         <!-- ===============================================================
              15 — The one sentence to keep.
         =============================================================== -->
-        <section class="nh-card nh-card--content ms-card ms-takeaway" style="--i: 14" aria-labelledby="ms-takeaway-title">
+        <section class="nh-card nh-card--content ms-card ms-takeaway" style="--i: 15" aria-labelledby="ms-takeaway-title">
             <h2 class="ms-h2 ms-takeaway__head" id="ms-takeaway-title">Key takeaway</h2>
             <p class="ms-takeaway__line">A structured learning experience can provide guidance while leaving room for individual ways of working. The challenge is to make both the structure and its flexibility understandable to users.</p>
         </section>
@@ -604,6 +614,6 @@
     </div>
 </footer>
 
-<script src="scripts/new-home.js?v=hpp-1"></script>
+<script src="scripts/new-home.js?v=nommu-1"></script>
 </body>
 </html>

@@ -15,8 +15,8 @@
      card surface, the pill the tags are made of, the button and the footer.
      case-ludis.css only lays out what is particular to this case. Neither the
      home, the Work page nor the About page is changed by this one. -->
-<link rel="stylesheet" href="new-home.css?v=hpp-1"/>
-<link rel="stylesheet" href="case-ludis.css?v=hpp-1"/>
+<link rel="stylesheet" href="new-home.css?v=nommu-1"/>
+<link rel="stylesheet" href="case-ludis.css?v=nommu-1"/>
 
 <!-- The two things the first screen needs: the mark the page opens on and the
      screen behind it. Everything below the fold waits to be scrolled to. -->
@@ -46,45 +46,58 @@
         <!-- ===============================================================
              1 — The opening: what LUDIS is, and the two screens it ships.
         =============================================================== -->
-        <article class="nh-card nh-card--content cl-card cl-hero" style="--i: 0" aria-labelledby="cl-title">
+        <!-- The header every case opens on: name, line, rule, then the facts
+             beside what it is. The two shipped screens used to sit in here;
+             they have the card below now. -->
+        <header class="nh-card nh-card--content nh-casehead" style="--i: 0" aria-labelledby="cl-title">
+            <h1 class="nh-casehead__name" id="cl-title">
+                <img src="imagesProjects/ludis/logo-ludis.png" alt="LUDIS" width="714" height="238"/>
+            </h1>
+            <p class="nh-casehead__tagline">A sports management app designed to help teams organize their activities and manage their sports experiences.</p>
 
-            <div class="cl-hero__copy">
-                <h1 id="cl-title">
-                    <img class="cl-hero__logo" src="imagesProjects/ludis/logo-ludis.png" alt="LUDIS" width="714" height="238"/>
-                </h1>
+            <div class="nh-casehead__cols">
+                <dl class="nh-casehead__meta">
+                    <div><dt>My role</dt><dd>Product Designer<small>Research, wireframing, usability testing, launch strategy</small></dd></div>
+                    <div><dt>Team</dt><dd>Team of three &mdash; one developer, two designers<small>Design system led by Natalia Da Rosa</small></dd></div>
+                    <div><dt>Tools</dt><dd>Figma</dd></div>
+                    <div><dt>Timeline</dt><dd>2022 &middot; Shipped</dd></div>
+                </dl>
 
-                <ul class="nh-termlist cl-terms">
-                    <li>Product design</li>
-                    <li>2022</li>
-                    <li>Shipped</li>
-                </ul>
-
-                <p class="cl-lead">LUDIS is a <strong>mobile playbook</strong> for <strong>amateur and youth sports teams</strong> &mdash; a tactical canvas where coaches draw plays with role-based player symbols and movement routes, save them to a reusable playbook, and take them to the field offline or as an exported PDF. It&rsquo;s <strong>built for coaches</strong> who double as team managers, have no formal management training, and are <strong>priced out of professional sports software</strong>.</p>
-
-                <a class="cl-jump" href="#how">
-                    <span class="cl-jump__mark" aria-hidden="true">
-                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 3.5v9M4.5 9 8 12.5 11.5 9"/></svg>
-                    </span>How I did it</a>
+                <div class="nh-casehead__blocks">
+                    <div>
+                        <p class="nh-casehead__label">Description</p>
+                        <p>LUDIS is a <strong>mobile playbook</strong> for <strong>amateur and youth sports teams</strong> &mdash; a tactical canvas where coaches draw plays with role-based player symbols and movement routes, save them to a reusable playbook, and take them to the field offline or as an exported PDF. It&rsquo;s <strong>built for coaches</strong> who double as team managers, have no formal management training, and are <strong>priced out of professional sports software</strong>.</p>
+                    </div>
+                    <div>
+                        <p class="nh-casehead__label">Context</p>
+                        <p><strong>Youth and amateur sports teams</strong> struggle to organize training, matches, and team data &mdash; <strong>and the tools available don&rsquo;t fit them</strong>. Existing sports management apps tend to be <strong>inaccessible, expensive, or built for a narrow slice of the market</strong>, which leaves most coaches without a real option.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="cl-hero__shot">
-                <img class="cl-hero__phone cl-hero__phone--canvas" src="imagesProjects/ludis/hero-phone-canvas.png" width="610" height="757" alt="The LUDIS play-drawing canvas with the player editor open" fetchpriority="high" decoding="async"/>
-                <img class="cl-hero__phone cl-hero__phone--team" src="imagesProjects/ludis/hero-phone-team.png" width="304" height="543" alt="The LUDIS new-team screen" decoding="async"/>
-            </div>
+            <a class="cl-jump" href="#how">
+                <span class="cl-jump__mark" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 3.5v9M4.5 9 8 12.5 11.5 9"/></svg>
+                </span>How I did it</a>
+        </header>
 
-        </article>
+        <!-- the two shipped screens, in a card of their own under the header -->
+        <figure class="nh-card nh-card--content cl-card cl-hero-shot" style="--i: 1">
+            <img class="cl-hero__phone cl-hero__phone--canvas" src="imagesProjects/ludis/hero-phone-canvas.png" width="610" height="757" alt="The LUDIS play-drawing canvas with the player editor open" fetchpriority="high" decoding="async"/>
+            <img class="cl-hero__phone cl-hero__phone--team" src="imagesProjects/ludis/hero-phone-team.png" width="304" height="543" alt="The LUDIS new-team screen" decoding="async"/>
+        </figure>
 
         <!-- ===============================================================
              2 — The brand and the interface, as they were handed over.
              Both boards carry their own dark ground, so each takes a card
              of its own with nothing around it.
         =============================================================== -->
-        <figure class="nh-card nh-card--content cl-card cl-board" style="--i: 1">
+        <figure class="nh-card nh-card--content cl-card cl-board" style="--i: 2">
             <img src="imagesProjects/ludis/bento-brand.png" width="1775" height="991" loading="lazy" decoding="async"
                  alt="The LUDIS brand board: positioning, login screen, mascot, typeface, app icon, colour palette and buttons"/>
         </figure>
 
-        <figure class="nh-card nh-card--content cl-card cl-board" style="--i: 2">
+        <figure class="nh-card nh-card--content cl-card cl-board" style="--i: 3">
             <img src="imagesProjects/ludis/bento-screens.png" width="1794" height="1009" loading="lazy" decoding="async"
                  alt="The LUDIS component board: the range of screens, event cards, the player editor, dense forms and the empty state"/>
         </figure>
@@ -92,7 +105,7 @@
         <!-- ===============================================================
              3 — What I was responsible for.
         =============================================================== -->
-        <section class="nh-card nh-card--content cl-card cl-resp" id="how" style="--i: 3" aria-labelledby="cl-resp-title">
+        <section class="nh-card nh-card--content cl-card cl-resp" id="how" style="--i: 4" aria-labelledby="cl-resp-title">
             <h2 class="cl-h2" id="cl-resp-title">Key responsibilities</h2>
 
             <div class="cl-resp__grid">
@@ -130,7 +143,7 @@
         <!-- ===============================================================
              4 — How the work was run.
         =============================================================== -->
-        <section class="nh-card nh-card--content cl-card cl-method" style="--i: 4" aria-labelledby="cl-method-title">
+        <section class="nh-card nh-card--content cl-card cl-method" style="--i: 5" aria-labelledby="cl-method-title">
             <h2 class="cl-h2" id="cl-method-title">Methodology</h2>
             <p class="cl-method__intro"><strong>Apple&rsquo;s CBL (Challenge Based Learning)</strong> &mdash; a three-phase framework connecting problem definition, research, and execution.</p>
 
@@ -169,7 +182,7 @@
         <!-- ===============================================================
              5 — Who it is for, and what was wrong before it.
         =============================================================== -->
-        <section class="nh-card nh-card--content cl-card cl-problem" style="--i: 5" aria-labelledby="cl-problem-title">
+        <section class="nh-card nh-card--content cl-card cl-problem" style="--i: 6" aria-labelledby="cl-problem-title">
 
             <div class="cl-problem__head">
                 <div>
@@ -191,7 +204,7 @@
              6 — What we built, and the one call that shaped it.
              The device on the right is the real before and after: drag it.
         =============================================================== -->
-        <section class="nh-card nh-card--content cl-card cl-solution" style="--i: 6" aria-labelledby="cl-solution-title">
+        <section class="nh-card nh-card--content cl-card cl-solution" style="--i: 7" aria-labelledby="cl-solution-title">
 
             <div class="cl-solution__copy">
                 <h2 class="cl-h2" id="cl-solution-title">Creating our solution</h2>
@@ -226,7 +239,7 @@
         <!-- ===============================================================
              7 — The screens that shipped, going past.
         =============================================================== -->
-        <section class="nh-card nh-card--content cl-card cl-reel" style="--i: 7" aria-labelledby="cl-reel-title">
+        <section class="nh-card nh-card--content cl-card cl-reel" style="--i: 8" aria-labelledby="cl-reel-title">
             <h2 class="nh-visually-hidden" id="cl-reel-title">Shipped screens</h2>
 
             <div class="cl-reel__frame" data-reel>
@@ -249,7 +262,7 @@
         <!-- ===============================================================
              8 — What testing changed.
         =============================================================== -->
-        <section class="nh-card nh-card--content cl-card cl-validation" style="--i: 8" aria-labelledby="cl-validation-title">
+        <section class="nh-card nh-card--content cl-card cl-validation" style="--i: 9" aria-labelledby="cl-validation-title">
             <h2 class="cl-h2" id="cl-validation-title">User validation</h2>
             <p class="cl-validation__intro">We ran a <strong>moderated usability test</strong> with the same initial users, then returned to that feedback for a <strong>second round of iteration</strong>. Ease of use scored 5/5, likelihood to recommend scored 5/5 &mdash; and the session surfaced real gaps we shipped before release:</p>
 
@@ -281,7 +294,7 @@
         <!-- ===============================================================
              9 — The product, end to end.
         =============================================================== -->
-        <section class="nh-card nh-card--content cl-card cl-practice" style="--i: 9" aria-labelledby="cl-practice-title">
+        <section class="nh-card nh-card--content cl-card cl-practice" style="--i: 10" aria-labelledby="cl-practice-title">
             <h2 class="cl-h2" id="cl-practice-title">The solution in practice</h2>
             <p class="cl-practice__intro"><strong>Login &amp; team setup &rarr; Playbook list &rarr; Play-drawing canvas:</strong> choose a template for your sport (football, soccer, or volleyball) or a custom background, add players with role-based symbols (shape, not just colour, for accessibility), draw routes with directional lines, and save to a reusable playbook &mdash; available offline, with export to image or PDF for sharing on the field.</p>
 
@@ -313,7 +326,7 @@
         <!-- ===============================================================
              10 — What it did, and what I would do differently.
         =============================================================== -->
-        <section class="nh-card nh-card--content cl-card cl-result" style="--i: 10" aria-labelledby="cl-result-title">
+        <section class="nh-card nh-card--content cl-card cl-result" style="--i: 11" aria-labelledby="cl-result-title">
             <h2 class="cl-h2" id="cl-result-title">Result &amp; reflection</h2>
 
             <div class="cl-result__grid">
@@ -334,7 +347,7 @@
         <!-- ===============================================================
              11 — Go and use it.
         =============================================================== -->
-        <section class="nh-card nh-card--content cl-card cl-cta" style="--i: 11" aria-labelledby="cl-cta-title">
+        <section class="nh-card nh-card--content cl-card cl-cta" style="--i: 12" aria-labelledby="cl-cta-title">
             <div class="cl-cta__copy">
                 <h2 class="nh-visually-hidden" id="cl-cta-title">Try LUDIS</h2>
                 <p>If you&rsquo;d like to poke around, LUDIS is live on the App Store. It&rsquo;s free, and drawing your first play takes only a few minutes.</p>
@@ -347,7 +360,7 @@
         <!-- ===============================================================
              12 — Every screen that shipped.
         =============================================================== -->
-        <section class="nh-card nh-card--content cl-card cl-gallery" style="--i: 12" aria-labelledby="cl-gallery-title">
+        <section class="nh-card nh-card--content cl-card cl-gallery" style="--i: 13" aria-labelledby="cl-gallery-title">
             <h2 class="cl-h2" id="cl-gallery-title">Every screen that shipped</h2>
             <ul class="cl-gallery__grid">
                 <li><img src="imagesProjects/ludis/shot-01.png" width="318" height="691" loading="lazy" decoding="async" alt="LUDIS login"/></li>
@@ -385,7 +398,7 @@
 
 <!-- Only the bar's own script is wanted here; everything else new-home.js sets
      up is keyed to markup this page does not carry, so it does nothing. -->
-<script src="scripts/new-home.js?v=hpp-1"></script>
-<script src="scripts/case-ludis.js?v=hpp-1"></script>
+<script src="scripts/new-home.js?v=nommu-1"></script>
+<script src="scripts/case-ludis.js?v=nommu-1"></script>
 </body>
 </html>

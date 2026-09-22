@@ -1,0 +1,356 @@
+/* ===========================================================================
+   NOMMU — the case page
+
+   The fifth case on the same model, and the first to open on .nh-casehead —
+   the shared header in section 10c of new-home.css. Everything else follows
+   the pattern the other cases keep: a column of cards at .nh-shell's width,
+   the site's tokens, the entry rise.
+
+   Its accent is the purple the phone's card takes on the home and on Work.
+=========================================================================== */
+
+.nm-page {
+    --nh-mark: var(--nh-wash-purple);
+    --nh-mark-ink: #6B58A6;
+
+    display: grid;
+    gap: var(--nh-gap);
+    padding-block: 0 var(--nh-space-16);
+}
+
+.nm-back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nh-space-2);
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--nh-base) var(--nh-ease);
+}
+
+.nm-back:hover { color: var(--nh-ink); }
+
+.nm-back:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.nm-card {
+    padding: var(--nh-card-pad);
+}
+
+
+/* --- type ----------------------------------------------------------------- */
+
+.nm-h2 {
+    margin: 0 0 var(--nh-space-5);
+    font-size: var(--nh-size-display);
+    font-weight: var(--nh-medium);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+    color: var(--nh-ink);
+    text-wrap: balance;
+}
+
+.nm-card :where(p) {
+    max-width: 68ch;
+    margin: 0 0 var(--nh-space-4);
+    font-size: var(--nh-size-body);
+    line-height: 1.75;
+    color: var(--nh-text);
+    text-wrap: pretty;
+}
+
+.nm-card :where(p:last-child) { margin-bottom: 0; }
+
+.nm-card strong {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+
+/* --- a picture on its own ---------------------------------------------------
+   The hero takes a card with nothing else in it and no padding, so the card's
+   corners are what shape it.
+--------------------------------------------------------------------------- */
+
+.nm-figure {
+    margin: var(--nh-space-6) 0;
+}
+
+.nm-figure img {
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--nh-radius-card) - 6px);
+    object-fit: cover;
+}
+
+.nm-figure figcaption {
+    margin-top: var(--nh-space-3);
+    font-size: var(--nh-size-small);
+    line-height: 1.5;
+    color: var(--nh-muted);
+}
+
+/* the hero: edge to edge in its own card */
+.nm-figure.nm-card {
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
+
+.nm-figure.nm-card img {
+    border-radius: 0;
+    display: block;
+}
+
+/* a supporting picture carries less weight than the thing it supports */
+.nm-figure--minor {
+    max-width: 62%;
+}
+
+/* a detail crop is smaller again */
+.nm-figure--detail {
+    max-width: 44%;
+}
+
+/* the whole set of screens is tall; it keeps its own width so the page does
+   not become one long picture */
+.nm-figure--gallery {
+    max-width: 560px;
+    margin-inline: auto;
+}
+
+
+/* --- who it's for ----------------------------------------------------------
+   The persona sheet is a portrait document, so it sits beside the words
+   rather than over them.
+--------------------------------------------------------------------------- */
+
+.nm-persona {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.52fr);
+    align-items: start;
+    gap: var(--nh-space-10);
+}
+
+.nm-persona__sheet {
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--nh-radius-card) - 6px);
+    object-fit: cover;
+}
+
+
+/* --- the sentence the section turns on -------------------------------------- */
+
+.nm-quote {
+    max-width: 52ch;
+    margin: var(--nh-space-8) 0;
+    padding: var(--nh-space-6) var(--nh-space-8);
+    border-left: 3px solid var(--nh-mark-ink);
+    border-radius: 0 calc(var(--nh-radius-card) - 6px) calc(var(--nh-radius-card) - 6px) 0;
+    background: var(--nh-mark);
+}
+
+.nm-quote p {
+    font-size: clamp(1.0625rem, 0.92rem + 0.5vw, 1.375rem) !important;
+    font-weight: var(--nh-medium);
+    line-height: 1.45 !important;
+    color: var(--nh-ink) !important;
+}
+
+/* a line that has to be read on its own, not run into the paragraph above */
+.nm-highlight {
+    max-width: 52ch !important;
+    margin: var(--nh-space-6) 0 !important;
+    padding-left: var(--nh-space-6);
+    border-left: 3px solid var(--nh-mark-ink);
+    font-size: var(--nh-size-card-title) !important;
+    font-weight: var(--nh-medium);
+    line-height: 1.4 !important;
+    color: var(--nh-ink) !important;
+}
+
+
+/* --- the number, and the chart that carries it ------------------------------
+   They are one piece of evidence, so they sit in one box rather than the
+   number claiming something and the chart proving it a scroll later.
+--------------------------------------------------------------------------- */
+
+.nm-evidence {
+    display: grid;
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--nh-space-8);
+    margin: var(--nh-space-8) 0;
+    padding: var(--nh-space-8);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: var(--nh-mark);
+}
+
+.nm-stat {
+    margin: 0 !important;
+    max-width: none !important;
+}
+
+.nm-stat b {
+    display: block;
+    font-size: clamp(3rem, 1.8rem + 3.2vw, 4.5rem);
+    font-weight: var(--nh-semibold);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--nh-ink);
+}
+
+.nm-stat b i {
+    font-size: 0.5em;
+    font-style: normal;
+    font-weight: var(--nh-medium);
+}
+
+.nm-stat span {
+    display: block;
+    margin-top: var(--nh-space-3);
+    font-size: var(--nh-size-small);
+    line-height: 1.55;
+    color: var(--nh-text);
+}
+
+.nm-evidence__chart {
+    margin: 0;
+}
+
+.nm-evidence__chart img {
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--nh-radius-card) - 8px);
+    background: #FFFFFF;
+    object-fit: cover;
+}
+
+
+/* --- the walkthrough --------------------------------------------------------
+   tudin.png holds the three screens side by side. Rather than cutting the
+   file, each frame is a window onto its own third of it: the picture is sized
+   to cover a frame one third as wide, and --at slides it to the right third.
+   One request, three captions, and nothing is re-encoded.
+--------------------------------------------------------------------------- */
+
+.nm-walk {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: var(--nh-space-6) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nm-walk figure {
+    display: grid;
+    justify-items: start;
+    gap: var(--nh-space-3);
+    margin: 0;
+}
+
+.nm-walk b {
+    font-size: var(--nh-size-small);
+    font-weight: var(--nh-semibold);
+    color: var(--nh-mark-ink);
+}
+
+.nm-walk__frame {
+    display: block;
+    width: 100%;
+    /* one panel of the three: 860/3 wide by 587 tall, as the file is */
+    aspect-ratio: 286 / 587;
+    border-radius: calc(var(--nh-radius-card) - 6px);
+    background-image: url("assets/nommu-files/tudin.png");
+    background-repeat: no-repeat;
+    background-size: 300% auto;
+    background-position: var(--at, 0%) center;
+}
+
+.nm-walk figcaption {
+    font-size: var(--nh-size-small);
+    font-weight: var(--nh-medium);
+    color: var(--nh-ink);
+}
+
+
+/* --- where this stands ------------------------------------------------------ */
+
+.nm-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: var(--nh-space-6) 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nm-stats > li {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.nm-stats b {
+    display: block;
+    margin-bottom: var(--nh-space-2);
+    font-size: clamp(2.5rem, 1.5rem + 2.4vw, 3.5rem);
+    font-weight: var(--nh-semibold);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--nh-mark-ink);
+}
+
+.nm-stats span {
+    font-size: var(--nh-size-small);
+    line-height: 1.5;
+    color: var(--nh-muted);
+}
+
+/* the last thing the case says */
+.nm-closing {
+    max-width: 44ch !important;
+    margin-top: var(--nh-space-8) !important;
+    padding-left: var(--nh-space-6);
+    border-left: 3px solid var(--nh-mark-ink);
+    font-size: clamp(1.0625rem, 0.92rem + 0.5vw, 1.375rem) !important;
+    font-weight: var(--nh-medium);
+    line-height: 1.45 !important;
+    color: var(--nh-ink) !important;
+}
+
+
+/* ===========================================================================
+   ON A PHONE
+=========================================================================== */
+
+@media (max-width: 719.98px) {
+    .nm-persona,
+    .nm-evidence,
+    .nm-stats,
+    .nm-walk {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .nm-evidence {
+        padding: var(--nh-space-6);
+        gap: var(--nh-space-6);
+    }
+
+    /* a supporting picture stops being smaller when there is no room to be
+       smaller in */
+    .nm-figure--minor,
+    .nm-figure--detail {
+        max-width: none;
+    }
+
+    /* three frames in a column would be three tall screens; two across keeps
+       the walkthrough readable at a glance */
+    .nm-walk {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

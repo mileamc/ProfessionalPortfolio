@@ -3788,6 +3788,146 @@ html {
 
 
 /* ===========================================================================
+   10c. CASE HEADER
+
+   How every case page opens, so three of them cannot open three ways: the
+   project's name, its one line underneath, a rule, and then two columns —
+   the facts of the job stacked on the left, and the labelled blocks that say
+   what it is and why it existed on the right.
+
+   No picture lives in here. A case with a hero image gives it the card
+   directly below, at its own size.
+
+       <header class="nh-card nh-card--content nh-casehead">
+         <h1 class="nh-casehead__name">NOMMU</h1>
+         <p  class="nh-casehead__tagline">…</p>
+         <div class="nh-casehead__cols">
+           <dl class="nh-casehead__meta">
+             <div><dt>My role</dt><dd>…</dd></div>
+           </dl>
+           <div class="nh-casehead__blocks">
+             <div><p class="nh-casehead__label">Description</p><p>…</p></div>
+           </div>
+         </div>
+       </header>
+
+   The labels are paragraphs and terms rather than headings: the page's
+   outline is the project's name and then its sections, and "Description" is
+   not one of them.
+=========================================================================== */
+
+.nh-casehead {
+    padding: var(--nh-card-pad);
+}
+
+.nh-casehead__name {
+    margin: 0 0 var(--nh-space-3);
+    font-size: clamp(2.25rem, 1.5rem + 2.6vw, 3.5rem);
+    font-weight: var(--nh-semibold);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--nh-ink);
+    text-wrap: balance;
+}
+
+/* a project with a mark of its own wears it instead of being typeset */
+.nh-casehead__name img {
+    width: clamp(150px, 15vw, 210px);
+    height: auto;
+}
+
+.nh-casehead__tagline {
+    max-width: 52ch;
+    margin: 0;
+    font-size: clamp(1.0625rem, 0.92rem + 0.66vw, 1.5rem);
+    font-weight: var(--nh-light);
+    line-height: 1.4;
+    color: var(--nh-muted);
+    text-wrap: pretty;
+}
+
+/* the rule, and the two columns under it */
+.nh-casehead__cols {
+    display: grid;
+    grid-template-columns: minmax(0, 0.38fr) minmax(0, 1fr);
+    gap: var(--nh-space-10);
+    margin-top: var(--nh-space-8);
+    padding-top: var(--nh-space-8);
+    border-top: 1px solid var(--nh-line);
+}
+
+/* --- the facts, stacked ---------------------------------------------------- */
+
+.nh-casehead__meta {
+    display: grid;
+    align-content: start;
+    gap: var(--nh-space-6);
+    margin: 0;
+}
+
+.nh-casehead__meta dt,
+.nh-casehead__label {
+    margin: 0 0 var(--nh-space-2);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-muted);
+}
+
+.nh-casehead__meta dd {
+    margin: 0;
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-medium);
+    line-height: 1.5;
+    color: var(--nh-ink);
+}
+
+/* a second line under a value — what someone on the team was responsible for,
+   or a qualification the value needs and cannot carry on its own */
+.nh-casehead__meta dd small {
+    display: block;
+    margin-top: var(--nh-space-1);
+    font-size: var(--nh-size-small);
+    font-weight: var(--nh-regular);
+    color: var(--nh-muted);
+}
+
+/* --- what it is, and why ---------------------------------------------------- */
+
+.nh-casehead__blocks {
+    display: grid;
+    align-content: start;
+    gap: var(--nh-space-6);
+}
+
+.nh-casehead__blocks p:not(.nh-casehead__label) {
+    max-width: 64ch;
+    margin: 0 0 var(--nh-space-4);
+    font-size: var(--nh-size-body);
+    line-height: 1.75;
+    color: var(--nh-text);
+    text-wrap: pretty;
+}
+
+.nh-casehead__blocks p:not(.nh-casehead__label):last-child {
+    margin-bottom: 0;
+}
+
+.nh-casehead__blocks strong {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+@media (max-width: 719.98px) {
+    .nh-casehead__cols {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--nh-space-8);
+    }
+}
+
+
+/* ===========================================================================
    11. THE HOME ON A PHONE
 
    A phone does not get the bento grid. Every card in it is a prototype built

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>NOMMU &mdash; Milena Caldas</title>
+<meta name="description" content="NOMMU: a gastronomic memory journal built on people you trust — a feed rebuilt around friends after 47 respondents said what they wanted from it."/>
+<meta name="theme-color" content="#FFFFFF"/>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/ui/favicon.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/ui/favicon-32.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500&amp;display=swap"/>
+<link rel="stylesheet" href="new-home.css?v=nommu-1"/>
+<link rel="stylesheet" href="case-nommu.css?v=nommu-1"/>
+<link rel="preload" as="image" href="assets/nommu-files/nommu.jpg" fetchpriority="high"/>
+</head>
+<body class="nh">
+
+<a class="nh-skip" href="#case">Skip to content</a>
+
+<header class="nh-header">
+    <nav class="nh-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="work.html">Work</a>
+        <a aria-disabled="true">Contact</a>
+    </nav>
+</header>
+
+<main id="top">
+
+    <p class="nh-shell nh-kicker"><a class="nm-back" href="work.html"><span aria-hidden="true">&larr;</span> Selected work</a></p>
+
+    <div class="nh-shell nm-page" id="case">
+
+        <!-- ===============================================================
+             The header every case opens on: name, line, rule, then the
+             facts beside what it is. No picture in here.
+        =============================================================== -->
+        <header class="nh-card nh-card--content nh-casehead" style="--i: 0" aria-labelledby="nm-title">
+            <h1 class="nh-casehead__name" id="nm-title">NOMMU</h1>
+            <p class="nh-casehead__tagline">A gastronomic memory journal built on people you trust</p>
+
+            <div class="nh-casehead__cols">
+                <dl class="nh-casehead__meta">
+                    <div><dt>My role</dt><dd>Product &amp; UX Designer</dd></div>
+                    <div><dt>Team</dt><dd>Pedro Gradowski, Pedro Gulin, Fernando Tramontina</dd></div>
+                    <div><dt>Tools</dt><dd>Figma, Claude Code</dd></div>
+                    <div><dt>Timeline</dt><dd>2026</dd></div>
+                </dl>
+
+                <div class="nh-casehead__blocks">
+                    <div>
+                        <p class="nh-casehead__label">Description</p>
+                        <p>A digital journal for gastronomic memories, built for travelers and food lovers who want to save, rate, and share dining experiences with people they actually know.</p>
+                    </div>
+                    <div>
+                        <p class="nh-casehead__label">Context</p>
+                        <p>General social networks were never built to centralize gastronomic reviews. As niche, decentralized micro-networks &mdash; Substack, Medium, Foursquare &mdash; grew, an opportunity emerged: a space built specifically for food memories, where trust comes from friends, not from anonymous authority.</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- the hero picture, in a card of its own under the header -->
+        <figure class="nh-card nh-card--content nm-card nm-figure" style="--i: 1">
+            <img src="assets/nommu-files/nommu.jpg" width="1920" height="1080" decoding="async" fetchpriority="high"
+                 alt="NOMMU — the app's screens shown together"/>
+        </figure>
+
+        <!-- ===============================================================
+             The product
+        =============================================================== -->
+        <section class="nh-card nh-card--content nm-card" style="--i: 2" aria-labelledby="nm-product-title">
+            <h2 class="nm-h2" id="nm-product-title">The product</h2>
+            <p>In the app, users navigate a feed of restaurant reviews centered on friends rather than public recommendations. They can interact with posts, save them into folders and lists, and write their own reviews &mdash; with photos, prices, ratings, and custom tags (who they were with, the type of cuisine, and so on). Together, reviews and lists build a personal profile: a private, individualized record of dining memories.</p>
+        </section>
+
+        <!-- ===============================================================
+             My role and the team
+        =============================================================== -->
+        <section class="nh-card nh-card--content nm-card" style="--i: 3" aria-labelledby="nm-role-title">
+            <h2 class="nm-h2" id="nm-role-title">My role and the team</h2>
+            <p>I&rsquo;m the only designer on a four-person team, working alongside three developers. Every product and UX decision passed through me, but nothing shipped without the team validating it against what was actually buildable &mdash; every design choice had to hold up on a technical-feasibility standpoint, not just a design one.</p>
+        </section>
+
+        <!-- ===============================================================
+             Who it's for
+        =============================================================== -->
+        <section class="nh-card nh-card--content nm-card nm-persona" style="--i: 4" aria-labelledby="nm-who-title">
+            <div class="nm-persona__copy">
+                <h2 class="nm-h2" id="nm-who-title">Who it&rsquo;s for</h2>
+                <p><strong>Lara, 21, Curitiba.</strong> Wants to travel and explore new experiences without overspending, and shares everything online. Budget-conscious, values authenticity and word-of-mouth over polished recommendations.</p>
+            </div>
+            <img class="nm-persona__sheet" src="assets/nommu-files/persona.png" width="1024" height="1536" loading="lazy" decoding="async"
+                 alt="The persona sheet for Lara, 21, from Curitiba"/>
+        </section>
+
+        <!-- ===============================================================
+             The key decision. The number and the chart that carries it sit
+             together; the supporting chart is smaller, underneath.
+        =============================================================== -->
+        <section class="nh-card nh-card--content nm-card" style="--i: 5" aria-labelledby="nm-decision-title">
+            <h2 class="nm-h2" id="nm-decision-title">The key decision: rebuilding the feed around trust</h2>
+            <p>Before designing screens, we ran an interest survey with 47 respondents to validate the concept. The clearest signal: 100% of them wanted to know where their close friends had been eating and what they recommended.</p>
+            <p>That single number reshaped the feed. The original version surfaced recommended pages &mdash; the kind of curated, authority-driven content you&rsquo;d see on a general platform. We rebuilt it to foreground friends&rsquo; reviews first.</p>
+
+            <blockquote class="nm-quote">
+                <p>Trust, in NOMMU, doesn&rsquo;t come from being an established reviewer or influencer &mdash; it comes from being someone the user actually knows.</p>
+            </blockquote>
+
+            <div class="nm-evidence">
+                <p class="nm-stat">
+                    <b>100<i>%</i></b>
+                    <span>of 47 respondents wanted to see where friends had eaten and what they recommended.</span>
+                </p>
+                <figure class="nm-evidence__chart">
+                    <img src="assets/nommu-files/Captura_de_Tela_2025-09-09_as_15.51.32.png" width="1546" height="698" loading="lazy" decoding="async"
+                         alt="Survey result: 47 responses, 100% answered yes"/>
+                </figure>
+            </div>
+
+            <figure class="nm-figure nm-figure--minor">
+                <img src="assets/nommu-files/Captura_de_Tela_2025-09-09_as_15.52.17.png" width="1546" height="698" loading="lazy" decoding="async"
+                     alt="Survey result: 63.8% said they were definitely interested in a travel and food community"/>
+                <figcaption>63.8% said they were definitely interested in a travel and food community.</figcaption>
+            </figure>
+        </section>
+
+        <!-- ===============================================================
+             Testing the concept
+        =============================================================== -->
+        <section class="nh-card nh-card--content nm-card" style="--i: 6" aria-labelledby="nm-test-title">
+            <h2 class="nm-h2" id="nm-test-title">Testing the concept, not just usability</h2>
+            <p>Once we had a non-interactive prototype, we ran an informal in-person test with 3 people. The goal wasn&rsquo;t formal usability measurement &mdash; it was checking whether people connected with the concept and the core functionalities before investing further.</p>
+            <p>One outcome came directly out of that session: the team collectively landed on automating tags into search filters. Instead of users manually filtering their saved memories, any tag they create on a review automatically becomes a filter on their own profile.</p>
+
+            <p class="nm-highlight">Turning a clunky manual step into something that happens for free.</p>
+
+            <figure class="nm-figure">
+                <img src="assets/nommu-files/b9d04a5a-df78-4134-b9d3-8dca84c3d227.png" width="1200" height="828" loading="lazy" decoding="async"
+                     alt="A sketchbook page from the session, with TAGS written by hand"/>
+                <figcaption>The session&rsquo;s sketchbook page, where the tag idea was written down.</figcaption>
+            </figure>
+
+            <figure class="nm-figure">
+                <img src="assets/nommu-files/TEEELA.png" width="890" height="980" loading="lazy" decoding="async"
+                     alt="The profile screen before and after, with the tag badges added"/>
+                <figcaption>The profile screen before and after, with the tag badges added.</figcaption>
+            </figure>
+
+            <figure class="nm-figure nm-figure--detail">
+                <img src="assets/nommu-files/itens.png" width="867" height="386" loading="lazy" decoding="async"
+                     alt="Close-up of the tag pills: viajante profissional and Mestre do Hashi"/>
+                <figcaption>The tag pill, up close.</figcaption>
+            </figure>
+        </section>
+
+        <!-- ===============================================================
+             Craft — text only for now
+        =============================================================== -->
+        <section class="nh-card nh-card--content nm-card" style="--i: 7" aria-labelledby="nm-craft-title">
+            <h2 class="nm-h2" id="nm-craft-title">Craft: building on Material 3</h2>
+            <p>Screens were built on an adapted Material 3 library &mdash; both its component set and its navigation structure &mdash; rather than a custom system from scratch. We adopted a 3-column grid specifically for scalability, anticipating how the interface needed to grow as more content types (folders, lists, profiles) were added.</p>
+        </section>
+
+        <!-- ===============================================================
+             Visual identity — text only for now
+        =============================================================== -->
+        <section class="nh-card nh-card--content nm-card" style="--i: 8" aria-labelledby="nm-identity-title">
+            <h2 class="nm-h2" id="nm-identity-title">Visual identity, now in motion</h2>
+            <p>Screens have moved from wireframe to high fidelity, and NOMMU&rsquo;s visual identity is currently being implemented directly into them &mdash; brand and interface converging in the same pass rather than being handled as separate phases.</p>
+        </section>
+
+        <!-- ===============================================================
+             The solution in practice. One picture holds the three screens,
+             so each frame is a window onto its own third of it.
+        =============================================================== -->
+        <section class="nh-card nh-card--content nm-card" style="--i: 9" aria-labelledby="nm-practice-title">
+            <h2 class="nm-h2" id="nm-practice-title">The solution in practice</h2>
+            <p>Login &amp; feed &rarr; new post &rarr; profile: a 3-screen walkthrough.</p>
+
+            <ol class="nm-walk">
+                <li>
+                    <figure>
+                        <b aria-hidden="true">01</b>
+                        <span class="nm-walk__frame" style="--at: 0%" role="img" aria-label="The NOMMU feed, welcoming the user to Curitiba"></span>
+                        <figcaption>Login &amp; feed</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <b aria-hidden="true">02</b>
+                        <span class="nm-walk__frame" style="--at: 50%" role="img" aria-label="Writing a new post: rating, cost, description and collections"></span>
+                        <figcaption>New post</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <b aria-hidden="true">03</b>
+                        <span class="nm-walk__frame" style="--at: 100%" role="img" aria-label="A user profile, with tag badges, favourites and reviews"></span>
+                        <figcaption>Profile</figcaption>
+                    </figure>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ===============================================================
+             Every screen that shipped
+        =============================================================== -->
+        <section class="nh-card nh-card--content nm-card" style="--i: 10" aria-labelledby="nm-gallery-title">
+            <h2 class="nm-h2" id="nm-gallery-title">Every screen that shipped</h2>
+            <figure class="nm-figure nm-figure--gallery">
+                <img src="assets/nommu-files/all2.png" width="1676" height="3545" loading="lazy" decoding="async"
+                     alt="Every NOMMU screen, laid out together"/>
+            </figure>
+        </section>
+
+        <!-- ===============================================================
+             What's next
+        =============================================================== -->
+        <section class="nh-card nh-card--content nm-card" style="--i: 11" aria-labelledby="nm-next-title">
+            <h2 class="nm-h2" id="nm-next-title">What&rsquo;s next</h2>
+            <p>The immediate priorities are finishing validation on the interactive prototype and documenting the design system, so decisions made so far (the feed logic, the tag-filter automation, the grid) are captured for the team going forward.</p>
+        </section>
+
+        <!-- ===============================================================
+             Where this stands
+        =============================================================== -->
+        <section class="nh-card nh-card--content nm-card" style="--i: 12" aria-labelledby="nm-stands-title">
+            <h2 class="nm-h2" id="nm-stands-title">Where this stands</h2>
+            <p>NOMMU hasn&rsquo;t launched yet, so there&rsquo;s no usage data &mdash; but the process already produced two concrete product decisions.</p>
+
+            <ul class="nm-stats">
+                <li><b>47</b><span>survey respondents who validated the friends-first feed</span></li>
+                <li><b>3</b><span>in-person testers who surfaced the tag-filter automation</span></li>
+                <li><b>2</b><span>product decisions shipped directly from evidence</span></li>
+            </ul>
+
+            <p class="nm-closing">Both came directly from evidence, not assumption.</p>
+        </section>
+
+    </div>
+
+</main>
+
+<footer class="nh-footer">
+    <div class="nh-shell nh-footer__inner">
+        <p>&copy; 2026 Milena Caldas</p>
+    </div>
+</footer>
+
+<script src="scripts/new-home.js?v=nommu-1"></script>
+</body>
+</html>

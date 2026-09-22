@@ -63,6 +63,7 @@ window.workProjects = [
     {
         id: "nommu",
         name: "NOMMU",
+        href: "case-nommu.html",
         desc: "A social gastronomic diary designed to help people document, evaluate, and share their dining experiences with friends.",
         cover: { src: "assets/capas-work/capa-nommu.jpg", w: 1080, h: 1080 },
         tags: [

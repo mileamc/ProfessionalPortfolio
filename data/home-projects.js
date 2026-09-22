@@ -98,7 +98,7 @@ window.homeProjects = {
             id: "nommu",
             brief: { name: "NOMMU", text: "A social gastronomic diary designed to help people document, evaluate, and share their dining experiences with friends." },
             title: "NOMMU",
-            href: null,
+            href: "case-nommu.html",
             linkArea: "arrow",
             size: "medium",
             frame: "custom",

@@ -191,40 +191,25 @@
 .ms-slot:has(img) .ms-slot__note { display: none; }
 
 
-/* --- 1. the opening -------------------------------------------------------- */
+/* --- 1. the hero picture ---------------------------------------------------
+   The header is a shared component now (section 10c of new-home.css) and
+   carries no picture, so the one the case opens on takes the card under it.
+--------------------------------------------------------------------------- */
 
-.ms-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
-    align-items: start;
-    gap: var(--nh-space-10);
+.ms-herofig {
+    padding: var(--nh-card-pad);
 }
 
-.ms-hero__name {
-    margin: 0 0 var(--nh-space-6);
-    font-size: clamp(2.75rem, 1.6rem + 3.4vw, 4.5rem);
-    font-weight: var(--nh-semibold);
-    line-height: 1.02;
-    letter-spacing: -0.04em;
-    color: var(--nh-ink);
+.ms-herofig .ms-slot {
+    margin: 0;
 }
 
-.ms-lead {
-    font-size: clamp(1.0625rem, 0.92rem + 0.66vw, 1.5rem);
-    font-weight: var(--nh-light);
-    line-height: 1.5;
-    color: var(--nh-text);
-}
-
-.ms-terms {
-    margin-bottom: var(--nh-space-6);
-}
-
+/* the way down to the first section, under the header */
 .ms-jump {
     display: inline-flex;
     align-items: center;
     gap: var(--nh-space-3);
-    margin-top: var(--nh-space-6);
+    margin-top: var(--nh-space-8);
     font-size: var(--nh-size-body);
     font-weight: var(--nh-medium);
     color: var(--nh-ink);
@@ -255,33 +240,6 @@
     outline: 2px solid var(--nh-accent);
     outline-offset: 4px;
     border-radius: 999px;
-}
-
-/* the facts of the project, as a list of terms */
-.ms-meta {
-    display: grid;
-    gap: var(--nh-space-5);
-    margin: 0;
-    padding: var(--nh-space-6);
-    border-radius: calc(var(--nh-radius-card) - 4px);
-    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
-}
-
-.ms-meta dt {
-    margin-bottom: var(--nh-space-1);
-    font-size: var(--nh-size-tiny);
-    font-weight: var(--nh-semibold);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--nh-muted);
-}
-
-.ms-meta dd {
-    margin: 0;
-    font-size: var(--nh-size-body);
-    font-weight: var(--nh-medium);
-    line-height: 1.5;
-    color: var(--nh-ink);
 }
 
 

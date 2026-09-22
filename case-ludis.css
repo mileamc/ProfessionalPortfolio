@@ -107,47 +107,47 @@
 }
 
 
-/* --- 1. the opening -------------------------------------------------------
-   The mark and what the product is on the left, the two shipped screens on
-   the right, overlapping the way they were handed over.
+/* --- 1. the two shipped screens --------------------------------------------
+   They used to sit inside the opening card beside the copy. The header is a
+   shared component now (section 10c of new-home.css) and carries no picture,
+   so the pair has a card of its own directly under it — the canvas in front,
+   the team screen behind its shoulder, as they were handed over.
 --------------------------------------------------------------------------- */
 
-.cl-hero {
+.cl-hero-shot {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.78fr);
-    align-items: center;
-    gap: var(--nh-space-10);
+    place-items: end center;
+    margin: 0;
+    padding: var(--nh-card-pad);
 }
 
-.cl-hero__copy > h1 {
-    margin: 0 0 var(--nh-space-6);
-}
-
-.cl-hero__logo {
+.cl-hero__phone {
     display: block;
-    width: clamp(168px, 17vw, 232px);
     height: auto;
 }
 
-.cl-lead {
-    font-size: clamp(1.0625rem, 0.92rem + 0.66vw, 1.5rem);
-    font-weight: var(--nh-light);
-    line-height: 1.5;
-    color: var(--nh-text);
+.cl-hero__phone--canvas {
+    grid-area: 1 / 1;
+    width: min(52%, 560px);
+    justify-self: start;
+    margin-inline-start: 6%;
 }
 
-/* Discipline, year and where the project got to, as one grey line under the
-   mark — the same line the Work page says under a project. */
-.cl-terms {
-    margin-bottom: var(--nh-space-6);
+.cl-hero__phone--team {
+    grid-area: 1 / 1;
+    width: min(28%, 300px);
+    justify-self: end;
+    align-self: center;
+    margin-inline-end: 10%;
+    transform: translateY(-8%);
 }
 
-/* down to the first section */
+/* the way down to the first section, under the header */
 .cl-jump {
     display: inline-flex;
     align-items: center;
     gap: var(--nh-space-3);
-    margin-top: var(--nh-space-6);
+    margin-top: var(--nh-space-8);
     font-size: var(--nh-size-body);
     font-weight: var(--nh-medium);
     color: var(--nh-ink);
@@ -183,33 +183,6 @@
     outline: 2px solid var(--nh-accent);
     outline-offset: 4px;
     border-radius: 999px;
-}
-
-/* the two screens: the canvas in front, the team screen behind its shoulder */
-.cl-hero__shot {
-    position: relative;
-    display: grid;
-    place-items: end center;
-    padding-block: var(--nh-space-4);
-}
-
-.cl-hero__phone {
-    display: block;
-    height: auto;
-}
-
-.cl-hero__phone--canvas {
-    grid-area: 1 / 1;
-    width: 78%;
-    justify-self: start;
-}
-
-.cl-hero__phone--team {
-    grid-area: 1 / 1;
-    width: 42%;
-    justify-self: end;
-    align-self: center;
-    transform: translate(6%, -14%);
 }
 
 
