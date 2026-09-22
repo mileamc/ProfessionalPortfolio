@@ -141,6 +141,15 @@
             : '<a class="nh-card__link" role="link" aria-label="' + escapeHtml(label) + '" aria-disabled="true">' + inner + "</a>";
     };
 
+    // What the card says about itself while the pointer is on its arrow. It
+    // rides on the card so scripts/card-brief.js has only the card to read.
+    var briefAttrs = function (brief) {
+        return brief && brief.name && brief.text
+            ? ' data-brief-name="' + escapeHtml(brief.name) + '"' +
+              ' data-brief-text="' + escapeHtml(brief.text) + '"'
+            : "";
+    };
+
     var cardAttrs = function (options) {
         var tone = options.tone || "";
         var classes = "nh-card" + (options.extraClass ? " " + options.extraClass : "") +
@@ -151,6 +160,7 @@
 
         return ' class="' + classes + '" style="' + style + '"' +
             ' data-size="' + escapeHtml(options.size) + '" data-project="' + escapeHtml(options.id) + '"' +
+            briefAttrs(options.brief) +
             (options.domId ? ' id="' + escapeHtml(options.domId) + '"' : "");
     };
 
@@ -175,7 +185,8 @@
                 id: project.id, index: index + 1, tone: project.tone, href: project.href,
                 size: project.size || "medium", domId: index === 0 ? "work" : "",
                 extraClass: extra,
-                ratio: project.ratio
+                ratio: project.ratio,
+                brief: project.brief
             }) + ">" +
             '<div class="nh-card__stage">' + (stageContent(project, index < 2) || "") + "</div>" +
             linkHtml(project.href, "Open " + (project.title || "project"),
@@ -192,7 +203,8 @@
 
         return "<article" + cardAttrs({
                 id: gd.id || "graphic-design", domId: "graphic-design", index: index + 1,
-                tone: gd.tone, href: gd.href, size: "medium", extraClass: "nh-card--text"
+                tone: gd.tone, href: gd.href, size: "medium", extraClass: "nh-card--text",
+                brief: gd.brief
             }) + ">" +
             '<div class="nh-card__stage">' +
             frameHtml({ frame: "prints", media: gd.media }, false) +

@@ -13,6 +13,9 @@
 //   · Links: set `href`. While it is null the card keeps its arrow and hover,
 //     but does not navigate. Existing pages you may want to point to are
 //     noted next to each project.
+//   · `brief`: the name and the line that appear under the card while the
+//     pointer is on its arrow, with the rest of the page behind glass. A
+//     project without one keeps its arrow and says nothing.
 //   · Images: drop a file at the `src` path and it appears. A path that does
 //     not exist yet renders a quiet empty shape of the right proportions.
 //   · Your own interface or interactive component: add a
@@ -48,6 +51,7 @@ window.homeProjects = {
             // Only the arrow opens the case page; the rest of the card is
             // for drawing.
             id: "ludis",
+            brief: { name: "LUDIS", text: "A sports management app designed to help teams organize their activities and manage their sports experiences." },
             title: "LUDIS",
             href: "case-ludis-lp.html",
             linkArea: "arrow",
@@ -62,6 +66,7 @@ window.homeProjects = {
             // <template data-nh-card="mosaico"> in index.html and its
             // behaviour is scripts/mosaico-write.js — so no `media` here.
             id: "mosaico",
+            brief: { name: "MOSAICO", text: "A narrative writing companion designed to guide young learners through the creative process of developing stories." },
             title: "Mosaico",
             href: null,          // existing page: case-mosaico-lp.html
             size: "lead-below",
@@ -76,6 +81,7 @@ window.homeProjects = {
             // `media` here. Only the arrow opens the case page; the rest of the
             // card is for comparing.
             id: "imb-compare",
+            brief: { name: "IMB", text: "A corporate website designed to communicate IMB's services and strengthen its digital presence through a clear and intuitive experience." },
             title: "IMB equipment comparison",
             href: null,          // existing page: project.html?project=imb
             linkArea: "arrow",
@@ -90,6 +96,7 @@ window.homeProjects = {
             // is scripts/nommu-feed.js — so no `media` here. Only the arrow
             // opens the case page; the rest of the card is the prototype.
             id: "nommu",
+            brief: { name: "NOMMU", text: "A social gastronomic diary designed to help people document, evaluate, and share their dining experiences with friends." },
             title: "NOMMU",
             href: null,
             linkArea: "arrow",
@@ -105,6 +112,7 @@ window.homeProjects = {
             // scripts/hpp-pages.js — so no `media` here. Only the arrow opens
             // the case page; the rest of the card is the browser.
             id: "hpp",
+            brief: { name: "HPP", text: "A collection of landing pages designed to support external communication and connect audiences with healthcare and institutional initiatives." },
             title: "HPP landing pages",
             href: null,
             linkArea: "arrow",

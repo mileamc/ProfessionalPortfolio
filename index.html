@@ -14,7 +14,7 @@
 <!-- Self-contained: this page does not load tokens.css, components.css or
      page-style.css. Its visual language is scoped to .nh in new-home.css so
      the existing pages keep rendering exactly as they do today. -->
-<link rel="stylesheet" href="new-home.css?v=arrow-1"/>
+<link rel="stylesheet" href="new-home.css?v=brief-1"/>
 
 <!-- The three files the first screen needs and the parser cannot see: the
      court the LUDIS board is drawn over and the paper the handwriting is
@@ -102,6 +102,13 @@
      a click, or as soon as the visitor has scrolled 30% of the page. Clicking the dots
      grows it back with the next line. Lines, timing and the open size are in
      scripts/new-home.js. -->
+<!-- The glass and the line under the card. While the pointer rests on a card's
+     arrow, the veil is drawn over the whole page — blurred and whitened — and
+     that card alone is lifted above it, with its name and its line beneath it.
+     Both are empty and invisible until scripts/card-brief.js is asked for them. -->
+<div class="nh-veil" data-nh-veil aria-hidden="true"></div>
+<p class="nh-brief" data-nh-brief aria-hidden="true"><b data-nh-brief-name></b><span data-nh-brief-text></span></p>
+
 <button class="nh-bubble" type="button" data-nh-bubble aria-expanded="false" aria-label="Message from Milena">
     <span class="nh-bubble__text" data-nh-bubble-text role="status">Hey, you should totally interact with everything. Click away!</span>
     <span class="nh-bubble__dots" aria-hidden="true">
@@ -378,15 +385,16 @@
     </div>
 </template>
 
-<script src="data/home-projects.js?v=arrow-1"></script>
-<script src="scripts/new-home.js?v=arrow-1"></script>
-<script src="scripts/ludis-play.js?v=arrow-1"></script>
-<script src="scripts/mosaico-write.js?v=arrow-1"></script>
-<script src="scripts/imb-compare.js?v=arrow-1"></script>
-<script src="scripts/nommu-feed.js?v=arrow-1"></script>
-<script src="scripts/hpp-pages.js?v=arrow-1"></script>
-<script src="scripts/gd-prints.js?v=arrow-1"></script>
+<script src="data/home-projects.js?v=brief-1"></script>
+<script src="scripts/new-home.js?v=brief-1"></script>
+<script src="scripts/ludis-play.js?v=brief-1"></script>
+<script src="scripts/mosaico-write.js?v=brief-1"></script>
+<script src="scripts/imb-compare.js?v=brief-1"></script>
+<script src="scripts/nommu-feed.js?v=brief-1"></script>
+<script src="scripts/hpp-pages.js?v=brief-1"></script>
+<script src="scripts/gd-prints.js?v=brief-1"></script>
+<script src="scripts/card-brief.js?v=brief-1"></script>
 <!-- and, once the page is done, the screenful after this one -->
-<script src="scripts/warm-assets.js?v=arrow-1" defer></script>
+<script src="scripts/warm-assets.js?v=brief-1" defer></script>
 </body>
 </html>

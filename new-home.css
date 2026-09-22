@@ -3090,6 +3090,86 @@ html {
 
 
 /* ===========================================================================
+   8b. THE GLASS, AND WHAT A CARD SAYS UNDER IT
+
+   Rest the pointer on a card's arrow and the page goes behind glass: one veil
+   over everything, blurred and whitened, with that card lifted above it so it
+   stays sharp, and its name and a line about it on the glass beneath it.
+
+   One veil rather than a blur on each card, because blurring a card's
+   ancestor blurs the card as well; the card is lifted over the veil instead of
+   being left out of it. scripts/card-brief.js decides which card, and puts the
+   line where the card is.
+=========================================================================== */
+
+.nh-veil {
+    position: fixed;
+    inset: 0;
+    z-index: 60;                /* over the navigation, which goes behind it too */
+    opacity: 0;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: opacity 300ms ease;
+}
+
+.nh.is-briefing .nh-veil {
+    opacity: 1;
+}
+
+/* the one card that is not behind it */
+.nh-card.is-lifted {
+    z-index: 61;
+}
+
+.nh-brief {
+    position: fixed;
+    z-index: 62;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+    font-size: var(--nh-size-small);
+    line-height: 1.45;
+    color: var(--nh-muted);
+    text-wrap: pretty;
+    transform: translateY(4px);
+    transition:
+        opacity 300ms ease,
+        transform 300ms ease;
+}
+
+.nh.is-briefing .nh-brief {
+    opacity: 1;
+    transform: none;
+}
+
+/* the name carries the line: it is the one thing in bold, and the dash
+   between the two is drawn rather than typed, so the data holds only words */
+.nh-brief b {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+.nh-brief b::after {
+    content: " — ";
+    font-weight: var(--nh-regular);
+    color: var(--nh-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nh-veil,
+    .nh-brief {
+        transition: none;
+    }
+
+    .nh-brief {
+        transform: none;
+    }
+}
+
+
+/* ===========================================================================
    9. FOOTER
 =========================================================================== */
 
