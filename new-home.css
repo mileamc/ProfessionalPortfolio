@@ -920,27 +920,6 @@ html {
     transform: none;
 }
 
-/* hovering the card (not the arrow) leaves the arrow at rest */
-.nh-card.is-arrow-link:hover .nh-card__arrow {
-    background: rgba(255, 255, 255, 0.92);
-    color: var(--nh-ink);
-}
-
-.nh-card.is-arrow-link:hover .nh-card__arrow svg {
-    transform: none;
-}
-
-.nh-card.is-arrow-link .nh-card__link:hover .nh-card__arrow,
-.nh-card.is-arrow-link .nh-card__link:focus-visible .nh-card__arrow {
-    background: var(--nh-ink);
-    color: #FFFFFF;
-}
-
-.nh-card.is-arrow-link .nh-card__link:hover .nh-card__arrow svg,
-.nh-card.is-arrow-link .nh-card__link:focus-visible .nh-card__arrow svg {
-    transform: translate(1px, -1px);
-}
-
 .nh-card__stage {
     position: absolute;
     inset: 0;
@@ -1003,22 +982,25 @@ html {
     box-shadow: none;
 }
 
-/* Hover and keyboard focus: the card itself stays still — no lift, no zoom.
-   Only the arrow answers: it fills in and nudges toward where it leads. */
-.nh-card:hover .nh-card__arrow,
-.nh-card:has(.nh-card__link:focus-visible) .nh-card__arrow {
+/* Hover and keyboard focus: the card itself stays still — no lift, no zoom —
+   and the arrow keeps to itself until the pointer is on the arrow. It fills in
+   then, and nudges toward where it leads. The trigger is the arrow and not the
+   card, because on two of these cards the whole surface is the link and the
+   card would otherwise answer for a pointer nowhere near its corner. */
+.nh-card__arrow:hover,
+.nh-card__link:focus-visible .nh-card__arrow {
     background: var(--nh-ink);
     color: #FFFFFF;
 }
 
-.nh-card.is-dark:hover .nh-card__arrow,
-.nh-card.is-dark:has(.nh-card__link:focus-visible) .nh-card__arrow {
+.nh-card.is-dark .nh-card__arrow:hover,
+.nh-card.is-dark .nh-card__link:focus-visible .nh-card__arrow {
     background: #FFFFFF;
     color: var(--nh-ink);
 }
 
-.nh-card:hover .nh-card__arrow svg,
-.nh-card:has(.nh-card__link:focus-visible) .nh-card__arrow svg {
+.nh-card__arrow:hover svg,
+.nh-card__link:focus-visible .nh-card__arrow svg {
     transform: translate(1px, -1px);
 }
 

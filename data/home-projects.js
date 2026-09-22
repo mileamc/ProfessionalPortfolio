@@ -128,6 +128,7 @@ window.homeProjects = {
     graphicDesign: {
         id: "graphic-design",
         title: "Graphic Design",
+        brief: { name: "Graphic Design", text: "An archive of visual work across digital and print, exploring communication through typography, imagery, and visual systems." },
         href: "design-grafico.html",
         tone: null,
         media: [
