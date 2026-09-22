@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>LUDIS &mdash; Milena Caldas</title>
+<meta name="description" content="LUDIS: a mobile playbook for amateur and youth sports teams, taken from research to a shipped iOS product — 8 teams and 20 active users in the first week."/>
+<meta name="theme-color" content="#FFFFFF"/>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/ui/favicon.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/ui/favicon-32.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500&amp;display=swap"/>
+<!-- The site's own language: new-home.css carries the tokens, the bar, the
+     card surface, the pill the tags are made of, the button and the footer.
+     case-ludis.css only lays out what is particular to this case. Neither the
+     home, the Work page nor the About page is changed by this one. -->
+<link rel="stylesheet" href="new-home.css?v=ludis-1"/>
+<link rel="stylesheet" href="case-ludis.css?v=ludis-1"/>
+
+<!-- The two things the first screen needs: the mark the page opens on and the
+     screen behind it. Everything below the fold waits to be scrolled to. -->
+<link rel="preload" as="image" href="imagesProjects/ludis/logo-ludis.png"/>
+<link rel="preload" as="image" href="imagesProjects/ludis/hero-phone-canvas.png" fetchpriority="high"/>
+</head>
+<body class="nh">
+
+<a class="nh-skip" href="#case">Skip to content</a>
+
+<header class="nh-header">
+    <nav class="nh-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="work.html">Work</a>
+        <a aria-disabled="true">Contact</a>
+    </nav>
+</header>
+
+<main id="top">
+
+    <!-- Where this page sits, and the way back to the list it came from. -->
+    <p class="nh-shell nh-kicker"><a class="cl-back" href="work.html"><span aria-hidden="true">&larr;</span> Selected work</a></p>
+
+    <div class="nh-shell cl-page" id="case">
+
+        <!-- ===============================================================
+             1 — The opening: what LUDIS is, and the two screens it ships.
+        =============================================================== -->
+        <article class="nh-card nh-card--content cl-card cl-hero" style="--i: 0" aria-labelledby="cl-title">
+
+            <div class="cl-hero__copy">
+                <h1 id="cl-title">
+                    <img class="cl-hero__logo" src="imagesProjects/ludis/logo-ludis.png" alt="LUDIS" width="714" height="238"/>
+                </h1>
+
+                <ul class="cl-tags">
+                    <li class="nh-tag" data-tag="discipline">Product design</li>
+                    <li class="nh-tag" data-tag="year">2022</li>
+                    <li class="nh-tag" data-tag="status">Shipped</li>
+                </ul>
+
+                <p class="cl-lead">LUDIS is a <strong>mobile playbook</strong> for <strong>amateur and youth sports teams</strong> &mdash; a tactical canvas where coaches draw plays with role-based player symbols and movement routes, save them to a reusable playbook, and take them to the field offline or as an exported PDF. It&rsquo;s <strong>built for coaches</strong> who double as team managers, have no formal management training, and are <strong>priced out of professional sports software</strong>.</p>
+
+                <a class="cl-jump" href="#how">
+                    <span class="cl-jump__mark" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 3.5v9M4.5 9 8 12.5 11.5 9"/></svg>
+                    </span>How I did it</a>
+            </div>
+
+            <div class="cl-hero__shot">
+                <img class="cl-hero__phone cl-hero__phone--canvas" src="imagesProjects/ludis/hero-phone-canvas.png" width="610" height="757" alt="The LUDIS play-drawing canvas with the player editor open" fetchpriority="high" decoding="async"/>
+                <img class="cl-hero__phone cl-hero__phone--team" src="imagesProjects/ludis/hero-phone-team.png" width="304" height="543" alt="The LUDIS new-team screen" decoding="async"/>
+            </div>
+
+        </article>
+
+        <!-- ===============================================================
+             2 — The brand and the interface, as they were handed over.
+             Both boards carry their own dark ground, so each takes a card
+             of its own with nothing around it.
+        =============================================================== -->
+        <figure class="nh-card nh-card--content cl-card cl-board" style="--i: 1">
+            <img src="imagesProjects/ludis/bento-brand.png" width="1775" height="991" loading="lazy" decoding="async"
+                 alt="The LUDIS brand board: positioning, login screen, mascot, typeface, app icon, colour palette and buttons"/>
+        </figure>
+
+        <figure class="nh-card nh-card--content cl-card cl-board" style="--i: 2">
+            <img src="imagesProjects/ludis/bento-screens.png" width="1794" height="1009" loading="lazy" decoding="async"
+                 alt="The LUDIS component board: the range of screens, event cards, the player editor, dense forms and the empty state"/>
+        </figure>
+
+        <!-- ===============================================================
+             3 — What I was responsible for.
+        =============================================================== -->
+        <section class="nh-card nh-card--content cl-card cl-resp" id="how" style="--i: 3" aria-labelledby="cl-resp-title">
+            <h2 class="cl-h2" id="cl-resp-title">Key responsibilities</h2>
+
+            <div class="cl-resp__grid">
+
+                <div class="cl-resp__side">
+                    <p class="cl-resp__role">Team of three &middot; one developer, two designers.</p>
+                    <p>Owned research, wireframing, usability testing, and launch strategy.</p>
+
+                    <p class="cl-note">
+                        <img src="imagesProjects/ludis/icon-handshake.png" width="88" height="88" alt="" aria-hidden="true" loading="lazy"/>
+                        <span>The design system was led by <strong>Natalia Da Rosa</strong></span>
+                    </p>
+
+                    <a class="nh-btn nh-btn--secondary" aria-disabled="true" tabindex="0" role="link">view our design system</a>
+                </div>
+
+                <ul class="cl-duties">
+                    <li>
+                        <h3>UX research</h3>
+                        <p>Benchmarking, interview scripts, usability testing.</p>
+                    </li>
+                    <li>
+                        <h3>Design</h3>
+                        <p>Low-to-high fidelity wireframes and flows, in Figma, against Apple&rsquo;s HIG</p>
+                    </li>
+                    <li>
+                        <h3>Go-to-market</h3>
+                        <p>Launch strategy, three paid campaigns, and promotional content</p>
+                    </li>
+                </ul>
+
+            </div>
+        </section>
+
+        <!-- ===============================================================
+             4 — How the work was run.
+        =============================================================== -->
+        <section class="nh-card nh-card--content cl-card cl-method" style="--i: 4" aria-labelledby="cl-method-title">
+            <h2 class="cl-h2" id="cl-method-title">Methodology</h2>
+            <p class="cl-method__intro"><strong>Apple&rsquo;s CBL (Challenge Based Learning)</strong> &mdash; a three-phase framework connecting problem definition, research, and execution.</p>
+
+            <ol class="cl-steps">
+
+                <li class="cl-step">
+                    <img src="imagesProjects/ludis/cbl-01.png" width="119" height="119" alt="" aria-hidden="true" loading="lazy"/>
+                    <h3><span aria-hidden="true">01 &middot;</span> Engage</h3>
+                    <ul class="cl-step__list">
+                        <li>How to improve an athlete&rsquo;s experience with Sports Management?</li>
+                        <li>Seek to optimize and make professional Sports Management more accessible.</li>
+                    </ul>
+                </li>
+
+                <li class="cl-step">
+                    <img src="imagesProjects/ludis/cbl-02.png" width="119" height="119" alt="" aria-hidden="true" loading="lazy"/>
+                    <h3><span aria-hidden="true">02 &middot;</span> Investigate</h3>
+                    <p>Understanding who we were building for.</p>
+                    <ul class="cl-chips">
+                        <li>Benchmarking</li><li>Empathy map</li><li>Value prop canvas</li><li>Persona</li><li>Interviews</li>
+                    </ul>
+                </li>
+
+                <li class="cl-step">
+                    <img src="imagesProjects/ludis/cbl-03.png" width="119" height="119" alt="" aria-hidden="true" loading="lazy"/>
+                    <h3><span aria-hidden="true">03 &middot;</span> Act</h3>
+                    <p>Turning insight into product.</p>
+                    <ul class="cl-chips">
+                        <li>Design system</li><li>Wireframes</li><li>Prototypes</li><li>Testing</li><li>Accessibility</li><li>HIG</li>
+                    </ul>
+                </li>
+
+            </ol>
+        </section>
+
+        <!-- ===============================================================
+             5 — Who it is for, and what was wrong before it.
+        =============================================================== -->
+        <section class="nh-card nh-card--content cl-card cl-problem" style="--i: 5" aria-labelledby="cl-problem-title">
+
+            <div class="cl-problem__head">
+                <div>
+                    <h2 class="cl-h2" id="cl-problem-title">Problem &amp; audience</h2>
+                    <p><strong>Youth and amateur sports teams</strong> struggle to organize training, matches, and team data &mdash; <strong>and the tools available don&rsquo;t fit them</strong>. Existing sports management apps tend to be <strong>inaccessible, expensive, or built for a narrow slice of the market</strong>, which leaves most coaches without a real option &mdash; especially the ones also acting as team managers, juggling both roles with <strong>no tooling built for that reality</strong>.</p>
+                </div>
+                <img class="cl-mascot" src="imagesProjects/ludis/mascot-hello.png" width="510" height="575" loading="lazy" decoding="async"
+                     alt="GOAT, the LUDIS mascot, waving"/>
+            </div>
+
+            <ul class="cl-users">
+                <li><p><strong>Primary user:</strong> coaches and sports teachers, often with little to no formal management experience</p></li>
+                <li><p><strong>Secondary user:</strong> athletes and team members, typically younger.</p></li>
+            </ul>
+
+        </section>
+
+        <!-- ===============================================================
+             6 — What we built, and the one call that shaped it.
+             The device on the right is the real before and after: drag it.
+        =============================================================== -->
+        <section class="nh-card nh-card--content cl-card cl-solution" style="--i: 6" aria-labelledby="cl-solution-title">
+
+            <div class="cl-solution__copy">
+                <h2 class="cl-h2" id="cl-solution-title">Creating our solution</h2>
+                <p><strong>UX shaped Ludis from day one</strong> &mdash; research fed directly into wireframes, taken from low to high fidelity, refined through user flows built jointly by designers and developers, and grounded throughout in <strong>Apple&rsquo;s Human Interface Guidelines</strong>.</p>
+
+                <h2 class="cl-h2 cl-h2--again">The key decision</h2>
+                <p>The original vision for Ludis was <strong>broad</strong> &mdash; scheduling, communication, and performance tracking across any sport. After our <strong>first round of validation</strong>, we decided that <strong>reducing our scope</strong> would be the best option given the time we had and the goals we still wanted to achieve.</p>
+                <p><strong>We scoped the MVP down to one main feature: the play-drawing playbook.</strong></p>
+            </div>
+
+            <div class="cl-ba">
+                <div class="cl-ba__device" data-ba>
+                    <img class="cl-ba__base" src="imagesProjects/ludis/ba-device.png" width="496" height="1003" loading="lazy" decoding="async"
+                         alt="The LUDIS login screen before the redesign"/>
+                    <div class="cl-ba__screen">
+                        <img class="cl-ba__after" src="imagesProjects/ludis/ba-after.png" width="444" height="920" loading="lazy" decoding="async"
+                             alt="The shipped LUDIS login screen"/>
+                    </div>
+                    <button class="cl-ba__handle" type="button" role="slider" tabindex="0"
+                            aria-label="Drag to compare the screen before and after"
+                            aria-valuemin="0" aria-valuemax="100" aria-valuenow="73">
+                        <img src="imagesProjects/ludis/ba-handle.png" width="75" height="930" alt="" aria-hidden="true" loading="lazy"/>
+                    </button>
+                </div>
+                <p class="cl-ba__hint">
+                    <svg viewBox="0 0 52 26" fill="none" aria-hidden="true" focusable="false"><path d="M12 4 4 13l8 9M40 4l8 9-8 9M4 13h44" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Slide for before and after</p>
+            </div>
+
+        </section>
+
+        <!-- ===============================================================
+             7 — The screens that shipped, going past.
+        =============================================================== -->
+        <section class="nh-card nh-card--content cl-card cl-reel" style="--i: 7" aria-labelledby="cl-reel-title">
+            <h2 class="nh-visually-hidden" id="cl-reel-title">Shipped screens</h2>
+
+            <div class="cl-reel__frame" data-reel>
+                <div class="cl-reel__track">
+                    <!-- One set. scripts/case-ludis.js copies it to close the loop. -->
+                    <ul class="cl-reel__set">
+                        <li><img src="imagesProjects/ludis/carousel-1.png" width="389" height="802" loading="lazy" decoding="async" alt="LUDIS login screen"/></li>
+                        <li><img src="imagesProjects/ludis/carousel-2.png" width="389" height="802" loading="lazy" decoding="async" alt="Create a new LUDIS team"/></li>
+                        <li><img src="imagesProjects/ludis/carousel-3.png" width="389" height="802" loading="lazy" decoding="async" alt="Empty LUDIS playbook screen"/></li>
+                        <li><img src="imagesProjects/ludis/carousel-4.png" width="389" height="802" loading="lazy" decoding="async" alt="LUDIS June calendar"/></li>
+                        <li><img src="imagesProjects/ludis/carousel-5.png" width="389" height="802" loading="lazy" decoding="async" alt="LUDIS user profile form"/></li>
+                    </ul>
+                </div>
+                <button class="cl-reel__toggle" type="button" data-reel-toggle aria-pressed="false" aria-label="Pause the screens">
+                    <svg class="cl-reel__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3h2.2v10H5zM8.8 3H11v10H8.8z"/></svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- ===============================================================
+             8 — What testing changed.
+        =============================================================== -->
+        <section class="nh-card nh-card--content cl-card cl-validation" style="--i: 8" aria-labelledby="cl-validation-title">
+            <h2 class="cl-h2" id="cl-validation-title">User validation</h2>
+            <p class="cl-validation__intro">We ran a <strong>moderated usability test</strong> with the same initial users, then returned to that feedback for a <strong>second round of iteration</strong>. Ease of use scored 5/5, likelihood to recommend scored 5/5 &mdash; and the session surfaced real gaps we shipped before release:</p>
+
+            <ol class="cl-findings">
+                <li>
+                    <b aria-hidden="true">01</b>
+                    <h3>Multi-sport templates</h3>
+                    <p>Added soccer, volleyball, and basketball</p>
+                </li>
+                <li>
+                    <b aria-hidden="true">02</b>
+                    <h3>Custom backgrounds</h3>
+                    <p>Added the ability to upload images to serve as custom backgrounds</p>
+                </li>
+                <li>
+                    <b aria-hidden="true">03</b>
+                    <h3>Offline &amp; export</h3>
+                    <p>Allowed users to save locally, with shareable images or PDFs</p>
+                </li>
+            </ol>
+
+            <p>This wasn&rsquo;t just fixing friction &mdash; it was expanding the product in the direction users actually asked for, based on evidence instead of assumption. <strong>Below, you can find the interview protocol we used for our validation process.</strong></p>
+
+            <a class="nh-btn nh-btn--secondary" aria-disabled="true" tabindex="0" role="link">view interview protocol</a>
+
+            <img class="cl-peek" src="imagesProjects/ludis/mascot-peek.png" width="787" height="353" alt="" aria-hidden="true" loading="lazy" decoding="async"/>
+        </section>
+
+        <!-- ===============================================================
+             9 — The product, end to end.
+        =============================================================== -->
+        <section class="nh-card nh-card--content cl-card cl-practice" style="--i: 9" aria-labelledby="cl-practice-title">
+            <h2 class="cl-h2" id="cl-practice-title">The solution in practice</h2>
+            <p class="cl-practice__intro"><strong>Login &amp; team setup &rarr; Playbook list &rarr; Play-drawing canvas:</strong> choose a template for your sport (football, soccer, or volleyball) or a custom background, add players with role-based symbols (shape, not just colour, for accessibility), draw routes with directional lines, and save to a reusable playbook &mdash; available offline, with export to image or PDF for sharing on the field.</p>
+
+            <ol class="cl-flow">
+                <li>
+                    <figure>
+                        <b aria-hidden="true">01</b>
+                        <img src="imagesProjects/ludis/phone-01.png" width="279" height="563" loading="lazy" decoding="async" alt="The LUDIS login screen"/>
+                        <figcaption>Sign in, build team</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <b aria-hidden="true">02</b>
+                        <img src="imagesProjects/ludis/phone-02.png" width="280" height="563" loading="lazy" decoding="async" alt="The empty playbook, prompting the first play"/>
+                        <figcaption>Every play, one place</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <b aria-hidden="true">03</b>
+                        <img src="imagesProjects/ludis/phone-03.png" width="279" height="563" loading="lazy" decoding="async" alt="The play-drawing canvas with a football formation"/>
+                        <figcaption>Draw, save, share</figcaption>
+                    </figure>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ===============================================================
+             10 — What it did, and what I would do differently.
+        =============================================================== -->
+        <section class="nh-card nh-card--content cl-card cl-result" style="--i: 10" aria-labelledby="cl-result-title">
+            <h2 class="cl-h2" id="cl-result-title">Result &amp; reflection</h2>
+
+            <div class="cl-result__grid">
+                <ul class="cl-stats">
+                    <li><b>8</b><span>new teams created in week one</span></li>
+                    <li><b>20</b><span>active users in week one</span></li>
+                    <li><b>3</b><span>paid campaigns, content produced in-house</span></li>
+                </ul>
+
+                <div class="cl-result__copy">
+                    <p>LUDIS launched <strong>successfully and served its community goal, built through a user-focused, metric-driven process</strong>. But our research only ever confirmed us &mdash; it never pushed back. What looked like validation then reads now as a <strong>blind spot</strong>: research that can&rsquo;t contradict you isn&rsquo;t testing your assumptions, it&rsquo;s just recording them. Next time I&rsquo;d design the study to be able to prove me wrong.</p>
+                    <p>To learn more about our marketing and launch campaign, view my separate project on LUDIS&rsquo; social media design.</p>
+                    <a class="nh-btn nh-btn--secondary" aria-disabled="true" tabindex="0" role="link">view LUDIS&rsquo; marketing project</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===============================================================
+             11 — Go and use it.
+        =============================================================== -->
+        <section class="nh-card nh-card--content cl-card cl-cta" style="--i: 11" aria-labelledby="cl-cta-title">
+            <div class="cl-cta__copy">
+                <h2 class="nh-visually-hidden" id="cl-cta-title">Try LUDIS</h2>
+                <p>If you&rsquo;d like to poke around, LUDIS is live on the App Store. It&rsquo;s free, and drawing your first play takes only a few minutes.</p>
+                <a class="nh-btn" aria-disabled="true" tabindex="0" role="link">download LUDIS</a>
+            </div>
+            <img class="cl-cta__mascot" src="imagesProjects/ludis/mascot-phone.png" width="554" height="617" loading="lazy" decoding="async"
+                 alt="GOAT, the LUDIS mascot, holding a phone"/>
+        </section>
+
+        <!-- ===============================================================
+             12 — Every screen that shipped.
+        =============================================================== -->
+        <section class="nh-card nh-card--content cl-card cl-gallery" style="--i: 12" aria-labelledby="cl-gallery-title">
+            <h2 class="cl-h2" id="cl-gallery-title">Every screen that shipped</h2>
+            <ul class="cl-gallery__grid">
+                <li><img src="imagesProjects/ludis/shot-01.png" width="318" height="691" loading="lazy" decoding="async" alt="LUDIS login"/></li>
+                <li><img src="imagesProjects/ludis/shot-02.png" width="318" height="691" loading="lazy" decoding="async" alt="Account creation"/></li>
+                <li><img src="imagesProjects/ludis/shot-03.png" width="318" height="691" loading="lazy" decoding="async" alt="Mascot introduction"/></li>
+                <li><img src="imagesProjects/ludis/shot-04.png" width="318" height="691" loading="lazy" decoding="async" alt="Team code entry"/></li>
+                <li><img src="imagesProjects/ludis/shot-05.png" width="318" height="691" loading="lazy" decoding="async" alt="New team"/></li>
+                <li><img src="imagesProjects/ludis/shot-06.png" width="318" height="695" loading="lazy" decoding="async" alt="Empty playbook"/></li>
+                <li><img src="imagesProjects/ludis/shot-07.png" width="318" height="695" loading="lazy" decoding="async" alt="Playbook list in selection mode"/></li>
+                <li><img src="imagesProjects/ludis/shot-08.png" width="318" height="695" loading="lazy" decoding="async" alt="Player editor on a blank canvas"/></li>
+                <li><img src="imagesProjects/ludis/shot-09.png" width="317" height="691" loading="lazy" decoding="async" alt="Football formation on the canvas"/></li>
+                <li><img src="imagesProjects/ludis/shot-10.png" width="318" height="695" loading="lazy" decoding="async" alt="Player number picker"/></li>
+                <li><img src="imagesProjects/ludis/shot-11.png" width="318" height="695" loading="lazy" decoding="async" alt="Team area"/></li>
+                <li><img src="imagesProjects/ludis/shot-12.png" width="318" height="695" loading="lazy" decoding="async" alt="Team settings and members"/></li>
+                <li><img src="imagesProjects/ludis/shot-13.png" width="318" height="695" loading="lazy" decoding="async" alt="User profile"/></li>
+                <li><img src="imagesProjects/ludis/shot-14.png" width="318" height="695" loading="lazy" decoding="async" alt="Reset password dialog"/></li>
+                <li><img src="imagesProjects/ludis/shot-15.png" width="318" height="695" loading="lazy" decoding="async" alt="Leave without saving dialog"/></li>
+                <li><img src="imagesProjects/ludis/shot-16.png" width="318" height="695" loading="lazy" decoding="async" alt="Calendar empty state"/></li>
+                <li><img src="imagesProjects/ludis/shot-17.png" width="318" height="695" loading="lazy" decoding="async" alt="Upcoming events"/></li>
+                <li><img src="imagesProjects/ludis/shot-18.png" width="318" height="695" loading="lazy" decoding="async" alt="Month view with event labels"/></li>
+                <li><img src="imagesProjects/ludis/shot-19.png" width="318" height="695" loading="lazy" decoding="async" alt="Event filter menu"/></li>
+                <li><img src="imagesProjects/ludis/shot-20.png" width="320" height="691" loading="lazy" decoding="async" alt="Change attendance status"/></li>
+            </ul>
+        </section>
+
+    </div>
+
+</main>
+
+<footer class="nh-footer">
+    <div class="nh-shell nh-footer__inner">
+        <p>&copy; 2026 Milena Caldas</p>
+    </div>
+</footer>
+
+<!-- Only the bar's own script is wanted here; everything else new-home.js sets
+     up is keyed to markup this page does not carry, so it does nothing. -->
+<script src="scripts/new-home.js?v=ludis-1"></script>
+<script src="scripts/case-ludis.js?v=ludis-1"></script>
+</body>
+</html>

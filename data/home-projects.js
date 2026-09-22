@@ -53,7 +53,7 @@ window.homeProjects = {
             id: "ludis",
             brief: { name: "LUDIS", text: "A sports management app designed to help teams organize their activities and manage their sports experiences." },
             title: "LUDIS",
-            href: "case-ludis-lp.html",
+            href: "case-ludis.html",
             linkArea: "arrow",
             fit: "content",
             size: "lead-wide",

@@ -1,0 +1,785 @@
+/* ===========================================================================
+   LUDIS — the case page
+
+   The page borrows everything it can from new-home.css: the tokens, the
+   floating bar, the card surface and its shadow, the pill the tags are made
+   of, the button, the entry rise and the footer. This file only lays out what
+   is particular to a case — how each section sits inside its card, and the
+   three things the home has no equivalent of (the before/after device, the
+   band of shipped screens, and the gallery).
+
+   The page is a column of cards at .nh-shell's width, which is the width the
+   home, Work and About all keep. It is deliberately NOT the old case's
+   composition: that page was a stack of full-bleed bands in alternating
+   colours, and nothing of its CSS is used here.
+=========================================================================== */
+
+.cl-page {
+    display: grid;
+    gap: var(--nh-gap);
+    padding-block: 0 var(--nh-space-16);
+}
+
+/* the way back, in the line over the page */
+.cl-back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nh-space-2);
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--nh-base) var(--nh-ease);
+}
+
+.cl-back:hover {
+    color: var(--nh-ink);
+}
+
+.cl-back:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Every section is one of the home's cards, padded like a card of running
+   text. nh-card--content comes with each one in the markup: it is what keeps
+   a card whose height is its contents from being made a size container. */
+.cl-card {
+    padding: var(--nh-card-pad);
+}
+
+
+/* --- type -----------------------------------------------------------------
+   One h1 (the logo), then h2 per section and h3 inside it. Sizes come from
+   the tokens the rest of the site sets its headings in.
+--------------------------------------------------------------------------- */
+
+.cl-h2 {
+    margin: 0 0 var(--nh-space-5);
+    font-size: var(--nh-size-display);
+    font-weight: var(--nh-medium);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+    color: var(--nh-ink);
+    text-wrap: balance;
+}
+
+/* a second heading further down the same card has the last paragraph above it */
+.cl-h2--again {
+    margin-top: var(--nh-space-10);
+}
+
+/* :where() holds this at a single class's specificity, so any paragraph named
+   further down this file wins on order alone — no !important anywhere. */
+.cl-card :where(p) {
+    max-width: var(--nh-measure, 62ch);
+    margin: 0 0 var(--nh-space-4);
+    font-size: var(--nh-size-body);
+    line-height: 1.75;
+    color: var(--nh-text);
+    text-wrap: pretty;
+}
+
+.cl-card :where(p:last-child) {
+    margin-bottom: 0;
+}
+
+/* The one way a word is stressed inside a paragraph: weight and ink, never
+   italic, never a second colour. */
+.cl-card strong {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+.cl-card h3 {
+    margin: 0 0 var(--nh-space-2);
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-semibold);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+
+/* --- 1. the opening -------------------------------------------------------
+   The mark and what the product is on the left, the two shipped screens on
+   the right, overlapping the way they were handed over.
+--------------------------------------------------------------------------- */
+
+.cl-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.78fr);
+    align-items: center;
+    gap: var(--nh-space-10);
+}
+
+.cl-hero__copy > h1 {
+    margin: 0 0 var(--nh-space-6);
+}
+
+.cl-hero__logo {
+    display: block;
+    width: clamp(168px, 17vw, 232px);
+    height: auto;
+}
+
+.cl-lead {
+    font-size: clamp(1.0625rem, 0.92rem + 0.66vw, 1.5rem);
+    font-weight: var(--nh-light);
+    line-height: 1.5;
+    color: var(--nh-text);
+}
+
+/* the tags, over the line they describe */
+.cl-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nh-space-2);
+    margin: 0 0 var(--nh-space-6);
+    padding: 0;
+    list-style: none;
+}
+
+/* The three colours the site's pills come in, one per tag so no two in a
+   group repeat: the discipline, the year, and where the project got to. */
+.cl-tags [data-tag="discipline"] { --nh-tag-ink: var(--nh-tag-pink); --nh-tag-line: var(--nh-tag-pink-line); }
+.cl-tags [data-tag="year"]       { --nh-tag-ink: var(--nh-tag-blue); --nh-tag-line: var(--nh-tag-blue-line); }
+.cl-tags [data-tag="status"]     { --nh-tag-ink: var(--nh-signal-text); --nh-tag-line: var(--nh-signal-line); }
+
+/* down to the first section */
+.cl-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nh-space-3);
+    margin-top: var(--nh-space-6);
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-medium);
+    color: var(--nh-ink);
+    text-decoration: none;
+}
+
+.cl-jump__mark {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 1px 2px rgba(15, 23, 34, 0.08), 0 4px 12px -6px rgba(15, 23, 34, 0.18);
+    transition:
+        background-color var(--nh-base) ease,
+        color var(--nh-base) ease,
+        transform var(--nh-base) var(--nh-ease);
+}
+
+.cl-jump__mark svg {
+    width: 17px;
+    height: 17px;
+}
+
+.cl-jump:hover .cl-jump__mark {
+    background: var(--nh-ink);
+    color: #FFFFFF;
+    transform: translateY(2px);
+}
+
+.cl-jump:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 4px;
+    border-radius: 999px;
+}
+
+/* the two screens: the canvas in front, the team screen behind its shoulder */
+.cl-hero__shot {
+    position: relative;
+    display: grid;
+    place-items: end center;
+    padding-block: var(--nh-space-4);
+}
+
+.cl-hero__phone {
+    display: block;
+    height: auto;
+}
+
+.cl-hero__phone--canvas {
+    grid-area: 1 / 1;
+    width: 78%;
+    justify-self: start;
+}
+
+.cl-hero__phone--team {
+    grid-area: 1 / 1;
+    width: 42%;
+    justify-self: end;
+    align-self: center;
+    transform: translate(6%, -14%);
+}
+
+
+/* --- 2. the boards --------------------------------------------------------
+   Each board carries its own dark ground, so its card holds nothing else and
+   gives it no padding: the card's corners are what shape the image.
+--------------------------------------------------------------------------- */
+
+.cl-board {
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
+
+.cl-board img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+
+/* --- 3. key responsibilities ---------------------------------------------- */
+
+.cl-resp__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--nh-space-10);
+}
+
+.cl-resp__role {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+/* the credit that is not mine */
+.cl-note {
+    display: flex;
+    align-items: center;
+    gap: var(--nh-space-3);
+    margin-block: var(--nh-space-6);
+}
+
+.cl-note img {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+}
+
+.cl-duties {
+    display: grid;
+    gap: var(--nh-space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cl-duties > li {
+    padding-left: var(--nh-space-5);
+    border-left: 2px solid var(--nh-line);
+}
+
+
+/* --- 4. methodology ------------------------------------------------------- */
+
+.cl-method__intro {
+    margin-bottom: var(--nh-space-10);
+}
+
+.cl-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--nh-space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+}
+
+.cl-step > img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: var(--nh-space-4);
+    object-fit: cover;
+}
+
+.cl-step__list {
+    display: grid;
+    gap: var(--nh-space-3);
+    margin: 0;
+    padding-left: var(--nh-space-5);
+    font-size: var(--nh-size-body);
+    line-height: 1.75;
+    color: var(--nh-text);
+}
+
+/* The words a phase was made of. Not tags: tags say what a project is, and
+   these are a list inside a step — so they take the card's own grey rather
+   than one of the three pill colours. */
+.cl-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nh-space-2);
+    margin: var(--nh-space-4) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cl-chips > li {
+    padding: 4px 12px;
+    border: 1px solid var(--nh-line);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: var(--nh-medium);
+    line-height: 1.5;
+    color: var(--nh-muted);
+}
+
+
+/* --- 5. problem & audience ------------------------------------------------ */
+
+.cl-problem__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--nh-space-8);
+}
+
+.cl-mascot {
+    width: clamp(120px, 13vw, 190px);
+    height: auto;
+    object-fit: cover;
+}
+
+.cl-users {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: var(--nh-space-8) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cl-users > li {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+
+/* --- 6. the solution, and the before/after -------------------------------- */
+
+.cl-solution {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
+    align-items: center;
+    gap: var(--nh-space-10);
+}
+
+.cl-ba__device {
+    position: relative;
+    width: min(100%, 340px);
+    margin-inline: auto;
+}
+
+.cl-ba__base {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* The hole in the device export: measured off the file, and the same three
+   numbers the handle below is placed with. */
+.cl-ba__screen {
+    position: absolute;
+    top: 4.786%;
+    left: 8.669%;
+    width: 85.685%;
+    height: 90.528%;
+    overflow: hidden;
+    border-radius: 7%;
+}
+
+.cl-ba__screen img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* the shipped screen is uncovered from the right as the handle travels left */
+.cl-ba__after {
+    clip-path: inset(0 0 0 var(--cl-ba, 73%));
+}
+
+.cl-ba__handle {
+    position: absolute;
+    top: 4.786%;
+    left: calc(8.669% + var(--cl-ba, 73%) * 0.85685);
+    height: 90.528%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: ew-resize;
+    transform: translateX(-50%);
+    touch-action: none;
+}
+
+.cl-ba__handle img {
+    display: block;
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+}
+
+.cl-ba__handle:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 4px;
+    border-radius: 999px;
+}
+
+.cl-ba__hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--nh-space-2);
+    margin: var(--nh-space-5) 0 0;
+    font-size: var(--nh-size-small);
+    color: var(--nh-muted);
+}
+
+.cl-ba__hint svg {
+    width: 30px;
+    height: 15px;
+}
+
+
+/* --- 7. the band of shipped screens ---------------------------------------
+   One set of five in the markup; the script copies it so the band can run on
+   without a seam. It travels only when it is allowed to: the button stops it,
+   and so does a pointer resting on it or a keyboard landing in it.
+--------------------------------------------------------------------------- */
+
+.cl-reel {
+    padding-inline: 0;
+}
+
+.cl-reel__frame {
+    position: relative;
+    overflow: hidden;
+}
+
+.cl-reel__track {
+    display: flex;
+    width: max-content;
+}
+
+.cl-reel__set {
+    display: flex;
+    gap: var(--nh-space-6);
+    margin: 0;
+    padding: 0 calc(var(--nh-space-6) / 2);
+    list-style: none;
+}
+
+.cl-reel__set img {
+    display: block;
+    width: auto;
+    height: clamp(260px, 26vw, 380px);
+    object-fit: cover;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .cl-reel__frame.is-ready .cl-reel__track {
+        animation: cl-reel 42s linear infinite;
+    }
+
+    .cl-reel__frame.is-ready:hover .cl-reel__track,
+    .cl-reel__frame.is-ready:focus-within .cl-reel__track,
+    .cl-reel__frame.is-paused .cl-reel__track {
+        animation-play-state: paused;
+    }
+}
+
+/* half, because the track is the set twice over */
+@keyframes cl-reel {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+.cl-reel__toggle {
+    position: absolute;
+    right: var(--nh-chrome-inset);
+    bottom: var(--nh-chrome-inset);
+    display: grid;
+    place-items: center;
+    width: var(--nh-arrow);
+    height: var(--nh-arrow);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--nh-ink);
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(15, 23, 34, 0.08), 0 4px 12px -6px rgba(15, 23, 34, 0.18);
+    transition: background-color var(--nh-base) ease, color var(--nh-base) ease;
+}
+
+.cl-reel__toggle:hover {
+    background: var(--nh-ink);
+    color: #FFFFFF;
+}
+
+.cl-reel__toggle:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 3px;
+}
+
+.cl-reel__icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+
+/* --- 8. user validation --------------------------------------------------- */
+
+.cl-validation {
+    position: relative;
+    overflow: hidden;
+}
+
+.cl-validation__intro {
+    margin-bottom: var(--nh-space-8);
+}
+
+.cl-findings,
+.cl-flow {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: 0 0 var(--nh-space-8);
+    padding: 0;
+    list-style: none;
+}
+
+.cl-findings > li {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.cl-findings b,
+.cl-flow b,
+.cl-stats b {
+    display: block;
+    font-weight: var(--nh-semibold);
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+.cl-findings b {
+    margin-bottom: var(--nh-space-3);
+    font-size: var(--nh-size-small);
+    color: var(--nh-muted);
+}
+
+.cl-validation .nh-btn {
+    margin-top: var(--nh-space-5);
+}
+
+/* the mascot over the card's bottom corner, cropped by it */
+.cl-peek {
+    position: absolute;
+    right: calc(-1 * var(--nh-space-4));
+    bottom: calc(-1 * var(--nh-space-3));
+    width: clamp(150px, 16vw, 230px);
+    height: auto;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+
+/* --- 9. the solution in practice ------------------------------------------ */
+
+.cl-practice__intro {
+    margin-bottom: var(--nh-space-8);
+}
+
+.cl-flow {
+    margin-bottom: 0;
+}
+
+.cl-flow figure {
+    display: grid;
+    justify-items: start;
+    gap: var(--nh-space-3);
+    margin: 0;
+}
+
+.cl-flow b {
+    font-size: var(--nh-size-small);
+    color: var(--nh-muted);
+}
+
+.cl-flow img {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    object-fit: cover;
+}
+
+.cl-flow figcaption {
+    font-size: var(--nh-size-small);
+    font-weight: var(--nh-medium);
+    color: var(--nh-ink);
+}
+
+
+/* --- 10. result & reflection ---------------------------------------------- */
+
+.cl-result__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.55fr) minmax(0, 1fr);
+    gap: var(--nh-space-10);
+}
+
+.cl-stats {
+    display: grid;
+    align-content: start;
+    gap: var(--nh-space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cl-stats > li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    gap: var(--nh-space-4);
+}
+
+.cl-stats b {
+    font-size: clamp(2.5rem, 1.4rem + 2.6vw, 3.5rem);
+    line-height: 1;
+}
+
+.cl-stats span {
+    font-size: var(--nh-size-small);
+    line-height: 1.5;
+    color: var(--nh-muted);
+}
+
+.cl-result__copy .nh-btn {
+    margin-top: var(--nh-space-3);
+}
+
+
+/* --- 11. the invitation --------------------------------------------------- */
+
+.cl-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--nh-space-8);
+    padding-bottom: 0;
+}
+
+.cl-cta p {
+    font-size: clamp(1.0625rem, 0.92rem + 0.66vw, 1.5rem);
+    font-weight: var(--nh-light);
+    line-height: 1.45;
+    color: var(--nh-ink);
+}
+
+.cl-cta .nh-btn {
+    margin-top: var(--nh-space-6);
+}
+
+/* the mascot stands on the card's floor */
+.cl-cta__mascot {
+    display: block;
+    align-self: end;
+    width: clamp(130px, 15vw, 210px);
+    height: auto;
+    object-fit: cover;
+}
+
+
+/* --- 12. every screen ----------------------------------------------------- */
+
+.cl-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cl-gallery__grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--nh-radius-card) - 6px);
+    object-fit: cover;
+}
+
+
+/* ===========================================================================
+   ON A PHONE
+
+   The site's own breakpoint. Every grid on the page becomes one column and
+   the gallery keeps two, so a screen is still large enough to read. Nothing
+   is hidden at any width.
+=========================================================================== */
+
+@media (max-width: 719.98px) {
+    .cl-hero,
+    .cl-resp__grid,
+    .cl-problem__head,
+    .cl-solution,
+    .cl-result__grid,
+    .cl-cta {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--nh-space-8);
+    }
+
+    .cl-steps,
+    .cl-findings,
+    .cl-flow,
+    .cl-users {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cl-gallery__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* the mascot beside the text becomes a mascot under it, and a small one */
+    .cl-problem__head,
+    .cl-cta {
+        justify-items: start;
+    }
+
+    .cl-mascot,
+    .cl-cta__mascot {
+        width: 128px;
+    }
+
+    /* It would sit on the button at this width. Named with its tag as well,
+       because `.nh img { display: block }` in new-home.css is one step more
+       specific than a class on its own and would otherwise keep it. */
+    img.cl-peek {
+        display: none;
+    }
+
+    .cl-flow img {
+        max-width: 240px;
+    }
+
+    /* the tap target the site asks for everywhere */
+    .cl-ba__handle {
+        min-width: 44px;
+    }
+}

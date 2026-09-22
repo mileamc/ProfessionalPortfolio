@@ -232,59 +232,13 @@
    No longer a card of its own: the text ends on the link, which sits under
    the last paragraph at the width of its own label rather than the column's.
 
-   The one button on the page: the ink pill the arrows on the home page fill
-   in with on hover, at text size. Named with the page class as well, because
-   `.nh a { color: inherit }` would otherwise paint the label the same ink as
-   the pill. */
+   The button itself is .nh-btn, the site's own, in section 10b of
+   new-home.css. All this page says about it is where it stands.
+--------------------------------------------------------------------------- */
 
-.ab-prose > .ab-btn {
+.ab-prose > .nh-btn {
     justify-self: start;
     margin-top: var(--nh-space-3);
-}
-
-.nh .ab-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--nh-space-2);
-    padding: 12px 22px;
-    border-radius: 999px;
-    background: var(--nh-ink);
-    color: var(--nh-canvas);
-    font-size: var(--nh-size-body);
-    font-weight: var(--nh-medium);
-    line-height: 1.2;
-    text-decoration: none;
-    box-shadow: var(--nh-shadow-card);
-    transition:
-        background-color var(--nh-base) var(--nh-ease),
-        box-shadow var(--nh-base) var(--nh-ease),
-        transform var(--nh-base) var(--nh-ease);
-}
-
-.ab-btn:hover {
-    background: var(--nh-accent);
-    box-shadow: var(--nh-shadow-lift);
-    transform: translateY(-1px);
-}
-
-.ab-btn:active {
-    box-shadow: none;
-    transform: translateY(0);
-}
-
-.ab-btn:focus-visible {
-    outline: 2px solid var(--nh-ink);
-    outline-offset: 3px;
-}
-
-.ab-btn__ext {
-    display: inline-block;
-    font-size: 0.9em;
-    transition: transform var(--nh-fast) var(--nh-ease);
-}
-
-.ab-btn:hover .ab-btn__ext {
-    transform: translate(1px, -1px);
 }
 
 

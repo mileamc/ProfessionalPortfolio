@@ -12,6 +12,9 @@ window.workProjects = [
     {
         id: "ludis",
         name: "LUDIS",
+        // The one project with a case page. A card with no href keeps its
+        // arrow and opens nothing, which is every other card here for now.
+        href: "case-ludis.html",
         desc: "A sports management app designed to help teams organize their activities and manage their sports experiences.",
         cover: { src: "assets/capas-work/capa-ludis.jpeg", w: 1024, h: 1024 },
         tags: [

@@ -77,10 +77,12 @@
             tagsHtml(project.tags) +
             "</div>" +
 
-            // No case page exists to lead to, so the card is a link in name
-            // only — the same as every card on the Work page. Give it an href
-            // and drop role and aria-disabled and it opens.
-            '<a class="nh-card__link" role="link" aria-disabled="true"' +
+            // A project with a case page opens it. One without is a link in
+            // name only: it keeps the arrow, and says it leads nowhere rather
+            // than looking like it leads somewhere.
+            (project.href
+                ? '<a class="nh-card__link" href="' + escapeHtml(project.href) + '"'
+                : '<a class="nh-card__link" role="link" aria-disabled="true"') +
             ' aria-label="Open ' + escapeHtml(project.name) + '">' +
             '<span class="nh-card__arrow">' + ARROW + "</span></a>" +
 

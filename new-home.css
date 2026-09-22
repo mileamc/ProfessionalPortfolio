@@ -43,6 +43,16 @@
     --nh-wash-violet:   #E4DBFA;   /* LUDIS, off the violet its own players wear */
     --nh-wash-amber:    #FCEDE0;   /* the IMB comparison, from its own orange */
 
+    /* The three colours a pill comes in. Outline only: the ink is the text and
+       the line is that ink at 45 per cent, so a tag never carries a fill. They
+       are used by the hospital's credit on the home, by the same credit in the
+       phone's list of projects, and by the tags on a case page. Green is the
+       availability pill's, further down. */
+    --nh-tag-pink:      #B42E6E;
+    --nh-tag-pink-line: rgba(180, 46, 110, 0.45);
+    --nh-tag-blue:      #1560A8;   /* the hospital's own blue */
+    --nh-tag-blue-line: rgba(21, 96, 168, 0.45);
+
     /* The highlighter stroke behind "product designer" */
     --nh-highlight:     rgba(126, 186, 240, 0.42);
     --nh-line:          #D6DEE7;   /* page chrome only — never on a card */
@@ -3237,8 +3247,8 @@ html {
    own blue, and with no light in it: it reports who owns these pages, not a
    state that changes. */
 .hl__owner {
-    --nh-tag-ink:  #1560A8;     /* the hospital's own blue */
-    --nh-tag-line: rgba(21, 96, 168, 0.45);
+    --nh-tag-ink:  var(--nh-tag-blue);
+    --nh-tag-line: var(--nh-tag-blue-line);
     position: absolute;
     top: var(--nh-tag-y);
     left: var(--nh-tag-x);
@@ -3635,6 +3645,115 @@ html {
 
 
 /* ===========================================================================
+   10b. BUTTON
+
+   The one button the site has, first drawn for "View my CV" on the About page
+   and shared from here so a second page cannot invent a second shape: an ink
+   pill at text size, the same fill the arrows in a card's corner take on
+   hover. It is an <a> when it navigates and a <button> when it acts — the
+   class is the same either way.
+
+   --secondary is the outline of it, for a page with more than one thing to
+   offer: it stands beside a primary, never alone.
+
+   aria-disabled is for a button whose destination does not exist yet. It
+   greys out, stops answering the pointer, and stays in the tab order so it
+   can still be read — an <a> without href is not focusable, and a link that
+   silently does nothing is worse than one that says so.
+=========================================================================== */
+
+/* named with .nh as well, because `.nh a { color: inherit }` would otherwise
+   paint the label the same ink as the pill */
+.nh .nh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nh-space-2);
+    /* 11 + the 1px line = the 12 and 22 the button has always stood at. The
+       line is there so the outline variation can show one without the pill
+       changing size between the two. */
+    padding: 11px 21px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: var(--nh-ink);
+    color: var(--nh-canvas);
+    font-family: inherit;
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-medium);
+    line-height: 1.2;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: var(--nh-shadow-card);
+    transition:
+        background-color var(--nh-base) var(--nh-ease),
+        border-color var(--nh-base) var(--nh-ease),
+        color var(--nh-base) var(--nh-ease),
+        box-shadow var(--nh-base) var(--nh-ease),
+        transform var(--nh-base) var(--nh-ease);
+}
+
+.nh-btn:hover {
+    background: var(--nh-accent);
+    box-shadow: var(--nh-shadow-lift);
+    transform: translateY(-1px);
+}
+
+.nh-btn:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+.nh-btn:focus-visible {
+    outline: 2px solid var(--nh-ink);
+    outline-offset: 3px;
+}
+
+/* the outline of the same pill */
+.nh .nh-btn--secondary {
+    background: transparent;
+    border-color: var(--nh-line-strong);
+    color: var(--nh-ink);
+    box-shadow: none;
+}
+
+.nh-btn--secondary:hover {
+    background: transparent;
+    border-color: var(--nh-ink);
+    box-shadow: var(--nh-shadow-card);
+}
+
+/* nowhere to go yet */
+.nh .nh-btn[aria-disabled="true"] {
+    background: transparent;
+    border-color: var(--nh-line);
+    color: var(--nh-muted);
+    cursor: default;
+    box-shadow: none;
+    transform: none;
+}
+
+.nh-btn[aria-disabled="true"]:hover {
+    box-shadow: none;
+    transform: none;
+}
+
+/* the mark after the label — the outward arrow on a link that leaves the site */
+.nh-btn__ext {
+    display: inline-block;
+    font-size: 0.9em;
+    transition: transform var(--nh-fast) var(--nh-ease);
+}
+
+.nh-btn:hover .nh-btn__ext {
+    transform: translate(1px, -1px);
+}
+
+.nh-btn[aria-disabled="true"]:hover .nh-btn__ext {
+    transform: none;
+}
+
+
+/* ===========================================================================
    11. THE HOME ON A PHONE
 
    A phone does not get the bento grid. Every card in it is a prototype built
@@ -3755,8 +3874,8 @@ body.is-phone-home .nh-grid > .nh-intro {
 /* Not a discipline but a credit, and the one tag here that is also on the
    home: it keeps the hospital's own blue, word for word. */
 .nh-mob-card__tags [data-tag="in-house"] {
-    --nh-tag-ink:  #1560A8;
-    --nh-tag-line: rgba(21, 96, 168, 0.45);
+    --nh-tag-ink:  var(--nh-tag-blue);
+    --nh-tag-line: var(--nh-tag-blue-line);
 }
 
 
