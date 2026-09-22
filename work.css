@@ -130,6 +130,10 @@
     --wk-tag-green:  var(--nh-signal-text);  /* the availability tag's green */
     --wk-tag-blue:   #1560A8;                /* the laptop's tag's blue */
     --wk-tag-purple: #6B58A6;                /* the purple the phone is built on */
+    /* the comparison's own orange is #EA7805, which is a colour for a button
+       and not for a line of text — it holds 2.7:1 on the card. This is that
+       orange taken down until it holds 5:1, and still reads as the orange. */
+    --wk-tag-orange: #A84E00;
 }
 
 .wk-card__tags .nh-tag {
@@ -141,8 +145,9 @@
 .wk-card__tags [data-tag="ux-research"],
 .wk-card__tags [data-tag="ux-ui"]          { --nh-tag-ink: var(--wk-tag-green); }
 
-.wk-card__tags [data-tag="lxd"],
-.wk-card__tags [data-tag="webdesign"]      { --nh-tag-ink: var(--wk-tag-blue); }
+.wk-card__tags [data-tag="lxd"]            { --nh-tag-ink: var(--wk-tag-blue); }
+
+.wk-card__tags [data-tag="webdesign"]      { --nh-tag-ink: var(--wk-tag-orange); }
 
 .wk-card__tags [data-tag="wireframing"]    { --nh-tag-ink: var(--wk-tag-purple); }
 
