@@ -38,6 +38,7 @@ window.workProjects = [
     {
         id: "imb",
         name: "IMB",
+        href: "case-imb.html",
         desc: "A corporate website designed to communicate IMB's services and strengthen its digital presence through a clear and intuitive experience.",
         cover: { src: "assets/capas-work/capa-imb.jpg", w: 1080, h: 1080 },
         tags: [

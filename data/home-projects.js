@@ -83,7 +83,7 @@ window.homeProjects = {
             id: "imb-compare",
             brief: { name: "IMB", text: "A corporate website designed to communicate IMB's services and strengthen its digital presence through a clear and intuitive experience." },
             title: "IMB equipment comparison",
-            href: null,          // existing page: project.html?project=imb
+            href: "case-imb.html",
             linkArea: "arrow",
             size: "large",
             frame: "custom",

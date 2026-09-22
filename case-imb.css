@@ -1,0 +1,579 @@
+/* ===========================================================================
+   IMB — the case page
+
+   The third case on the same model as LUDIS and Mosaico: a column of cards at
+   .nh-shell's width, the site's tokens, the site's button, the shared line of
+   terms, the entry rise. This file lays out what is particular to this one.
+
+   Same split as the others between what is a picture and what is not. Four
+   .im-slots wait for screenshots of the live site; everything that is a set
+   of figures, a sitemap, a pattern or a list of components is drawn in
+   markup, so it stays sharp and reflows on a phone.
+=========================================================================== */
+
+/* This case's accent: the amber the IMB card takes on the home and on the
+   Work page. The wash is the fill; the ink beside it is the comparison's own
+   orange taken down until it can be read as a line or a numeral. */
+.im-page {
+    --nh-mark: var(--nh-wash-amber);
+    --nh-mark-ink: #A84E00;
+
+    display: grid;
+    gap: var(--nh-gap);
+    padding-block: 0 var(--nh-space-16);
+}
+
+.im-back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nh-space-2);
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--nh-base) var(--nh-ease);
+}
+
+.im-back:hover { color: var(--nh-ink); }
+
+.im-back:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.im-card {
+    padding: var(--nh-card-pad);
+}
+
+
+/* --- type ----------------------------------------------------------------- */
+
+.im-h2 {
+    margin: 0 0 var(--nh-space-5);
+    font-size: var(--nh-size-display);
+    font-weight: var(--nh-medium);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+    color: var(--nh-ink);
+    text-wrap: balance;
+}
+
+.im-h3-lead {
+    margin: var(--nh-space-10) 0 var(--nh-space-5);
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-semibold);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+/* :where() keeps this at one class's weight, so anything named below wins on
+   order alone and nothing here needs !important */
+.im-card :where(p) {
+    max-width: 68ch;
+    margin: 0 0 var(--nh-space-4);
+    font-size: var(--nh-size-body);
+    line-height: 1.75;
+    color: var(--nh-text);
+    text-wrap: pretty;
+}
+
+.im-card :where(p:last-child) { margin-bottom: 0; }
+
+.im-card strong {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+.im-card h3 {
+    margin: 0 0 var(--nh-space-3);
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-semibold);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+.im-card h4 {
+    margin: 0 0 var(--nh-space-2);
+    font-size: var(--nh-size-body);
+    font-weight: var(--nh-semibold);
+    line-height: 1.35;
+    color: var(--nh-ink);
+}
+
+/* a link inside running text: underlined, never colour alone */
+.im-card :where(p) a {
+    color: var(--nh-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color var(--nh-base) var(--nh-ease);
+}
+
+.im-card :where(p) a:hover { color: var(--nh-mark-ink); }
+
+.im-card :where(p) a:focus-visible {
+    outline: 2px solid var(--nh-accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+
+/* --- a picture that is not here yet --------------------------------------- */
+
+.im-slot {
+    display: grid;
+    place-items: center;
+    aspect-ratio: var(--ratio, 16 / 9);
+    margin-block: var(--nh-space-6);
+    padding: var(--nh-space-6);
+    overflow: hidden;
+    border: 1px dashed var(--nh-line-strong);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 3%, #FFFFFF);
+}
+
+.im-slot img {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.im-slot__note {
+    grid-area: 1 / 1;
+    max-width: 44ch;
+    margin: 0;
+    font-size: var(--nh-size-small);
+    line-height: 1.6;
+    text-align: center;
+    color: var(--nh-muted);
+}
+
+.im-slot__note b {
+    display: block;
+    margin-bottom: var(--nh-space-1);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-ink);
+}
+
+/* empty it is a note, not a picture, so it never runs to a whole screenful */
+.im-slot:not(:has(img)) { max-height: 420px; }
+
+.im-slot:has(img) {
+    padding: 0;
+    border-style: none;
+    background: none;
+}
+
+.im-slot:has(img) .im-slot__note { display: none; }
+
+
+/* --- 1. the opening -------------------------------------------------------- */
+
+.im-hero__name {
+    margin: 0 0 var(--nh-space-5);
+    font-size: clamp(2.75rem, 1.6rem + 3.4vw, 4.5rem);
+    font-weight: var(--nh-semibold);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    color: var(--nh-ink);
+}
+
+.im-terms { margin-bottom: var(--nh-space-6); }
+
+.im-lead {
+    max-width: 30ch !important;
+    font-size: clamp(1.25rem, 0.95rem + 1.4vw, 2rem);
+    font-weight: var(--nh-light);
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: var(--nh-ink);
+}
+
+.im-hero .nh-btn { margin-top: var(--nh-space-8); }
+
+
+/* --- 3. the figures -------------------------------------------------------- */
+
+.im-figures {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: var(--nh-space-8) 0;
+    padding: 0;
+    list-style: none;
+}
+
+.im-figures > li {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.im-figures b {
+    display: block;
+    margin-bottom: var(--nh-space-2);
+    font-size: clamp(1.75rem, 1.1rem + 1.6vw, 2.5rem);
+    font-weight: var(--nh-semibold);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--nh-mark-ink);
+}
+
+/* the unit rides with the number, a size down */
+.im-figures b i {
+    font-size: 0.55em;
+    font-style: normal;
+    font-weight: var(--nh-medium);
+}
+
+.im-figures span {
+    font-size: var(--nh-size-small);
+    line-height: 1.4;
+    color: var(--nh-muted);
+}
+
+
+/* --- 4. who arrives -------------------------------------------------------- */
+
+.im-audience {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nh-space-2);
+    margin: 0 0 var(--nh-space-6);
+    padding: 0;
+    list-style: none;
+}
+
+.im-audience > li {
+    padding: var(--nh-space-3) var(--nh-space-5);
+    border-radius: calc(var(--nh-radius-card) - 6px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+    font-size: var(--nh-size-small);
+    font-weight: var(--nh-medium);
+    line-height: 1.4;
+    color: var(--nh-ink);
+}
+
+/* the sentence the section turns on */
+.im-pull {
+    max-width: 44ch;
+    margin: var(--nh-space-8) 0 0;
+    padding-left: var(--nh-space-6);
+    border-left: 3px solid var(--nh-mark-ink);
+}
+
+.im-pull p {
+    font-size: clamp(1.0625rem, 0.92rem + 0.5vw, 1.375rem);
+    font-weight: var(--nh-medium);
+    line-height: 1.45;
+    color: var(--nh-ink);
+}
+
+
+/* --- 5. what everyone else did --------------------------------------------- */
+
+.im-pattern {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: var(--nh-space-6) 0 var(--nh-space-8);
+    padding: 0;
+    list-style: none;
+}
+
+.im-pattern > li {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.im-pattern b {
+    display: block;
+    margin-bottom: var(--nh-space-3);
+    font-size: var(--nh-size-small);
+    font-weight: var(--nh-semibold);
+    color: var(--nh-mark-ink);
+}
+
+.im-pattern h3 {
+    font-size: var(--nh-size-body);
+    line-height: 1.35;
+}
+
+.im-conclusion {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: var(--nh-mark);
+    max-width: none !important;
+}
+
+
+/* --- 6. the three calls ---------------------------------------------------- */
+
+.im-calls {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.im-call + .im-call {
+    margin-top: var(--nh-space-12);
+    padding-top: var(--nh-space-10);
+    border-top: 1px solid var(--nh-line);
+}
+
+.im-call__n {
+    margin-bottom: var(--nh-space-3) !important;
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-semibold);
+    letter-spacing: -0.02em;
+    color: var(--nh-mark-ink);
+}
+
+/* what the call cost, said plainly and set apart */
+.im-tradeoff {
+    max-width: 68ch;
+    margin-top: var(--nh-space-6);
+    padding: var(--nh-space-5) var(--nh-space-6);
+    border-left: 3px solid var(--nh-mark-ink);
+    border-radius: 0 calc(var(--nh-radius-card) - 6px) calc(var(--nh-radius-card) - 6px) 0;
+    background: var(--nh-mark);
+    font-size: var(--nh-size-small) !important;
+    line-height: 1.65 !important;
+}
+
+.im-tradeoff b {
+    display: block;
+    margin-bottom: var(--nh-space-1);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-mark-ink);
+}
+
+
+/* --- the sitemap that folded ----------------------------------------------- */
+
+.im-fold {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--nh-space-5);
+    margin: var(--nh-space-6) 0;
+}
+
+.im-fold__side {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.im-fold__label {
+    margin-bottom: var(--nh-space-4);
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-muted);
+}
+
+.im-fold__list {
+    display: grid;
+    gap: var(--nh-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--nh-size-small);
+    line-height: 1.4;
+    color: var(--nh-text);
+}
+
+.im-fold__list > li {
+    padding: var(--nh-space-2) var(--nh-space-4);
+    border: 1px solid var(--nh-line);
+    border-radius: 8px;
+    background: #FFFFFF;
+}
+
+.im-fold__list i {
+    font-style: normal;
+    color: var(--nh-muted);
+}
+
+/* the three that folded away, and the five that stayed — said by more than
+   colour: one is struck through and dashed, the other is filled */
+.im-fold__list > li.is-folded {
+    border-style: dashed;
+    background: none;
+    color: var(--nh-muted);
+    text-decoration: line-through;
+}
+
+.im-fold__list > li.is-kept {
+    border-color: var(--nh-mark-ink);
+    background: var(--nh-mark);
+    color: var(--nh-ink);
+}
+
+.im-fold__arrow {
+    margin: 0 !important;
+    color: var(--nh-line-strong);
+}
+
+.im-fold__arrow svg { width: 26px; height: 26px; }
+
+
+/* --- 7. the components ----------------------------------------------------- */
+
+.im-components {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: var(--nh-space-6) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.im-components > li {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+.im-components h3 {
+    font-size: var(--nh-size-body);
+    line-height: 1.35;
+}
+
+/* the note beside the system: something added because of where it is read */
+.im-aside {
+    margin-top: var(--nh-space-8);
+    padding: var(--nh-space-6);
+    border-left: 3px solid var(--nh-mark-ink);
+    border-radius: 0 calc(var(--nh-radius-card) - 6px) calc(var(--nh-radius-card) - 6px) 0;
+    background: var(--nh-mark);
+}
+
+.im-aside p {
+    max-width: 68ch;
+    font-size: var(--nh-size-small) !important;
+    line-height: 1.65 !important;
+}
+
+.im-aside b {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+
+/* --- 8. what had not arrived ----------------------------------------------- */
+
+.im-missing {
+    margin-block: var(--nh-space-5) var(--nh-space-6);
+}
+
+.im-absorb {
+    display: grid;
+    gap: var(--nh-space-4);
+    max-width: 68ch;
+    margin: var(--nh-space-5) 0 var(--nh-space-6);
+    padding-left: var(--nh-space-5);
+    font-size: var(--nh-size-body);
+    line-height: 1.7;
+    color: var(--nh-text);
+}
+
+.im-absorb b {
+    font-weight: var(--nh-semibold);
+    color: var(--nh-ink);
+}
+
+.im-absorb > li::marker { color: var(--nh-mark-ink); }
+
+
+/* --- 9. what comes next ---------------------------------------------------- */
+
+.im-next {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--nh-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.im-next > li {
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
+}
+
+
+/* --- 10. the three lessons -------------------------------------------------- */
+
+.im-lesson-list {
+    display: grid;
+    gap: var(--nh-space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: im-lesson;
+}
+
+.im-lesson-list > li {
+    counter-increment: im-lesson;
+    padding-left: var(--nh-space-10);
+    position: relative;
+}
+
+.im-lesson-list > li::before {
+    content: counter(im-lesson, decimal-leading-zero);
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: var(--nh-size-card-title);
+    font-weight: var(--nh-semibold);
+    letter-spacing: -0.02em;
+    color: var(--nh-mark-ink);
+}
+
+
+/* ===========================================================================
+   ON A PHONE
+=========================================================================== */
+
+@media (max-width: 719.98px) {
+    .im-figures,
+    .im-pattern,
+    .im-components,
+    .im-next {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* the sitemap goes one above the other, arrow turned to point down */
+    .im-fold {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .im-fold__arrow {
+        justify-self: center;
+        transform: rotate(90deg);
+    }
+
+    .im-audience > li {
+        flex: 1 1 100%;
+    }
+
+    .im-lesson-list > li {
+        padding-left: 0;
+        padding-top: var(--nh-space-8);
+    }
+}
