@@ -120,12 +120,43 @@
     list-style: none;
 }
 
-/* the same pill as the availability tag and the one on the laptop's card,
-   in the portfolio's own slate rather than a project's colour */
-.wk-card__tags .nh-tag {
-    --nh-tag-ink:  var(--nh-accent);
-    --nh-tag-line: color-mix(in srgb, var(--nh-accent) 45%, transparent);
+/* The same pill as the availability tag and the one on the laptop's card, in
+   one of three colours. The colour is bound to what the tag says rather than
+   to the card it is on, so a discipline is the same colour everywhere it
+   appears and a new card picks its colours up without being told. The three
+   are dealt so that no card repeats one. */
+.wk-list {
+    --wk-tag-pink:  #B42E6E;
+    --wk-tag-green: var(--nh-signal-text);   /* the availability tag's green */
+    --wk-tag-blue:  #1560A8;                 /* the laptop's tag's blue */
 }
+
+.wk-card__tags .nh-tag {
+    --nh-tag-line: color-mix(in srgb, var(--nh-tag-ink) 45%, transparent);
+}
+
+.wk-card__tags [data-tag="product-design"] { --nh-tag-ink: var(--wk-tag-pink); }
+
+.wk-card__tags [data-tag="ux-research"],
+.wk-card__tags [data-tag="ux-ui"]          { --nh-tag-ink: var(--wk-tag-green); }
+
+.wk-card__tags [data-tag="wireframing"],
+.wk-card__tags [data-tag="lxd"],
+.wk-card__tags [data-tag="webdesign"]      { --nh-tag-ink: var(--wk-tag-blue); }
+
+
+/* --- the colour a card takes while it is read ------------------------------
+   The home's own washes, one per project, named here: new-home.css already
+   turns a card's surface to whatever --nh-wash holds while the pointer is on
+   it, and on the same curve as everything else the card does, so naming the
+   colour is the whole of the work.
+--------------------------------------------------------------------------- */
+
+.wk-card[data-project="ludis"]   { --nh-wash: var(--nh-wash-violet); }
+.wk-card[data-project="mosaico"] { --nh-wash: var(--nh-wash-blue); }
+.wk-card[data-project="imb"]     { --nh-wash: var(--nh-wash-amber); }
+.wk-card[data-project="hpp"]     { --nh-wash: var(--nh-wash-sand); }
+.wk-card[data-project="nommu"]   { --nh-wash: var(--nh-wash-purple); }
 
 
 /* --- the arrow ------------------------------------------------------------
