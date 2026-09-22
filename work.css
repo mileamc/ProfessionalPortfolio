@@ -145,6 +145,7 @@
 .wk-card[data-project="imb"]     { --nh-wash: var(--nh-wash-amber); }
 .wk-card[data-project="hpp"]     { --nh-wash: var(--nh-wash-sand); }
 .wk-card[data-project="nommu"]   { --nh-wash: var(--nh-wash-purple); }
+.wk-card[data-project="graphic-design"] { --nh-wash: var(--nh-wash-blue); }
 
 
 /* --- the arrow ------------------------------------------------------------

@@ -15,8 +15,8 @@
      the navigation, the card surface, the pill the tags are made of and the
      arrow in a card's corner. work.css only lays out this page's list.
      Neither file is changed by this page. -->
-<link rel="stylesheet" href="new-home.css?v=work-6"/>
-<link rel="stylesheet" href="work.css?v=work-6"/>
+<link rel="stylesheet" href="new-home.css?v=work-7"/>
+<link rel="stylesheet" href="work.css?v=work-7"/>
 </head>
 <body class="nh">
 
@@ -52,10 +52,9 @@
 
         <article class="nh-card nh-card--content wk-card" data-project="ludis" aria-labelledby="wk-ludis">
 
-            <!-- The photograph goes in here when there is one, and the name
-                 behind it steps aside on its own:
-                 <img src="imagesProjects/work/ludis.jpg" alt=""/> -->
             <div class="wk-card__shot">
+                <img src="assets/capas-work/capa-ludis.jpeg" alt="" width="1024" height="1024"
+                     fetchpriority="high" decoding="async"/>
                 <span class="wk-card__shot-name">LUDIS</span>
             </div>
 
@@ -75,10 +74,9 @@
 
         <article class="nh-card nh-card--content wk-card" data-project="mosaico" aria-labelledby="wk-mosaico">
 
-            <!-- The photograph goes in here when there is one, and the name
-                 behind it steps aside on its own:
-                 <img src="imagesProjects/work/mosaico.jpg" alt=""/> -->
             <div class="wk-card__shot">
+                <img src="assets/capas-work/capa-mosaico.jpeg" alt="" width="1024" height="1024"
+                     loading="lazy" fetchpriority="low" decoding="async"/>
                 <span class="wk-card__shot-name">MOSAICO</span>
             </div>
 
@@ -98,10 +96,9 @@
 
         <article class="nh-card nh-card--content wk-card" data-project="imb" aria-labelledby="wk-imb">
 
-            <!-- The photograph goes in here when there is one, and the name
-                 behind it steps aside on its own:
-                 <img src="imagesProjects/work/imb.jpg" alt=""/> -->
             <div class="wk-card__shot">
+                <img src="assets/capas-work/capa-imb.jpg" alt="" width="1080" height="1080"
+                     loading="lazy" fetchpriority="low" decoding="async"/>
                 <span class="wk-card__shot-name">IMB</span>
             </div>
 
@@ -120,10 +117,9 @@
 
         <article class="nh-card nh-card--content wk-card" data-project="hpp" aria-labelledby="wk-hpp">
 
-            <!-- The photograph goes in here when there is one, and the name
-                 behind it steps aside on its own:
-                 <img src="imagesProjects/work/hpp.jpg" alt=""/> -->
             <div class="wk-card__shot">
+                <img src="assets/capas-work/capa-hpp.jpeg" alt="" width="1024" height="1024"
+                     loading="lazy" fetchpriority="low" decoding="async"/>
                 <span class="wk-card__shot-name">HPP</span>
             </div>
 
@@ -143,10 +139,9 @@
 
         <article class="nh-card nh-card--content wk-card" data-project="nommu" aria-labelledby="wk-nommu">
 
-            <!-- The photograph goes in here when there is one, and the name
-                 behind it steps aside on its own:
-                 <img src="imagesProjects/work/nommu.jpg" alt=""/> -->
             <div class="wk-card__shot">
+                <img src="assets/capas-work/capa-nommu.jpg" alt="" width="1080" height="1080"
+                     loading="lazy" fetchpriority="low" decoding="async"/>
                 <span class="wk-card__shot-name">NOMMU</span>
             </div>
 
@@ -164,6 +159,25 @@
 
         </article>
 
+        <!-- The archive, which is not a project and so carries no disciplines.
+             Its line is the one the home's card says under its arrow. -->
+        <article class="nh-card nh-card--content wk-card" data-project="graphic-design" aria-labelledby="wk-graphic-design">
+
+            <div class="wk-card__shot">
+                <img src="assets/capas-work/capa-graphic-design.jpg" alt="" width="1080" height="1080"
+                     loading="lazy" fetchpriority="low" decoding="async"/>
+                <span class="wk-card__shot-name">Graphic Design</span>
+            </div>
+
+            <div class="wk-card__text">
+                <h2 class="wk-card__name" id="wk-graphic-design">Graphic Design</h2>
+                <p class="wk-card__desc">An archive of visual work across digital and print, exploring communication through typography, imagery, and visual systems.</p>
+            </div>
+
+            <a class="nh-card__link" role="link" aria-label="Open Graphic Design" aria-disabled="true"><span class="nh-card__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"/></svg></span></a>
+
+        </article>
+
     </div>
 
 </main>
@@ -178,6 +192,6 @@
      new-home.js sets up is keyed to markup this page does not carry, so it
      does nothing. The home's veil and the line under a card come from
      scripts/card-brief.js, which is deliberately not loaded. -->
-<script src="scripts/new-home.js?v=work-6"></script>
+<script src="scripts/new-home.js?v=work-7"></script>
 </body>
 </html>
