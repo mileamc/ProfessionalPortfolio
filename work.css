@@ -111,27 +111,8 @@
     color: var(--nh-text);
 }
 
-/* Not pills: a line of words in one grey, with a dot between them. The dot is
-   drawn by the list rather than typed into it, so the words stay words — the
-   markup is still a list of what the project was — and it takes the same grey
-   as they do, from the line itself. */
-.wk-card__tags {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: var(--nh-size-small);
-    font-weight: var(--nh-medium);
-    line-height: 1.5;
-    color: var(--nh-muted);
-}
-
-.wk-card__tags li + li::before {
-    content: "\2022";
-    margin-inline: 0.55em;
-}
+/* The line of terms is .nh-termlist, in section 5 of new-home.css — the same
+   one a case page says under its title. This page adds nothing to it. */
 
 /* --- coming in ------------------------------------------------------------
    The same quiet rise the home's cards and the About page's come in on, in

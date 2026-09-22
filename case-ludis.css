@@ -14,7 +14,14 @@
    colours, and nothing of its CSS is used here.
 =========================================================================== */
 
+/* This case's accent. The violet is the one the LUDIS card takes on the home
+   and on the Work page, so the page and the card that opens it agree. The
+   wash is the fill; the ink beside it is the same hue taken down far enough
+   to be read as a line or a numeral. */
 .cl-page {
+    --nh-mark: var(--nh-wash-violet);
+    --nh-mark-ink: #6B58A6;
+
     display: grid;
     gap: var(--nh-gap);
     padding-block: 0 var(--nh-space-16);
@@ -129,21 +136,11 @@
     color: var(--nh-text);
 }
 
-/* the tags, over the line they describe */
-.cl-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--nh-space-2);
-    margin: 0 0 var(--nh-space-6);
-    padding: 0;
-    list-style: none;
+/* Discipline, year and where the project got to, as one grey line under the
+   mark — the same line the Work page says under a project. */
+.cl-terms {
+    margin-bottom: var(--nh-space-6);
 }
-
-/* The three colours the site's pills come in, one per tag so no two in a
-   group repeat: the discipline, the year, and where the project got to. */
-.cl-tags [data-tag="discipline"] { --nh-tag-ink: var(--nh-tag-pink); --nh-tag-line: var(--nh-tag-pink-line); }
-.cl-tags [data-tag="year"]       { --nh-tag-ink: var(--nh-tag-blue); --nh-tag-line: var(--nh-tag-blue-line); }
-.cl-tags [data-tag="status"]     { --nh-tag-ink: var(--nh-signal-text); --nh-tag-line: var(--nh-signal-line); }
 
 /* down to the first section */
 .cl-jump {
@@ -273,7 +270,7 @@
 
 .cl-duties > li {
     padding-left: var(--nh-space-5);
-    border-left: 2px solid var(--nh-line);
+    border-left: 2px solid var(--nh-mark-ink);
 }
 
 
@@ -310,26 +307,9 @@
     color: var(--nh-text);
 }
 
-/* The words a phase was made of. Not tags: tags say what a project is, and
-   these are a list inside a step — so they take the card's own grey rather
-   than one of the three pill colours. */
+/* What a phase was made of, as the same grey line of terms. */
 .cl-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--nh-space-2);
-    margin: var(--nh-space-4) 0 0;
-    padding: 0;
-    list-style: none;
-}
-
-.cl-chips > li {
-    padding: 4px 12px;
-    border: 1px solid var(--nh-line);
-    border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: var(--nh-medium);
-    line-height: 1.5;
-    color: var(--nh-muted);
+    margin-top: var(--nh-space-4);
 }
 
 
@@ -579,7 +559,7 @@
 .cl-findings b {
     margin-bottom: var(--nh-space-3);
     font-size: var(--nh-size-small);
-    color: var(--nh-muted);
+    color: var(--nh-mark-ink);
 }
 
 .cl-validation .nh-btn {
@@ -617,7 +597,7 @@
 
 .cl-flow b {
     font-size: var(--nh-size-small);
-    color: var(--nh-muted);
+    color: var(--nh-mark-ink);
 }
 
 .cl-flow img {

@@ -14,8 +14,8 @@
 <!-- The site's own language: new-home.css carries the tokens, the bar, the
      card surface, the pill the tags are made of, the button and the footer.
      case-mosaico.css only lays out what is particular to this case. -->
-<link rel="stylesheet" href="new-home.css?v=mosaico-1"/>
-<link rel="stylesheet" href="case-mosaico.css?v=mosaico-1"/>
+<link rel="stylesheet" href="new-home.css?v=accent-1"/>
+<link rel="stylesheet" href="case-mosaico.css?v=accent-1"/>
 </head>
 <body class="nh">
 
@@ -67,10 +67,10 @@
             <div class="ms-hero__copy">
                 <h1 class="ms-hero__name" id="ms-title">Mosaico</h1>
 
-                <ul class="ms-tags">
-                    <li class="nh-tag" data-tag="discipline">UX research</li>
-                    <li class="nh-tag" data-tag="craft">Product design</li>
-                    <li class="nh-tag" data-tag="status">12 months</li>
+                <ul class="nh-termlist ms-terms">
+                    <li>UX research</li>
+                    <li>Product design</li>
+                    <li>12 months</li>
                 </ul>
 
                 <p class="ms-lead">A structured writing tool designed to support narrative development and creative exploration.</p>
@@ -102,7 +102,98 @@
                 <p class="ms-slot__note"><b>Product showcase</b>Two or three screenshots of Mosaico, side by side: the guide, a writing activity, and the overall visual language.</p>
             </div>
 
-            <p>The product breaks narrative development into 25 steps, guiding users from initial ideas to a developed story while allowing them to adapt the process to their own way of working.</p>
+            <p>The process runs in three phases &mdash; <strong>Exposition</strong>, <strong>Action</strong> and <strong>Resolution</strong>. Each carries its own steps and its own set of auxiliary tools, guiding users from initial ideas to a developed story while allowing them to adapt the process to their own way of working.</p>
+
+            <!-- The structure itself, drawn: three phases, their steps, and the
+                 tools attached to each. Sixteen steps in all. -->
+            <ol class="ms-phases">
+
+                <li class="ms-phase">
+                    <div class="ms-phase__head">
+                        <b class="ms-phase__n" aria-hidden="true">1</b>
+                        <div>
+                            <h3><mark class="nh-highlight">Exposition</mark></h3>
+                            <p class="ms-phase__kicker">Hypothesis &middot; project motivation</p>
+                        </div>
+                    </div>
+                    <div class="ms-phase__cols">
+                        <div>
+                            <p class="ms-phase__label">Steps</p>
+                            <ol class="ms-phase__steps">
+                                <li>Defining the objective</li>
+                                <li>Defining the ecosystem</li>
+                                <li>Analysis of similar works</li>
+                                <li>Data synthesis</li>
+                                <li>Proto-persona</li>
+                                <li>Plot and time</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <p class="ms-phase__label">Auxiliary tools</p>
+                            <ul class="nh-termlist">
+                                <li>Brainstorming</li><li>Semantic panel</li><li>Mind map</li><li>Six narrative arcs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="ms-phase">
+                    <div class="ms-phase__head">
+                        <b class="ms-phase__n" aria-hidden="true">2</b>
+                        <div>
+                            <h3><mark class="nh-highlight">Action</mark></h3>
+                            <p class="ms-phase__kicker">Validation &middot; getting to know the user</p>
+                        </div>
+                    </div>
+                    <div class="ms-phase__cols">
+                        <div>
+                            <p class="ms-phase__label">Steps</p>
+                            <ol class="ms-phase__steps">
+                                <li>Gathering concepts</li>
+                                <li>Requirements and constraints</li>
+                                <li>Character and space</li>
+                                <li>Internal validation</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <p class="ms-phase__label">Auxiliary tools</p>
+                            <ul class="nh-termlist">
+                                <li>Value proposition canvas</li><li>Empathy map</li><li>Semantic panel</li><li>Focus groups</li><li>User journey</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="ms-phase">
+                    <div class="ms-phase__head">
+                        <b class="ms-phase__n" aria-hidden="true">3</b>
+                        <div>
+                            <h3><mark class="nh-highlight">Resolution</mark></h3>
+                            <p class="ms-phase__kicker">Development &middot; practising</p>
+                        </div>
+                    </div>
+                    <div class="ms-phase__cols">
+                        <div>
+                            <p class="ms-phase__label">Steps</p>
+                            <ol class="ms-phase__steps">
+                                <li>Argument guides</li>
+                                <li>Timeline</li>
+                                <li>Internal validation</li>
+                                <li>Writing</li>
+                                <li>Refinement</li>
+                                <li>Production</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <p class="ms-phase__label">Auxiliary tools</p>
+                            <ul class="nh-termlist">
+                                <li>Mind map</li><li>Storyboard</li><li>Value proposition canvas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+            </ol>
         </section>
 
         <!-- ===============================================================
@@ -273,19 +364,13 @@
                 <h3>The process supported progression</h3>
                 <p>Participants described the steps as interconnected and progressive, providing a logical path through narrative development.</p>
 
-                <!-- The 25 steps as a run, from one end to the other. The
-                     count is the study's; the names of the steps are not in
-                     this brief, so the run is drawn without them. -->
-                <figure class="ms-progress">
-                    <div class="ms-progress__rail" role="img" aria-label="A run of twenty-five steps, from initial ideas to a developed story">
-                        <span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span>
-                        <span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span>
-                        <span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span>
-                        <span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span>
-                        <span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span><span class="ms-progress__tick"></span>
-                    </div>
-                    <figcaption><span>Initial ideas</span><b>25 steps</b><span>A developed story</span></figcaption>
-                </figure>
+                <!-- The three phases in order: what "progressive" meant to
+                     the people in the study. -->
+                <ol class="ms-strip ms-strip--phases" aria-label="The three phases, in order">
+                    <li><b aria-hidden="true">1</b><span>Exposition</span></li>
+                    <li><b aria-hidden="true">2</b><span>Action</span></li>
+                    <li><b aria-hidden="true">3</b><span>Resolution</span></li>
+                </ol>
             </div>
 
             <div class="ms-obs">
@@ -519,6 +604,6 @@
     </div>
 </footer>
 
-<script src="scripts/new-home.js?v=mosaico-1"></script>
+<script src="scripts/new-home.js?v=accent-1"></script>
 </body>
 </html>

@@ -18,7 +18,14 @@
                      phone, and can be read aloud.
 =========================================================================== */
 
+/* This case's accent: the highlighter's blue, the one behind "product
+   designer" on the home. Ink is the primary button's colour, so a filled
+   black box in a diagram reads as something to click — and nothing in these
+   diagrams is. */
 .ms-page {
+    --nh-mark: var(--nh-highlight);
+    --nh-mark-ink: var(--nh-tag-blue);
+
     display: grid;
     gap: var(--nh-gap);
     padding-block: 0 var(--nh-space-16);
@@ -209,18 +216,9 @@
     color: var(--nh-text);
 }
 
-.ms-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--nh-space-2);
-    margin: 0 0 var(--nh-space-6);
-    padding: 0;
-    list-style: none;
+.ms-terms {
+    margin-bottom: var(--nh-space-6);
 }
-
-.ms-tags [data-tag="discipline"] { --nh-tag-ink: var(--nh-tag-pink); --nh-tag-line: var(--nh-tag-pink-line); }
-.ms-tags [data-tag="craft"]      { --nh-tag-ink: var(--nh-tag-blue); --nh-tag-line: var(--nh-tag-blue-line); }
-.ms-tags [data-tag="status"]     { --nh-tag-ink: var(--nh-signal-text); --nh-tag-line: var(--nh-signal-line); }
 
 .ms-jump {
     display: inline-flex;
@@ -339,9 +337,9 @@
 
 /* where it arrives is the one that is filled in */
 .ms-flow__box--end {
-    border-color: transparent;
-    background: var(--nh-ink);
-    color: var(--nh-canvas);
+    border-color: var(--nh-mark-ink);
+    background: var(--nh-mark);
+    color: var(--nh-ink);
 }
 
 .ms-flow > li:not(:last-child)::after {
@@ -380,7 +378,7 @@
     font-size: var(--nh-size-tiny);
     font-weight: var(--nh-semibold);
     letter-spacing: 0.04em;
-    color: var(--nh-muted);
+    color: var(--nh-mark-ink);
 }
 
 .ms-strip span {
@@ -547,48 +545,100 @@
     margin-top: var(--nh-space-8);
 }
 
-.ms-progress {
-    margin: var(--nh-space-6) 0 0;
+/* --- the three phases -----------------------------------------------------
+   The structure of the product, drawn rather than exported: a numbered phase,
+   its steps, and the tools attached to it. The name carries the site's own
+   highlighter — the same stroke as "product designer" on the home — with its
+   italic taken off, since this is a heading rather than a phrase in a line of
+   running text.
+--------------------------------------------------------------------------- */
+
+.ms-phases {
+    display: grid;
+    gap: var(--nh-gap);
+    margin: var(--nh-space-8) 0 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
 }
 
-.ms-progress__rail {
-    display: flex;
-    align-items: flex-end;
-    gap: 4px;
-    height: 56px;
+.ms-phase {
+    display: grid;
+    gap: var(--nh-space-6);
+    padding: var(--nh-space-6);
+    border-radius: calc(var(--nh-radius-card) - 4px);
+    background: color-mix(in srgb, var(--nh-ink) 4%, #FFFFFF);
 }
 
-/* each tick a little taller than the last: the run goes somewhere */
-.ms-progress__tick {
-    flex: 1 1 0;
-    border-radius: 3px;
-    background: color-mix(in srgb, var(--nh-ink) 14%, #FFFFFF);
-    height: 40%;
+.ms-phase__head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--nh-space-5);
 }
 
-.ms-progress__tick:nth-child(n + 6)  { height: 52%; }
-.ms-progress__tick:nth-child(n + 11) { height: 64%; }
-.ms-progress__tick:nth-child(n + 16) { height: 76%; }
-.ms-progress__tick:nth-child(n + 21) { height: 88%; }
-.ms-progress__tick:last-child {
-    height: 100%;
-    background: var(--nh-ink);
+.ms-phase__n {
+    font-size: clamp(2.5rem, 1.6rem + 2vw, 3.25rem);
+    font-weight: var(--nh-semibold);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--nh-mark-ink);
 }
 
-.ms-progress figcaption {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--nh-space-3);
-    margin-top: var(--nh-space-3);
-    font-size: var(--nh-size-small);
+.ms-phase h3 {
+    margin: 0 0 var(--nh-space-1);
+    font-size: var(--nh-size-h2);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+/* the heading wears the stroke, not the italic */
+.ms-phase h3 .nh-highlight {
+    font-style: normal;
+}
+
+.ms-phase__kicker {
+    margin: 0;
+    font-size: var(--nh-size-tiny);
+    font-weight: var(--nh-medium);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--nh-muted);
 }
 
-.ms-progress figcaption b {
+.ms-phase__cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--nh-space-6);
+}
+
+.ms-phase__label {
+    margin-bottom: var(--nh-space-3);
+    font-size: var(--nh-size-tiny);
     font-weight: var(--nh-semibold);
-    color: var(--nh-ink);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-muted);
+}
+
+.ms-phase__steps {
+    display: grid;
+    gap: var(--nh-space-2);
+    margin: 0;
+    padding-left: 1.4em;
+    font-size: var(--nh-size-body);
+    line-height: 1.5;
+    color: var(--nh-text);
+}
+
+.ms-phase__steps::marker,
+.ms-phase__steps > li::marker {
+    color: var(--nh-muted);
+}
+
+/* the three phases again, compact, where the study speaks of progression */
+.ms-strip--phases {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 
@@ -675,10 +725,10 @@
 }
 
 .ms-swap__steps > li.is-added {
-    border-color: transparent;
-    background: var(--nh-ink);
+    border-color: var(--nh-mark-ink);
+    background: var(--nh-mark);
     font-weight: var(--nh-medium);
-    color: var(--nh-canvas);
+    color: var(--nh-ink);
 }
 
 .ms-swap__arrow {
@@ -841,9 +891,11 @@
 
     .ms-opps b { grid-row: auto; }
 
-    /* twenty-five ticks in a hand's width are hairlines; fewer gaps keeps
-       them visible */
-    .ms-progress__rail { gap: 2px; height: 44px; }
+    /* steps above tools, rather than beside them */
+    .ms-phase__cols,
+    .ms-strip--phases {
+        grid-template-columns: minmax(0, 1fr);
+    }
 
     .ms-cohort { gap: var(--nh-space-5); }
 

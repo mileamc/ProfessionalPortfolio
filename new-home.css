@@ -55,6 +55,17 @@
 
     /* The highlighter stroke behind "product designer" */
     --nh-highlight:     rgba(126, 186, 240, 0.42);
+
+    /* What marks something out inside a diagram — the end of a flow, the step
+       that replaced another, the number of a phase. Ink is the primary
+       button's colour, so a filled black box reads as something to click, and
+       nothing in a diagram is clickable.
+
+       Two of them, because a wash cannot carry text: --nh-mark is the fill,
+       --nh-mark-ink the line or numeral at the same hue. A case page sets its
+       own pair from its project's colour; these are the default. */
+    --nh-mark:          var(--nh-highlight);
+    --nh-mark-ink:      var(--nh-tag-blue);
     --nh-line:          #D6DEE7;   /* page chrome only — never on a card */
     --nh-line-strong:   #B4C0CD;
 
@@ -712,6 +723,29 @@ html {
     white-space: nowrap;
     overflow: hidden;           /* a card too narrow for the line cuts it, not the pill */
     text-overflow: ellipsis;
+}
+
+/* A line of terms rather than a row of pills: the words stay words — the
+   markup is still a list of what a thing was — and the dot between them is
+   drawn by the list, so it takes the same grey as they do. This is what the
+   Work page says under a project and what a case page says under its title.
+   It replaced the coloured pills, which read as louder than what they label. */
+.nh-termlist {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--nh-size-small);
+    font-weight: var(--nh-medium);
+    line-height: 1.5;
+    color: var(--nh-muted);
+}
+
+.nh-termlist li + li::before {
+    content: "\2022";
+    margin-inline: 0.55em;
 }
 
 /* Availability: the same pill in green, with a light that breathes. */
