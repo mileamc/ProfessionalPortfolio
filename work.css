@@ -111,20 +111,36 @@
     color: var(--nh-text);
 }
 
+/* Not pills: a line of words, each in its own colour, with a dot between
+   them. The dot is drawn by the list rather than typed into it, so the words
+   stay words — the markup is still a list of what the project was. */
 .wk-card__tags {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--nh-space-2);
+    align-items: baseline;
     margin: 0;
     padding: 0;
     list-style: none;
+    font-size: var(--nh-size-small);
+    font-weight: var(--nh-medium);
+    line-height: 1.5;
 }
 
-/* The same pill as the availability tag and the one on the laptop's card, in
-   one of three colours. The colour is bound to what the tag says rather than
-   to the card it is on, so a discipline is the same colour everywhere it
-   appears and a new card picks its colours up without being told. The three
-   are dealt so that no card repeats one. */
+.wk-card__tags li {
+    color: var(--wk-tag-ink, var(--nh-muted));
+}
+
+.wk-card__tags li + li::before {
+    content: "\2022";
+    margin-inline: 0.55em;
+    color: var(--nh-muted);
+    opacity: 0.55;
+}
+
+/* The colour of a word is bound to what it says rather than to the card it is
+   on, so a discipline is the same colour everywhere it appears and a new card
+   picks its colours up without being told. They are dealt so that no card
+   repeats one. */
 .wk-list {
     --wk-tag-pink:   #B42E6E;
     --wk-tag-green:  var(--nh-signal-text);  /* the availability tag's green */
@@ -136,24 +152,20 @@
     --wk-tag-orange: #A84E00;
 }
 
-.wk-card__tags .nh-tag {
-    --nh-tag-line: color-mix(in srgb, var(--nh-tag-ink) 45%, transparent);
-}
-
-.wk-card__tags [data-tag="product-design"] { --nh-tag-ink: var(--wk-tag-pink); }
+.wk-card__tags [data-tag="product-design"] { --wk-tag-ink: var(--wk-tag-pink); }
 
 .wk-card__tags [data-tag="ux-research"],
-.wk-card__tags [data-tag="ux-ui"]          { --nh-tag-ink: var(--wk-tag-green); }
+.wk-card__tags [data-tag="ux-ui"]          { --wk-tag-ink: var(--wk-tag-green); }
 
-.wk-card__tags [data-tag="lxd"]            { --nh-tag-ink: var(--wk-tag-blue); }
+.wk-card__tags [data-tag="lxd"]            { --wk-tag-ink: var(--wk-tag-blue); }
 
-.wk-card__tags [data-tag="webdesign"]      { --nh-tag-ink: var(--wk-tag-orange); }
+.wk-card__tags [data-tag="webdesign"]      { --wk-tag-ink: var(--wk-tag-orange); }
 
-.wk-card__tags [data-tag="wireframing"]    { --nh-tag-ink: var(--wk-tag-purple); }
+.wk-card__tags [data-tag="wireframing"]    { --wk-tag-ink: var(--wk-tag-purple); }
 
-/* Not a discipline but a credit, and the one tag here that is also on the home:
-   it keeps the hospital's blue it has over there, word for word. */
-.wk-card__tags [data-tag="in-house"]       { --nh-tag-ink: var(--wk-tag-blue); }
+/* Not a discipline but a credit, and the one of these that is also on the
+   home: it keeps the hospital's blue it has over there, word for word. */
+.wk-card__tags [data-tag="in-house"]       { --wk-tag-ink: var(--wk-tag-blue); }
 
 
 /* --- the colour a card takes while it is read ------------------------------
