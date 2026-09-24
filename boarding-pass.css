@@ -137,8 +137,7 @@
    the page's voice.
 --------------------------------------------------------------------------- */
 
-/* Half of what they were: 8 under the heading's own line and 12 between the
-   heading and the stub, from the same scale the rest of the page counts in. */
+/* 2 under the heading's own line and 12 between the heading and the stub. */
 .bp__head {
     margin: 0 0 var(--nh-space-3);
 }
@@ -156,7 +155,7 @@
 
 /* .ab-prose, on the one line it holds */
 .bp__sub {
-    margin: var(--nh-space-1) 0 0;
+    margin: calc(var(--nh-space-1) / 2) 0 0;
     font-size: var(--nh-size-body);
     font-weight: var(--nh-regular);
     line-height: 1.6;
