@@ -38,9 +38,11 @@
 =========================================================================== */
 
 .bp {
-    /* the whole width of the grid, on the row under the text and the column
-       of three — the slot about.css always kept open for a fifth card */
-    grid-column: 1 / -1;
+    /* Nine of the twelve columns, on the row under the text and the column of
+       three: it begins on the left edge of the card of running text and ends
+       on the right edge of the photographs, so the three line up down the
+       page. The last three columns, under the card still empty, stay open. */
+    grid-column: 1 / span 9;
 
     /* the yellow the composition is drawn on, taken while the card is
        looked at — the wash every other card on the site has */
@@ -69,45 +71,47 @@
 /* The composition, at the proportion the drawing has: 2093.85 wide by 839
    deep, measured from the stub's left edge to the panel's right and from the
    panel's top to their shared foot. Everything inside is placed in those
-   units. */
+   units.
+
+   The heading is not in here. It is the page speaking rather than part of the
+   drawing, so it is set on the page's own scale and stands above this box. */
 .bp__frame {
     position: relative;
     container-type: size;
     width: 100%;
-    aspect-ratio: 2093.85 / 839;
+    aspect-ratio: 2093.85 / 838;
     --u: calc(100cqw / 2093.85);
 }
 
-/* --- the heading ---------------------------------------------------------- */
+/* --- the heading ----------------------------------------------------------
+
+   This is the page talking rather than part of the drawing, so it is set on
+   the page's own scale: the title at the size the card of running text gives
+   its own title, and the line under it at the size that card's paragraphs are
+   set in. It keeps the drawing's voice — upper case, heavy, its blue — at the
+   size the page reads at.
+--------------------------------------------------------------------------- */
 
 .bp__head {
-    position: absolute;
-    left: calc(22.05 * var(--u));
-    top: calc(-10 * var(--u));
-    width: calc(1330 * var(--u));
-    margin: 0;
+    margin: 0 0 var(--nh-space-6);
     color: var(--bp-ink-2);
 }
 
 .bp__title {
     margin: 0;
-    font-size: calc(78 * var(--u));
-    font-weight: 800;
-    line-height: 1.1;
-    /* The drawing sets this line 1058.6 wide and 63.4 tall. Poppins cannot be
-       both at once — it is a wider face than the one the drawing was made in —
-       so the line length is what is matched, since that is what the eye reads
-       against the stub under it. */
-    letter-spacing: -0.023em;
+    font-size: var(--nh-size-display);   /* the same as "A little about me" */
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     text-transform: uppercase;
     color: inherit;
 }
 
 .bp__sub {
-    margin: calc(26 * var(--u)) 0 0;
-    font-size: calc(45.5 * var(--u));
+    margin: var(--nh-space-2) 0 0;
+    font-size: var(--nh-size-body);
     font-weight: var(--nh-medium);
-    line-height: 1.2;
+    line-height: 1.5;
     color: inherit;
 }
 
@@ -652,20 +656,12 @@
         --u: calc(100cqw / 1298.25);   /* the stub's paper is the measure now */
     }
 
-    .bp__head,
     .bp__ticket,
     .bp__board {
         position: relative;
         left: auto;
         top: auto;
     }
-
-    .bp__head {
-        width: 100%;
-    }
-
-    .bp__title { font-size: clamp(28px, calc(78 * var(--u)), 64px); }
-    .bp__sub   { font-size: clamp(17px, calc(46 * var(--u)), 38px); }
 
     .bp__ticket {
         margin-top: calc(34 * var(--u));
