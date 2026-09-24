@@ -47,9 +47,9 @@
        page. The last three columns, under the card still empty, stay open. */
     grid-column: 1 / span 9;
 
-    /* the yellow the composition is drawn on, taken while the card is
-       looked at — the wash every other card on the site has */
-    --nh-wash: #F4EAA0;
+    /* The wash every other card on the site has, and here it is the home's
+       own: the sand the landing pages take. */
+    --nh-wash: var(--nh-wash-sand);
 
     /* the palette of the drawings, and nowhere else on the site */
     --bp-ink:     #374D63;   /* the panel, and everything set on paper */
@@ -87,6 +87,42 @@
     aspect-ratio: 3.18211;       /* 1 / 0.314257 */
     --u: calc(100cqw / 2093.85);
 }
+
+/* --- what they do under a pointer -------------------------------------------
+
+   The stub and the panel each come forward two per cent when the pointer is
+   on them, on the site's own curve — the same the LUDIS board and the IMB
+   comparison take, and for the same reason: more than two moves the type
+   inside onto new pixels, which reads as a twitch rather than as a thing
+   coming forward.
+
+   Neither has to be given room for it. The stub grows by a third of the air
+   between the two at each side, and both grow into the padding the card
+   already carries; the card clips whatever would pass its own edge anyway.
+--------------------------------------------------------------------------- */
+
+.bp__ticket,
+.bp__board {
+    --bp-near: 1;
+    transform: scale(var(--bp-near));
+    transition: transform var(--nh-slow) var(--nh-ease);
+    will-change: transform;
+}
+
+.bp__ticket:hover,
+.bp__ticket:has(:focus-visible),
+.bp__board:hover {
+    --bp-near: 1.02;
+}
+
+@media (hover: none) {
+    /* a tap must not leave either of them forward for good */
+    .bp__ticket:hover,
+    .bp__board:hover {
+        --bp-near: 1;
+    }
+}
+
 
 /* --- the heading ----------------------------------------------------------
 
