@@ -90,11 +90,13 @@
 
 /* --- what they do under a pointer -------------------------------------------
 
-   The stub and the panel each come forward two per cent when the pointer is
-   on them, on the site's own curve — the same the LUDIS board and the IMB
-   comparison take, and for the same reason: more than two moves the type
-   inside onto new pixels, which reads as a twitch rather than as a thing
-   coming forward.
+   The stub and the panel come forward two per cent together, as one thing,
+   when the pointer is anywhere on the card — it is the card that is hovered,
+   the way it is on the home, and these two are what is on it.
+
+   Two per cent, on the site's own curve: the same the LUDIS board and the IMB
+   comparison take, and for the same reason. More moves the type inside onto
+   new pixels, which reads as a twitch rather than as a thing coming forward.
 
    Neither has to be given room for it. The stub grows by a third of the air
    between the two at each side, and both grow into the padding the card
@@ -109,16 +111,17 @@
     will-change: transform;
 }
 
-.bp__ticket:hover,
-.bp__ticket:has(:focus-visible),
-.bp__board:hover {
+.bp:hover .bp__ticket,
+.bp:hover .bp__board,
+.bp:has(:focus-visible) .bp__ticket,
+.bp:has(:focus-visible) .bp__board {
     --bp-near: 1.02;
 }
 
 @media (hover: none) {
-    /* a tap must not leave either of them forward for good */
-    .bp__ticket:hover,
-    .bp__board:hover {
+    /* a tap must not leave them forward for good */
+    .bp:hover .bp__ticket,
+    .bp:hover .bp__board {
         --bp-near: 1;
     }
 }
