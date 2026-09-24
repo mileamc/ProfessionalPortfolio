@@ -15,8 +15,9 @@
      the navigation, the card surface and the photo stack. about.css only
      lays out this page's four cards and styles what is new here. Neither
      file is changed by this page. -->
-<link rel="stylesheet" href="new-home.css?v=about-hover-2"/>
-<link rel="stylesheet" href="about.css?v=about-hover-2"/>
+<link rel="stylesheet" href="new-home.css?v=boarding-1"/>
+<link rel="stylesheet" href="about.css?v=boarding-1"/>
+<link rel="stylesheet" href="boarding-pass.css?v=boarding-1"/>
 
 <!-- The photograph on top of the stack is put there by a script, so the
      parser never sees it: asked for here it arrives with the page rather
@@ -105,6 +106,109 @@
 
         </div>
 
+        <!-- 5 — the boarding pass ---------------------------------------
+             The whole width of the grid, under the text and the column of
+             three. Two drawings used as they were made — the stub and the
+             arrivals panel, in assets/ — with every part that moves laid
+             over them as HTML. What it does is scripts/boarding-pass.js;
+             where each thing sits is boarding-pass.css, in the drawings'
+             own coordinates. -->
+        <section class="nh-card nh-card--content ab-card bp" style="--i: 4"
+                 aria-labelledby="bp-title" data-boarding-pass>
+            <div class="bp__frame">
+
+                <hgroup class="bp__head">
+                    <h2 class="bp__title" id="bp-title">How far away are we?</h2>
+                    <p class="bp__sub">I&#8217;m based in Curitiba, Brazil &#8212; where are you?</p>
+                </hgroup>
+
+                <!-- THE STUB ------------------------------------------- -->
+                <div class="bp__ticket">
+
+                    <p class="bp__at bp__label bp__ask">
+                        <label for="bp-city">You are coming from:</label>
+                    </p>
+
+                    <div class="bp__field">
+                        <input class="bp__input" id="bp-city" type="text"
+                               placeholder="e.g. Lisbon, Portugal"
+                               autocomplete="off" spellcheck="false"
+                               role="combobox" aria-expanded="false"
+                               aria-controls="bp-menu" aria-autocomplete="list"
+                               aria-describedby="bp-error" data-bp-input/>
+                        <ul class="bp__menu" id="bp-menu" role="listbox"
+                            aria-label="Matching cities" hidden data-bp-menu></ul>
+                        <p class="bp__error" id="bp-error" role="status" hidden data-bp-error></p>
+                    </div>
+
+                    <!-- The date the stub was printed. The drawing used to
+                         carry it as outlines; it is written here now, so it
+                         says the day it is being read. -->
+                    <p class="bp__at bp__date" data-bp-date></p>
+
+                    <!-- Seat, class and date again, for the phone. The drawing
+                         carries all three as outlines and the phone does not
+                         use the drawing, so they are written out here and kept
+                         hidden at every width that does. -->
+                    <dl class="bp__stats">
+                        <div><dt>Seat</dt><dd>1A</dd></div>
+                        <div><dt>Class</dt><dd>FIRST</dd></div>
+                        <div><dt>Date</dt><dd data-bp-date-2></dd></div>
+                    </dl>
+
+                    <!-- the other half of the fold -->
+                    <p class="bp__at bp__result-label">the distance between us is</p>
+
+                    <div class="bp__answer" aria-live="polite">
+                        <p class="bp__dots" data-bp-dots aria-label="waiting"><i></i><i></i><i></i></p>
+                        <p class="bp__km" data-bp-km hidden></p>
+                        <p class="bp__bye" data-bp-bye hidden>Thanks for flying by!<br/>See you at the next gate.</p>
+                    </div>
+
+                    <!-- The route. On the drawing these three are placed
+                         one by one; on a phone they lay themselves out as a
+                         row, which is what this wrapper is for — it makes no
+                         box of its own at any width that uses the drawing. -->
+                    <div class="bp__route-line">
+                        <p class="bp__port bp__port--from">
+                            <b class="bp__code" data-bp-code>???</b>
+                            <span class="bp__place" data-bp-place>???</span>
+                        </p>
+
+                        <div class="bp__route" aria-hidden="true">
+                            <span class="bp__rail"></span>
+                            <span class="bp__plane">
+                                <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                                    <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-4.5L21 16Z"/>
+                                </svg>
+                            </span>
+                        </div>
+
+                        <p class="bp__port bp__port--to">
+                            <b class="bp__code">CWB</b>
+                            <span class="bp__place">Brazil</span>
+                        </p>
+                    </div>
+
+                    <!-- the fold, which the drawing has running down the stub
+                         and the phone has running across it -->
+                    <span class="bp__fold" aria-hidden="true"></span>
+
+                    <button class="bp__go" type="button" disabled data-bp-go>CHECK IN!</button>
+                </div>
+
+                <!-- THE BOARD ------------------------------------------ -->
+                <div class="bp__board">
+                    <h3 class="nh-visually-hidden">Recent arrivals in Curitiba</h3>
+                    <div class="bp__cols" aria-hidden="true">
+                        <span>ORIGIN</span><span>DISTANCE</span><span>TIME</span>
+                    </div>
+                    <ul class="bp__rows" data-bp-rows aria-live="polite"></ul>
+                </div>
+
+            </div>
+        </section>
+
     </div>
 
 </main>
@@ -118,9 +222,13 @@
 <!-- The photographs come from the home page's data and its script: every
      other thing new-home.js sets up is keyed to markup that is not on this
      page, so it does nothing here. -->
-<script src="data/home-projects.js?v=about-hover-2"></script>
-<script src="scripts/new-home.js?v=about-hover-2"></script>
+<script src="data/home-projects.js?v=boarding-1"></script>
+<script src="scripts/new-home.js?v=boarding-1"></script>
 <!-- and, once the page is done, what the home page will want next -->
-<script src="scripts/warm-assets.js?v=about-hover-2" defer></script>
+<!-- The boarding pass: its own file, and the only script on the site that
+     talks to anything outside it. It waits for the card to be scrolled
+     near before it fetches anything at all. -->
+<script src="scripts/boarding-pass.js?v=boarding-1" defer></script>
+<script src="scripts/warm-assets.js?v=boarding-1" defer></script>
 </body>
 </html>

@@ -1,0 +1,852 @@
+/* ===========================================================================
+   THE BOARDING PASS — "How far away are we?"
+
+   A card on the About page that asks the visitor where they are, works out
+   how far that is from Curitiba, and writes the answer onto a board every
+   other visitor can see.
+
+   HOW IT IS BUILT
+
+   Two shapes come from the design as SVG and are used as they were drawn:
+   assets/ticket-background.svg (the stub, its torn edges, its dashed fold and
+   the seat, class and date labels) and assets/arrivals-background.svg (the
+   panel and its yellow header). Neither is redrawn here. Everything that
+   moves — the field, the suggestions, the button, the distance, the rows —
+   is ordinary HTML laid over them.
+
+   Laying HTML over a drawing only works if the two agree on where things are,
+   so this file measures in the drawings' own coordinates. Three containers
+   each carry a unit that is one of their own pixels:
+
+       --u   one pixel of the whole composition (2093.85 across)
+       --t   one pixel of the ticket             (1337 across)
+       --b   one pixel of the arrivals board     (708 across)
+
+   So `left: calc(130.2 * var(--t))` puts something exactly where it is in
+   ticket-example.svg, at any size the card is drawn. The numbers in this file
+   are read off those files rather than chosen.
+
+   WHAT THE CARD DOES ON HOVER
+
+   The same thing every other card on the site does — it takes a wash. Here
+   the wash is the pale yellow the composition was drawn on, so hovering the
+   card is what puts the drawing on its own background.
+=========================================================================== */
+
+.bp {
+    /* the whole width of the grid, on the row under the text and the column
+       of three — the slot about.css always kept open for a fifth card */
+    grid-column: 1 / -1;
+
+    /* the yellow the composition is drawn on, taken while the card is
+       looked at — the wash every other card on the site has */
+    --nh-wash: #F4EAA0;
+
+    /* the palette of the drawings, and nowhere else on the site */
+    --bp-ink:     #374D63;   /* the panel, and everything set on paper */
+    --bp-ink-2:   #42617F;   /* the heading over the composition */
+    --bp-muted:   #97A4B1;   /* labels on the stub */
+    --bp-field:   #E0E7EE;   /* the field at rest */
+    --bp-hint:    #6E8CAA;   /* the example inside it */
+    --bp-btn:     #DDDFE1;   /* the button before it can be pressed */
+    --bp-btn-ink: #959EA7;
+    --bp-yellow:  #F3D44B;   /* the header band, and the rows under it */
+    --bp-paper:   #FCFCFC;   /* the stub itself */
+    --bp-teal:    #7FB5C3;   /* its torn edges */
+
+    /* The site's own weights stop at 600 on purpose. The drawing uses two
+       heavier ones — 700 on the stub's values and the button, 800 on the
+       heading — so they are written here rather than added to the scale
+       everything else shares. Both are in the family the page loads. */
+
+    padding: var(--nh-card-pad);
+}
+
+/* The composition, at the proportion the drawing has: 2093.85 wide by 839
+   deep, measured from the stub's left edge to the panel's right and from the
+   panel's top to their shared foot. Everything inside is placed in those
+   units. */
+.bp__frame {
+    position: relative;
+    container-type: size;
+    width: 100%;
+    aspect-ratio: 2093.85 / 839;
+    --u: calc(100cqw / 2093.85);
+}
+
+/* --- the heading ---------------------------------------------------------- */
+
+.bp__head {
+    position: absolute;
+    left: calc(22.05 * var(--u));
+    top: calc(-10 * var(--u));
+    width: calc(1330 * var(--u));
+    margin: 0;
+    color: var(--bp-ink-2);
+}
+
+.bp__title {
+    margin: 0;
+    font-size: calc(78 * var(--u));
+    font-weight: 800;
+    line-height: 1.1;
+    /* The drawing sets this line 1058.6 wide and 63.4 tall. Poppins cannot be
+       both at once — it is a wider face than the one the drawing was made in —
+       so the line length is what is matched, since that is what the eye reads
+       against the stub under it. */
+    letter-spacing: -0.023em;
+    text-transform: uppercase;
+    color: inherit;
+}
+
+.bp__sub {
+    margin: calc(26 * var(--u)) 0 0;
+    font-size: calc(45.5 * var(--u));
+    font-weight: var(--nh-medium);
+    line-height: 1.2;
+    color: inherit;
+}
+
+
+/* ---------------------------------------------------------------------------
+   THE STUB
+
+   The drawing's box is 1337 by 697 and carries its own drop shadow inside
+   that box, so the paper itself starts 19.15 in from the left and 10.94 down
+   from the top. The box is therefore hung slightly outside the composition on
+   the left, which lands the paper's edge exactly on the heading's margin.
+--------------------------------------------------------------------------- */
+
+.bp__ticket {
+    position: absolute;
+    left: calc(-19.15 * var(--u));
+    top: calc(170 * var(--u));
+    width: calc(1337 * var(--u));
+    aspect-ratio: 1337 / 697;
+
+    container-type: size;
+    --t: calc(100cqw / 1337);
+
+    background: url("assets/ticket-background.svg") center / 100% 100% no-repeat;
+}
+
+/* Everything written on the stub is placed by these two, in the stub's own
+   pixels. A line is given its left edge and the top of its own box; the sizes
+   are solved back from the outlines in the drawing, where a capital stands
+   0.7 of the type size tall. */
+.bp__at {
+    position: absolute;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.bp__label {
+    font-size: calc(32 * var(--t));
+    font-weight: var(--nh-medium);
+    line-height: 1;
+    color: var(--bp-muted);
+}
+
+/* "You are coming from:" */
+.bp__ask {
+    left: calc(130.6 * var(--t));
+    top: calc(112.6 * var(--t));
+    font-size: calc(33.3 * var(--t));
+}
+
+/* The date, which the drawing no longer carries: the stub says the day it is
+   being looked at. Its box is where the outlines used to be. */
+.bp__date {
+    left: calc(142.6 * var(--t));
+    top: calc(553.4 * var(--t));
+    font-size: calc(37.7 * var(--t));
+    font-weight: 700;
+    line-height: 1;
+    color: var(--bp-ink);
+}
+
+
+/* Seat, class and date, which the drawing carries as outlines. They exist in
+   the markup for the phone, which lays the stub out without the drawing. */
+.bp__stats {
+    display: none;
+}
+
+
+/* --- the field, and what it suggests -------------------------------------- */
+
+.bp__field {
+    position: absolute;
+    left: calc(130.2 * var(--t));
+    top: calc(170.9 * var(--t));
+    width: calc(373 * var(--t));
+}
+
+/* The card's own name is carried on both form controls, because new-home.css
+   holds every button and field on the site to the page's own size with
+   `.nh button, .nh input { font-size: inherit }` — one class and one element,
+   which outweighs a class on its own. */
+.bp .bp__input {
+    display: block;
+    width: 100%;
+    height: calc(80 * var(--t));
+    padding: 0 calc(38 * var(--t));
+    border: calc(2 * var(--t)) solid transparent;
+    border-radius: 999px;
+    background: var(--bp-field);
+    font-family: inherit;
+    font-size: calc(24.7 * var(--t));
+    font-weight: var(--nh-medium);
+    line-height: 1;
+    color: var(--bp-ink);
+    transition: background-color var(--nh-base) var(--nh-ease),
+                border-color var(--nh-base) var(--nh-ease);
+}
+
+.bp__input::placeholder {
+    color: var(--bp-hint);
+    opacity: 1;
+}
+
+.bp__input:focus {
+    outline: none;
+    border-color: var(--bp-ink);
+    background: var(--bp-paper);
+}
+
+.bp__input:disabled {
+    opacity: 0.55;
+}
+
+/* The suggestions hang under the field. They leave the stub's paper, which is
+   why this is the one thing on the card allowed out of its box. */
+.bp__menu {
+    position: absolute;
+    left: 0;
+    top: calc(88 * var(--t));
+    z-index: 4;
+    width: 100%;
+    max-height: calc(330 * var(--t));
+    margin: 0;
+    padding: calc(8 * var(--t)) 0;
+    overflow-y: auto;
+    list-style: none;
+    border-radius: calc(20 * var(--t));
+    background: var(--bp-paper);
+    box-shadow: 0 calc(10 * var(--t)) calc(34 * var(--t)) rgba(55, 77, 99, 0.22);
+}
+
+.bp__menu[hidden] {
+    display: none;
+}
+
+.bp__option {
+    padding: calc(14 * var(--t)) calc(28 * var(--t));
+    font-size: calc(22 * var(--t));
+    font-weight: var(--nh-medium);
+    line-height: 1.35;
+    color: var(--bp-ink);
+    cursor: pointer;
+}
+
+.bp__option:hover,
+.bp__option[aria-selected="true"] {
+    background: var(--bp-field);
+}
+
+.bp__option small {
+    display: block;
+    font-size: calc(19 * var(--t));
+    font-weight: var(--nh-regular);
+    color: var(--bp-muted);
+}
+
+/* what it says when the field is wrong, under the field and in its place */
+.bp__error {
+    position: absolute;
+    left: calc(14 * var(--t));
+    top: calc(92 * var(--t));
+    margin: 0;
+    width: calc(420 * var(--t));
+    font-size: calc(21 * var(--t));
+    font-weight: var(--nh-medium);
+    line-height: 1.3;
+    color: #B42E6E;
+}
+
+.bp__error[hidden] {
+    display: none;
+}
+
+
+/* --- the right half of the stub ------------------------------------------- */
+
+/* "the distance between us is" */
+.bp__result-label {
+    left: calc(700.7 * var(--t));
+    top: calc(117.7 * var(--t));
+    font-size: calc(32.7 * var(--t));
+    font-weight: var(--nh-medium);
+    line-height: 1;
+    color: var(--bp-ink);
+}
+
+/* The answer's own place: the three dots at rest, then the number, then the
+   line about the next gate. One box, so nothing moves around it. */
+.bp__answer {
+    position: absolute;
+    left: calc(600 * var(--t));
+    top: calc(196 * var(--t));
+    width: calc(620 * var(--t));
+    height: calc(96 * var(--t));
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: var(--bp-ink);
+}
+
+.bp__answer > * {
+    grid-area: 1 / 1;
+    margin: 0;
+    transition: opacity 420ms var(--nh-ease), transform 420ms var(--nh-ease);
+}
+
+.bp__answer > [hidden] {
+    display: block;          /* they cross over rather than cutting */
+    opacity: 0;
+    transform: translateY(calc(10 * var(--t)));
+    pointer-events: none;
+}
+
+.bp__dots {
+    /* Three dots, 14.7 across with 8.9 between them, which is what the
+       drawing has. Drawn rather than set: the bullet in this family is a
+       small mark in a wide box, and no size of it is both. */
+    display: flex;
+    align-items: center;
+    gap: calc(8.9 * var(--t));
+    line-height: 1;
+}
+
+.bp__dots i {
+    width: calc(14.7 * var(--t));
+    height: calc(14.7 * var(--t));
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.bp__km {
+    font-size: calc(51 * var(--t));
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.bp__miles {
+    display: block;
+    font-size: calc(23 * var(--t));
+    font-weight: var(--nh-medium);
+    color: var(--bp-muted);
+}
+
+.bp__bye {
+    font-size: calc(27 * var(--t));
+    font-weight: var(--nh-medium);
+    line-height: 1.3;
+}
+
+/* --- the route ------------------------------------------------------------ */
+
+/* At every width that uses the drawing this wrapper makes no box: the three
+   inside it are placed one by one, where the drawing has them. The phone gives
+   it a box and lays them out in a row. */
+.bp__route-line {
+    display: contents;
+}
+
+/* The fold belongs to the drawing at these widths. */
+.bp__fold {
+    display: none;
+}
+
+
+/* Origin and destination sit at the ends of the line, each with its country
+   under it. The codes are centred on where the drawing puts them so a long
+   one grows both ways instead of pushing the line. */
+.bp__port {
+    position: absolute;
+    top: calc(341.3 * var(--t));
+    width: calc(260 * var(--t));
+    text-align: center;
+}
+
+.bp__port--from { left: calc(549 * var(--t)); }
+.bp__port--to   { left: calc(1023.7 * var(--t)); }
+
+.bp__code {
+    display: block;
+    margin: 0;
+    font-size: calc(39.5 * var(--t));
+    font-weight: 700;
+    line-height: 1;
+    color: var(--bp-ink);
+    transition: opacity 300ms var(--nh-ease);
+}
+
+.bp__place {
+    display: block;
+    margin: calc(27 * var(--t)) 0 0;
+    font-size: calc(29.9 * var(--t));
+    font-weight: var(--nh-regular);
+    line-height: 1;
+    color: var(--bp-muted);
+    transition: opacity 300ms var(--nh-ease);
+}
+
+/* The line with the aeroplane on it, drawn here rather than in the stub
+   because the plane travels it once a check-in lands. */
+.bp__route {
+    position: absolute;
+    left: calc(731.9 * var(--t));
+    top: calc(352.2 * var(--t));
+    width: calc(345.4 * var(--t));
+    height: calc(16 * var(--t));
+}
+
+.bp__rail {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: calc(4 * var(--t));
+    transform: translateY(-50%);
+    background: var(--bp-ink);
+}
+
+.bp__rail::after {              /* the arrow head */
+    content: "";
+    position: absolute;
+    right: calc(-2 * var(--t));
+    top: 50%;
+    width: 0;
+    height: 0;
+    border-top: calc(9 * var(--t)) solid transparent;
+    border-bottom: calc(9 * var(--t)) solid transparent;
+    border-left: calc(16 * var(--t)) solid var(--bp-ink);
+    transform: translateY(-50%);
+}
+
+.bp__plane {
+    position: absolute;
+    left: calc(139.3 * var(--t));   /* 871.2 - 731.9 */
+    top: calc(-27.3 * var(--t));    /* 324.9 - 352.2 */
+    width: calc(69 * var(--t));
+    height: calc(69 * var(--t));
+    color: var(--bp-ink);
+}
+
+.bp__plane svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+/* it runs the line once, when an answer lands */
+.bp.is-arrived .bp__plane {
+    animation: bp-fly 1100ms var(--nh-ease) 1;
+}
+
+@keyframes bp-fly {
+    0%   { transform: translateX(calc(-150 * var(--t))); opacity: 0; }
+    18%  { opacity: 1; }
+    100% { transform: none; opacity: 1; }
+}
+
+
+/* --- the button ----------------------------------------------------------- */
+
+.bp .bp__go {
+    position: absolute;
+    left: calc(714.2 * var(--t));
+    top: calc(507.9 * var(--t));
+    width: calc(381.7 * var(--t));
+    height: calc(109.4 * var(--t));
+    border: 0;
+    border-radius: 999px;
+    background: var(--bp-btn);
+    font-family: inherit;
+    font-size: calc(34.5 * var(--t));
+    font-weight: 700;
+    color: var(--bp-btn-ink);
+    cursor: not-allowed;
+    transition: background-color var(--nh-base) var(--nh-ease),
+                color var(--nh-base) var(--nh-ease),
+                transform var(--nh-base) var(--nh-ease);
+}
+
+/* it lights up only once there is somewhere to fly from */
+.bp__go:enabled {
+    background: var(--bp-ink);
+    color: var(--bp-paper);
+    cursor: pointer;
+}
+
+.bp__go:enabled:hover {
+    transform: translateY(calc(-3 * var(--t)));
+}
+
+.bp__go:enabled:active {
+    transform: none;
+}
+
+.bp__go:focus-visible {
+    outline: calc(4 * var(--t)) solid var(--bp-ink);
+    outline-offset: calc(4 * var(--t));
+}
+
+
+/* ---------------------------------------------------------------------------
+   THE ARRIVALS BOARD
+
+   708 by 838, and the drawing's own proportion is what decides how many rows
+   it holds: its header takes 104, the column names another 105, and what is
+   left is eight rows at a pitch of 83.4.
+--------------------------------------------------------------------------- */
+
+.bp__board {
+    position: absolute;
+    left: calc(1385.85 * var(--u));
+    top: 0;
+    width: calc(708 * var(--u));
+    aspect-ratio: 708 / 838;
+
+    container-type: size;
+    --b: calc(100cqw / 708);
+
+    background: url("assets/arrivals-background.svg") center / 100% 100% no-repeat;
+    color: #FFFFFF;
+}
+
+/* the three column names, on the row the drawing puts them */
+.bp__cols,
+.bp__row {
+    position: absolute;
+    left: calc(44 * var(--b));
+    width: calc(619 * var(--b));
+    display: grid;
+    /* 300 + 10 + 150 + 10 + 149 = 619, which is the width of the drawing's own
+       rule. It puts the middle column's centre on 385 and the last column's
+       right edge on 619 — where the distances and the times sit in it. */
+    grid-template-columns: calc(300 * var(--b)) calc(150 * var(--b)) calc(149 * var(--b));
+    align-items: baseline;
+    column-gap: calc(10 * var(--b));
+}
+
+.bp__cols {
+    top: calc(147.9 * var(--b));
+    font-size: calc(24.8 * var(--b));
+    font-weight: var(--nh-semibold);
+    line-height: 1;
+    color: #FFFFFF;
+}
+
+.bp__cols > :nth-child(2) { text-align: center; }
+.bp__cols > :nth-child(3) { text-align: right; }
+
+/* The rows. Each is placed at its own depth rather than stacked, so a new one
+   arriving can slide the others down instead of redrawing the list. */
+.bp__rows {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+}
+
+.bp__row {
+    top: calc((208.8 + var(--n) * 83.4) * var(--b));
+    font-size: calc(28.4 * var(--b));
+    font-weight: var(--nh-medium);
+    line-height: 1;
+    color: var(--bp-yellow);
+    transition: top 520ms var(--nh-ease);
+}
+
+.bp__row > :nth-child(2) { text-align: center; }
+.bp__row > :nth-child(3) { text-align: right; }
+
+.bp__row span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* the hairline under every row but the last one it can show */
+.bp__row::after {
+    content: "";
+    position: absolute;
+    left: calc(3.5 * var(--b));
+    right: calc(3.5 * var(--b));
+    top: calc(58.2 * var(--b));
+    height: calc(1 * var(--b));
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.bp__row:last-child::after {
+    display: none;
+}
+
+/* a row that has just landed comes in from above the first line */
+.bp__row.is-new {
+    animation: bp-land 620ms var(--nh-ease) 1;
+}
+
+@keyframes bp-land {
+    from { opacity: 0; transform: translateY(calc(-30 * var(--b))); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* nobody has checked in yet */
+.bp__row--empty {
+    display: block;
+    color: rgba(255, 255, 255, 0.62);
+    font-weight: var(--nh-regular);
+    font-style: italic;
+}
+
+.bp__row--empty::after {
+    display: none;
+}
+
+
+/* ---------------------------------------------------------------------------
+   NARROWER THAN THE DESKTOP GRID
+
+   Side by side, the composition is 2.5 times as wide as it is deep, so below
+   the width the rest of the page changes at, everything in it would be drawn
+   too small to read. It becomes two things stacked instead: the stub at the
+   page's width, the board under it at a width that keeps its rows the size
+   they are meant to be read at.
+--------------------------------------------------------------------------- */
+
+@media (max-width: 1279.98px) {
+    .bp__frame {
+        aspect-ratio: auto;
+        container-type: inline-size;
+        --u: calc(100cqw / 1298.25);   /* the stub's paper is the measure now */
+    }
+
+    .bp__head,
+    .bp__ticket,
+    .bp__board {
+        position: relative;
+        left: auto;
+        top: auto;
+    }
+
+    .bp__head {
+        width: 100%;
+    }
+
+    .bp__title { font-size: clamp(28px, calc(78 * var(--u)), 64px); }
+    .bp__sub   { font-size: clamp(17px, calc(46 * var(--u)), 38px); }
+
+    .bp__ticket {
+        margin-top: calc(34 * var(--u));
+        margin-left: calc(-19.15 * var(--u));
+        width: calc(1337 * var(--u));
+    }
+
+    .bp__board {
+        width: min(100%, 430px);
+        margin-top: calc(40 * var(--u));
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   ON A PHONE
+
+   The stub is a landscape drawing, folded once down the middle, and it cannot
+   be re-folded: at a phone's width it would set its smallest line at six
+   pixels. So the phone does not use the drawing. It lays the same stub out as
+   one column on paper of its own, keeping what the drawing is made of — the
+   torn edge, the fold, the colours, every line in its place and its order —
+   and the fold turns to lie across it instead of down it.
+
+   This is the one width where the shape is drawn here rather than used as it
+   was given. Everything above this line still uses the file.
+--------------------------------------------------------------------------- */
+
+@media (max-width: 719.98px) {
+    .bp {
+        padding: var(--nh-space-3);
+    }
+
+    .bp__ticket {
+        /* 550 rather than 1337: the stub is narrower here, so the same numbers
+           set larger type. Everything written above keeps working, in a stub
+           of a different width. */
+        --t: calc(100cqw / 550);
+
+        position: relative;
+        width: 100%;
+        margin: calc(30 * var(--t)) 0 0;
+        aspect-ratio: auto;
+        container-type: inline-size;
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: calc(30 * var(--t));
+        padding: calc(44 * var(--t)) calc(40 * var(--t)) calc(48 * var(--t)) calc(96 * var(--t));
+
+        background: var(--bp-paper);
+        border-radius: calc(26 * var(--t));
+        box-shadow: 0 calc(8 * var(--t)) calc(26 * var(--t)) rgba(55, 77, 99, 0.13);
+    }
+
+    /* the torn edge, down the left of the paper rather than at both ends */
+    .bp__ticket::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: calc(56 * var(--t));
+        background: repeating-linear-gradient(
+            -45deg,
+            var(--bp-teal) 0 calc(13 * var(--t)),
+            var(--bp-paper) calc(13 * var(--t)) calc(30 * var(--t)));
+    }
+
+    /* everything the drawing placed goes back into the flow */
+    .bp__at,
+    .bp__field,
+    .bp__answer,
+    .bp__port,
+    .bp .bp__go {
+        position: static;
+        left: auto;
+        top: auto;
+        width: auto;
+    }
+
+    /* The route keeps a box of its own: the rail and the aeroplane are placed
+       inside it, and would otherwise be placed against the whole stub. */
+    .bp__route {
+        position: relative;
+        left: auto;
+        top: auto;
+    }
+
+    .bp__ask     { order: 1; }
+    .bp__field   { order: 2; }
+    .bp__stats   { order: 3; }
+    .bp__result-label { order: 5; }
+    .bp__answer  { order: 6; }
+    .bp__fold    { order: 7; }
+    .bp .bp__go  { order: 8; }
+
+    /* the date the drawing used to carry is in the row of three now */
+    .bp__date { display: none; }
+
+    .bp__stats {
+        order: 3;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: calc(16 * var(--t));
+        margin: 0;
+    }
+
+    .bp__stats dt {
+        margin: 0;
+        font-size: calc(26 * var(--t));
+        font-weight: var(--nh-medium);
+        line-height: 1.2;
+        color: var(--bp-muted);
+    }
+
+    .bp__stats dd {
+        margin: calc(6 * var(--t)) 0 0;
+        white-space: nowrap;
+        font-size: calc(29 * var(--t));
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--bp-ink);
+    }
+
+    /* the fold, lying across the stub */
+    .bp__fold {
+        order: 4;
+        display: block;
+        height: 0;
+        margin: calc(6 * var(--t)) 0;
+        border-top: calc(3 * var(--t)) dashed var(--bp-muted);
+        opacity: 0.7;
+    }
+
+    .bp__result-label {
+        text-align: center;
+        white-space: normal;
+    }
+
+    .bp__answer {
+        height: auto;
+        min-height: calc(110 * var(--t));
+    }
+
+    /* origin, line and destination across the stub, in that order */
+    .bp__route-line {
+        order: 6;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: calc(16 * var(--t));
+    }
+
+    .bp__port { flex: 0 0 auto; }
+
+    .bp__route {
+        flex: 1 1 auto;
+        width: auto;
+        height: calc(20 * var(--t));
+    }
+
+    .bp__plane {
+        left: 50%;
+        margin-left: calc(-34.5 * var(--t));
+        top: calc(-25 * var(--t));
+    }
+
+    .bp .bp__go {
+        width: 100%;
+        height: calc(112 * var(--t));
+        font-size: calc(36 * var(--t));
+    }
+
+    .bp__board {
+        width: 100%;
+        margin-top: calc(34 * var(--t));
+    }
+}
+
+
+/* ---------------------------------------------------------------------------
+   REDUCED MOTION
+
+   new-home.css already holds every transition on the site to a millisecond
+   under this preference. The two things here that are animations rather than
+   transitions have to be named.
+--------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .bp.is-arrived .bp__plane,
+    .bp__row.is-new {
+        animation: none;
+    }
+}
