@@ -4169,13 +4169,23 @@ body.is-phone-home .nh-grid > .nh-intro {
         height: calc(100% + 11px);
     }
 
-    /* The pile is drawn to the card it is in: the pieces come down to what
-       three columns and one row can hold, clear of the arrow in the corner.
-       Nothing else about them changes — where they drift from here is still
-       scripts/gd-prints.js, measuring them where they lie. */
+    /* The pile is drawn to the card it is in, at twice the size the card
+       could hold whole: it fills the row it has, eats into the padding at the
+       top and the bottom, and runs past both side edges, which the card clips.
+       A pile wider than its frame reads as a pile going on beyond it.
+
+       Nothing else about the pieces changes — where they drift from here is
+       still scripts/gd-prints.js, measuring them where they lie. */
+    /* The stage is held to the card here, rather than growing with what is
+       in it: the pile is centred on the card itself, and what it has over the
+       card's height goes evenly above and below. */
+    .nh-card--text .nh-card__stage {
+        height: 100%;
+    }
+
     .nh-card--text .nh-frame--prints {
         min-height: 0;
-        --print-w: clamp(48px, 3.8vw, 58px);
+        --print-w: clamp(96px, 7.6vw, 116px);
     }
 
 }
