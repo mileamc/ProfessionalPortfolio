@@ -230,17 +230,21 @@
    The hover the home’s cards have
 
    Two of these cards hold something to look at rather than to read, so they
-   answer to a pointer the way the home’s prototypes do: what is inside comes
-   forward two per cent on the site’s own curve, and the card under it takes a
-   wash. The card itself does not move — the growth goes into the padding the
-   card already gives, so the edges are where they always were.
+   answer to a pointer the way the home’s prototypes do: the card takes a wash
+   while it is looked at. The photographs come forward with it, two per cent on
+   the site’s own curve — what the LUDIS board and the IMB comparison take — and
+   the growth goes into the padding the card already gives, so the card itself
+   does not move.
 
-   Two per cent because that is what the LUDIS board and the IMB comparison
-   take; more would move the type inside onto new pixels, which reads as a
-   twitch rather than as a card coming forward.
-
-   The playlist takes a green off the service’s own, and the photographs take
-   the same blue the graphic design card takes on the home.
+   The playlist takes the wash and nothing else, and the reason is worth
+   keeping. The player is a frame of Spotify’s own page, on their origin: the
+   browser draws it once at the size it is laid out and a transform only
+   magnifies that drawing, so the type inside it goes soft the moment the card
+   is scaled. Growing the frame’s own box instead would have it drawn again at
+   the new size and stay sharp — but the embed chooses its layout by height,
+   the compact one at exactly 152px and the tall one at 352 and over, and
+   anything between the two is drawn tall with its foot cut off. There is no
+   room to grow it in. So the playlist keeps the colour and not the movement.
 
    The third card, the one still empty, is left out: there is nothing in it to
    come forward, and a card that washes with nothing in it reads as a control
@@ -250,32 +254,20 @@
 .ab-music  { --nh-wash: var(--nh-wash-green); }
 .ab-photos { --nh-wash: var(--nh-wash-blue); }
 
-/* No will-change on the player: it is a frame of somebody else’s page, and
-   leaving the browser free to draw it again at the size it lands on keeps its
-   type sharp. The photographs are ours, and take the hint the home gives its
-   own prototypes. */
-.ab-music iframe,
 .ab-photos .nh-stack {
     --ab-near: 1;
     transform: scale(var(--ab-near));
     transition: transform var(--nh-slow) var(--nh-ease);
-}
-
-.ab-photos .nh-stack {
     will-change: transform;
 }
 
-/* The keyboard gets it too: the stack is focusable, and the player takes the
-   focus its own frame carries. */
-.ab-music:hover iframe,
-.ab-music:has(iframe:focus-visible) iframe,
+/* the keyboard gets it too: the stack is focusable */
 .ab-photos:hover .nh-stack,
 .ab-photos:has(.nh-stack:focus-visible) .nh-stack {
     --ab-near: 1.02;
 }
 
 @media (hover: none) {
-    .ab-music:hover iframe,
     .ab-photos:hover .nh-stack {
         --ab-near: 1;           /* a tap must not leave it forward for good */
     }
