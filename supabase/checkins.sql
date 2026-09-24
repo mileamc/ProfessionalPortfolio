@@ -40,7 +40,13 @@ create policy "anyone may check in"
 revoke all on public.checkins from anon, authenticated;
 grant select, insert on public.checkins to anon, authenticated;
 
--- And let the board hear about new rows as they land. This is the one
--- statement that complains if you run the file twice — "relation is already
--- member of publication" means it is already done, and is safe to ignore.
-alter publication supabase_realtime add table public.checkins;
+-- And let the board hear about new rows as they land. Postgres has no
+-- "add table if not exists" for a publication, so the one statement that
+-- would complain on a second run is wrapped in a block that swallows the
+-- complaint. Written with a single-quoted body rather than the usual $$,
+-- which some editors mistake for something else.
+do 'begin
+    alter publication supabase_realtime add table public.checkins;
+exception
+    when duplicate_object then null;   -- already published
+end';
