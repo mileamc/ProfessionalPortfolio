@@ -289,9 +289,10 @@
 
 /* --- the right half of the stub ------------------------------------------- */
 
-/* "the distance between us is" — the line that leads into the answer, and
-   steps aside once the answer is there to be read on its own. */
-.bp.is-arrived .bp__result-label {
+/* "the distance between us is" — the line that leads into the number, and
+   leaves with it: once the pass has been used, the sign-off has that side of
+   the fold to itself. */
+.bp.is-done .bp__result-label {
     opacity: 0;
     transform: translateY(calc(-8 * var(--t)));
     pointer-events: none;
@@ -364,10 +365,12 @@
     color: var(--bp-muted);
 }
 
+/* the sign-off has that side of the fold to itself once the pass is used, so
+   it is set at the size the line it replaces was read at */
 .bp__bye {
-    font-size: calc(27 * var(--t));
-    font-weight: var(--nh-medium);
-    line-height: 1.3;
+    font-size: calc(35 * var(--t));
+    font-weight: var(--nh-semibold);
+    line-height: 1.35;
 }
 
 /* --- the route ------------------------------------------------------------ */
@@ -467,8 +470,8 @@
     fill: currentColor;
 }
 
-/* it runs the line once, when an answer lands */
-.bp.is-arrived .bp__plane {
+/* it runs the line once, each time a new route is put on the stub */
+.bp.is-flown .bp__plane {
     animation: bp-fly 1100ms var(--nh-ease) 1;
 }
 
@@ -500,11 +503,18 @@
                 transform var(--nh-base) var(--nh-ease);
 }
 
-/* it lights up only once there is somewhere to fly from */
-.bp__go:enabled {
-    background: var(--bp-ink);
-    color: var(--bp-paper);
+/* It lights up only once there is somewhere to fly from, in the page's own
+   blue — the one the home's introduction highlights with. */
+.bp .bp__go:enabled {
+    background: var(--nh-tag-blue);
+    color: #FFFFFF;
     cursor: pointer;
+}
+
+/* and it is gone once it has been pressed: what is left on that side of the
+   fold is the message and the route that was flown */
+.bp.is-done .bp__go {
+    display: none;
 }
 
 .bp__go:enabled:hover {
@@ -853,7 +863,7 @@
 --------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-    .bp.is-arrived .bp__plane,
+    .bp.is-flown .bp__plane,
     .bp__row.is-new {
         animation: none;
     }

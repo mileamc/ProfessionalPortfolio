@@ -34,7 +34,6 @@
     var ROWS = 8;                 // what the board's height holds
     var TYPING_PAUSE = 400;       // ms of quiet before the search goes out
     var MIN_QUERY = 3;            // characters before it goes out at all
-    var BYE_AFTER = 3600;         // ms the distance is shown before the sign-off
 
     var card = document.querySelector("[data-boarding-pass]");
     if (!card) {
@@ -238,6 +237,7 @@
     // --- looking a city up ----------------------------------------------------
 
     var chosen = null;          // the place the field is currently agreed on
+    var reading = null;         // and what the stub is saying about it
     var options = [];
     var active = -1;
     var pending = null;         // the request in the air, so it can be dropped
@@ -254,12 +254,49 @@
         active = -1;
     };
 
+    // What the answer's own box is showing: the three dots while nothing is
+    // agreed, the distance once it is, the sign-off once the pass is used.
+    var swap = function (which) {
+        [dots, km, bye].forEach(function (one) { one.hidden = one !== which; });
+    };
+
+    // A city is agreed, or it is not. The stub answers the moment it is —
+    // the distance, the code and the country — and the button lights up; the
+    // check-in itself only sends what the stub is already saying. Changing
+    // the field un-agrees it, and everything goes back to asking.
     var settle = function (found) {
         chosen = found;
         go.disabled = !found;
-        if (found) {
-            say("");
+
+        if (!found) {
+            card.classList.remove("is-ready");
+            swap(dots);
+            code.textContent = "???";
+            place.textContent = "???";
+            return;
         }
+
+        say("");
+
+        var far = distanceKm(found, HOME);
+        reading = {
+            city: found.city,
+            country: found.country,
+            distance_km: Math.round(far),
+            distance_miles: Math.round(far * 0.621371)
+        };
+
+        km.innerHTML = group(reading.distance_km) + "km" +
+            '<small class="bp__miles">AKA ' + group(reading.distance_miles) + " miles</small>";
+        swap(km);
+
+        code.textContent = codeFor(found.city);
+        place.textContent = found.country;
+
+        card.classList.add("is-ready");
+        card.classList.remove("is-flown");
+        void card.offsetWidth;          // so the aeroplane flies each new route
+        card.classList.add("is-flown");
     };
 
     // What Nominatim hands back is a place of some kind; a city is what is
@@ -404,46 +441,25 @@
 
 
     // --- checking in ----------------------------------------------------------
-
-    var swap = function (show) {
-        [dots, km, bye].forEach(function (one) { one.hidden = one !== show; });
-    };
-
-    var byeTimer = null;
+    //
+    // The distance is already on the stub by now. Pressing the button is what
+    // hands it to the board, and it is the last thing the stub is asked for:
+    // the number and the line above it give way to the sign-off, the button
+    // goes, and what is left is the message and the route that was flown.
 
     var checkIn = function () {
-        if (!chosen) {
+        if (!reading) {
             say("Pick a city from the list first.");
             return;
         }
 
-        var far = distanceKm(chosen, HOME);
-        var entry = {
-            city: chosen.city,
-            country: chosen.country,
-            distance_km: Math.round(far),
-            distance_miles: Math.round(far * 0.621371)
-        };
-
-        // the stub answers first, whatever the network does next
-        km.innerHTML = group(entry.distance_km) + "km" +
-            '<small class="bp__miles">AKA ' + group(entry.distance_miles) + " miles</small>";
-        swap(km);
-
-        code.textContent = codeFor(chosen.city);
-        place.textContent = chosen.country;
-
-        card.classList.remove("is-arrived");
-        void card.offsetWidth;              // so the plane flies again on a second go
-        card.classList.add("is-arrived");
+        card.classList.add("is-done");
+        swap(bye);
 
         go.disabled = true;
         input.disabled = true;
 
-        window.clearTimeout(byeTimer);
-        byeTimer = window.setTimeout(function () { swap(bye); }, BYE_AFTER);
-
-        rest("checkins", { method: "POST", body: entry })
+        rest("checkins", { method: "POST", body: reading })
             .then(function (written) { addToBoard(written[0]); })
             .catch(function (reason) {
                 window.console.warn("boarding pass: the check-in was not recorded.", reason);
