@@ -8,26 +8,28 @@
    HOW IT IS BUILT
 
    Two shapes come from the design as SVG and are used as they were drawn:
-   assets/ticket-base-new.svg carries the stub — its torn edges, its dashed
+   assets/ticket-no-shadow.svg carries the stub — its torn edges, its dashed
    fold, its seat, class and date labels — and is used exactly as it was
-   drawn. Everything that moves on it, the field, the suggestions, the button,
-   the distance, is ordinary HTML laid over it.
+   drawn. It is the paper and nothing around it: no box, no shadow, so its
+   corner is the composition's corner and the numbers below are read off that
+   file directly. Everything that moves on it, the field, the suggestions, the
+   button, the distance, is ordinary HTML laid over it.
 
    The arrivals panel is the one thing drawn in this file instead: it has to
    stand exactly as tall as the stub, which is not the proportion it was drawn
    at. Its colours and its corner are assets/arrivals-new.svg's own.
 
    The stub's base is the one drawn without a date, so the pass can carry the
-   day it is being looked at. assets/ticket-background.svg, which has the date
-   set into it, is the original and is left alone.
+   day it is being looked at. The earlier stubs in assets/ — ticket-background,
+   with the date set into it, and ticket-base-new, which carries its own drop
+   shadow — are left where they are and read by nothing.
 
    Laying HTML over a drawing only works if the two agree on where things are,
    so this file measures in the drawings' own coordinates. Three containers
    each carry a unit that is one of their own pixels:
 
-       --u   one pixel of the whole composition (2093.85 across)
-       --t   one pixel of the ticket             (1337 across)
-       --b   one pixel of the arrivals board     (708 across)
+       --u   one pixel of the whole composition (2094.6 across)
+       --t   one pixel of the stub's paper       (1299 across)
 
    So `left: calc(130.2 * var(--t))` puts something exactly where it is in
    ticket-example.svg, at any size the card is drawn. The numbers in this file
@@ -72,11 +74,10 @@
 }
 
 /* The composition: the stub's paper on the left, the panel on the right, the
-   same top and the same depth. Its width is still the drawing's 2093.85 —
-   1298.25 of paper, 87.6 of air, 708 of panel — and its depth is now the
-   paper's own 658, which the panel takes as well.
+   same top and the same depth. 1299 of paper, 87.6 of air, 708 of panel, and
+   658 deep, which is the paper's own.
 
-       658 / 2093.85 = 0.314257 of the width
+       658 / 2094.6 = 0.314141 of the width
 
    The heading is not in here. It is the page speaking rather than part of the
    drawing, so it is set on the page's own scale and stands above this box. */
@@ -84,8 +85,8 @@
     position: relative;
     container-type: size;
     width: 100%;
-    aspect-ratio: 3.18211;       /* 1 / 0.314257 */
-    --u: calc(100cqw / 2093.85);
+    aspect-ratio: 3.18328;       /* 1 / 0.314141 */
+    --u: calc(100cqw / 2094.6);
 }
 
 /* --- what they do under a pointer -------------------------------------------
@@ -173,19 +174,18 @@
 
 .bp__ticket {
     position: absolute;
-    /* The drawing's box carries its own drop shadow inside it: the paper
-       starts 19.15 in from the left and 10.94 down from the top of 1337 by
-       697. The box is hung by those two, so what lands on the frame's corner
-       is the paper rather than the shadow around it. */
-    left: calc(-19.15 * var(--u));
-    top: calc(-10.94 / 658 * 100%);
-    width: calc(1337 * var(--u));
-    aspect-ratio: 1337 / 697;
+    left: 0;
+    top: 0;
+    width: calc(1299 * var(--u));
+    aspect-ratio: 1299 / 658;
 
     container-type: size;
-    --t: calc(100cqw / 1337);
+    --t: calc(100cqw / 1299);
 
-    background: url("assets/ticket-base-new.svg") center / 100% 100% no-repeat;
+    /* The drawing is the paper and nothing around it — no box, no shadow —
+       so its corner is the frame's corner and every number below is read off
+       that file directly. */
+    background: url("assets/ticket-no-shadow.svg") center / 100% 100% no-repeat;
 }
 
 /* Everything written on the stub is placed by these two, in the stub's own
@@ -207,16 +207,16 @@
 
 /* "You are coming from:" */
 .bp__ask {
-    left: calc(130.6 * var(--t));
-    top: calc(112.6 * var(--t));
+    left: calc(111.45 * var(--t));
+    top: calc(101.66 * var(--t));
     font-size: calc(33.3 * var(--t));
 }
 
 /* The date, which the drawing no longer carries: the stub says the day it is
    being looked at. Its box is where the outlines used to be. */
 .bp__date {
-    left: calc(142.6 * var(--t));
-    top: calc(553.4 * var(--t));
+    left: calc(123.45 * var(--t));
+    top: calc(542.46 * var(--t));
     font-size: calc(37.7 * var(--t));
     font-weight: 700;
     line-height: 1;
@@ -235,8 +235,8 @@
 
 .bp__field {
     position: absolute;
-    left: calc(130.2 * var(--t));
-    top: calc(170.9 * var(--t));
+    left: calc(111.05 * var(--t));
+    top: calc(159.96 * var(--t));
     width: calc(373 * var(--t));
 }
 
@@ -350,8 +350,8 @@
 
 .bp__result-label {
     transition: opacity 380ms var(--nh-ease), transform 380ms var(--nh-ease);
-    left: calc(700.7 * var(--t));
-    top: calc(117.7 * var(--t));
+    left: calc(681.55 * var(--t));
+    top: calc(106.76 * var(--t));
     font-size: calc(32.7 * var(--t));
     font-weight: var(--nh-medium);
     line-height: 1;
@@ -362,10 +362,14 @@
    line about the next gate. One box, so nothing moves around it. */
 .bp__answer {
     position: absolute;
-    left: calc(600 * var(--t));
-    top: calc(196 * var(--t));
+    left: calc(580.85 * var(--t));
+    /* 192 and 104 rather than 196 and 96: the miles line stands further off
+       the number than it did and the two together are 96 deep, so the box is
+       given eight more and lifted four, which leaves its middle where it was
+       at 244. */
+    top: calc(181.06 * var(--t));
     width: calc(620 * var(--t));
-    height: calc(96 * var(--t));
+    height: calc(104 * var(--t));
     display: grid;
     place-items: center;
     text-align: center;
@@ -408,8 +412,12 @@
     line-height: 1.05;
 }
 
+/* The number and the miles under it stood 13.8 apart, measured from the
+   number's baseline to the top of the A. They stand at twice that now, which
+   is what this margin is: the same 13.8 again. */
 .bp__miles {
     display: block;
+    margin-top: calc(13.8 * var(--t));
     font-size: calc(23 * var(--t));
     font-weight: var(--nh-medium);
     color: var(--bp-muted);
@@ -443,13 +451,13 @@
    one grows both ways instead of pushing the line. */
 .bp__port {
     position: absolute;
-    top: calc(341.3 * var(--t));
+    top: calc(330.36 * var(--t));
     width: calc(260 * var(--t));
     text-align: center;
 }
 
-.bp__port--from { left: calc(549 * var(--t)); }
-.bp__port--to   { left: calc(1023.7 * var(--t)); }
+.bp__port--from { left: calc(529.85 * var(--t)); }
+.bp__port--to   { left: calc(1004.55 * var(--t)); }
 
 .bp__code {
     display: block;
@@ -475,8 +483,8 @@
    because the plane travels it once a check-in lands. */
 .bp__route {
     position: absolute;
-    left: calc(731.9 * var(--t));
-    top: calc(352.2 * var(--t));
+    left: calc(712.75 * var(--t));
+    top: calc(341.26 * var(--t));
     width: calc(345.4 * var(--t));
     height: calc(16 * var(--t));
 }
@@ -536,8 +544,8 @@
 
 .bp .bp__go {
     position: absolute;
-    left: calc(714.2 * var(--t));
-    top: calc(507.9 * var(--t));
+    left: calc(695.05 * var(--t));
+    top: calc(496.96 * var(--t));
     width: calc(381.7 * var(--t));
     height: calc(109.4 * var(--t));
     border: 0;
@@ -601,7 +609,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 33.8128%;             /* 708 of the composition's 2093.85 */
+    width: 33.8090%;             /* 708 of the composition's 2094.6 */
     height: 100%;
 
     display: flex;
