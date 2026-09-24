@@ -32,8 +32,9 @@
 //
 //   The two `lead` cards sit in the 7 columns beside the introduction, one
 //   above the other. Everything after them runs the full width of the page.
-//   The graphic design card is always `medium`, so pair it with a `large`
-//   project to close the last row.
+//   The graphic design card is not sized from here: the stylesheet puts it
+//   under the phone, one row deep, and keeps the room it used to hold beside
+//   the landing pages empty for the project that will take it.
 //
 // FRAMES — how screenshots are laid out inside a card
 //
@@ -123,8 +124,9 @@ window.homeProjects = {
         }
     ],
 
-    // The graphic design card — its name over a pile of printed pieces. It
-    // sits beside the landing pages, closing the last row of the grid.
+    // The graphic design card — a pile of printed pieces, and nothing written
+    // on it. It sits under the phone, in the three columns the phone leaves
+    // free below itself, and is only as deep as the pile needs.
     graphicDesign: {
         id: "graphic-design",
         title: "Graphic Design",

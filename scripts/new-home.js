@@ -214,6 +214,16 @@
             "</article>";
     };
 
+    // The room beside the landing pages, which the graphic design card used
+    // to hold before it moved under the phone: an empty card, waiting for the
+    // project that will take it. It says nothing and opens nothing, so it is
+    // out of the page for a screen reader, and only the desktop grid has a
+    // place for it — the stylesheet leaves it out below that width.
+    var blankCardHtml = function (index) {
+        return '<div class="nh-card nh-card--blank" style="--i: ' + index + '"' +
+            ' aria-hidden="true"></div>';
+    };
+
     var mountTemplate = function (card, id) {
         var template = document.querySelector('template[data-nh-card="' + id + '"]');
         var stage = card && card.querySelector(".nh-card__stage");
@@ -246,6 +256,8 @@
         if (data.graphicDesign) {
             html += graphicDesignCardHtml(data.graphicDesign, projects.length);
         }
+
+        html += blankCardHtml(projects.length + 1);
 
         grid.insertAdjacentHTML("beforeend", html);
 
