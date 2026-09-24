@@ -4169,13 +4169,6 @@ body.is-phone-home .nh-grid > .nh-intro {
         height: calc(100% + 11px);
     }
 
-    /* The pile is drawn to the card it is in, at twice the size the card
-       could hold whole: it fills the row it has, eats into the padding at the
-       top and the bottom, and runs past both side edges, which the card clips.
-       A pile wider than its frame reads as a pile going on beyond it.
-
-       Nothing else about the pieces changes — where they drift from here is
-       still scripts/gd-prints.js, measuring them where they lie. */
     /* The stage is held to the card here, rather than growing with what is
        in it: the pile is centred on the card itself, and what it has over the
        card's height goes evenly above and below. */
@@ -4183,9 +4176,18 @@ body.is-phone-home .nh-grid > .nh-intro {
         height: 100%;
     }
 
+    /* The pile is drawn to the card it is in. The pieces are read at this
+       size, which is more than the card could hold laid out as they are
+       elsewhere, so they lie further over one another to make the room — far
+       enough that the pile keeps inside the card's own side edges at every
+       width. It is deeper than the padding, and eats into it above and below.
+
+       Nothing else about the pieces changes — where they drift from here is
+       still scripts/gd-prints.js, measuring them where they lie. */
     .nh-card--text .nh-frame--prints {
         min-height: 0;
-        --print-w: clamp(96px, 7.6vw, 116px);
+        --print-w: clamp(86px, 6.84vw, 104px);
+        --print-lap: -0.38;
     }
 
 }
