@@ -184,8 +184,30 @@
 
     /* The drawing is the paper and nothing around it — no box, no shadow —
        so its corner is the frame's corner and every number below is read off
-       that file directly. */
+       that file directly. The paper is laid down by the layer below rather
+       than by this element, so the shadow can follow its shape. */
+}
+
+/* The shadow the paper casts, which is the one the earlier drawing carried in
+   its own margin: two, both straight down, the near one at 2.74 with 4.1 of
+   blur and the far one at 8.21 with 13.68.
+
+   It is a drop-shadow rather than a box-shadow because the paper is not a
+   box — it is torn at both ends and bitten out at the fold, and a box-shadow
+   would draw a rectangle behind all of that. And it is on a layer of its own
+   rather than on the stub, because a drop-shadow follows everything the
+   element paints: put it on the stub and the seat, the field and the button
+   would each cast one too. This layer paints the paper and nothing else, and
+   it comes first, so everything laid over the stub still stands on top. */
+.bp__ticket::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
     background: url("assets/ticket-no-shadow.svg") center / 100% 100% no-repeat;
+    filter:
+        drop-shadow(0 calc(2.74 * var(--t)) calc(4.10 * var(--t)) rgba(15, 23, 34, 0.30))
+        drop-shadow(0 calc(8.21 * var(--t)) calc(13.68 * var(--t)) rgba(15, 23, 34, 0.15));
 }
 
 /* Everything written on the stub is placed by these two, in the stub's own
