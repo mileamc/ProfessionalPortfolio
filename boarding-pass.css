@@ -8,11 +8,15 @@
    HOW IT IS BUILT
 
    Two shapes come from the design as SVG and are used as they were drawn:
-   assets/ticket-background.svg (the stub, its torn edges, its dashed fold and
+   assets/ticket-base-new.svg (the stub, its torn edges, its dashed fold and
    the seat, class and date labels) and assets/arrivals-background.svg (the
    panel and its yellow header). Neither is redrawn here. Everything that
    moves — the field, the suggestions, the button, the distance, the rows —
    is ordinary HTML laid over them.
+
+   The stub's base is the one drawn without a date, so the pass can carry the
+   day it is being looked at. assets/ticket-background.svg, which has the date
+   set into it, is the original and is left alone.
 
    Laying HTML over a drawing only works if the two agree on where things are,
    so this file measures in the drawings' own coordinates. Three containers
@@ -127,7 +131,7 @@
     container-type: size;
     --t: calc(100cqw / 1337);
 
-    background: url("assets/ticket-background.svg") center / 100% 100% no-repeat;
+    background: url("assets/ticket-base-new.svg") center / 100% 100% no-repeat;
 }
 
 /* Everything written on the stub is placed by these two, in the stub's own
@@ -281,8 +285,16 @@
 
 /* --- the right half of the stub ------------------------------------------- */
 
-/* "the distance between us is" */
+/* "the distance between us is" — the line that leads into the answer, and
+   steps aside once the answer is there to be read on its own. */
+.bp.is-arrived .bp__result-label {
+    opacity: 0;
+    transform: translateY(calc(-8 * var(--t)));
+    pointer-events: none;
+}
+
 .bp__result-label {
+    transition: opacity 380ms var(--nh-ease), transform 380ms var(--nh-ease);
     left: calc(700.7 * var(--t));
     top: calc(117.7 * var(--t));
     font-size: calc(32.7 * var(--t));
