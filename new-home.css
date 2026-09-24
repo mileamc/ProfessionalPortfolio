@@ -42,6 +42,7 @@
     --nh-wash-sand:     #FAF1D9;   /* the hospital's landing pages */
     --nh-wash-violet:   #E4DBFA;   /* LUDIS, off the violet its own players wear */
     --nh-wash-amber:    #FCEDE0;   /* the IMB comparison, from its own orange */
+    --nh-wash-green:    #D7EEE3;   /* the playlist on About, off the service's green */
 
     /* The three colours a pill comes in. Outline only: the ink is the text and
        the line is that ink at 45 per cent, so a tag never carries a fill. They
