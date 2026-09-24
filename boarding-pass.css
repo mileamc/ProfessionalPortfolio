@@ -8,11 +8,14 @@
    HOW IT IS BUILT
 
    Two shapes come from the design as SVG and are used as they were drawn:
-   assets/ticket-base-new.svg (the stub, its torn edges, its dashed fold and
-   the seat, class and date labels) and assets/arrivals-background.svg (the
-   panel and its yellow header). Neither is redrawn here. Everything that
-   moves — the field, the suggestions, the button, the distance, the rows —
-   is ordinary HTML laid over them.
+   assets/ticket-base-new.svg carries the stub — its torn edges, its dashed
+   fold, its seat, class and date labels — and is used exactly as it was
+   drawn. Everything that moves on it, the field, the suggestions, the button,
+   the distance, is ordinary HTML laid over it.
+
+   The arrivals panel is the one thing drawn in this file instead: it has to
+   stand exactly as tall as the stub, which is not the proportion it was drawn
+   at. Its colours and its corner are assets/arrivals-new.svg's own.
 
    The stub's base is the one drawn without a date, so the pass can carry the
    day it is being looked at. assets/ticket-background.svg, which has the date
@@ -68,10 +71,12 @@
     padding: var(--nh-card-pad);
 }
 
-/* The composition, at the proportion the drawing has: 2093.85 wide by 839
-   deep, measured from the stub's left edge to the panel's right and from the
-   panel's top to their shared foot. Everything inside is placed in those
-   units.
+/* The composition: the stub's paper on the left, the panel on the right, the
+   same top and the same depth. Its width is still the drawing's 2093.85 —
+   1298.25 of paper, 87.6 of air, 708 of panel — and its depth is now the
+   paper's own 658, which the panel takes as well.
+
+       658 / 2093.85 = 0.314257 of the width
 
    The heading is not in here. It is the page speaking rather than part of the
    drawing, so it is set on the page's own scale and stands above this box. */
@@ -79,40 +84,42 @@
     position: relative;
     container-type: size;
     width: 100%;
-    aspect-ratio: 2093.85 / 838;
+    aspect-ratio: 3.18211;       /* 1 / 0.314257 */
     --u: calc(100cqw / 2093.85);
 }
 
 /* --- the heading ----------------------------------------------------------
 
-   This is the page talking rather than part of the drawing, so it is set on
-   the page's own scale: the title at the size the card of running text gives
-   its own title, and the line under it at the size that card's paragraphs are
-   set in. It keeps the drawing's voice — upper case, heavy, its blue — at the
-   size the page reads at.
+   This is the page talking rather than part of the drawing, so it is the page
+   that sets it: the same size, weight and colour the card of running text
+   gives its own title and its own paragraphs, declaration for declaration
+   down about.css. It is not the drawing's voice at the page's size — it is
+   the page's voice.
 --------------------------------------------------------------------------- */
 
 .bp__head {
     margin: 0 0 var(--nh-space-6);
-    color: var(--bp-ink-2);
 }
 
+/* .ab-title */
 .bp__title {
     margin: 0;
-    font-size: var(--nh-size-display);   /* the same as "A little about me" */
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    color: inherit;
+    font-size: var(--nh-size-display);
+    font-weight: var(--nh-medium);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+    color: var(--nh-ink);
+    text-wrap: balance;
 }
 
+/* .ab-prose, on the one line it holds */
 .bp__sub {
     margin: var(--nh-space-2) 0 0;
     font-size: var(--nh-size-body);
-    font-weight: var(--nh-medium);
-    line-height: 1.5;
-    color: inherit;
+    font-weight: var(--nh-regular);
+    line-height: 1.6;
+    color: var(--nh-text);
+    text-wrap: pretty;
 }
 
 
@@ -127,8 +134,12 @@
 
 .bp__ticket {
     position: absolute;
+    /* The drawing's box carries its own drop shadow inside it: the paper
+       starts 19.15 in from the left and 10.94 down from the top of 1337 by
+       697. The box is hung by those two, so what lands on the frame's corner
+       is the paper rather than the shadow around it. */
     left: calc(-19.15 * var(--u));
-    top: calc(170 * var(--u));
+    top: calc(-10.94 / 658 * 100%);
     width: calc(1337 * var(--u));
     aspect-ratio: 1337 / 697;
 
@@ -534,76 +545,116 @@
 /* ---------------------------------------------------------------------------
    THE ARRIVALS BOARD
 
-   708 by 838, and the drawing's own proportion is what decides how many rows
-   it holds: its header takes 104, the column names another 105, and what is
-   left is eight rows at a pitch of 83.4.
+   Drawn here rather than laid over assets/arrivals-new.svg. The panel has to
+   stand exactly as tall as the stub beside it, which is not the proportion
+   that file is drawn at, and a stretched background would pull its corners
+   out of round. Its two colours and its radius come from it: #F3D44B over
+   #374D63, and a corner that is the 37 it carries on a width of 708.
+
+   What is inside it is set on the page's own scale rather than the drawing's,
+   because the panel is no longer a drawing — and because a board read at a
+   glance should not shrink with the card it sits in.
 --------------------------------------------------------------------------- */
 
 .bp__board {
+    --bp-row-h: 34px;
+
     position: absolute;
-    left: calc(1385.85 * var(--u));
     top: 0;
-    width: calc(708 * var(--u));
-    aspect-ratio: 708 / 838;
+    right: 0;
+    width: 33.8128%;             /* 708 of the composition's 2093.85 */
+    height: 100%;
 
-    container-type: size;
-    --b: calc(100cqw / 708);
-
-    background: url("assets/arrivals-background.svg") center / 100% 100% no-repeat;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--bp-ink);
     color: #FFFFFF;
 }
 
-/* the three column names, on the row the drawing puts them */
+/* the band across the top, and what stands in it */
+.bp__board-head {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding-inline: 16px;
+    background: var(--bp-yellow);
+    color: var(--bp-ink);
+}
+
+.bp__land {
+    flex: 0 0 auto;
+    width: auto;
+    height: 17px;
+    fill: currentColor;
+}
+
+.bp__board-title {
+    margin: 0;
+    font-size: 0.8125rem;        /* 13px */
+    font-weight: var(--nh-semibold);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: inherit;
+    white-space: nowrap;
+}
+
+.bp__board-title span {
+    font-weight: var(--nh-medium);
+    text-transform: none;
+}
+
+/* the three column names, and the rows under them, on one set of tracks */
 .bp__cols,
 .bp__row {
-    position: absolute;
-    left: calc(44 * var(--b));
-    width: calc(619 * var(--b));
     display: grid;
-    /* 300 + 10 + 150 + 10 + 149 = 619, which is the width of the drawing's own
-       rule. It puts the middle column's centre on 385 and the last column's
-       right edge on 619 — where the distances and the times sit in it. */
-    grid-template-columns: calc(300 * var(--b)) calc(150 * var(--b)) calc(149 * var(--b));
+    grid-template-columns: minmax(0, 1fr) auto auto;
     align-items: baseline;
-    column-gap: calc(10 * var(--b));
+    column-gap: 14px;
+    padding-inline: 16px;
 }
 
 .bp__cols {
-    top: calc(147.9 * var(--b));
-    font-size: calc(24.8 * var(--b));
+    flex: 0 0 auto;
+    padding-block: 12px 8px;
+    font-size: 0.6875rem;        /* 11px */
     font-weight: var(--nh-semibold);
     line-height: 1;
-    color: #FFFFFF;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
 }
 
-.bp__cols > :nth-child(2) { text-align: center; }
-.bp__cols > :nth-child(3) { text-align: right; }
+.bp__cols > :nth-child(2) { text-align: right; min-width: 66px; }
+.bp__cols > :nth-child(3) { text-align: right; min-width: 40px; }
 
-/* The rows. Each is placed at its own depth rather than stacked, so a new one
-   arriving can slide the others down instead of redrawing the list. */
+/* The rows fill what is left of the panel. It cuts them off, so the board
+   never shows half of one: scripts/boarding-pass.js measures this box against
+   --bp-row-h and asks for only as many as stand in it. */
 .bp__rows {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    flex: 1 1 auto;
+    min-height: 0;
     margin: 0;
-    padding: 0;
-    list-style: none;
+    padding: 0 0 10px;
     overflow: hidden;
+    list-style: none;
 }
 
 .bp__row {
-    top: calc((208.8 + var(--n) * 83.4) * var(--b));
-    font-size: calc(28.4 * var(--b));
+    height: var(--bp-row-h);
+    align-content: center;
+    font-size: var(--nh-size-small);
     font-weight: var(--nh-medium);
-    line-height: 1;
+    line-height: 1.2;
     color: var(--bp-yellow);
-    transition: top 520ms var(--nh-ease);
 }
 
-.bp__row > :nth-child(2) { text-align: center; }
-.bp__row > :nth-child(3) { text-align: right; }
+.bp__row > :nth-child(2) { text-align: right; min-width: 66px; }
+.bp__row > :nth-child(3) { text-align: right; min-width: 40px; }
 
 .bp__row span {
     overflow: hidden;
@@ -611,19 +662,9 @@
     white-space: nowrap;
 }
 
-/* the hairline under every row but the last one it can show */
-.bp__row::after {
-    content: "";
-    position: absolute;
-    left: calc(3.5 * var(--b));
-    right: calc(3.5 * var(--b));
-    top: calc(58.2 * var(--b));
-    height: calc(1 * var(--b));
-    background: rgba(255, 255, 255, 0.35);
-}
-
-.bp__row:last-child::after {
-    display: none;
+/* the hairline between one row and the next */
+.bp__row + .bp__row {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 /* a row that has just landed comes in from above the first line */
@@ -632,20 +673,18 @@
 }
 
 @keyframes bp-land {
-    from { opacity: 0; transform: translateY(calc(-30 * var(--b))); }
+    from { opacity: 0; transform: translateY(-16px); }
     to   { opacity: 1; transform: none; }
 }
 
 /* nobody has checked in yet */
 .bp__row--empty {
     display: block;
+    padding-block: 6px;
+    box-shadow: none;
     color: rgba(255, 255, 255, 0.62);
     font-weight: var(--nh-regular);
     font-style: italic;
-}
-
-.bp__row--empty::after {
-    display: none;
 }
 
 
@@ -680,7 +719,11 @@
     }
 
     .bp__board {
+        position: relative;
+        top: auto;
+        right: auto;
         width: min(100%, 430px);
+        height: 420px;
         margin-top: calc(40 * var(--u));
     }
 }

@@ -15,9 +15,9 @@
      the navigation, the card surface and the photo stack. about.css only
      lays out this page's four cards and styles what is new here. Neither
      file is changed by this page. -->
-<link rel="stylesheet" href="new-home.css?v=boarding-4"/>
-<link rel="stylesheet" href="about.css?v=boarding-4"/>
-<link rel="stylesheet" href="boarding-pass.css?v=boarding-4"/>
+<link rel="stylesheet" href="new-home.css?v=boarding-5"/>
+<link rel="stylesheet" href="about.css?v=boarding-5"/>
+<link rel="stylesheet" href="boarding-pass.css?v=boarding-5"/>
 
 <!-- The photograph on top of the stack is put there by a script, so the
      parser never sees it: asked for here it arrives with the page rather
@@ -200,11 +200,25 @@
                     <button class="bp__go" type="button" disabled data-bp-go>CHECK IN!</button>
                 </div>
 
-                <!-- THE BOARD ------------------------------------------ -->
+                <!-- THE BOARD ------------------------------------------
+
+                     Drawn here rather than laid over assets/arrivals-new.svg:
+                     the panel has to stand exactly as tall as the stub beside
+                     it, which is not the proportion that file is drawn at, and
+                     a stretched background would pull its corners out of round.
+                     Its two colours and its radius are that file's own. -->
                 <div class="bp__board">
-                    <h3 class="nh-visually-hidden">Recent arrivals in Curitiba</h3>
+                    <div class="bp__board-head">
+                        <!-- assets/plane-land.svg, inline so it takes the
+                             band's own colour -->
+                        <svg class="bp__land" viewBox="0 0 275 237" aria-hidden="true">
+                            <path d="M243.11 167.387C249.138 168.648 255.42 167.519 260.634 164.238C265.848 160.956 269.589 155.778 271.069 149.792V149.777C272.582 143.642 271.599 137.157 268.337 131.748C265.075 126.339 259.801 122.45 253.676 120.934L186.052 104.168L109.858 3.32969L76.9923 0L120.306 97.5082L54.5596 90.8636L20.3934 34.1996L0 38.7872L18.3245 120.476L243.11 167.387ZM8.99968 207.403H275V237H8.99968V207.403Z"/>
+                        </svg>
+                        <h3 class="bp__board-title">Recent arrivals <span>&#8212; CWB</span></h3>
+                    </div>
+
                     <div class="bp__cols" aria-hidden="true">
-                        <span>ORIGIN</span><span>DISTANCE</span><span>TIME</span>
+                        <span>Origin</span><span>Distance</span><span>Time</span>
                     </div>
                     <ul class="bp__rows" data-bp-rows aria-live="polite"></ul>
                 </div>
@@ -225,13 +239,13 @@
 <!-- The photographs come from the home page's data and its script: every
      other thing new-home.js sets up is keyed to markup that is not on this
      page, so it does nothing here. -->
-<script src="data/home-projects.js?v=boarding-4"></script>
-<script src="scripts/new-home.js?v=boarding-4"></script>
+<script src="data/home-projects.js?v=boarding-5"></script>
+<script src="scripts/new-home.js?v=boarding-5"></script>
 <!-- and, once the page is done, what the home page will want next -->
 <!-- The boarding pass: its own file, and the only script on the site that
      talks to anything outside it. It waits for the card to be scrolled
      near before it fetches anything at all. -->
-<script src="scripts/boarding-pass.js?v=boarding-4" defer></script>
-<script src="scripts/warm-assets.js?v=boarding-4" defer></script>
+<script src="scripts/boarding-pass.js?v=boarding-5" defer></script>
+<script src="scripts/warm-assets.js?v=boarding-5" defer></script>
 </body>
 </html>

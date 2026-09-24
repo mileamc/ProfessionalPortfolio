@@ -31,7 +31,8 @@
     var SUPABASE_LIB = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
     var HOME = { lat: -25.4284, lon: -49.2733 };   // Curitiba
-    var ROWS = 8;                 // what the board's height holds
+    var ROWS = 8;                 // how many the board is showing, measured below
+    var ROWS_MAX = 8;             // and never more than this, however tall it is
     var TYPING_PAUSE = 400;       // ms of quiet before the search goes out
     var MIN_QUERY = 3;            // characters before it goes out at all
 
@@ -154,6 +155,30 @@
         });
     };
 
+    // The panel stands as tall as the stub beside it, and how tall that is
+    // depends on the page's width — so how many rows it holds is a thing to
+    // measure rather than a number to pick. Whole rows only: the panel cuts
+    // off anything past its foot, and half a row reads as a fault.
+    var fitRows = function () {
+        var area = rows.getBoundingClientRect().height;
+        var one = parseFloat(window.getComputedStyle(rows.parentNode)
+            .getPropertyValue("--bp-row-h")) || 34;
+        var fits = Math.max(3, Math.min(ROWS_MAX, Math.floor(area / one)));
+        if (fits !== ROWS) {
+            ROWS = fits;
+            board = board.slice(0, Math.max(ROWS, ROWS_MAX));
+            drawBoard();
+        }
+    };
+
+    (function watchHeight() {
+        if (!window.ResizeObserver) {
+            window.addEventListener("resize", fitRows);
+            return;
+        }
+        new window.ResizeObserver(fitRows).observe(rows);
+    }());
+
     // A row that is already on the board is not added again. The check-in you
     // made yourself arrives twice — once because you made it, once because the
     // socket says so — and this is where the second one stops.
@@ -162,7 +187,7 @@
             return;
         }
         board.unshift(entry);
-        board = board.slice(0, ROWS);
+        board = board.slice(0, ROWS_MAX);
         drawBoard(entry.id);
     };
 
@@ -199,9 +224,10 @@
 
     var loadBoard = function () {
         return rest("checkins?select=id,city,country,distance_km,distance_miles,created_at" +
-                    "&order=created_at.desc&limit=" + ROWS)
+                    "&order=created_at.desc&limit=" + ROWS_MAX)
             .then(function (data) {
                 board = data;
+                fitRows();
                 drawBoard();
             })
             .catch(function (reason) {
